@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>產業供應鏈地圖</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+  :root{
+    --bg:#EDF0F5;
+    --surface:#FFFFFF;
+    --surface-2:#F4F6F9;
+    --ink:#11161F;
+    --ink-soft:#4B5563;
+    --ink-faint:#8792A0;
+    --line:#D7DCE3;
+    --line-strong:#B9C1CC;
+    --copper:#B5702A;
+    --copper-ink:#8A5620;
+    --copper-soft:#F1E4D3;
+    --copper-soft-line:#E0C7A4;
+    --signal:#1F8F6E;
+    --signal-soft:#DCEFE8;
+    --shadow: 0 1px 2px rgba(17,22,31,.04), 0 8px 24px -12px rgba(17,22,31,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0B0F16; --surface:#131924; --surface-2:#0F141D;
+      --ink:#E7EAF1; --ink-soft:#9AA4B2; --ink-faint:#67707D;
+      --line:#26303D; --line-strong:#333F4E;
+      --copper:#D89A55; --copper-ink:#F0C48C; --copper-soft:#2A2013; --copper-soft-line:#4A3620;
+      --signal:#4FC79A; --signal-soft:#10241C;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 28px -14px rgba(0,0,0,.55);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0B0F16; --surface:#131924; --surface-2:#0F141D;
+    --ink:#E7EAF1; --ink-soft:#9AA4B2; --ink-faint:#67707D;
+    --line:#26303D; --line-strong:#333F4E;
+    --copper:#D89A55; --copper-ink:#F0C48C; --copper-soft:#2A2013; --copper-soft-line:#4A3620;
+    --signal:#4FC79A; --signal-soft:#10241C;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 28px -14px rgba(0,0,0,.55);
+  }
+
+  *{box-sizing:border-box;}
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif; }
+  .mono{ font-family:'IBM Plex Mono','SFMono-Regular',Consolas,monospace; }
+  .page{ max-width:1180px; margin:0 auto; padding:2.6rem 1.5rem 3.5rem; }
+
+  header.head{ display:flex; flex-direction:column; gap:.6rem; margin-bottom:1.6rem; }
+  .eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--copper); font-weight:600; }
+  h1{ margin:0; font-weight:900; letter-spacing:-.01em; font-size:clamp(1.55rem,1.15rem + 1.8vw,2.35rem); text-wrap:balance; }
+  .lede{ margin:0; max-width:64ch; color:var(--ink-soft); font-size:1rem; line-height:1.7; min-height:1.7em; }
+  .meta-row{ display:flex; flex-wrap:wrap; gap:.5rem 1.2rem; align-items:center; font-size:.78rem; color:var(--ink-faint); margin-top:.2rem; }
+  .meta-row .dot{ display:inline-block; width:7px;height:7px;border-radius:50%; background:var(--copper); margin-right:.45em; vertical-align:middle; }
+
+  /* ---------- industry switcher ---------- */
+  .switcher{ display:flex; flex-wrap:wrap; gap:.5rem; margin:1.4rem 0 1.2rem; }
+  .tab{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:.78rem;
+    letter-spacing:.03em;
+    padding:.5rem 1rem;
+    border-radius:999px;
+    border:1px solid var(--line);
+    background:var(--surface);
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:border-color .15s ease, color .15s ease, background .15s ease;
+  }
+  .tab:hover{ border-color:var(--copper); color:var(--copper); }
+  .tab:focus-visible{ outline:2px solid var(--copper); outline-offset:2px; }
+  .tab.active{ background:var(--copper); border-color:var(--copper); color:#fff; }
+
+  /* ---------- diagram ---------- */
+  .diagram-card{ background:var(--surface); border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow); padding:1.1rem 1.1rem .6rem; margin-bottom:1.6rem; }
+  .diagram-scroll{ overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; }
+  .flow-svg{ display:block; width:100%; min-width:880px; height:auto; }
+  .scroll-hint{ display:none; font-size:.72rem; color:var(--ink-faint); text-align:center; padding:.3rem 0 .1rem; font-family:'IBM Plex Mono',monospace; letter-spacing:.04em; }
+  @media (max-width:760px){ .scroll-hint{display:block;} }
+
+  .node-group{cursor:pointer;}
+  .node-box{ fill:var(--surface); stroke:var(--line-strong); stroke-width:1.4; transition:stroke .15s ease, fill .15s ease; }
+  .node-group:hover .node-box{ stroke:var(--copper); }
+  .node-group:focus{ outline:none; }
+  .node-group:focus-visible .node-box{ stroke:var(--copper); stroke-width:2.4; }
+  .node-group.reached .node-box{ fill:var(--copper-soft); stroke:var(--copper-soft-line); }
+  .node-group.active .node-box{ fill:var(--copper-soft); stroke:var(--copper); stroke-width:2.6; }
+  .node-icon{ color:var(--ink-soft); }
+  .node-group.reached .node-icon{ color:var(--copper-ink); }
+  .node-group.active .node-icon{ color:var(--copper-ink); }
+  .node-num circle{ fill:var(--surface-2); stroke:var(--line-strong); stroke-width:1.2; }
+  .node-num text{ fill:var(--ink-faint); font-weight:600; }
+  .node-group.reached .node-num circle, .node-group.active .node-num circle{ fill:var(--copper); stroke:var(--copper); }
+  .node-group.reached .node-num text, .node-group.active .node-num text{ fill:#fff; }
+  .node-title{ fill:var(--ink); font-weight:700; }
+  .node-sub{ fill:var(--ink-faint); letter-spacing:.05em; }
+  .segment{ stroke:var(--line-strong); stroke-width:2; fill:none; }
+  .segment.passed{ stroke:var(--copper); }
+
+  /* ---------- detail panel ---------- */
+  .panel{ background:var(--surface); border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow); padding:1.8rem; display:grid; grid-template-columns:auto 1fr; gap:1.6rem; }
+  @media (max-width:640px){ .panel{grid-template-columns:1fr; padding:1.4rem;} }
+  .panel-icon-wrap{ width:64px;height:64px; border-radius:14px; background:var(--copper-soft); border:1px solid var(--copper-soft-line); display:flex;align-items:center;justify-content:center; color:var(--copper-ink); flex-shrink:0; }
+  .panel-icon-wrap svg{ width:38px;height:38px; }
+  .panel-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap; }
+  .panel-step{ font-family:'IBM Plex Mono',monospace; font-size:.72rem; letter-spacing:.1em; color:var(--ink-faint); text-transform:uppercase; }
+  .panel-title{ margin:.15rem 0 0; font-size:1.4rem; font-weight:800; letter-spacing:-.01em; }
+  .panel-sub{ font-family:'IBM Plex Mono',monospace; font-size:.76rem; color:var(--copper); letter-spacing:.08em; margin-top:.15rem; }
+  .panel-desc{ margin:.9rem 0 0; color:var(--ink-soft); line-height:1.75; font-size:.95rem; max-width:68ch; }
+  .chip-label{ font-size:.72rem; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em; font-family:'IBM Plex Mono',monospace; margin:1.2rem 0 .55rem; }
+  .chips{ display:flex; flex-wrap:wrap; gap:.5rem; }
+  .chip{ display:inline-flex; align-items:center; gap:.4rem; padding:.35rem .7rem; border-radius:999px; background:var(--surface-2); border:1px solid var(--line); font-size:.83rem; color:var(--ink-soft); }
+  .chip.tw{ background:var(--copper-soft); border:1px solid var(--copper-soft-line); color:var(--ink); font-weight:700; }
+  .chip .tw-dot{ width:6px;height:6px;border-radius:50%; background:var(--copper); flex-shrink:0; }
+  .chip .tw-tag{ font-family:'IBM Plex Mono',monospace; font-size:.62rem; color:var(--copper-ink); font-weight:700; letter-spacing:.04em; }
+  .stats{ display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:.8rem; margin-top:1.2rem; }
+  .stat-tile{ background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:.75rem .9rem; }
+  .stat-value{ font-family:'IBM Plex Mono',monospace; font-variant-numeric:tabular-nums; font-weight:600; font-size:1.25rem; color:var(--signal); }
+  .stat-label{ font-size:.74rem; color:var(--ink-faint); margin-top:.15rem; line-height:1.4; }
+  .panel-nav{ display:flex; justify-content:space-between; margin-top:1.5rem; padding-top:1.1rem; border-top:1px solid var(--line); grid-column:1 / -1; }
+  .nav-btn{ font-family:'IBM Plex Mono',monospace; font-size:.78rem; letter-spacing:.04em; background:none; border:1px solid var(--line); border-radius:8px; padding:.5rem .9rem; color:var(--ink); cursor:pointer; transition:border-color .15s ease, color .15s ease; }
+  .nav-btn:hover{ border-color:var(--copper); color:var(--copper); }
+  .nav-btn:focus-visible{ outline:2px solid var(--copper); outline-offset:2px; }
+  .nav-btn[disabled]{ opacity:.35; cursor:default; }
+  .nav-btn[disabled]:hover{ border-color:var(--line); color:var(--ink); }
+
+  footer{ margin-top:2.2rem; padding-top:1.4rem; border-top:1px solid var(--line); }
+  .sources-label{ font-family:'IBM Plex Mono',monospace; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:.5rem; }
+  .sources-list{ margin:0 0 1rem; padding:0; list-style:none; display:flex; flex-direction:column; gap:.3rem; }
+  .sources-list li{ font-size:.78rem; color:var(--ink-soft); }
+  .disclaimer{ font-size:.74rem; color:var(--ink-faint); line-height:1.6; max-width:78ch; }
+
+  @media (prefers-reduced-motion: reduce){ *{ transition:none !important; } }
+</style>
+</head>
+<body>
+
+
+<div class="page">
+
+  <header class="head">
+    <div class="eyebrow">TW &amp; GLOBAL · INDUSTRY SUPPLY CHAIN MAP</div>
+    <h1>產業供應鏈全流程地圖</h1>
+    <p class="lede" id="lede"></p>
+    <div class="meta-row" id="metaRow"></div>
+  </header>
+
+  <nav class="switcher" id="switcher" aria-label="選擇產業"></nav>
+
+  <div class="diagram-card">
+    <div class="diagram-scroll">
+      <svg class="flow-svg" id="flowSvg" viewBox="0 0 1400 460" role="img" aria-label="產業供應鏈流程圖">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+          </marker>
+
+          <symbol id="icon-wafer" viewBox="0 0 40 40">
+            <circle cx="20" cy="20" r="14" fill="none" stroke="currentColor" stroke-width="2.2"/>
+            <line x1="11" y1="30" x2="18" y2="25" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="20" cy="19" r="1.8" fill="currentColor"/>
+            <circle cx="15" cy="15" r="1.3" fill="currentColor"/>
+            <circle cx="25" cy="23" r="1.3" fill="currentColor"/>
+          </symbol>
+          <symbol id="icon-chip" viewBox="0 0 40 40">
+            <rect x="12" y="12" width="16" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2.2"/>
+            <rect x="16.5" y="16.5" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="17" y1="8" x2="17" y2="12" stroke="currentColor" stroke-width="1.6"/>
+            <line x1="23" y1="8" x2="23" y2="12" stroke="currentColor" stroke-width="1.6"/>
+            <line x1="17" y1="28" x2="17" y2="32" stroke="currentColor" stroke-width="1.6"/>
+            <line x1="23" y1="28" x2="23" y2="32" stroke="currentColor" stroke-width="1.6"/>
+            <line x1="8" y1="17" x2="12" y2="17" stroke="currentColor" stroke-width="1.6"/>
+            <line x1="8" y1="23" x2="12" y2="23" stroke="currentColor" stroke-width="1.6"/>
+            <line x1="28" y1="17" x2="32" y2="17" stroke="currentColor" stroke-width="1.6"/>
+            <line x1="28" y1="23" x2="32" y2="23" stroke="currentColor" stroke-width="1.6"/>
+          </symbol>
+          <symbol id="icon-foundry" viewBox="0 0 40 40">
+            <circle cx="20" cy="20" r="14" fill="none" stroke="currentColor" stroke-width="2.2"/>
+            <circle cx="20" cy="20" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+            <circle cx="20" cy="20" r="3" fill="currentColor"/>
+          </symbol>
+          <symbol id="icon-hbm" viewBox="0 0 40 40">
+            <rect x="8" y="8" width="21" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <rect x="8" y="15" width="21" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <rect x="8" y="22" width="21" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <rect x="8" y="29" width="21" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <line x1="33" y1="8" x2="33" y2="34" stroke="currentColor" stroke-width="1.8"/>
+            <line x1="29" y1="10.5" x2="33" y2="10.5" stroke="currentColor" stroke-width="1.4"/>
+            <line x1="29" y1="17.5" x2="33" y2="17.5" stroke="currentColor" stroke-width="1.4"/>
+            <line x1="29" y1="24.5" x2="33" y2="24.5" stroke="currentColor" stroke-width="1.4"/>
+            <line x1="29" y1="31.5" x2="33" y2="31.5" stroke="currentColor" stroke-width="1.4"/>
+          </symbol>
+          <symbol id="icon-package" viewBox="0 0 40 40">
+            <rect x="14" y="6" width="12" height="8" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <rect x="7" y="19" width="26" height="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <rect x="5" y="30" width="30" height="4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <circle cx="12" cy="17" r="1" fill="currentColor"/><circle cx="16" cy="17" r="1" fill="currentColor"/>
+            <circle cx="20" cy="17" r="1" fill="currentColor"/><circle cx="24" cy="17" r="1" fill="currentColor"/>
+            <circle cx="28" cy="17" r="1" fill="currentColor"/>
+            <circle cx="10" cy="27.5" r="1" fill="currentColor"/><circle cx="14" cy="27.5" r="1" fill="currentColor"/>
+            <circle cx="18" cy="27.5" r="1" fill="currentColor"/><circle cx="22" cy="27.5" r="1" fill="currentColor"/>
+            <circle cx="26" cy="27.5" r="1" fill="currentColor"/><circle cx="30" cy="27.5" r="1" fill="currentColor"/>
+          </symbol>
+          <symbol id="icon-substrate" viewBox="0 0 40 40">
+            <rect x="7" y="13" width="26" height="19" fill="none" stroke="currentColor" stroke-width="2"/>
+            <line x1="7" y1="20" x2="33" y2="20" stroke="currentColor" stroke-width="1.2"/>
+            <line x1="7" y1="26" x2="33" y2="26" stroke="currentColor" stroke-width="1.2"/>
+            <polyline points="9,9 14,13 18,8 23,13 27,8 31,13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </symbol>
+          <symbol id="icon-network" viewBox="0 0 40 40">
+            <circle cx="20" cy="20" r="2.6" fill="currentColor"/>
+            <circle cx="9" cy="9" r="2.4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <circle cx="31" cy="9" r="2.4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <circle cx="9" cy="31" r="2.4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <circle cx="31" cy="31" r="2.4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="9" y2="9" stroke="currentColor" stroke-width="1.4"/>
+            <line x1="20" y1="20" x2="31" y2="9" stroke="currentColor" stroke-width="1.4"/>
+            <line x1="20" y1="20" x2="9" y2="31" stroke="currentColor" stroke-width="1.4"/>
+            <line x1="20" y1="20" x2="31" y2="31" stroke="currentColor" stroke-width="1.4"/>
+          </symbol>
+          <symbol id="icon-power" viewBox="0 0 40 40">
+            <polygon points="23,5 14,20 19,20 16,35 29,17 21,17" fill="currentColor"/>
+            <path d="M6,36 Q10,32 14,36 T22,36 T30,36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </symbol>
+          <symbol id="icon-server" viewBox="0 0 40 40">
+            <rect x="7" y="8" width="26" height="6.5" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <circle cx="28.5" cy="11.25" r="1.3" fill="currentColor"/>
+            <rect x="7" y="16.75" width="26" height="6.5" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <circle cx="28.5" cy="20" r="1.3" fill="currentColor"/>
+            <rect x="7" y="25.5" width="26" height="6.5" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <circle cx="28.5" cy="28.75" r="1.3" fill="currentColor"/>
+          </symbol>
+          <symbol id="icon-datacenter" viewBox="0 0 40 40">
+            <ellipse cx="16" cy="15" rx="6" ry="5" fill="none" stroke="currentColor" stroke-width="1.7"/>
+            <ellipse cx="23" cy="12.5" rx="7.5" ry="6.2" fill="none" stroke="currentColor" stroke-width="1.7"/>
+            <ellipse cx="29" cy="16" rx="5" ry="4.4" fill="none" stroke="currentColor" stroke-width="1.7"/>
+            <line x1="11" y1="19.5" x2="33" y2="19.5" stroke="currentColor" stroke-width="1.7"/>
+            <rect x="13" y="23" width="14" height="11" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <line x1="16.5" y1="26.5" x2="16.5" y2="30.5" stroke="currentColor" stroke-width="1.4"/>
+            <line x1="20" y1="26.5" x2="20" y2="30.5" stroke="currentColor" stroke-width="1.4"/>
+            <line x1="23.5" y1="26.5" x2="23.5" y2="30.5" stroke="currentColor" stroke-width="1.4"/>
+          </symbol>
+          <symbol id="icon-generic" viewBox="0 0 40 40">
+            <rect x="8" y="8" width="24" height="24" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+            <line x1="8" y1="20" x2="32" y2="20" stroke="currentColor" stroke-width="1.6"/>
+            <line x1="20" y1="8" x2="20" y2="32" stroke="currentColor" stroke-width="1.6"/>
+          </symbol>
+
+          <symbol id="icon-furnace" viewBox="0 0 40 40">
+            <rect x="10" y="16" width="20" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M14,16 Q14,10 17,10 Q17,14 20,8 Q20,13 23,9 Q24,13 26,16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="16" cy="26" r="1.3" fill="currentColor"/><circle cx="20" cy="27" r="1.3" fill="currentColor"/><circle cx="24" cy="25.5" r="1.3" fill="currentColor"/>
+          </symbol>
+          <symbol id="icon-ingot" viewBox="0 0 40 40">
+            <path d="M12,26 L14,34 L26,34 L28,26 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <rect x="17" y="8" width="6" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="2"/>
+            <line x1="20" y1="4" x2="20" y2="8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </symbol>
+          <symbol id="icon-slice" viewBox="0 0 40 40">
+            <ellipse cx="20" cy="9" rx="10" ry="3" fill="none" stroke="currentColor" stroke-width="1.7"/>
+            <ellipse cx="20" cy="16" rx="10" ry="3" fill="none" stroke="currentColor" stroke-width="1.7"/>
+            <ellipse cx="20" cy="23" rx="10" ry="3" fill="none" stroke="currentColor" stroke-width="1.7"/>
+            <ellipse cx="20" cy="30" rx="10" ry="3" fill="none" stroke="currentColor" stroke-width="1.7"/>
+          </symbol>
+          <symbol id="icon-polish" viewBox="0 0 40 40">
+            <circle cx="20" cy="21" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M29,12 A12,12 0 1,1 19,7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <polygon points="26,9 30,12 26,14" fill="currentColor"/>
+          </symbol>
+          <symbol id="icon-clean" viewBox="0 0 40 40">
+            <circle cx="20" cy="25" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M14,10 Q14,6 16.5,3.5 Q19,6 19,10 Q19,12.4 16.5,12.4 Q14,12.4 14,10 Z" fill="currentColor"/>
+            <path d="M23,7.5 Q23,4.8 24.5,3 Q26,4.8 26,7.5 Q26,9.2 24.5,9.2 Q23,9.2 23,7.5 Z" fill="currentColor"/>
+          </symbol>
+          <symbol id="icon-oxidize" viewBox="0 0 40 40">
+            <rect x="9" y="20" width="22" height="6" fill="none" stroke="currentColor" stroke-width="2"/>
+            <rect x="9" y="16" width="22" height="4" fill="currentColor"/>
+            <path d="M12,12 Q13,9 15,12 T19,12" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            <path d="M22,12 Q23,9 25,12 T29,12" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          </symbol>
+          <symbol id="icon-litho" viewBox="0 0 40 40">
+            <line x1="20" y1="5" x2="20" y2="13" stroke="currentColor" stroke-width="1.7"/>
+            <line x1="9" y1="13" x2="31" y2="13" stroke="currentColor" stroke-width="2"/>
+            <polygon points="13,13 27,13 23,22 17,22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+            <rect x="12" y="27" width="16" height="5" fill="none" stroke="currentColor" stroke-width="1.7"/>
+          </symbol>
+          <symbol id="icon-etch" viewBox="0 0 40 40">
+            <rect x="8" y="19" width="24" height="9" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M16,19 L20,26 L24,19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="20" y1="7" x2="20" y2="13" stroke="currentColor" stroke-width="1.6"/>
+            <polygon points="17,11 23,11 20,16" fill="currentColor"/>
+          </symbol>
+          <symbol id="icon-implant" viewBox="0 0 40 40">
+            <line x1="8" y1="27" x2="32" y2="27" stroke="currentColor" stroke-width="2"/>
+            <line x1="13" y1="8" x2="13" y2="21" stroke="currentColor" stroke-width="1.5"/><polygon points="10.5,19 15.5,19 13,24" fill="currentColor"/>
+            <line x1="20" y1="5" x2="20" y2="21" stroke="currentColor" stroke-width="1.5"/><polygon points="17.5,19 22.5,19 20,24" fill="currentColor"/>
+            <line x1="27" y1="9" x2="27" y2="21" stroke="currentColor" stroke-width="1.5"/><polygon points="24.5,19 29.5,19 27,24" fill="currentColor"/>
+          </symbol>
+          <symbol id="icon-deposit" viewBox="0 0 40 40">
+            <rect x="9" y="23" width="22" height="8" fill="none" stroke="currentColor" stroke-width="2"/>
+            <rect x="9" y="17" width="22" height="5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2,2"/>
+            <line x1="14" y1="5" x2="14" y2="13" stroke="currentColor" stroke-width="1.3"/><polygon points="12,11 16,11 14,15" fill="currentColor"/>
+            <line x1="20" y1="3" x2="20" y2="13" stroke="currentColor" stroke-width="1.3"/><polygon points="18,11 22,11 20,15" fill="currentColor"/>
+            <line x1="26" y1="5" x2="26" y2="13" stroke="currentColor" stroke-width="1.3"/><polygon points="24,11 28,11 26,15" fill="currentColor"/>
+          </symbol>
+          <symbol id="icon-cmp" viewBox="0 0 40 40">
+            <rect x="9" y="27" width="22" height="5" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="20" cy="14" r="8" fill="none" stroke="currentColor" stroke-width="1.7"/>
+            <line x1="20" y1="14" x2="20" y2="8" stroke="currentColor" stroke-width="1.3"/>
+            <line x1="20" y1="14" x2="25" y2="16.5" stroke="currentColor" stroke-width="1.3"/>
+            <line x1="20" y1="14" x2="15" y2="17.5" stroke="currentColor" stroke-width="1.3"/>
+            <line x1="20" y1="22" x2="20" y2="27" stroke="currentColor" stroke-width="1.8"/>
+          </symbol>
+          <symbol id="icon-interconnect" viewBox="0 0 40 40">
+            <line x1="12" y1="9" x2="28" y2="9" stroke="currentColor" stroke-width="2"/>
+            <line x1="12" y1="16" x2="28" y2="16" stroke="currentColor" stroke-width="2"/>
+            <line x1="12" y1="23" x2="28" y2="23" stroke="currentColor" stroke-width="2"/>
+            <line x1="12" y1="30" x2="28" y2="30" stroke="currentColor" stroke-width="2"/>
+            <line x1="16" y1="9" x2="16" y2="30" stroke="currentColor" stroke-width="1.3"/>
+            <line x1="24" y1="9" x2="24" y2="30" stroke="currentColor" stroke-width="1.3"/>
+          </symbol>
+          <symbol id="icon-probe" viewBox="0 0 40 40">
+            <circle cx="17" cy="25" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="14" cy="22" r="1" fill="currentColor"/><circle cx="19" cy="21" r="1" fill="currentColor"/><circle cx="17" cy="28" r="1" fill="currentColor"/>
+            <line x1="31" y1="6" x2="19" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="31" cy="6" r="2" fill="currentColor"/>
+          </symbol>
+        </defs>
+
+        <g id="segmentsLayer"></g>
+        <g id="nodesLayer"></g>
+      </svg>
+    </div>
+    <div class="scroll-hint">← 左右滑動查看完整流程 →</div>
+  </div>
+
+  <section class="panel" id="panel" aria-live="polite"></section>
+
+  <footer>
+    <div class="sources-label">資料來源</div>
+    <ul class="sources-list" id="sourcesList"></ul>
+    <p class="disclaimer" id="disclaimer"></p>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+
+  /* ============================================================
+     資料層　DATA LAYER
+     ------------------------------------------------------------
+     每個產業是 INDUSTRIES 物件裡的一個 key。要新增產業時，複製一份
+     下面的區塊、換掉內容即可 — 不需要更動下方的繪圖／互動引擎。
+     nodes 陣列本身就是供應鏈的順序（第一個到最後一個），數量不限，
+     引擎會自動排版（每列 5 個，S型左右交錯往下接續）。
+     icon 可用現有 icon-* symbol id，找不到合適的就用 icon-generic。
+     companies 的 tw:1 會標示為台灣供應鏈廠商。
+     ============================================================ */
+  var INDUSTRIES = {
+
+    "ai-hardware": {
+      name: "AI硬體供應鏈",
+      nameEn: "AI HARDWARE SUPPLY CHAIN",
+      lede: "從矽晶圓到資料中心，AI伺服器供應鏈的十個關鍵環節。點選任一節點，查看代表廠商、市場地位與最新數據。",
+      updated: "2026年9月",
+      sources: [
+        "矽基前沿 [Si]gnals －「AI 算力供應鏈地圖：誰造晶片、卡脖子在哪、台灣在哪（2026）」",
+        "KMAI －「半導體產業鏈全解析：從一張圖看懂上下游分工與2026市場現況」",
+        "商業周刊 －「AI伺服器是什麼？概念股、供應鏈龍頭一次看」",
+        "TVBS新聞網 －「AI供電散熱生死戰：台廠包辦全球60%市占」"
+      ],
+      disclaimer: "本頁面為公開資訊整理彙編，市占率、產能與交期等數據會隨市場狀況與廠商公告持續變動，僅供產業脈絡參考，不構成任何投資建議。引用前請自行查核原始出處。",
+      nodes: [
+        { icon:"icon-wafer", title:"上游材料與設備", sub:"MATERIALS & EQUIPMENT",
+          desc:"半導體最原始的起點：從高純度矽晶棒切割出矽晶圓，搭配光阻、特殊氣體等化學材料，以及微影、蝕刻、薄膜沉積、量測等關鍵設備，是所有晶片誕生前必須具備的基礎材料與產線工具。",
+          companies:[{n:"環球晶",tw:1},{n:"信越化學"},{n:"SUMCO"},{n:"ASML"},{n:"應用材料"},{n:"科磊 KLA"}],
+          stats:[{v:"~60%",l:"日韓廠矽晶圓產能占全球比重"},{v:"僅此一家",l:"ASML為全球唯一EUV曝光機供應商"}] },
+        { icon:"icon-chip", title:"IC設計", sub:"CHIP DESIGN / FABLESS",
+          desc:"雲端巨頭與晶片大廠在此決定運算架構——從輝達、超微、博通等商用GPU／ASIC設計商，到Google、Amazon、Meta等雲端業者近年積極投入自研晶片。台灣的IC設計服務業者（世芯-KY、創意電子、智原）則是雲端巨頭自研ASIC背後最關鍵的矽智財與設計代工夥伴，隨著「去輝達化」浪潮承接大量訂單。",
+          companies:[{n:"聯發科",tw:1},{n:"世芯-KY",tw:1},{n:"創意電子",tw:1},{n:"智原",tw:1},{n:"輝達 NVIDIA"},{n:"超微 AMD"},{n:"博通 Broadcom"},{n:"雲端自研 Google／Amazon"}],
+          stats:[{v:"~86%",l:"Nvidia資料中心GPU市占"},{v:"~US$20億",l:"2026年AI ASIC市場規模"}] },
+        { icon:"icon-foundry", title:"晶圓代工", sub:"FOUNDRY",
+          desc:"將IC設計圖轉換為實體晶片的核心產線。先進製程（N3／N2）幾乎所有商用GPU與自研ASIC最終都在此投片，是全球AI晶片產能最大的瓶頸環節之一。",
+          companies:[{n:"台積電",tw:1},{n:"聯電",tw:1},{n:"三星電子"},{n:"英特爾"}],
+          stats:[{v:"~72%",l:"台積電先進製程代工市占"},{v:"至2027-28",l:"N3／N2訂單能見度"}] },
+        { icon:"icon-hbm", title:"高頻寬記憶體", sub:"HBM MEMORY",
+          desc:"專為AI運算堆疊設計的高速記憶體，以矽穿孔（TSV）技術垂直堆疊多層DRAM，直接影響AI晶片的運算頻寬上限。目前產能集中於三大原廠，且全數處於售罄狀態。",
+          companies:[{n:"SK海力士"},{n:"美光 Micron"},{n:"三星電子"}],
+          stats:[{v:"~62%",l:"SK海力士HBM市占"},{v:"全數售罄",l:"三強2026年全年產能"}] },
+        { icon:"icon-package", title:"先進封裝", sub:"ADVANCED PACKAGING",
+          desc:"將運算晶粒與HBM記憶體整合於同一載板上的關鍵工序（CoWoS、CoPoS等）。封裝良率與產能直接決定AI晶片最終出貨速度，目前100%仍集中於台灣與亞洲產線完成。",
+          companies:[{n:"台積電 CoWoS",tw:1},{n:"日月光",tw:1},{n:"矽品",tw:1},{n:"Amkor"}],
+          stats:[{v:"12-13萬片",l:"CoWoS 2026年底月產能目標"},{v:"~60%",l:"Nvidia占CoWoS總需求比重"}] },
+        { icon:"icon-substrate", title:"基板與高速PCB", sub:"SUBSTRATE & HIGH-SPEED PCB",
+          desc:"承載晶片與各元件的多層電路載板。ABF載板技術門檻高、產能長期吃緊，高速PCB則需承受AI伺服器高頻高速訊號傳輸的嚴苛要求，是台廠掌握度極高的一環。",
+          companies:[{n:"欣興",tw:1},{n:"南電",tw:1},{n:"景碩",tw:1},{n:"台光電",tw:1},{n:"金像電",tw:1}],
+          stats:[{v:">50%",l:"台廠全球ABF載板產能占比"}] },
+        { icon:"icon-network", title:"網通與高速互連", sub:"NETWORKING & INTERCONNECT",
+          desc:"讓數萬顆晶片能協同運算的高速傳輸技術，涵蓋晶片內部SerDes連結、機櫃內NVLink，到跨機櫃的乙太網路交換器、光模組與矽光子(CPO)，是AI叢集能否持續擴大規模的關鍵瓶頸。台灣廠商在光模組與矽光子環節已從代工角色，逐漸切入技術含量更高的CPO關鍵零組件供應。",
+          companies:[{n:"聯發科",tw:1},{n:"聯亞光電",tw:1},{n:"波若威",tw:1},{n:"上詮",tw:1},{n:"華星光",tw:1},{n:"博通 Broadcom"},{n:"Marvell"}],
+          stats:[{v:"224G SerDes",l:"聯發科藉此切入Google TPU v8e"}] },
+        { icon:"icon-power", title:"電源與散熱管理", sub:"POWER & THERMAL",
+          desc:"AI機櫃功耗屢創新高，800V高壓直流（HVDC）配電與液冷技術已成為次世代AI伺服器標配。台廠在此環節掌握全球逾半市占，是少數具備明顯定價權的關鍵位置。",
+          companies:[{n:"台達電",tw:1},{n:"奇鋐",tw:1},{n:"雙鴻",tw:1},{n:"光寶科",tw:1}],
+          stats:[{v:"~60%",l:"台達電AI伺服器電源市占"},{v:"40-50%",l:"奇鋐GB200／GB300水冷板市占"}] },
+        { icon:"icon-server", title:"伺服器系統整合", sub:"SYSTEM INTEGRATION",
+          desc:"將晶片、記憶體、電源、散熱等零組件組裝為完整AI伺服器機櫃的代工環節。台廠ODM廠商包辦全球絕大多數AI伺服器組裝產能。",
+          companies:[{n:"鴻海",tw:1},{n:"廣達",tw:1},{n:"緯創",tw:1},{n:"英業達",tw:1},{n:"緯穎",tw:1}],
+          stats:[{v:"~40%",l:"鴻海全球AI伺服器機櫃組裝占比"}] },
+        { icon:"icon-datacenter", title:"資料中心與雲端應用", sub:"DATA CENTER & CLOUD",
+          desc:"供應鏈最末端的實際應用場域。雲端業者將整合完成的AI伺服器部署於資料中心，提供模型訓練與推論算力，電力與土地取得已成為此階段最大的成長瓶頸。",
+          companies:[{n:"微軟 Microsoft"},{n:"Google"},{n:"AWS"},{n:"Meta"},{n:"甲骨文 Oracle"}],
+          stats:[{v:"36-48個月",l:"美國高壓變壓器交期，部分達5年"}] }
+      ]
+    },
+
+    "wafer-fab": {
+      name: "晶圓製造詳細流程",
+      nameEn: "WAFER FABRICATION PROCESS",
+      lede: "從一粒矽砂到一片測試完成的晶圓，前段製程的十三道關鍵工序。每一層電路都要重複微影、蝕刻、佈植、沉積的循環數十次，是整條半導體供應鏈中設備密集度最高、也最燒錢的一段。",
+      updated: "2026年9月",
+      sources: [
+        "台灣積水化學－「半導體製程、原理完整介紹：從半導體材料到元件必經8步驟！」",
+        "newfast-semi 大塚科技－「晶圓製程解析｜半導體介紹、製程6步驟、微汙染監控秘訣一次看」",
+        "鉅亨號 Anue－「全球主要半導體設備廠商介紹」"
+      ],
+      disclaimer: "本頁面為公開技術資料整理彙編，實際製程步驟、循環次數與設備廠商依各晶圓廠製程節點與產品而異，僅供技術脈絡參考，不構成任何投資建議。",
+      nodes: [
+        { icon:"icon-furnace", title:"矽砂提純", sub:"SILICON PURIFICATION",
+          desc:"從天然石英砂出發，先以電弧爐冶煉為冶金級矽，再透過西門子製程（Siemens Process）進一步提純為電子級多晶矽，純度需達99.9999999%（9個9）以上，是所有晶圓最原始的原料。",
+          companies:[{n:"瓦克化學 Wacker"},{n:"德山曹達 Tokuyama"},{n:"OCI"},{n:"保利協鑫"}],
+          stats:[{v:"~11個9",l:"電子級多晶矽純度要求"}] },
+        { icon:"icon-ingot", title:"長晶／拉晶", sub:"CRYSTAL GROWTH (CZ)",
+          desc:"將多晶矽放入石英坩堝高溫熔化，以柴可拉斯基法（CZ法）將旋轉的晶種緩慢向上拉升，長成單一晶格方向的圓柱狀矽晶錠。晶棒直徑與長度，決定了後續能切出多少片晶圓。",
+          companies:[{n:"環球晶",tw:1},{n:"SUMCO"},{n:"信越化學"},{n:"Siltronic"}],
+          stats:[{v:"1-2天",l:"單支12吋晶棒拉晶耗時"}] },
+        { icon:"icon-slice", title:"切片", sub:"WAFER SLICING",
+          desc:"以鑽石線鋸將矽晶錠切割成厚度僅零點幾公釐的圓形薄片，切割精度直接影響晶圓的平整度、翹曲度與後續良率，是機械加工要求最嚴苛的步驟之一。台灣廠商在晶棒切片與鑽石切割線材料上，掌握全球數一數二的市占地位。",
+          companies:[{n:"中美晶",tw:1},{n:"合晶",tw:1},{n:"環球晶",tw:1},{n:"中砂",tw:1}],
+          stats:[{v:"<1mm",l:"單片切片厚度量級"}] },
+        { icon:"icon-polish", title:"研磨與拋光", sub:"LAPPING & POLISHING",
+          desc:"對切片後的粗胚晶圓先進行機械研磨，去除切割造成的表面損傷層，再以化學機械拋光讓表面達到奈米級平整度，形成可供電路製作的「裸晶圓」基板。",
+          companies:[{n:"應用材料 AMAT"},{n:"荏原製作所 Ebara"}],
+          stats:[{v:"奈米級",l:"最終表面平整度要求"}] },
+        { icon:"icon-clean", title:"清洗", sub:"WAFER CLEANING (RCA)",
+          desc:"以超純水與多道化學藥液（如RCA清洗液）去除晶圓表面的微粒、有機物與金屬離子污染。清洗會貫穿整個前段製程、反覆執行數十次，是執行次數最多的單一工序。",
+          companies:[{n:"迪恩士 DNS(SCREEN)"},{n:"東京威力科創 TEL"}],
+          stats:[{v:"數十次",l:"單片晶圓製程中清洗次數"}] },
+        { icon:"icon-oxidize", title:"氧化", sub:"THERMAL OXIDATION",
+          desc:"將晶圓置於高溫爐管中，使矽表面與氧氣反應生成一層二氧化矽薄膜，作為電晶體的絕緣層，或作為後續微影與蝕刻的保護遮罩。",
+          companies:[{n:"東京威力科創 TEL"},{n:"應用材料 AMAT"}],
+          stats:[] },
+        { icon:"icon-litho", title:"微影", sub:"PHOTOLITHOGRAPHY",
+          desc:"在晶圓表面塗佈感光光阻，透過曝光機將光罩上的電路圖案以極短波長光源（如EUV）投影到光阻上，再經顯影將圖案轉印至晶圓，是決定製程節點（如2奈米、3奈米）精細度的關鍵步驟。",
+          companies:[{n:"ASML"},{n:"尼康 Nikon"},{n:"佳能 Canon"}],
+          stats:[{v:"僅此一家",l:"ASML為全球唯一EUV曝光機供應商"}] },
+        { icon:"icon-etch", title:"蝕刻", sub:"ETCHING",
+          desc:"以電漿乾蝕刻或化學濕蝕刻，依照微影轉印的圖案精準去除不需要的材料，僅保留電路所需結構。蝕刻的選擇比與均勻度，直接影響電晶體的效能與良率。",
+          companies:[{n:"泛林集團 Lam Research"},{n:"東京威力科創 TEL"},{n:"日立高新"}],
+          stats:[] },
+        { icon:"icon-implant", title:"離子佈植／摻雜", sub:"ION IMPLANTATION",
+          desc:"以高能量將硼、磷等微量元素離子加速注入矽晶格中，局部改變材料的導電特性，形成P型與N型半導體區域，是建構電晶體開關特性的核心工序。",
+          companies:[{n:"應用材料 AMAT"},{n:"亞舍立科技 Axcelis"}],
+          stats:[] },
+        { icon:"icon-deposit", title:"薄膜沉積", sub:"THIN FILM DEPOSITION",
+          desc:"透過化學氣相沉積（CVD）、物理氣相沉積（PVD）或原子層沉積（ALD）等技術，在晶圓表面均勻鍍上導電或絕緣的功能性薄膜。先進製程中，這道工序需反覆執行數十甚至上百次。",
+          companies:[{n:"應用材料 AMAT"},{n:"泛林集團 Lam Research"},{n:"東京威力科創 TEL"}],
+          stats:[{v:"數十~上百次",l:"先進製程中沉積循環次數"}] },
+        { icon:"icon-cmp", title:"化學機械研磨", sub:"CMP",
+          desc:"在每一層薄膜沉積或蝕刻後，以化學藥液搭配機械研磨墊將晶圓表面重新拋平，確保多層堆疊結構維持平整，避免影響下一層微影的對準精度。台灣廠商中砂憑藉鑽石修整碟（dresser）技術，穩居這項耗材的市場龍頭地位。",
+          companies:[{n:"中砂",tw:1},{n:"應用材料 AMAT"},{n:"荏原製作所 Ebara"}],
+          stats:[] },
+        { icon:"icon-interconnect", title:"金屬內連線", sub:"METALLIZATION",
+          desc:"以銅或鋁等金屬材料在晶圓表面鋪設多層導線，將數十億顆電晶體依電路設計彼此連接。先進晶片的金屬層數可達十幾層，如同建構晶片內部的立體高速公路。",
+          companies:[{n:"應用材料 AMAT"},{n:"泛林集團 Lam Research"}],
+          stats:[{v:"10幾層",l:"先進製程金屬層數量級"}] },
+        { icon:"icon-probe", title:"電性測試／針測", sub:"WAFER PROBING (CP TEST)",
+          desc:"在晶圓切割前，以探針卡逐顆晶粒進行電性測試（CP測試），篩選出功能正常的良品晶粒並標記不良品，避免不良晶粒流入後續昂貴的封裝製程。",
+          companies:[{n:"京元電子",tw:1},{n:"愛德萬測試 Advantest"},{n:"泰瑞達 Teradyne"}],
+          stats:[] }
+      ]
+    }
+
+    /* 之後新增產業，比照上面格式在這裡加一個 key，例如：
+    "ev-battery": {
+      name: "電動車電池供應鏈", nameEn: "EV BATTERY SUPPLY CHAIN",
+      lede: "...", updated: "...", sources:[...], disclaimer:"...",
+      nodes: [ { icon:"icon-generic", title:"...", sub:"...", desc:"...",
+                 companies:[{n:"...",tw:1}], stats:[{v:"...",l:"..."}] }, ... ]
+    }
+    */
+  };
+
+  var INDUSTRY_ORDER = Object.keys(INDUSTRIES);
+
+  /* ============================================================
+     繪圖／互動引擎　RENDER ENGINE — 通用，不需因新增產業而修改
+     ============================================================ */
+  var NS = "http://www.w3.org/2000/svg";
+  var BOX_W = 220, BOX_H = 130, COL_GAP = 40, MARGIN = 70, ROW_GAP = 170, ROW_SIZE = 5;
+  var TOP_Y = 30;
+
+  function colFor(posInRow, rowIsEven){ return rowIsEven ? posInRow : (ROW_SIZE-1-posInRow); }
+
+  function layout(n){
+    var pos = [];
+    for(var i=0;i<n;i++){
+      var row = Math.floor(i/ROW_SIZE);
+      var posInRow = i % ROW_SIZE;
+      var col = colFor(posInRow, row%2===0);
+      pos.push({ x: MARGIN + col*(BOX_W+COL_GAP), y: TOP_Y + row*ROW_GAP });
+    }
+    var rows = Math.ceil(n/ROW_SIZE);
+    var viewH = TOP_Y + rows*BOX_H + (rows-1)*(ROW_GAP-BOX_H) + 30;
+    return { pos:pos, viewH:viewH };
+  }
+
+  function el(tag, attrs){
+    var e = document.createElementNS(NS, tag);
+    for(var k in attrs){ e.setAttribute(k, attrs[k]); }
+    return e;
+  }
+
+  var svg = document.getElementById("flowSvg");
+  var segLayer = document.getElementById("segmentsLayer");
+  var nodeLayer = document.getElementById("nodesLayer");
+  var panel = document.getElementById("panel");
+  var switcherEl = document.getElementById("switcher");
+  var ledeEl = document.getElementById("lede");
+  var metaEl = document.getElementById("metaRow");
+  var sourcesEl = document.getElementById("sourcesList");
+  var disclaimerEl = document.getElementById("disclaimer");
+
+  var state = { industry:null, nodeEls:{}, segEls:[], nodes:[], current:0 };
+
+  function renderSwitcher(){
+    switcherEl.innerHTML = "";
+    if(INDUSTRY_ORDER.length < 2){ switcherEl.style.display = "none"; return; }
+    switcherEl.style.display = "flex";
+    INDUSTRY_ORDER.forEach(function(key){
+      var btn = document.createElement("button");
+      btn.className = "tab" + (key===state.industry ? " active" : "");
+      btn.textContent = INDUSTRIES[key].name;
+      btn.addEventListener("click", function(){ selectIndustry(key); });
+      switcherEl.appendChild(btn);
+    });
+  }
+
+  function renderMeta(ind){
+    ledeEl.textContent = ind.lede;
+    metaEl.innerHTML = '<span>資料彙整：'+ind.updated+'</span><span><span class="dot"></span>節點反白＝台灣供應鏈廠商佔重要地位</span>';
+    sourcesEl.innerHTML = ind.sources.map(function(s){ return "<li>"+s+"</li>"; }).join("");
+    disclaimerEl.textContent = ind.disclaimer;
+  }
+
+  function buildDiagram(ind){
+    segLayer.innerHTML = "";
+    nodeLayer.innerHTML = "";
+    state.nodeEls = {};
+    state.segEls = [];
+    state.nodes = ind.nodes;
+
+    var L = layout(ind.nodes.length);
+    svg.setAttribute("viewBox", "0 0 1400 " + L.viewH);
+
+    for(var i=0;i<ind.nodes.length-1;i++){
+      var a = L.pos[i], b = L.pos[i+1];
+      var path;
+      if(a.y !== b.y){
+        var x = a.x + BOX_W/2;
+        path = "M"+x+","+(a.y+BOX_H)+" L"+x+","+b.y;
+      } else {
+        var y = a.y + BOX_H/2;
+        var x1, x2;
+        if(b.x > a.x){ x1=a.x+BOX_W; x2=b.x; } else { x1=a.x; x2=b.x+BOX_W; }
+        path = "M"+x1+","+y+" L"+x2+","+y;
+      }
+      var line = el("path", {class:"segment", d:path, "marker-end":"url(#arrow)"});
+      segLayer.appendChild(line);
+      state.segEls.push(line);
+    }
+
+    ind.nodes.forEach(function(node, i){
+      var p = L.pos[i];
+      var g = el("g", {class:"node-group", tabindex:"0", role:"button", "aria-pressed":"false",
+        "aria-label":"第"+(i+1)+"步："+node.title});
+      g.appendChild(el("rect", {class:"node-box", x:p.x, y:p.y, width:BOX_W, height:BOX_H, rx:14}));
+
+      var iconSize = 34, iconX = p.x+BOX_W/2-iconSize/2, iconY = p.y+14;
+      var use = el("use", {href:"#"+(node.icon||"icon-generic"), x:iconX, y:iconY, width:iconSize, height:iconSize});
+      use.setAttribute("class","node-icon");
+      g.appendChild(use);
+
+      var title = el("text", {class:"node-title", x:p.x+BOX_W/2, y:p.y+72, "text-anchor":"middle", "font-size":"15.5"});
+      title.textContent = node.title;
+      g.appendChild(title);
+
+      var sub = el("text", {class:"node-sub mono", x:p.x+BOX_W/2, y:p.y+94, "text-anchor":"middle", "font-size":"9"});
+      sub.textContent = node.sub || "";
+      g.appendChild(sub);
+
+      var numG = el("g", {class:"node-num"});
+      numG.appendChild(el("circle", {cx:p.x+BOX_W-18, cy:p.y+18, r:12}));
+      var numText = el("text", {x:p.x+BOX_W-18, y:p.y+22, "text-anchor":"middle", "font-size":"11", class:"mono"});
+      numText.textContent = String(i+1).padStart(2,"0");
+      numG.appendChild(numText);
+      g.appendChild(numG);
+
+      g.addEventListener("click", function(idx){ return function(){ selectNode(idx); }; }(i));
+      g.addEventListener("keydown", function(idx){ return function(e){
+        if(e.key==="Enter"||e.key===" "){ e.preventDefault(); selectNode(idx); }
+      }; }(i));
+
+      nodeLayer.appendChild(g);
+      state.nodeEls[i] = g;
+    });
+  }
+
+  function renderPanel(i){
+    var node = state.nodes[i];
+    var chipsHtml = node.companies.map(function(c){
+      return '<span class="chip'+(c.tw?' tw':'')+'">' + (c.tw ? '<span class="tw-dot"></span><span class="tw-tag">TW</span>' : '') +
+             '<span>'+c.n+'</span></span>';
+    }).join("");
+    var statsHtml = (node.stats||[]).map(function(s){
+      return '<div class="stat-tile"><div class="stat-value mono">'+s.v+'</div><div class="stat-label">'+s.l+'</div></div>';
+    }).join("");
+
+    panel.innerHTML =
+      '<div class="panel-icon-wrap"><svg viewBox="0 0 40 40"><use href="#'+(node.icon||"icon-generic")+'"></use></svg></div>' +
+      '<div class="panel-body">' +
+        '<div class="panel-top"><div>' +
+          '<div class="panel-step">STEP '+String(i+1).padStart(2,"0")+' / '+state.nodes.length+'</div>' +
+          '<h2 class="panel-title">'+node.title+'</h2>' +
+          '<div class="panel-sub">'+(node.sub||"")+'</div>' +
+        '</div></div>' +
+        '<p class="panel-desc">'+node.desc+'</p>' +
+        '<div class="chip-label">代表廠商</div>' +
+        '<div class="chips">'+chipsHtml+'</div>' +
+        '<div class="stats">'+statsHtml+'</div>' +
+        '<div class="panel-nav">' +
+          '<button class="nav-btn" id="prevBtn" '+(i===0?"disabled":"")+'>‹ 上一步</button>' +
+          '<button class="nav-btn" id="nextBtn" '+(i===state.nodes.length-1?"disabled":"")+'>下一步 ›</button>' +
+        '</div>' +
+      '</div>';
+
+    document.getElementById("prevBtn").addEventListener("click", function(){ if(i>0) selectNode(i-1); });
+    document.getElementById("nextBtn").addEventListener("click", function(){ if(i<state.nodes.length-1) selectNode(i+1); });
+  }
+
+  function selectNode(i){
+    state.current = i;
+    state.nodes.forEach(function(_, idx){
+      var g = state.nodeEls[idx];
+      g.classList.remove("active","reached");
+      g.setAttribute("aria-pressed", idx===i ? "true":"false");
+      if(idx < i) g.classList.add("reached");
+      if(idx === i) g.classList.add("active");
+    });
+    state.segEls.forEach(function(seg, idx){
+      if(idx < i) seg.classList.add("passed"); else seg.classList.remove("passed");
+    });
+    renderPanel(i);
+  }
+
+  function selectIndustry(key){
+    state.industry = key;
+    var ind = INDUSTRIES[key];
+    renderSwitcher();
+    renderMeta(ind);
+    buildDiagram(ind);
+    selectNode(0);
+  }
+
+  selectIndustry(INDUSTRY_ORDER[0]);
+})();
+</script>
+
+</body>
+</html>
