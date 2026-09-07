@@ -118,6 +118,15 @@
   .stat-tile{ background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:.75rem .9rem; }
   .stat-value{ font-family:'IBM Plex Mono',monospace; font-variant-numeric:tabular-nums; font-weight:600; font-size:1.25rem; color:var(--signal); }
   .stat-label{ font-size:.74rem; color:var(--ink-faint); margin-top:.15rem; line-height:1.4; }
+  .breadcrumb{ display:inline-flex; align-items:center; background:none; border:none; padding:0; margin:0 0 .9rem; font-family:'IBM Plex Mono',monospace; font-size:.78rem; color:var(--copper); cursor:pointer; }
+  .breadcrumb:hover{ text-decoration:underline; }
+  .breadcrumb:focus-visible{ outline:2px solid var(--copper); outline-offset:2px; }
+  .sub-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:.6rem; margin-top:.9rem; }
+  .sub-card{ display:flex; flex-direction:column; align-items:flex-start; gap:.5rem; padding:.75rem .8rem; border-radius:10px; background:var(--surface-2); border:1px solid var(--line); cursor:pointer; text-align:left; font-family:inherit; color:var(--ink); transition:border-color .15s ease, background .15s ease; }
+  .sub-card:hover{ border-color:var(--copper); background:var(--copper-soft); }
+  .sub-card:focus-visible{ outline:2px solid var(--copper); outline-offset:2px; }
+  .sub-card svg{ width:26px;height:26px; color:var(--copper-ink); }
+  .sub-card-title{ font-size:.82rem; font-weight:700; line-height:1.3; }
   .panel-nav{ display:flex; justify-content:space-between; margin-top:1.5rem; padding-top:1.1rem; border-top:1px solid var(--line); grid-column:1 / -1; }
   .nav-btn{ font-family:'IBM Plex Mono',monospace; font-size:.78rem; letter-spacing:.04em; background:none; border:1px solid var(--line); border-radius:8px; padding:.5rem .9rem; color:var(--ink); cursor:pointer; transition:border-color .15s ease, color .15s ease; }
   .nav-btn:hover{ border-color:var(--copper); color:var(--copper); }
@@ -326,6 +335,12 @@
             <line x1="31" y1="6" x2="19" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             <circle cx="31" cy="6" r="2" fill="currentColor"/>
           </symbol>
+          <symbol id="icon-metrology" viewBox="0 0 40 40">
+            <circle cx="17" cy="17" r="9" fill="none" stroke="currentColor" stroke-width="2.2"/>
+            <line x1="17" y1="11" x2="17" y2="23" stroke="currentColor" stroke-width="1.3"/>
+            <line x1="11" y1="17" x2="23" y2="17" stroke="currentColor" stroke-width="1.3"/>
+            <line x1="23.5" y1="23.5" x2="31" y2="31" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+          </symbol>
         </defs>
 
         <g id="segmentsLayer"></g>
@@ -376,7 +391,41 @@
         { icon:"icon-wafer", title:"上游材料與設備", sub:"MATERIALS & EQUIPMENT",
           desc:"半導體最原始的起點：從高純度矽晶棒切割出矽晶圓，搭配光阻、特殊氣體等化學材料，以及微影、蝕刻、薄膜沉積、量測等關鍵設備，是所有晶片誕生前必須具備的基礎材料與產線工具。",
           companies:[{n:"環球晶",tw:1},{n:"信越化學"},{n:"SUMCO"},{n:"ASML"},{n:"應用材料"},{n:"科磊 KLA"}],
-          stats:[{v:"~60%",l:"日韓廠矽晶圓產能占全球比重"},{v:"僅此一家",l:"ASML為全球唯一EUV曝光機供應商"}] },
+          stats:[{v:"~60%",l:"日韓廠矽晶圓產能占全球比重"},{v:"僅此一家",l:"ASML為全球唯一EUV曝光機供應商"}],
+          children:[
+            { icon:"icon-litho", title:"微影／光刻設備", sub:"LITHOGRAPHY",
+              desc:"將電路圖案精確投影到晶圓表面的曝光機台。先進製程仰賴極紫外光（EUV）微影技術，是整個半導體設備產業中技術門檻最高、單價最貴的機種，也是最容易被列入出口管制的項目。",
+              companies:[{n:"ASML"},{n:"尼康 Nikon"},{n:"佳能 Canon"}],
+              stats:[{v:"僅此一家",l:"ASML為全球唯一EUV曝光機供應商"},{v:"~US$2億+",l:"單台EUV機台造價量級"}] },
+            { icon:"icon-etch", title:"蝕刻設備", sub:"ETCH EQUIPMENT",
+              desc:"以電漿乾蝕刻或化學濕蝕刻，依照微影轉印的圖案精準去除多餘材料的機台。先進邏輯製程高度仰賴高深寬比的乾蝕刻技術，蝕刻的選擇比與均勻度直接影響良率。",
+              companies:[{n:"泛林集團 Lam Research"},{n:"東京威力科創 TEL"},{n:"應用材料 AMAT"}],
+              stats:[{v:"~90%",l:"全球前三大蝕刻設備廠合計市占"}] },
+            { icon:"icon-deposit", title:"薄膜沉積設備", sub:"DEPOSITION",
+              desc:"透過CVD、PVD、ALD等技術在晶圓表面鍍上功能性薄膜的機台。先進製程單一晶圓需經過數十道沉積製程，是晶圓廠設備採購金額占比最高的類別之一。",
+              companies:[{n:"應用材料 AMAT"},{n:"泛林集團 Lam Research"},{n:"東京威力科創 TEL"}],
+              stats:[] },
+            { icon:"icon-implant", title:"離子佈植設備", sub:"ION IMPLANTATION",
+              desc:"將硼、磷等摻雜元素以高能量加速注入晶圓的機台，精準控制注入深度與濃度，決定電晶體的導電特性與開關表現。",
+              companies:[{n:"應用材料 AMAT"},{n:"亞舍立科技 Axcelis"}],
+              stats:[] },
+            { icon:"icon-polish", title:"機械拋光／CMP設備", sub:"POLISHING & CMP",
+              desc:"化學機械研磨機台搭配拋光墊與研磨液，在每層製程後將晶圓表面重新拋平，確保多層堆疊結構維持奈米級平整度。台灣廠商中砂在拋光耗材（修整碟）上是全球市占龍頭。",
+              companies:[{n:"中砂",tw:1},{n:"應用材料 AMAT"},{n:"荏原製作所 Ebara"}],
+              stats:[] },
+            { icon:"icon-clean", title:"清洗設備", sub:"CLEANING EQUIPMENT",
+              desc:"以超純水與多道化學藥液去除晶圓表面微粒與汙染物的機台，是晶圓廠中使用頻率最高、也最耗用超純水與化學品的設備類別，單片晶圓製程中可能反覆清洗數十次。",
+              companies:[{n:"迪恩士 DNS(SCREEN)"},{n:"東京威力科創 TEL"}],
+              stats:[{v:"數十次",l:"單片晶圓製程中清洗次數"}] },
+            { icon:"icon-metrology", title:"量測與檢測設備", sub:"METROLOGY & INSPECTION",
+              desc:"在製程各階段量測薄膜厚度、線寬尺寸並檢測缺陷的機台，是良率控管的關鍵防線。先進製程對缺陷偵測的靈敏度要求已達奈米等級，晶圓廠通常每完成幾道工序就要量測檢查一次。",
+              companies:[{n:"科磊 KLA"},{n:"應用材料 AMAT"}],
+              stats:[] },
+            { icon:"icon-oxidize", title:"熱處理設備", sub:"THERMAL PROCESSING",
+              desc:"包含氧化爐管、退火爐等高溫製程設備，用於生成氧化層、活化摻雜物或修復晶格缺陷。爐內溫度均勻性與控制精準度，直接影響元件的電性穩定度與可靠度。",
+              companies:[{n:"東京威力科創 TEL"},{n:"應用材料 AMAT"}],
+              stats:[] }
+          ] },
         { icon:"icon-chip", title:"IC設計", sub:"CHIP DESIGN / FABLESS",
           desc:"雲端巨頭與晶片大廠在此決定運算架構——從輝達、超微、博通等商用GPU／ASIC設計商，到Google、Amazon、Meta等雲端業者近年積極投入自研晶片。台灣的IC設計服務業者（世芯-KY、創意電子、智原）則是雲端巨頭自研ASIC背後最關鍵的矽智財與設計代工夥伴，隨著「去輝達化」浪潮承接大量訂單。",
           companies:[{n:"聯發科",tw:1},{n:"世芯-KY",tw:1},{n:"創意電子",tw:1},{n:"智原",tw:1},{n:"輝達 NVIDIA"},{n:"超微 AMD"},{n:"博通 Broadcom"},{n:"雲端自研 Google／Amazon"}],
@@ -618,15 +667,30 @@
     });
   }
 
-  function renderPanel(i){
-    var node = state.nodes[i];
-    var chipsHtml = node.companies.map(function(c){
+  function chipsHtmlFor(companies){
+    return (companies||[]).map(function(c){
       return '<span class="chip'+(c.tw?' tw':'')+'">' + (c.tw ? '<span class="tw-dot"></span><span class="tw-tag">TW</span>' : '') +
              '<span>'+c.n+'</span></span>';
     }).join("");
-    var statsHtml = (node.stats||[]).map(function(s){
+  }
+  function statsHtmlFor(stats){
+    return (stats||[]).map(function(s){
       return '<div class="stat-tile"><div class="stat-value mono">'+s.v+'</div><div class="stat-label">'+s.l+'</div></div>';
     }).join("");
+  }
+
+  function renderPanel(i){
+    var node = state.nodes[i];
+    var subGridHtml = "";
+    if(node.children && node.children.length){
+      subGridHtml = '<div class="chip-label">深入了解：設備分類</div><div class="sub-grid">' +
+        node.children.map(function(child, ci){
+          return '<button class="sub-card" data-child="'+ci+'">' +
+            '<svg viewBox="0 0 40 40"><use href="#'+(child.icon||"icon-generic")+'"></use></svg>' +
+            '<span class="sub-card-title">'+child.title+'</span>' +
+          '</button>';
+        }).join("") + '</div>';
+    }
 
     panel.innerHTML =
       '<div class="panel-icon-wrap"><svg viewBox="0 0 40 40"><use href="#'+(node.icon||"icon-generic")+'"></use></svg></div>' +
@@ -638,8 +702,9 @@
         '</div></div>' +
         '<p class="panel-desc">'+node.desc+'</p>' +
         '<div class="chip-label">代表廠商</div>' +
-        '<div class="chips">'+chipsHtml+'</div>' +
-        '<div class="stats">'+statsHtml+'</div>' +
+        '<div class="chips">'+chipsHtmlFor(node.companies)+'</div>' +
+        '<div class="stats">'+statsHtmlFor(node.stats)+'</div>' +
+        subGridHtml +
         '<div class="panel-nav">' +
           '<button class="nav-btn" id="prevBtn" '+(i===0?"disabled":"")+'>‹ 上一步</button>' +
           '<button class="nav-btn" id="nextBtn" '+(i===state.nodes.length-1?"disabled":"")+'>下一步 ›</button>' +
@@ -648,6 +713,42 @@
 
     document.getElementById("prevBtn").addEventListener("click", function(){ if(i>0) selectNode(i-1); });
     document.getElementById("nextBtn").addEventListener("click", function(){ if(i<state.nodes.length-1) selectNode(i+1); });
+
+    if(node.children && node.children.length){
+      Array.prototype.forEach.call(panel.querySelectorAll(".sub-card"), function(btn){
+        btn.addEventListener("click", function(){
+          renderChildPanel(i, parseInt(btn.getAttribute("data-child"), 10));
+        });
+      });
+    }
+  }
+
+  function renderChildPanel(parentIndex, childIndex){
+    var parent = state.nodes[parentIndex];
+    var child = parent.children[childIndex];
+
+    panel.innerHTML =
+      '<div class="panel-icon-wrap"><svg viewBox="0 0 40 40"><use href="#'+(child.icon||"icon-generic")+'"></use></svg></div>' +
+      '<div class="panel-body">' +
+        '<button class="breadcrumb" id="backBtn">‹ 返回「'+parent.title+'」</button>' +
+        '<div class="panel-top"><div>' +
+          '<div class="panel-step">'+parent.title+' ／ 設備分類</div>' +
+          '<h2 class="panel-title">'+child.title+'</h2>' +
+          '<div class="panel-sub">'+(child.sub||"")+'</div>' +
+        '</div></div>' +
+        '<p class="panel-desc">'+child.desc+'</p>' +
+        '<div class="chip-label">代表廠商</div>' +
+        '<div class="chips">'+chipsHtmlFor(child.companies)+'</div>' +
+        '<div class="stats">'+statsHtmlFor(child.stats)+'</div>' +
+        '<div class="panel-nav">' +
+          '<button class="nav-btn" id="childPrev" '+(childIndex===0?"disabled":"")+'>‹ 上一類</button>' +
+          '<button class="nav-btn" id="childNext" '+(childIndex===parent.children.length-1?"disabled":"")+'>下一類 ›</button>' +
+        '</div>' +
+      '</div>';
+
+    document.getElementById("backBtn").addEventListener("click", function(){ renderPanel(parentIndex); });
+    document.getElementById("childPrev").addEventListener("click", function(){ if(childIndex>0) renderChildPanel(parentIndex, childIndex-1); });
+    document.getElementById("childNext").addEventListener("click", function(){ if(childIndex<parent.children.length-1) renderChildPanel(parentIndex, childIndex+1); });
   }
 
   function selectNode(i){
