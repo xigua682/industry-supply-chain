@@ -376,6 +376,14 @@
             <line x1="15" y1="19" x2="25" y2="19" stroke="currentColor" stroke-width="1.2"/>
             <line x1="19" y1="15" x2="19" y2="25" stroke="currentColor" stroke-width="1.2"/>
           </symbol>
+          <symbol id="icon-drill" viewBox="0 0 40 40">
+            <rect x="6" y="23" width="28" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="20" cy="27.5" r="2.2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+            <line x1="20" y1="6" x2="20" y2="21" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M15 6 L20 1.5 L25 6 Z" fill="currentColor"/>
+            <line x1="16.5" y1="10" x2="23.5" y2="13.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            <line x1="16.5" y1="14.5" x2="23.5" y2="18" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          </symbol>
         </defs>
 
         <g id="segmentsLayer"></g>
@@ -504,6 +512,7 @@
           desc:"專為AI運算堆疊設計的高速記憶體，以矽穿孔（TSV）技術垂直堆疊多層DRAM，直接影響AI晶片的運算頻寬上限。目前產能集中於三大原廠，且全數處於售罄狀態。",
           companies:[{n:"SK海力士"},{n:"美光 Micron"},{n:"三星電子"}],
           stats:[{v:"~62%",l:"SK海力士HBM市占"},{v:"全數售罄",l:"三強2026年全年產能"}],
+          crossLink:{ industry:"memory", text:"想了解記憶體從晶粒到模組的完整供應鏈？查看記憶體供應鏈總覽" },
           children:[
             { icon:"icon-chip", title:"DRAM顆粒製造", sub:"DRAM DIE MANUFACTURING",
               desc:"以奈米等級製程生產標準DRAM裸晶，是HBM堆疊的基礎單元。由於HBM需求排擠標準DRAM產能，生產同容量的HBM約需消耗數倍於標準DRAM的產能，是近年DRAM現貨價格大漲的主因之一。",
@@ -560,6 +569,7 @@
           desc:"承載晶片與各元件的多層電路載板。ABF載板技術門檻高、產能長期吃緊，高速PCB則需承受AI伺服器高頻高速訊號傳輸的嚴苛要求，是台廠掌握度極高的一環。",
           companies:[{n:"欣興",tw:1},{n:"南電",tw:1},{n:"景碩",tw:1},{n:"台光電",tw:1},{n:"金像電",tw:1}],
           stats:[{v:">50%",l:"台廠全球ABF載板產能占比"}],
+          crossLink:{ industry:"pcb", text:"想知道電路板怎麼「做出來」？查看PCB電路板完整製造流程" },
           children:[
             { icon:"icon-substrate", title:"ABF載板三雄", sub:"ABF SUBSTRATE",
               desc:"高階CPU、GPU與AI ASIC封裝所需的Ajinomoto Build-up Film載板，技術門檻高、產能擴充週期長，台灣三大廠合計掌握全球絕大多數先進載板產能。",
@@ -678,7 +688,7 @@
     },
 
     "wafer-fab": {
-      name: "晶圓製造詳細流程",
+      name: "晶圓製造",
       nameEn: "WAFER FABRICATION PROCESS",
       lede: "從一粒矽砂到一片測試完成的晶圓，前段製程的十三道關鍵工序。每一層電路都要重複微影、蝕刻、佈植、沉積的循環數十次，是整條半導體供應鏈中設備密集度最高、也最燒錢的一段。",
       updated: "2026年9月",
@@ -740,6 +750,112 @@
         { icon:"icon-probe", title:"電性測試／針測", sub:"WAFER PROBING (CP TEST)",
           desc:"在晶圓切割前，以探針卡逐顆晶粒進行電性測試（CP測試），篩選出功能正常的良品晶粒並標記不良品，避免不良晶粒流入後續昂貴的封裝製程。",
           companies:[{n:"京元電子",tw:1},{n:"愛德萬測試 Advantest"},{n:"泰瑞達 Teradyne"}],
+          stats:[] }
+      ]
+    },
+
+    "pcb": {
+      name: "PCB電路板製造",
+      nameEn: "PCB MANUFACTURING PROCESS",
+      lede: "從銅箔基板到多層電路板出貨，印刷電路板從材料到成品的核心製程。AI伺服器與高速運算應用對板材阻抗控制、層數與訊號完整性要求日益嚴苛，是這波AI資本支出中拉貨動能最強勁的應用區塊之一。",
+      updated: "2026年9月",
+      sources: [
+        "豐雲學堂－「PCB怎麼做？從內層製程、鑽孔電鍍到表面處理12大步驟一次看」",
+        "商周頭條－「CoWoS是什麼？台積電先進封裝、概念股／供應鏈名單一次看」（載板供應鏈參照）",
+        "各PCB廠商法說會與公開資訊觀測站公告"
+      ],
+      disclaimer: "本頁面為公開技術資料整理彙編，實際製程步驟、設備廠商與良率依各PCB廠製程能力與產品規格而異，僅供技術脈絡參考，不構成任何投資建議。",
+      nodes: [
+        { icon:"icon-generic", title:"銅箔基板(CCL)製造", sub:"COPPER CLAD LAMINATE",
+          desc:"由玻纖布、樹脂與銅箔壓合而成的PCB基礎材料，是決定板材訊號損耗與耐熱性的關鍵源頭。高速運算應用要求低介電損耗（Low Dk/Df）的特殊樹脂配方，材料等級直接影響下游高速板的訊號完整性。",
+          companies:[{n:"台燿",tw:1},{n:"台光電",tw:1},{n:"聯茂",tw:1}],
+          stats:[] },
+        { icon:"icon-substrate", title:"內層前處理與壓合", sub:"INNER LAYER LAMINATION",
+          desc:"將多片薄型內層板材與膠片依疊層設計堆疊，於高溫高壓下壓合成一體多層結構，壓合精度決定板厚均勻度與層間對準準確性，是多層板製程的結構基礎。",
+          companies:[{n:"欣興",tw:1},{n:"南電",tw:1},{n:"景碩",tw:1}],
+          stats:[] },
+        { icon:"icon-etch", title:"內層線路成像與蝕刻", sub:"INNER LAYER IMAGING & ETCHING",
+          desc:"以感光光阻結合曝光顯影技術，將設計電路圖案轉印至銅箔表面，再以化學蝕刻去除多餘銅箔，形成內層導線圖案，線寬線距精度直接影響訊號傳輸品質。",
+          companies:[{n:"欣興",tw:1},{n:"南電",tw:1},{n:"景碩",tw:1}],
+          stats:[] },
+        { icon:"icon-drill", title:"鑽孔（機械與雷射）", sub:"DRILLING (MECHANICAL & LASER)",
+          desc:"以機械鑽針或雷射光束在板材上鑽出導通孔與微盲孔，高階伺服器板單片可能需要數萬個孔位，孔徑精度與孔壁品質直接影響後續電鍍與電性可靠度。",
+          companies:[{n:"欣興",tw:1},{n:"華通",tw:1},{n:"金像電",tw:1}],
+          stats:[{v:"數萬孔",l:"高階伺服器板單片孔位數量級"}] },
+        { icon:"icon-deposit", title:"化學銅與電鍍銅（孔壁金屬化）", sub:"PTH & COPPER PLATING",
+          desc:"先以化學銅在孔壁形成導電底層，再以電鍍銅加厚導通孔與線路銅層，確保各層線路間的電性導通與長期可靠度，是多層板結構完整性的關鍵工序。",
+          companies:[{n:"欣興",tw:1},{n:"南電",tw:1},{n:"景碩",tw:1}],
+          stats:[] },
+        { icon:"icon-etch", title:"外層線路成像與蝕刻", sub:"OUTER LAYER IMAGING & ETCHING",
+          desc:"重複內層的成像與蝕刻工序於外層銅箔，完成最終電路圖案，是決定成品線寬線距精度與訊號傳輸表現的最後一道線路製作工序。",
+          companies:[{n:"欣興",tw:1},{n:"南電",tw:1},{n:"金像電",tw:1}],
+          stats:[] },
+        { icon:"icon-mask", title:"防焊綠漆(Solder Mask)", sub:"SOLDER MASK",
+          desc:"於電路板表面塗佈防焊油墨並曝光顯影，僅露出需要焊接的銅墊，兼具絕緣保護、防止氧化與元件識別的功能。",
+          companies:[{n:"欣興",tw:1},{n:"南電",tw:1}],
+          stats:[] },
+        { icon:"icon-clean", title:"表面處理", sub:"SURFACE FINISH",
+          desc:"依應用需求於銅墊表面鍍覆化學鎳金（ENIG）、有機保焊劑（OSP）或浸銀等保護層，防止銅氧化並確保後續焊接的可靠度，是影響成品良率與壽命的關鍵表面工程。",
+          companies:[{n:"欣興",tw:1},{n:"景碩",tw:1}],
+          stats:[] },
+        { icon:"icon-generic", title:"文字印刷與外型加工", sub:"LEGEND PRINTING & ROUTING",
+          desc:"印刷元件編號與極性標示以利後續組裝辨識，並以CNC銑型或V-cut方式將板材切割為最終外形尺寸，完成單片板件的機構加工。",
+          companies:[{n:"欣興",tw:1},{n:"華通",tw:1}],
+          stats:[] },
+        { icon:"icon-probe", title:"電性測試", sub:"ELECTRICAL TEST (AOI／飛針測試)",
+          desc:"以自動光學檢查（AOI）搭配飛針測試或治具測試逐板檢驗線路導通與短斷路，確保出貨品質。台灣廠商在自動光學檢測設備領域已建立領先地位。",
+          companies:[{n:"由田新技",tw:1},{n:"德律",tw:1}],
+          stats:[] },
+        { icon:"icon-metrology", title:"品保檢驗與出貨", sub:"FQC & SHIPPING",
+          desc:"最終尺寸、可靠度與外觀全數複檢後包裝出貨，高階伺服器板另需通過客戶端的信賴性與訊號完整性認證測試，才能正式進入AI伺服器供應鏈。",
+          companies:[{n:"欣興",tw:1},{n:"南電",tw:1},{n:"景碩",tw:1},{n:"金像電",tw:1},{n:"華通",tw:1}],
+          stats:[] }
+      ]
+    },
+
+    "memory": {
+      name: "記憶體供應鏈",
+      nameEn: "MEMORY SUPPLY CHAIN",
+      lede: "從記憶體晶粒設計、晶圓製造到封裝測試、模組組裝，DRAM與NAND Flash從裸晶到成品模組的完整供應鏈。台灣在利基型記憶體IC設計、委外測試與模組組裝環節掌握重要地位。",
+      updated: "2026年9月",
+      sources: [
+        "領趨投資觀點－「全球DRAM與NAND Flash記憶體產業深度研究報告」",
+        "FM Studio理財研究室－「台灣DRAM廠有哪些？2026最新DRAM概念股龍頭、模組廠排名一次看懂」",
+        "各記憶體廠商法說會與公開資訊觀測站公告"
+      ],
+      disclaimer: "本頁面為公開資訊整理彙編，市占率、產能與產品規格等數據會隨市場狀況與廠商公告持續變動，僅供產業脈絡參考，不構成任何投資建議。",
+      nodes: [
+        { icon:"icon-chip", title:"記憶體IC設計", sub:"MEMORY IC DESIGN",
+          desc:"標準型DRAM／NAND由三大原廠自主設計，利基型記憶體（如低功耗、車用、工規型號）則由專業IC設計公司規劃電路架構，決定容量、速度與功耗規格。",
+          companies:[{n:"晶豪科",tw:1},{n:"SK海力士"},{n:"美光 Micron"},{n:"三星電子"}],
+          stats:[] },
+        { icon:"icon-foundry", title:"晶圓製造", sub:"MEMORY WAFER FABRICATION",
+          desc:"以成熟至先進製程量產記憶體晶圓，DRAM需精密的電容結構製程，NAND Flash則需堆疊數百層的3D電荷捕捉結構，是記憶體供應鏈中資本支出最龐大的環節。",
+          companies:[{n:"南亞科",tw:1},{n:"華邦電",tw:1},{n:"SK海力士"},{n:"美光 Micron"},{n:"三星電子"}],
+          stats:[] },
+        { icon:"icon-probe", title:"晶圓針測(CP測試)", sub:"WAFER PROBING (CP TEST)",
+          desc:"晶圓切割前以探針卡逐顆晶粒進行電性功能測試，篩選出良品晶粒並標記不良品，避免不良晶粒流入後續昂貴的封裝製程。",
+          companies:[{n:"京元電子",tw:1}],
+          stats:[] },
+        { icon:"icon-package", title:"封裝(Packaging)", sub:"MEMORY PACKAGING",
+          desc:"將測試合格的記憶體裸晶切割、打線並以封裝材料保護、封裝成獨立顆粒（die package），部分高階應用需將多顆晶粒堆疊封裝以提升單顆容量。",
+          companies:[{n:"日月光",tw:1},{n:"力成",tw:1}],
+          stats:[] },
+        { icon:"icon-probe", title:"終測(Final Test)", sub:"FINAL TEST",
+          desc:"封裝完成後進行最終電性與可靠度測試，確保出廠顆粒符合速度與容量規格。台灣測試廠商是全球記憶體原廠重要的委外測試夥伴，尤其在成熟型記憶體測試領域市占顯著。",
+          companies:[{n:"力成",tw:1},{n:"京元電子",tw:1}],
+          stats:[] },
+        { icon:"icon-hbm", title:"模組設計與PCB載板", sub:"MODULE DESIGN & PCB",
+          desc:"將測試合格的記憶體顆粒依應用規格（如DDR5、伺服器RDIMM）設計並固定於模組電路板上，模組廠依終端客戶需求彈性配置容量與規格組合。",
+          companies:[{n:"威剛",tw:1},{n:"創見",tw:1},{n:"十銓",tw:1}],
+          stats:[] },
+        { icon:"icon-hbm", title:"模組組裝與測試", sub:"MODULE ASSEMBLY & TEST",
+          desc:"將顆粒錫焊固定至模組板並進行整模測試，確保時序、電壓與資料完整性符合JEDEC規範，是模組廠品牌價值與品質保證的核心環節。",
+          companies:[{n:"威剛",tw:1},{n:"創見",tw:1},{n:"品安",tw:1}],
+          stats:[] },
+        { icon:"icon-generic", title:"通路與品牌銷售", sub:"DISTRIBUTION & BRANDING",
+          desc:"模組廠透過自有品牌與通路網路銷售終端產品，涵蓋消費型、企業級與車用記憶體模組市場，是記憶體供應鏈中最貼近終端需求的一環。",
+          companies:[{n:"威剛",tw:1},{n:"創見",tw:1}],
           stats:[] }
       ]
     }
