@@ -144,6 +144,10 @@
   .panel-title{ margin:.15rem 0 0; font-size:1.4rem; font-weight:800; letter-spacing:-.01em; }
   .panel-sub{ font-family:'IBM Plex Mono',monospace; font-size:.76rem; color:var(--copper); letter-spacing:.08em; margin-top:.15rem; }
   .panel-desc{ margin:.9rem 0 0; color:var(--ink-soft); line-height:1.75; font-size:.95rem; max-width:68ch; }
+  .node-diagram{ margin:1.1rem 0 0; padding:1rem 1rem .8rem; border-radius:12px; background:var(--surface-2); border:1px solid var(--line); }
+  .node-diagram-svg{ width:100%; }
+  .node-diagram-svg svg{ width:100%; height:auto; display:block; }
+  .node-diagram figcaption{ margin-top:.6rem; font-size:.78rem; color:var(--ink-faint); line-height:1.6; }
   .cross-link-group{ display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1rem; }
   .cross-link{ display:inline-flex; align-items:center; gap:.6rem; padding:.65rem 1rem; border-radius:10px; background:var(--copper-soft); border:1px solid var(--copper-soft-line); color:var(--copper-ink); font-family:'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif; font-weight:700; font-size:.88rem; cursor:pointer; transition:border-color .15s ease, background .15s ease, color .15s ease; }
   .cross-link:hover{ background:var(--copper); border-color:var(--copper); color:#fff; }
@@ -566,6 +570,21 @@
      icon 可用現有 icon-* symbol id，找不到合適的就用 icon-generic。
      companies 的 tw:1 會標示為台灣供應鏈廠商。
      ============================================================ */
+  /* ============================================================
+     結構示意圖　DIAGRAMS
+     ------------------------------------------------------------
+     封裝／PCB／載板等物理結構的示意圖（inline SVG），供節點詳情頁
+     旁引用。顏色皆使用站內既有 CSS 變數，深色模式會自動切換。
+     ============================================================ */
+  var DIAGRAMS = {
+    DIAGRAM_COWOS: `<svg viewBox="0 0 760 340" role="img" aria-label="CoWoS 2.5D封裝結構示意圖：邏輯晶片與多顆HBM記憶體堆疊於矽中介層上，中介層內含TSV垂直導通孔，整體固定於封裝基板"><g font-family="'Noto Sans TC',sans-serif"><rect x="60" y="288" width="440" height="26" rx="3" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1.4"/><circle cx="75" cy="282" r="3.4" fill="var(--ink-faint)"/><circle cx="102" cy="282" r="3.4" fill="var(--ink-faint)"/><circle cx="129" cy="282" r="3.4" fill="var(--ink-faint)"/><circle cx="156" cy="282" r="3.4" fill="var(--ink-faint)"/><circle cx="183" cy="282" r="3.4" fill="var(--ink-faint)"/><circle cx="210" cy="282" r="3.4" fill="var(--ink-faint)"/><circle cx="237" cy="282" r="3.4" fill="var(--ink-faint)"/><circle cx="264" cy="282" r="3.4" fill="var(--ink-faint)"/><circle cx="291" cy="282" r="3.4" fill="var(--ink-faint)"/><circle cx="318" cy="282" r="3.4" fill="var(--ink-faint)"/><circle cx="345" cy="282" r="3.4" fill="var(--ink-faint)"/><circle cx="372" cy="282" r="3.4" fill="var(--ink-faint)"/><circle cx="399" cy="282" r="3.4" fill="var(--ink-faint)"/><circle cx="426" cy="282" r="3.4" fill="var(--ink-faint)"/><circle cx="453" cy="282" r="3.4" fill="var(--ink-faint)"/><circle cx="480" cy="282" r="3.4" fill="var(--ink-faint)"/><rect x="80" y="234" width="400" height="40" rx="2" fill="var(--copper-soft)" stroke="var(--copper-soft-line)" stroke-width="1.4"/><line x1="100" y1="240" x2="100" y2="268" stroke="var(--copper-ink)" stroke-width="1.6"/><line x1="138" y1="240" x2="138" y2="268" stroke="var(--copper-ink)" stroke-width="1.6"/><line x1="176" y1="240" x2="176" y2="268" stroke="var(--copper-ink)" stroke-width="1.6"/><line x1="214" y1="240" x2="214" y2="268" stroke="var(--copper-ink)" stroke-width="1.6"/><line x1="252" y1="240" x2="252" y2="268" stroke="var(--copper-ink)" stroke-width="1.6"/><line x1="290" y1="240" x2="290" y2="268" stroke="var(--copper-ink)" stroke-width="1.6"/><line x1="328" y1="240" x2="328" y2="268" stroke="var(--copper-ink)" stroke-width="1.6"/><line x1="366" y1="240" x2="366" y2="268" stroke="var(--copper-ink)" stroke-width="1.6"/><line x1="404" y1="240" x2="404" y2="268" stroke="var(--copper-ink)" stroke-width="1.6"/><line x1="442" y1="240" x2="442" y2="268" stroke="var(--copper-ink)" stroke-width="1.6"/><circle cx="115" cy="228" r="2.6" fill="var(--ink-faint)"/><circle cx="135" cy="228" r="2.6" fill="var(--ink-faint)"/><circle cx="155" cy="228" r="2.6" fill="var(--ink-faint)"/><circle cx="175" cy="228" r="2.6" fill="var(--ink-faint)"/><circle cx="195" cy="228" r="2.6" fill="var(--ink-faint)"/><circle cx="215" cy="228" r="2.6" fill="var(--ink-faint)"/><circle cx="235" cy="228" r="2.6" fill="var(--ink-faint)"/><circle cx="255" cy="228" r="2.6" fill="var(--ink-faint)"/><circle cx="325" cy="228" r="2.6" fill="var(--ink-faint)"/><circle cx="345" cy="228" r="2.6" fill="var(--ink-faint)"/><circle cx="365" cy="228" r="2.6" fill="var(--ink-faint)"/><circle cx="385" cy="228" r="2.6" fill="var(--ink-faint)"/><circle cx="405" cy="228" r="2.6" fill="var(--ink-faint)"/><circle cx="425" cy="228" r="2.6" fill="var(--ink-faint)"/><circle cx="445" cy="228" r="2.6" fill="var(--ink-faint)"/><circle cx="465" cy="228" r="2.6" fill="var(--ink-faint)"/><circle cx="485" cy="228" r="2.6" fill="var(--ink-faint)"/><rect x="100" y="148" width="180" height="80" rx="3" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.8"/><text x="190.0" y="186.0" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">邏輯運算晶片</text><text x="190.0" y="204.0" text-anchor="middle" font-size="10.5" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">SoC / GPU LOGIC DIE</text><rect x="300" y="213" width="62" height="15" fill="var(--signal-soft)" stroke="var(--signal)" stroke-width="1.1"/><rect x="300" y="198" width="62" height="15" fill="var(--signal-soft)" stroke="var(--signal)" stroke-width="1.1"/><rect x="300" y="183" width="62" height="15" fill="var(--signal-soft)" stroke="var(--signal)" stroke-width="1.1"/><rect x="300" y="168" width="62" height="15" fill="var(--signal-soft)" stroke="var(--signal)" stroke-width="1.1"/><rect x="300" y="153" width="62" height="15" fill="var(--signal-soft)" stroke="var(--signal)" stroke-width="1.1"/><line x1="331.0" y1="156" x2="331.0" y2="225" stroke="var(--signal)" stroke-width="1" stroke-dasharray="1.5,2.5"/><rect x="376" y="213" width="62" height="15" fill="var(--signal-soft)" stroke="var(--signal)" stroke-width="1.1"/><rect x="376" y="198" width="62" height="15" fill="var(--signal-soft)" stroke="var(--signal)" stroke-width="1.1"/><rect x="376" y="183" width="62" height="15" fill="var(--signal-soft)" stroke="var(--signal)" stroke-width="1.1"/><rect x="376" y="168" width="62" height="15" fill="var(--signal-soft)" stroke="var(--signal)" stroke-width="1.1"/><rect x="376" y="153" width="62" height="15" fill="var(--signal-soft)" stroke="var(--signal)" stroke-width="1.1"/><line x1="407.0" y1="156" x2="407.0" y2="225" stroke="var(--signal)" stroke-width="1" stroke-dasharray="1.5,2.5"/><rect x="452" y="213" width="62" height="15" fill="var(--signal-soft)" stroke="var(--signal)" stroke-width="1.1"/><rect x="452" y="198" width="62" height="15" fill="var(--signal-soft)" stroke="var(--signal)" stroke-width="1.1"/><rect x="452" y="183" width="62" height="15" fill="var(--signal-soft)" stroke="var(--signal)" stroke-width="1.1"/><rect x="452" y="168" width="62" height="15" fill="var(--signal-soft)" stroke="var(--signal)" stroke-width="1.1"/><rect x="452" y="153" width="62" height="15" fill="var(--signal-soft)" stroke="var(--signal)" stroke-width="1.1"/><line x1="483.0" y1="156" x2="483.0" y2="225" stroke="var(--signal)" stroke-width="1" stroke-dasharray="1.5,2.5"/><line x1="514" y1="165" x2="556" y2="104" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="560" y="100" text-anchor="start" font-size="12" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">HBM 記憶體堆疊 ×3</text><text x="560" y="116" text-anchor="start" font-size="10.5" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">HBM STACKS (TSV-CONNECTED)</text><line x1="480" y1="254" x2="556" y2="194" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="560" y="190" text-anchor="start" font-size="12" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">矽中介層 Interposer</text><text x="560" y="206" text-anchor="start" font-size="10.5" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">內含TSV垂直導通孔</text><line x1="500" y1="301" x2="556" y2="284" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="560" y="280" text-anchor="start" font-size="12" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">封裝基板 Substrate</text><text x="560" y="296" text-anchor="start" font-size="10.5" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">BALL GRID ARRAY (BGA)</text><text x="530.0" y="326" text-anchor="middle" font-size="10.5" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">CoWoS：邏輯晶片＋HBM 共同座落於矽中介層，經TSV垂直導通、再連至封裝基板</text></g></svg>`,
+    DIAGRAM_INFO: `<svg viewBox="0 0 640 300" role="img" aria-label="InFO整合扇出封裝結構示意圖：晶片包埋於環氧模封材料中，重佈線層（RDL）向外延伸超出晶片本身範圍，錫球陣列分布範圍大於晶片面積"><g><rect x="130" y="90" width="380" height="70" rx="4" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1.4" stroke-dasharray="4,3"/><text x="146" y="106" text-anchor="start" font-size="10.5" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">環氧模封材料 EMC</text><rect x="260" y="100" width="120" height="50" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.8"/><text x="320.0" y="123.0" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">晶片 Die</text><text x="320.0" y="140.0" text-anchor="middle" font-size="10.5" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">A/M-SERIES SoC</text><rect x="150" y="160" width="340" height="16" fill="var(--copper-soft)" stroke="var(--copper-soft-line)" stroke-width="1.2"/><text x="158" y="171" text-anchor="start" font-size="9.6" fill="var(--copper-ink)" font-family="'IBM Plex Mono',monospace">RDL 重佈線層（向兩側延伸超出晶片邊界）</text><circle cx="160" cy="192" r="4.2" fill="var(--ink-faint)"/><circle cx="184" cy="192" r="4.2" fill="var(--ink-faint)"/><circle cx="208" cy="192" r="4.2" fill="var(--ink-faint)"/><circle cx="232" cy="192" r="4.2" fill="var(--ink-faint)"/><circle cx="256" cy="192" r="4.2" fill="var(--ink-faint)"/><circle cx="280" cy="192" r="4.2" fill="var(--ink-faint)"/><circle cx="304" cy="192" r="4.2" fill="var(--ink-faint)"/><circle cx="328" cy="192" r="4.2" fill="var(--ink-faint)"/><circle cx="352" cy="192" r="4.2" fill="var(--ink-faint)"/><circle cx="376" cy="192" r="4.2" fill="var(--ink-faint)"/><circle cx="400" cy="192" r="4.2" fill="var(--ink-faint)"/><circle cx="424" cy="192" r="4.2" fill="var(--ink-faint)"/><circle cx="448" cy="192" r="4.2" fill="var(--ink-faint)"/><circle cx="472" cy="192" r="4.2" fill="var(--ink-faint)"/><circle cx="496" cy="192" r="4.2" fill="var(--ink-faint)"/><line x1="160" y1="176" x2="160" y2="187.8" stroke="var(--line-strong)" stroke-width="1"/><line x1="184" y1="176" x2="184" y2="187.8" stroke="var(--line-strong)" stroke-width="1"/><line x1="208" y1="176" x2="208" y2="187.8" stroke="var(--line-strong)" stroke-width="1"/><line x1="232" y1="176" x2="232" y2="187.8" stroke="var(--line-strong)" stroke-width="1"/><line x1="256" y1="176" x2="256" y2="187.8" stroke="var(--line-strong)" stroke-width="1"/><line x1="280" y1="176" x2="280" y2="187.8" stroke="var(--line-strong)" stroke-width="1"/><line x1="304" y1="176" x2="304" y2="187.8" stroke="var(--line-strong)" stroke-width="1"/><line x1="328" y1="176" x2="328" y2="187.8" stroke="var(--line-strong)" stroke-width="1"/><line x1="352" y1="176" x2="352" y2="187.8" stroke="var(--line-strong)" stroke-width="1"/><line x1="376" y1="176" x2="376" y2="187.8" stroke="var(--line-strong)" stroke-width="1"/><line x1="400" y1="176" x2="400" y2="187.8" stroke="var(--line-strong)" stroke-width="1"/><line x1="424" y1="176" x2="424" y2="187.8" stroke="var(--line-strong)" stroke-width="1"/><line x1="448" y1="176" x2="448" y2="187.8" stroke="var(--line-strong)" stroke-width="1"/><line x1="472" y1="176" x2="472" y2="187.8" stroke="var(--line-strong)" stroke-width="1"/><line x1="496" y1="176" x2="496" y2="187.8" stroke="var(--line-strong)" stroke-width="1"/><line x1="260" y1="216" x2="380" y2="216" stroke="var(--ink-soft)" stroke-width="1.3"/><line x1="260" y1="212" x2="260" y2="220" stroke="var(--ink-soft)" stroke-width="1.3"/><line x1="380" y1="212" x2="380" y2="220" stroke="var(--ink-soft)" stroke-width="1.3"/><text x="320.0" y="232" text-anchor="middle" font-size="9.6" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">晶片寬度</text><line x1="160" y1="246" x2="496" y2="246" stroke="var(--copper)" stroke-width="1.3"/><line x1="160" y1="242" x2="160" y2="250" stroke="var(--copper)" stroke-width="1.3"/><line x1="496" y1="242" x2="496" y2="250" stroke="var(--copper)" stroke-width="1.3"/><text x="328.0" y="262" text-anchor="middle" font-size="9.6" fill="var(--copper-ink)" font-family="'IBM Plex Mono',monospace">扇出後錫球陣列寬度（＞晶片寬度）</text><text x="320.0" y="286" text-anchor="middle" font-size="10.5" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">InFO：晶片包埋於模封材料中，RDL重佈線向外「扇出」，錫球分布範圍大於晶片本身</text></g></svg>`,
+    DIAGRAM_SOIC: `<svg viewBox="0 0 640 320" role="img" aria-label="SoIC 3D晶片堆疊示意圖：多顆晶片透過混合接合直接垂直堆疊，晶片之間沒有錫球，以銅對銅直接接合，下方再連接至中介層與基板"><g><rect x="130" y="262" width="380" height="24" rx="3" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1.4"/><text x="140" y="278" text-anchor="start" font-size="10" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">封裝基板 Substrate</text><circle cx="150" cy="256" r="3.2" fill="var(--ink-faint)"/><circle cx="180" cy="256" r="3.2" fill="var(--ink-faint)"/><circle cx="210" cy="256" r="3.2" fill="var(--ink-faint)"/><circle cx="240" cy="256" r="3.2" fill="var(--ink-faint)"/><circle cx="270" cy="256" r="3.2" fill="var(--ink-faint)"/><circle cx="300" cy="256" r="3.2" fill="var(--ink-faint)"/><circle cx="330" cy="256" r="3.2" fill="var(--ink-faint)"/><circle cx="360" cy="256" r="3.2" fill="var(--ink-faint)"/><circle cx="390" cy="256" r="3.2" fill="var(--ink-faint)"/><circle cx="420" cy="256" r="3.2" fill="var(--ink-faint)"/><circle cx="450" cy="256" r="3.2" fill="var(--ink-faint)"/><rect x="150" y="226" width="300" height="24" fill="var(--copper-soft)" stroke="var(--copper-soft-line)" stroke-width="1.3"/><text x="160" y="242" text-anchor="start" font-size="10" fill="var(--copper-ink)" font-family="'IBM Plex Mono',monospace">矽中介層 Interposer</text><rect x="220" y="192" width="160" height="34" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.8"/><line x1="226" y1="192" x2="374" y2="192" stroke="var(--signal)" stroke-width="2.4"/><rect x="220" y="158" width="160" height="34" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.8"/><line x1="226" y1="158" x2="374" y2="158" stroke="var(--signal)" stroke-width="2.4"/><rect x="220" y="124" width="160" height="34" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.8"/><text x="300.0" y="145.0" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">晶片 3</text><text x="300.0" y="179.0" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">晶片 2</text><text x="300.0" y="213.0" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">晶片 1（底層邏輯）</text><line x1="390" y1="192" x2="440" y2="162" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="444" y="158" text-anchor="start" font-size="11.5" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">混合接合介面</text><text x="444" y="174" text-anchor="start" font-size="9.8" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">HYBRID BONDING</text><text x="444" y="188" text-anchor="start" font-size="9.8" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">銅對銅直接接合，無錫球</text><text x="320.0" y="306" text-anchor="middle" font-size="10.5" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">SoIC：晶片以混合接合技術直接垂直堆疊，無需錫球，接合密度遠高於傳統封裝</text></g></svg>`,
+    DIAGRAM_HBM: `<svg viewBox="0 0 560 340" role="img" aria-label="HBM高頻寬記憶體結構示意圖：多層DRAM晶粒以矽穿孔TSV垂直堆疊，底部為負責訊號中繼的邏輯基底晶片，再透過微凸塊連接至下方基板"><g><rect x="140" y="288" width="280" height="24" rx="3" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1.4"/><text x="280.0" y="304" text-anchor="middle" font-size="10" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">封裝基板／中介層</text><circle cx="160" cy="282" r="3" fill="var(--ink-faint)"/><circle cx="184" cy="282" r="3" fill="var(--ink-faint)"/><circle cx="208" cy="282" r="3" fill="var(--ink-faint)"/><circle cx="232" cy="282" r="3" fill="var(--ink-faint)"/><circle cx="256" cy="282" r="3" fill="var(--ink-faint)"/><circle cx="280" cy="282" r="3" fill="var(--ink-faint)"/><circle cx="304" cy="282" r="3" fill="var(--ink-faint)"/><circle cx="328" cy="282" r="3" fill="var(--ink-faint)"/><circle cx="352" cy="282" r="3" fill="var(--ink-faint)"/><circle cx="376" cy="282" r="3" fill="var(--ink-faint)"/><circle cx="400" cy="282" r="3" fill="var(--ink-faint)"/><rect x="150" y="258" width="260" height="24" fill="var(--copper-soft)" stroke="var(--copper-soft-line)" stroke-width="1.4"/><text x="280.0" y="274" text-anchor="middle" font-size="10" fill="var(--copper-ink)" font-family="'IBM Plex Mono',monospace">邏輯基底晶片 Base/Logic Die</text><rect x="170" y="234" width="220" height="21" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.4"/><rect x="170" y="210" width="220" height="21" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.4"/><rect x="170" y="186" width="220" height="21" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.4"/><rect x="170" y="162" width="220" height="21" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.4"/><rect x="170" y="138" width="220" height="21" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.4"/><rect x="170" y="114" width="220" height="21" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.4"/><rect x="170" y="90" width="220" height="21" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.4"/><rect x="170" y="66" width="220" height="21" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.4"/><line x1="200" y1="258" x2="200" y2="69" stroke="var(--signal)" stroke-width="1.6"/><line x1="240" y1="258" x2="240" y2="69" stroke="var(--signal)" stroke-width="1.6"/><line x1="280" y1="258" x2="280" y2="69" stroke="var(--signal)" stroke-width="1.6"/><line x1="320" y1="258" x2="320" y2="69" stroke="var(--signal)" stroke-width="1.6"/><line x1="360" y1="258" x2="360" y2="69" stroke="var(--signal)" stroke-width="1.6"/><circle cx="200" cy="69" r="2" fill="var(--signal)"/><circle cx="240" cy="69" r="2" fill="var(--signal)"/><circle cx="280" cy="69" r="2" fill="var(--signal)"/><circle cx="320" cy="69" r="2" fill="var(--signal)"/><circle cx="360" cy="69" r="2" fill="var(--signal)"/><line x1="398" y1="106" x2="446" y2="106" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="450" y="102" text-anchor="start" font-size="12" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">DRAM 晶粒 × 8</text><text x="450" y="118" text-anchor="start" font-size="9.8" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">STACKED DRAM DIES</text><line x1="398" y1="186" x2="446" y2="186" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="450" y="182" text-anchor="start" font-size="12" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">TSV 矽穿孔</text><text x="450" y="198" text-anchor="start" font-size="9.8" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">THROUGH-SILICON VIA</text><text x="450" y="212" text-anchor="start" font-size="9.8" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">垂直訊號／電力導通</text><text x="280.0" y="326" text-anchor="middle" font-size="10.5" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">HBM：DRAM晶粒以TSV垂直堆疊，經底部邏輯基底晶片中繼訊號，再以微凸塊接至基板</text></g></svg>`,
+    DIAGRAM_PCB: `<svg viewBox="0 0 820 320" role="img" aria-label="PCB多層板結構示意圖：銅箔導電層與樹脂玻纖介電層交替堆疊，並以鍍通孔垂直導通各層，最外層覆蓋防焊綠漆"><g><rect x="130" y="60" width="360" height="8" fill="var(--copper)" stroke="var(--copper-ink)" stroke-width="1"/><rect x="130" y="68" width="360" height="22" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/><rect x="130" y="90" width="360" height="8" fill="var(--copper)" stroke="var(--copper-ink)" stroke-width="1"/><rect x="130" y="98" width="360" height="32" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1"/><rect x="130" y="130" width="360" height="8" fill="var(--copper)" stroke="var(--copper-ink)" stroke-width="1"/><rect x="130" y="138" width="360" height="22" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/><rect x="130" y="160" width="360" height="8" fill="var(--copper)" stroke="var(--copper-ink)" stroke-width="1"/><rect x="130" y="168" width="360" height="22" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/><rect x="130" y="190" width="360" height="8" fill="var(--copper)" stroke="var(--copper-ink)" stroke-width="1"/><rect x="130" y="54" width="360" height="6" fill="var(--signal-soft)" stroke="var(--signal)" stroke-width="1"/><rect x="130" y="198" width="360" height="6" fill="var(--signal-soft)" stroke="var(--signal)" stroke-width="1"/><rect x="313.0" y="54" width="14" height="150" fill="var(--surface)" stroke="var(--copper)" stroke-width="2"/><rect x="315.0" y="54" width="10" height="150" fill="var(--bg)"/><line x1="496" y1="64.0" x2="520" y2="64.0" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="524" y="68.0" text-anchor="start" font-size="11.5" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">銅箔導電層 Cu</text><line x1="496" y1="114.0" x2="520" y2="114.0" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="524" y="118.0" text-anchor="start" font-size="11.5" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">玻纖樹脂介電層 Core/Prepreg</text><line x1="320" y1="212" x2="390" y2="232" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="394" y="236" text-anchor="start" font-size="11.5" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">鍍通孔 PTH</text><text x="394" y="250" text-anchor="start" font-size="9.8" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">PLATED THROUGH-HOLE</text><line x1="430" y1="54" x2="430" y2="36" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="430" y="30" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">防焊綠漆 Solder Mask</text><text x="310.0" y="306" text-anchor="middle" font-size="10.5" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">PCB多層板：導電銅層與介電層交替疊合，鍍通孔負責層間垂直導通</text></g></svg>`,
+    DIAGRAM_ABF: `<svg viewBox="0 0 820 340" role="img" aria-label="ABF載板結構示意圖：中央為玻纖核心層，上下以ABF增層膜逐層堆疊並以雷射微盲孔導通，最上層為覆晶接合用的凸塊銲墊"><g><rect x="130" y="170" width="360" height="28" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1.4"/><text x="144" y="188.0" text-anchor="start" font-size="10" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">核心層 Core（玻纖／銅箔）</text><rect x="130" y="154" width="360" height="14.5" fill="var(--copper-soft)" stroke="var(--copper-soft-line)" stroke-width="1"/><rect x="130" y="138" width="360" height="14.5" fill="var(--copper-soft)" stroke="var(--copper-soft-line)" stroke-width="1"/><rect x="130" y="122" width="360" height="14.5" fill="var(--copper-soft)" stroke="var(--copper-soft-line)" stroke-width="1"/><rect x="130" y="198" width="360" height="14.5" fill="var(--copper-soft)" stroke="var(--copper-soft-line)" stroke-width="1"/><rect x="130" y="214" width="360" height="14.5" fill="var(--copper-soft)" stroke="var(--copper-soft-line)" stroke-width="1"/><rect x="130" y="230" width="360" height="14.5" fill="var(--copper-soft)" stroke="var(--copper-soft-line)" stroke-width="1"/><rect x="130" y="116" width="360" height="6" fill="var(--signal-soft)" stroke="var(--signal)" stroke-width="1"/><rect x="130" y="246" width="360" height="6" fill="var(--signal-soft)" stroke="var(--signal)" stroke-width="1"/><line x1="200" y1="122" x2="206" y2="138" stroke="var(--copper-ink)" stroke-width="2"/><line x1="280" y1="138" x2="286" y2="154" stroke="var(--copper-ink)" stroke-width="2"/><line x1="360" y1="154" x2="366" y2="170" stroke="var(--copper-ink)" stroke-width="2"/><line x1="420" y1="122" x2="426" y2="138" stroke="var(--copper-ink)" stroke-width="2"/><circle cx="180" cy="110" r="4" fill="var(--ink-soft)"/><circle cx="212" cy="110" r="4" fill="var(--ink-soft)"/><circle cx="244" cy="110" r="4" fill="var(--ink-soft)"/><circle cx="276" cy="110" r="4" fill="var(--ink-soft)"/><circle cx="308" cy="110" r="4" fill="var(--ink-soft)"/><circle cx="340" cy="110" r="4" fill="var(--ink-soft)"/><circle cx="372" cy="110" r="4" fill="var(--ink-soft)"/><circle cx="404" cy="110" r="4" fill="var(--ink-soft)"/><circle cx="436" cy="110" r="4" fill="var(--ink-soft)"/><circle cx="468" cy="110" r="4" fill="var(--ink-soft)"/><line x1="468" y1="110" x2="556" y2="84" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="560" y="80" text-anchor="start" font-size="12" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">覆晶凸塊銲墊</text><text x="560" y="96" text-anchor="start" font-size="10.5" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">FLIP-CHIP BUMP PAD</text><line x1="490" y1="146.0" x2="556" y2="150" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="560" y="146" text-anchor="start" font-size="12" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">ABF增層膜 Build-up Layers</text><text x="560" y="162" text-anchor="start" font-size="10.5" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">上下各3層，逐層壓合</text><line x1="144" y1="188.0" x2="556" y2="216" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="560" y="212" text-anchor="start" font-size="12" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">核心層 Core Layer</text><text x="560" y="228" text-anchor="start" font-size="10.5" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">玻纖／銅箔基材</text><line x1="363" y1="138" x2="556" y2="282" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="560" y="278" text-anchor="start" font-size="12" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">雷射微盲孔</text><text x="560" y="294" text-anchor="start" font-size="10.5" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">LASER MICROVIA · 層間導通</text><text x="345.0" y="326" text-anchor="middle" font-size="10.5" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">ABF載板：玻纖核心層兩側逐層增層堆疊，雷射微盲孔負責層間導通，最上層供覆晶接合</text></g></svg>`
+  };
+
   var INDUSTRIES = {
 
     "wafer-fab": {
@@ -843,6 +862,498 @@
           ] }
       ]
     },
+    "tsmc": {
+      name: "台積電",
+      nameEn: "TSMC PRODUCT & SUPPLY CHAIN PROFILE",
+      tags: ["tsmc","wafer-fabrication","advanced-packaging"],
+      lede: "台積電（TSMC）是全球最大專業積體電路製造服務廠商，1987年由張忠謀創立於新竹，首創「純晶圓代工」商業模式，不與客戶競爭終端產品。2026年第2季台積電全球純晶圓代工市占率達73%，遙遙領先居次的三星電子(7%)；隨AI伺服器需求持續加速，公司已將2026年全年美元營收成長指引上修至逾40%，資本支出預算同步上修至600-640億美元，同步在美國、日本、德國展開歷來規模最大的海外建廠布局。",
+      updated: "2026年9月",
+      sources: [
+        "台積電投資人關係網站《2Q26 Management Report》《2Q26 Earnings Release》《2Q26 法說會簡報》(2026年7月)",
+        "The Motley Fool／Investing.com，台積電2026年第2季法說會逐字稿",
+        "Counterpoint Research，全球純晶圓代工市占率報告(2026年Q2)",
+        "TrendForce，台積電CoWoS產能、亞利桑那／熊本擴產時程與A16/A14製程藍圖相關報導(2026年)",
+        "台積電官方新聞稿：美國投資加碼至2,650億美元(2025年3月／2026年7月)、ESMC德勒斯登動土、JASM熊本開幕",
+        "CNBC、MacRumors，「輝達取代蘋果成為台積電最大客戶」報導(2026年1月)",
+        "Tom's Hardware，台積電2026年資本支出上修至600-640億美元與設備需求報導"
+      ],
+      disclaimer: "本頁面為公開資訊整理彙編，市占率、產能與產品規格等數據會隨市場狀況與廠商公告持續變動，僅供產業脈絡參考，不構成任何投資建議。",
+      nodes: [
+        {
+          icon: "icon-foundry",
+          title: "公司概況與純晶圓代工模式",
+          sub: "PURE-PLAY FOUNDRY MODEL & GLOBAL POSITION",
+          parallelGroup: "tsmc-topics",
+          desc: "台積電1987年由張忠謀創立於新竹科學園區，首創「純晶圓代工」(Pure-play Foundry)商業模式——只接受客戶委託製造，不自行設計銷售終端晶片，藉此與所有IC設計客戶維持非競爭關係。2026年第2季公司合併營收達402.0億美元(約新台幣1兆2,703.8億元)，毛利率67.7%，全球純晶圓代工市占率達73%(Counterpoint Research統計)，法人會後將全年美元營收成長指引上修至「略高於40%」，全年資本支出預算同步上修至600-640億美元。",
+          companies: [
+            { n: "台積電", tw: 1, code: "2330" },
+            { n: "三星電子" },
+            { n: "Intel", code: "INTC" }
+          ],
+          stats: [
+            { v: "73%", l: "台積電2026年Q2全球純晶圓代工市占率(Counterpoint Research)" },
+            { v: "402.0億美元", l: "台積電2026年Q2合併營收" },
+            { v: "40%+", l: "公司上修之2026全年美元營收成長指引(2026年Q2法說會)" }
+          ],
+          children: [
+            {
+              icon: "icon-turnkey",
+              title: "純晶圓代工商業模式",
+              sub: "PURE-PLAY FOUNDRY BUSINESS MODEL",
+              desc: "台積電只承接晶圓代工訂單，不推出自有品牌終端晶片，藉此取得所有IC設計公司的信任、避免利益衝突，是1987年由張忠謀首創、至今仍是全球規模最大的商業模式，也是台積電有別於Intel等IDM(整合元件製造)廠商的根本差異。",
+              companies: [{ n: "台積電", tw: 1, code: "2330" }],
+              stats: []
+            },
+            {
+              icon: "icon-foundry",
+              title: "全球市占與競爭定位",
+              sub: "GLOBAL MARKET SHARE & COMPETITIVE POSITION",
+              desc: "2026年第2季台積電全球純晶圓代工市占率達73%，居次的三星電子僅7%，兩者差距擴大至66個百分點；英特爾雖以「Intel Foundry」策略積極對外接單，市占仍尚未擠進全球前十大純晶圓代工廠排名(Counterpoint Research)。",
+              companies: [{ n: "台積電", tw: 1, code: "2330" }, { n: "三星電子" }],
+              stats: [{ v: "73% vs 7%", l: "台積電vs三星電子全球純晶圓代工市占(2026年Q2)" }]
+            },
+            {
+              icon: "icon-generic",
+              title: "2026年營運展望與資本支出",
+              sub: "FY2026 OUTLOOK & CAPEX GUIDANCE",
+              desc: "台積電2026年第2季法說會將全年美元營收成長指引上修至「略高於40%」，第3季營收展望介於446-458億美元、毛利率展望65-67%；全年資本支出預算同步由年初的520-560億美元上修至600-640億美元，其中約70-80%配置於先進製程、約10%配置於特殊製程、10-20%配置於先進封裝、測試與光罩製造。展望2027年，市場依公司法說會談話推估資本支出上看850億美元(Yahoo Finance，2026年8月20日報導，屬市場推估非公司正式財測)，反映AI伺服器需求持續加速；公司並宣布2026年現金股利上調至每股新台幣24元，較2025年的18元增加約33%(Yahoo Finance，2026年8月21日)。外資法人方面，截至2026年9月的共識預估(stockanalysis.com彙整40位分析師)看好台積電2026全年營收達新台幣5.44兆元(年增約42.7%)、每股盈餘新台幣107.64元(年增約62.5%)，平均目標價554.45美元，評等維持「強力買進」。",
+              companies: [{ n: "台積電", tw: 1, code: "2330" }],
+              stats: [
+                { v: "US$446-458億", l: "台積電2026年第3季營收展望(2026年Q2法說會)" },
+                { v: "65-67%", l: "台積電2026年第3季毛利率展望(2026年Q2法說會)" },
+                { v: "US$600-640億", l: "台積電2026年全年資本支出預算(2026年Q2法說會上修)" },
+                { v: "~US$850億", l: "市場推估台積電2027年資本支出(Yahoo Finance，2026年8月20日報導，非公司正式財測)" },
+                { v: "NT$24/股", l: "台積電2026年現金股利(較2025年NT$18/股增加約33%，Yahoo Finance 2026年8月21日)" },
+                { v: "NT$5.44兆／+42.7%", l: "外資法人共識預估台積電2026全年營收及年增率(截至2026年9月，stockanalysis.com彙整40位分析師)" }
+              ]
+            },
+            {
+              icon: "icon-wafer",
+              title: "近四季營收與毛利率趨勢",
+              sub: "QUARTERLY REVENUE & MARGIN TREND: 4Q25 → 3Q26E",
+              desc: "台積電近四季營收與獲利能力呈現逐季加速態勢：2025年第4季營收337.3億美元(毛利率62.3%、營業利益率54.0%)；2026年第1季營收359億美元(季增6.4%、年增40.6%，毛利率66.2%、營業利益率58.1%)；2026年第2季營收402.0億美元(季增12.0%、年增36.0%，毛利率67.7%、營業利益率60.3%)；2026年第3季法說會展望營收446-458億美元、毛利率65-67%(隱含季增約11-14%)。毛利率與營業利益率同步走高，主因先進製程(N3/N2)產能利用率提升、美元計價營收匯率因素及規模經濟效益，但公司同時預警N2放量將稀釋毛利率約3-4個百分點，第3季展望毛利率區間已較第2季實際數字略降，反映此稀釋效應正逐步顯現。(資料來源：台積電各季法說會、SEC 6-K申報文件)",
+              companies: [{ n: "台積電", tw: 1, code: "2330" }],
+              stats: [
+                { v: "US$337.3億→402.0億", l: "台積電單季營收(2025年Q4→2026年Q2)" },
+                { v: "62.3%→67.7%", l: "台積電單季毛利率(2025年Q4→2026年Q2)" },
+                { v: "54.0%→60.3%", l: "台積電單季營業利益率(2025年Q4→2026年Q2)" }
+              ]
+            }
+          ]
+        },
+        {
+          icon: "icon-chip",
+          title: "先進製程節點與技術藍圖",
+          sub: "ADVANCED NODE ROADMAP: N3 → N2 → A16 → A14",
+          parallelGroup: "tsmc-topics",
+          desc: "台積電先進製程路線圖自N3(2022年底量產)、N2(2025年底量產)，接續規劃A16(原名2奈米後續世代，2027年量產)與A14(2028年量產)，2029年再推出A13與A12。N2為台積電首個全面採用奈米片(nanosheet)環繞閘極電晶體(GAAFET)的世代，A16則首度導入「Super Power Rail」背面供電技術，是近十年最大幅度的電晶體結構變革之一。",
+          companies: [{ n: "台積電", tw: 1, code: "2330" }],
+          tags: ["wafer-fabrication"],
+          stats: [
+            { v: "A16", l: "首度導入Super Power Rail背面供電技術，規劃2027年量產" },
+            { v: "2028年", l: "A14量產規劃時程(第二代奈米片電晶體結構)" }
+          ],
+          children: [
+            {
+              icon: "icon-metrology",
+              title: "製程節點命名≠實際電晶體尺寸",
+              sub: "NODE NAMES ARE MARKETING LABELS, NOT PHYSICAL MEASUREMENTS",
+              desc: "業界自20奈米／16奈米FinFET世代起，「N3」「3奈米」「2奈米」「A16」等製程代號已與電晶體實際閘極長度或任何可量測的物理尺寸脫鉤，本質上是各廠自訂的世代／行銷命名，用以標示相對於前一世代在效能、功耗或密度上的提升幅度，晶片上並無任何結構真的是「3奈米」寬。以台積電N3為例，量產電晶體密度約達每平方毫米2.97億顆(較N5提升約1.7倍)，是較具意義的實測指標；但不同代工廠使用相同數字的製程——例如台積電N3、Intel 3、三星3奈米——彼此電晶體實際尺寸與密度並不相通，投資人比較各廠「幾奈米」時，應改看電晶體密度(transistors/mm²)、閘極間距(gate pitch)、鰭片或奈米片堆疊層數，以及同功耗下的效能提升幅度(performance-per-watt)等指標，而非單看節點名稱數字大小。",
+              companies: [
+                { n: "台積電", tw: 1, code: "2330" },
+                { n: "Intel", code: "INTC" },
+                { n: "三星電子" }
+              ],
+              stats: [{ v: "~2.97億顆/mm²", l: "台積電N3量產電晶體密度估算(較N5提升約1.7倍)" }]
+            },
+            {
+              icon: "icon-wafer",
+              title: "N3與N2量產現況",
+              sub: "N3 / N2 PRODUCTION STATUS",
+              desc: "N3系列自2022年底量產以來持續放量，是2026年台積電營收貢獻最大的製程家族之一；N2於2025年底進入量產，首批客戶包括蘋果、輝達、AMD、聯發科等，2026年第2季N2製程已占晶圓代工營收比重3%，法人預期2026下半年隨N2放量加速，將稀釋公司毛利率約3-4個百分點。",
+              companies: [
+                { n: "台積電", tw: 1, code: "2330" },
+                { n: "蘋果 Apple" },
+                { n: "輝達 NVIDIA" },
+                { n: "AMD", code: "AMD" },
+                { n: "聯發科", tw: 1, code: "2454" }
+              ],
+              stats: [{ v: "3%", l: "N2製程占晶圓代工營收比重(2026年Q2)" }]
+            },
+            {
+              icon: "icon-foundry",
+              title: "A16／A14世代新技術",
+              sub: "A16 / A14 — NEXT-GEN TRANSISTOR & POWER DELIVERY",
+              desc: "主打資料中心與HPC應用的A16首度導入「Super Power Rail」背面供電技術與第一代奈米片環繞閘極電晶體，原規劃2026年量產已延後至2027年；主打行動裝置的A14規劃2028年量產，2029年再接續推出A13(行動，較A14縮小約3%、密度提升約6%)與A12(資料中心，導入第二代奈米片與NanoFlex Pro技術)，兩者皆不採用High-NA EUV微影設備。",
+              companies: [{ n: "台積電", tw: 1, code: "2330" }],
+              stats: [
+                { v: "2027年", l: "A16量產規劃時程(原規劃2026年，已延後)" },
+                { v: "2029年", l: "A13(行動)／A12(資料中心)量產規劃時程" }
+              ]
+            }
+          ]
+        },
+        {
+          icon: "icon-wafer",
+          title: "製程節點營收占比",
+          sub: "REVENUE BY TECHNOLOGY NODE (2Q26)",
+          parallelGroup: "tsmc-topics",
+          desc: "台積電每季法說會依製程節點揭露晶圓代工營收占比。2026年第2季(2Q26)數據顯示，先進製程(7奈米以下)合計占晶圓代工營收77%，其中5奈米33%為單一占比最高節點、3奈米30%、7奈米11%、2奈米3%(首季完整認列)；成熟與特殊製程合計占23%，主要來自16/20奈米(6%)、28奈米(6%)、65奈米(4%)、40/45奈米(2%)及0.13微米以上製程(合計約5%)。與去年同期(2Q25)相比，2奈米自0%起步升至3%、3奈米占比由24%擴大至30%，反映先進節點放量對整體營收占比的持續墊高；本節數字為2026年Q2單季快照，會隨後續季度製程世代交替而變動。",
+          companies: [{ n: "台積電", tw: 1, code: "2330" }],
+          stats: [
+            { v: "77%", l: "先進製程(7奈米以下)占晶圓代工營收比重(2026年Q2)" },
+            { v: "33%", l: "5奈米製程營收占比(2026年Q2，占比最高單一節點)" },
+            { v: "30%", l: "3奈米製程營收占比(2026年Q2)" },
+            { v: "3%", l: "2奈米製程營收占比(2026年Q2)" }
+          ],
+          children: [
+            {
+              icon: "icon-wafer",
+              title: "先進製程占77%：N2／N3／N5／N7",
+              sub: "ADVANCED NODES (≤N7) — 77% OF WAFER REVENUE",
+              desc: "2026年第2季先進製程(定義為7奈米以下)合計占晶圓代工營收77%：5奈米33%、3奈米30%、7奈米11%、2奈米3%。5奈米雖已量產逾5年，仍是單季貢獻最大的單一節點，反映其在HPC、手機晶片上長期扮演「性價比最佳先進節點」的角色；3奈米則隨蘋果、輝達、AMD、聯發科等客戶新品陸續放量持續擴大占比。",
+              companies: [{ n: "台積電", tw: 1, code: "2330" }],
+              stats: [{ v: "77%", l: "先進製程合計占晶圓代工營收比重(2026年Q2)" }]
+            },
+            {
+              icon: "icon-implant",
+              title: "成熟與特殊製程占23%",
+              sub: "MATURE & SPECIALTY NODES — 23% OF WAFER REVENUE",
+              desc: "成熟與特殊製程2026年Q2合計占晶圓代工營收23%：16/20奈米6%、28奈米6%、65奈米4%、40/45奈米2%、0.13微米以上製程合計約5%，主要供應車用、物聯網、電源管理與類比等對先進製程需求較低的應用，是台積電營收結構中相對穩定但成長性較低的一塊。",
+              companies: [{ n: "台積電", tw: 1, code: "2330" }],
+              stats: [{ v: "23%", l: "成熟與特殊製程合計占晶圓代工營收比重(2026年Q2)" }]
+            },
+            {
+              icon: "icon-metrology",
+              title: "單季趨勢：2奈米放量起步",
+              sub: "QUARTER-OVER-QUARTER SHIFT: 2NM RAMP BEGINS",
+              desc: "對比2026年第1季與第2季：2奈米占比由0%升至3%，3奈米由25%擴大至30%，同時5奈米占比則由36%小幅回落至33%、7奈米由13%降至11%，呈現典型的「新製程放量、舊製程占比讓位」節奏；隨N2於2026下半年加速放量，市場預期未來幾季2奈米占比將持續墊高。",
+              companies: [{ n: "台積電", tw: 1, code: "2330" }],
+              stats: [{ v: "0%→3%", l: "2奈米製程營收占比變化(1Q26→2Q26)" }]
+            }
+          ]
+        },
+        {
+          icon: "icon-datacenter",
+          title: "應用平台別營收占比",
+          sub: "REVENUE BY PLATFORM (2Q26)",
+          parallelGroup: "tsmc-topics",
+          desc: "台積電依終端應用平台分為高效能運算(HPC)、智慧型手機、物聯網(IoT)、車用及數位消費性電子(DCE)五大類。2026年第2季HPC平台占淨營收比重達66%，居各平台之冠且較去年同期(2Q25:60%)持續攀升，主要受惠輝達、AMD等AI加速器與雲端業者自研ASIC投片動能；智慧型手機平台占22%(2Q25:27%)，比重持續遭AI伺服器排擠；物聯網5%、車用4%、數位消費性電子(DCE)僅1%，其他應用合計2%。本節數字為2026年Q2單季快照，會隨每季客戶投片結構調整。",
+          companies: [
+            { n: "台積電", tw: 1, code: "2330" },
+            { n: "輝達 NVIDIA" },
+            { n: "蘋果 Apple" }
+          ],
+          stats: [
+            { v: "66%", l: "HPC平台占淨營收比重(2026年Q2)" },
+            { v: "22%", l: "智慧型手機平台占淨營收比重(2026年Q2)" },
+            { v: "5% / 4% / 1%", l: "IoT／車用／DCE平台占淨營收比重(2026年Q2)" }
+          ],
+          children: [
+            {
+              icon: "icon-datacenter",
+              title: "HPC平台：AI驅動的最大成長引擎",
+              sub: "HPC PLATFORM — AI-DRIVEN GROWTH ENGINE",
+              desc: "HPC平台涵蓋AI加速器、資料中心CPU／GPU／ASIC等應用，2026年第2季占淨營收比重達66%，較去年同期(2Q25:60%)再擴大6個百分點，是台積電目前最大且成長最快的應用平台，主要動能來自輝達、AMD及Google、Amazon、Microsoft等雲端業者自研AI晶片投片需求。",
+              companies: [
+                { n: "台積電", tw: 1, code: "2330" },
+                { n: "輝達 NVIDIA" },
+                { n: "AMD", code: "AMD" }
+              ],
+              stats: [{ v: "60%→66%", l: "HPC平台占淨營收比重變化(2Q25→2Q26)" }]
+            },
+            {
+              icon: "icon-chip",
+              title: "智慧型手機平台：占比持續下滑",
+              sub: "SMARTPHONE PLATFORM — SHRINKING SHARE",
+              desc: "智慧型手機平台2026年第2季占淨營收比重22%，較去年同期(2Q25:27%)下滑5個百分點，主因HPC平台成長速度遠高於手機晶片，排擠了手機平台在營收結構中的相對占比；蘋果、聯發科、高通旗艦SoC仍是帶動N3、N2先進製程放量的重要客戶。",
+              companies: [
+                { n: "台積電", tw: 1, code: "2330" },
+                { n: "蘋果 Apple" },
+                { n: "聯發科", tw: 1, code: "2454" },
+                { n: "Qualcomm", code: "QCOM" }
+              ],
+              stats: [{ v: "27%→22%", l: "智慧型手機平台占淨營收比重變化(2Q25→2Q26)" }]
+            },
+            {
+              icon: "icon-device",
+              title: "IoT／車用／DCE：利基型平台",
+              sub: "IOT / AUTOMOTIVE / DCE — NICHE PLATFORMS",
+              desc: "物聯網(5%)、車用(4%)、數位消費性電子(1%)三個平台2026年第2季合計占淨營收約10%，多數投片於成熟與特殊製程，成長性與波動度均低於HPC與手機兩大主力平台，但車用平台近年隨車用晶片高階化(如ADAS、座艙SoC)同步導入部分先進與準先進製程。",
+              companies: [{ n: "台積電", tw: 1, code: "2330" }],
+              stats: [{ v: "~10%", l: "IoT+車用+DCE平台合計占淨營收比重(2026年Q2)" }]
+            }
+          ]
+        },
+        {
+          icon: "icon-package",
+          title: "先進封裝（CoWoS／InFO／SoIC）",
+          sub: "ADVANCED PACKAGING: CoWoS / InFO / SoIC",
+          parallelGroup: "tsmc-topics",
+          desc: "先進封裝已成為台積電僅次於前段晶圓製造的第二大資本支出項目，2026年全年資本支出中約10-20%配置於先進封裝、測試與光罩製造。CoWoS月產能規劃於2026年底達12-14萬片(不含委外OSAT夥伴約5-6萬片產能，合計全產業鏈上看近20萬片)，市場估CoWoS供需缺口將由目前約20%收斂至年底約10%；InFO系列(含InFO_PoP)長期為蘋果A／M系列晶片主力封裝方案，SoIC(3D堆疊)則用於輝達、AMD等高階HPC產品的晶粒堆疊，並延伸出CoPoS(Chip-on-Panel-on-Substrate)新一代面板級封裝平台，規劃搭配輝達下世代Feynman平台於2028-2029年導入。",
+          companies: [
+            { n: "台積電", tw: 1, code: "2330" },
+            { n: "日月光", tw: 1, code: "3711" },
+            { n: "輝達 NVIDIA" },
+            { n: "蘋果 Apple" }
+          ],
+          tags: ["advanced-packaging"],
+          stats: [
+            { v: "12-14萬片/月", l: "台積電CoWoS月產能規劃(2026年底)" },
+            { v: "~10%", l: "CoWoS供需缺口收斂目標(2026年底，原約20%)" }
+          ],
+          children: [
+            {
+              icon: "icon-package",
+              title: "CoWoS：2.5D中介層封裝",
+              sub: "CoWoS — 2.5D INTERPOSER PACKAGING",
+              diagram: "DIAGRAM_COWOS",
+              diagramCaption: "CoWoS結構示意：邏輯運算晶片與多顆HBM記憶體堆疊共同座落於矽中介層上，中介層內以TSV垂直導通，再經錫球連接至下方封裝基板。",
+              desc: "CoWoS(Chip-on-Wafer-on-Substrate)將運算晶粒與多顆HBM堆疊整合於同一中介層，是輝達GPU、AMD MI系列及各雲端業者自研AI ASIC共用的核心先進封裝平台，長期是AI晶片放量的最大產能瓶頸；台積電規劃自有月產能於2026年底擴至12-14萬片，並持續透過日月光等OSAT夥伴分攤約5-6萬片委外產能。",
+              companies: [
+                { n: "台積電", tw: 1, code: "2330" },
+                { n: "日月光", tw: 1, code: "3711" },
+                { n: "輝達 NVIDIA" }
+              ],
+              stats: [{ v: "12-14萬片/月", l: "台積電CoWoS自有月產能規劃(2026年底)" }]
+            },
+            {
+              icon: "icon-package",
+              title: "InFO：整合扇出封裝",
+              sub: "InFO — INTEGRATED FAN-OUT PACKAGING",
+              diagram: "DIAGRAM_INFO",
+              diagramCaption: "InFO結構示意：晶片包埋於環氧模封材料中，重佈線層(RDL)向兩側延伸「扇出」超出晶片邊界，使錫球分布範圍大於晶片本身，讓I/O數增加而不必縮小接點間距。",
+              desc: "InFO_PoP(整合扇出型封裝再疊記憶體)自2016年A10晶片起長期為蘋果iPhone用A系列處理器主力封裝方案，取代傳統打線封裝並大幅縮小晶片堆疊厚度，是台積電先進封裝業務中歷史最久、與單一大客戶綁定最深的產品線之一。",
+              companies: [
+                { n: "台積電", tw: 1, code: "2330" },
+                { n: "蘋果 Apple" }
+              ],
+              stats: []
+            },
+            {
+              icon: "icon-interconnect",
+              title: "SoIC與CoPoS：3D異質整合新平台",
+              sub: "SoIC & CoPoS — NEXT-GEN 3D INTEGRATION",
+              diagram: "DIAGRAM_SOIC",
+              diagramCaption: "SoIC結構示意：多顆晶片以混合接合(Hybrid Bonding)技術銅對銅直接垂直堆疊，無需錫球，接合密度遠高於傳統封裝，堆疊後再連接至中介層與基板。",
+              desc: "SoIC(System on Integrated Chips)採晶圓對晶圓／晶片對晶圓混合接合技術，實現無凸塊(bump-less)3D堆疊，應用於輝達、AMD等高階HPC產品的運算晶粒堆疊；台積電並開發面板級封裝新平台CoPoS(Chip-on-Panel-on-Substrate)，市場預期將搭配輝達下世代Feynman平台於2028-2029年導入，用以突破現有基板尺寸與良率限制。",
+              companies: [
+                { n: "台積電", tw: 1, code: "2330" },
+                { n: "輝達 NVIDIA" },
+                { n: "AMD", code: "AMD" }
+              ],
+              stats: []
+            }
+          ]
+        },
+        {
+          icon: "icon-device",
+          title: "特殊製程與類比／車用晶圓代工",
+          sub: "SPECIALTY & AUTOMOTIVE FOUNDRY",
+          parallelGroup: "tsmc-topics",
+          desc: "除先進邏輯製程外，台積電同步維持特殊製程(Specialty Technology)產品線，涵蓋射頻(RF)、嵌入式快閃記憶體、影像感測器、電源管理(BCD)及車用等應用，2026年資本支出中約一成配置於特殊製程產能；車用產品線以N7、N6等成熟至準先進製程為主，提供對應「零缺陷」品質認證與長達15年以上的產品生命週期支援，客戶涵蓋恩智浦、英飛凌、博世等歐系車用半導體大廠，以及聯發科等台廠車用晶片設計商，德國德勒斯登新廠即是專為歐洲車用與工業客戶設立的特殊製程據點。",
+          companies: [
+            { n: "台積電", tw: 1, code: "2330" },
+            { n: "聯發科", tw: 1, code: "2454" }
+          ],
+          stats: [
+            { v: "~10%", l: "2026年資本支出配置於特殊製程比重" },
+            { v: "15年+", l: "車用製程典型產品生命週期支援年限" }
+          ],
+          children: [
+            {
+              icon: "icon-device",
+              title: "特殊製程平台：RF／BCD／嵌入式記憶體",
+              sub: "SPECIALTY PLATFORMS: RF / BCD / EMBEDDED MEMORY",
+              desc: "特殊製程涵蓋射頻(RF，供應5G／Wi-Fi前端晶片)、BCD電源管理製程、嵌入式快閃記憶體與影像感測器等技術平台，多數建置於28奈米以上成熟節點，客戶對製程穩定性與良率的要求往往高於對電晶體密度的要求。",
+              companies: [{ n: "台積電", tw: 1, code: "2330" }],
+              stats: []
+            },
+            {
+              icon: "icon-device",
+              title: "車用晶圓代工與零缺陷品質標準",
+              sub: "AUTOMOTIVE FOUNDRY & ZERO-DEFECT QUALITY",
+              desc: "車用晶片需通過遠高於消費性電子的「零缺陷」(Zero Defect)品質認證與長達15年以上的產品生命週期供貨承諾，台積電以N7、N6及更成熟製程對應此類需求，客戶涵蓋恩智浦、英飛凌、博世等歐系車用半導體大廠；德國德勒斯登ESMC新廠即鎖定28/22奈米平面與16/12奈米FinFET製程，專為服務歐洲車用與工業客戶而設立。",
+              companies: [{ n: "台積電", tw: 1, code: "2330" }],
+              stats: []
+            }
+          ]
+        },
+        {
+          icon: "icon-server",
+          title: "海外建廠布局（美國／日本／德國）",
+          sub: "OVERSEAS FAB EXPANSION: US / JAPAN / GERMANY",
+          parallelGroup: "tsmc-topics",
+          desc: "因應美中科技競爭與客戶要求供應鏈分散，台積電近年大舉擴大海外投資。美國亞利桑那州目前是最大海外據點，2025年3月宣布加碼至1,650億美元、規劃3座晶圓廠、2座先進封裝廠及一座研發中心，2026年7月法說會再宣布加碼1,000億美元，美國總投資額上看2,650億美元、規劃最終興建至多10座晶圓廠；日本熊本JASM一廠已於2024年底量產(12/16/22/28奈米成熟製程，主攻車用與工業應用，2025年首季轉虧為盈)，與Sony半導體、Denso、豐田合資的二廠原規劃6奈米，2026年2月因應AI需求調整為3奈米製程；德國德勒斯登ESMC廠(與博世、英飛凌、恩智浦合資)2024年8月動工，目標28/22奈米平面與16/12奈米FinFET製程，規劃月產能4萬片12吋晶圓，鎖定歐洲車用與工業客戶，設備預計2026年下半年開始進駐。",
+          companies: [{ n: "台積電", tw: 1, code: "2330" }],
+          stats: [
+            { v: "US$2,650億", l: "台積電美國(亞利桑那)累計投資總額(2026年7月加碼後)" },
+            { v: "2H2027", l: "亞利桑那二廠3奈米量產規劃時程" }
+          ],
+          children: [
+            {
+              icon: "icon-server",
+              title: "美國亞利桑那：先進製程與封裝重鎮",
+              sub: "ARIZONA — ADVANCED LOGIC & PACKAGING HUB",
+              desc: "亞利桑那一廠已量產(N4等製程)，二廠原規劃導入N3、目標2027年下半年量產；2025年3月台積電宣布加碼投資至1,650億美元、規劃3座晶圓廠、2座先進封裝廠及一座研發中心，2026年7月法說會再加碼1,000億美元，總投資額上看2,650億美元，最終規劃於當地興建至多10座晶圓廠，涵蓋2奈米以下邏輯製程與先進封裝產能。",
+              companies: [{ n: "台積電", tw: 1, code: "2330" }],
+              stats: [{ v: "US$2,650億", l: "台積電美國累計投資總額(2026年7月起)" }]
+            },
+            {
+              icon: "icon-server",
+              title: "日本熊本JASM：車用與特殊製程",
+              sub: "JASM KUMAMOTO — AUTOMOTIVE & SPECIALTY NODES",
+              desc: "JASM(Japan Advanced Semiconductor Manufacturing)由台積電主導、Sony半導體與Denso合資成立，一廠已於2024年底量產12/16/22/28奈米成熟製程，主攻車用與工業應用，2025年第1季轉虧為盈；豐田隨後加入投資二廠，二廠原規劃導入6奈米，2026年2月因應AI需求強勁調整為3奈米製程。",
+              companies: [{ n: "台積電", tw: 1, code: "2330" }],
+              stats: [{ v: "2028年", l: "熊本二廠3奈米量產規劃時程(原規劃6奈米)" }]
+            },
+            {
+              icon: "icon-server",
+              title: "德國德勒斯登ESMC：歐洲車用據點",
+              sub: "ESMC DRESDEN — EUROPEAN AUTOMOTIVE FOUNDRY",
+              desc: "ESMC(European Semiconductor Manufacturing Company)由台積電與博世、英飛凌、恩智浦合資成立，2024年8月動工，目標製程為28/22奈米平面CMOS與16/12奈米FinFET，規劃月產能4萬片12吋晶圓，總投資逾100億歐元，鎖定歐洲車用與工業客戶，設備預計2026年下半年開始進駐廠房。",
+              companies: [{ n: "台積電", tw: 1, code: "2330" }],
+              stats: [{ v: "4萬片/月", l: "ESMC規劃12吋晶圓月產能" }]
+            }
+          ]
+        },
+        {
+          icon: "icon-chip",
+          title: "主要客戶結構與晶圓代工競爭格局",
+          sub: "CUSTOMER MIX & FOUNDRY COMPETITIVE LANDSCAPE",
+          parallelGroup: "tsmc-topics",
+          desc: "2026年以來，輝達已取代蘋果成為台積電最大單一客戶，反映AI伺服器晶片投片金額首度超越智慧型手機。以客戶所在地區觀察，北美客戶(輝達、蘋果、AMD、高通、Google、Amazon等美系IC設計與雲端業者為主)2026年第2季合計貢獻台積電淨營收約78%，是最大宗營收來源；亞太(含台灣聯發科等IC設計業者)占8%，中國、日本、歐洲合計約14%。競爭格局上，台積電以73%全球純晶圓代工市占(2026年Q2)遠遙領先居次的三星電子(7%)，兩者差距擴大至66個百分點；英特爾雖以「Intel Foundry」策略推動18A製程對外接單，市占仍尚未擠進全球前十大純晶圓代工廠排名。",
+          companies: [
+            { n: "台積電", tw: 1, code: "2330" },
+            { n: "輝達 NVIDIA" },
+            { n: "蘋果 Apple" },
+            { n: "AMD", code: "AMD" },
+            { n: "聯發科", tw: 1, code: "2454" },
+            { n: "Qualcomm", code: "QCOM" },
+            { n: "三星電子" },
+            { n: "Intel", code: "INTC" }
+          ],
+          tags: ["nvidia","apple-supply-chain"],
+          stats: [
+            { v: "78%", l: "北美客戶占台積電淨營收比重(2026年Q2)" },
+            { v: "73% vs 7%", l: "台積電vs三星電子全球純晶圓代工市占(2026年Q2)" }
+          ],
+          children: [
+            {
+              icon: "icon-metrology",
+              title: "三方比較：台積電 vs 三星 vs 英特爾",
+              sub: "TSMC vs SAMSUNG vs INTEL — MARGIN, NODE, YIELD, TECH",
+              desc: "若將三大晶圓代工龍頭的獲利能力並列比較，差距極為懸殊：台積電2026年第2季營業利益率達60.3%、毛利率67.7%(公司法說會揭露)；Intel Foundry同季營收58億美元、營業虧損21億美元，虧損率約-36%，雖較去年同期(2025年Q2營收44億美元、虧損32億美元、虧損率約-73%)大幅收斂，仍處深度虧損(Intel 2026年Q2財報，The Motley Fool 2026年8月11日報導)；三星電子晶圓代工事業未單獨揭露營業利益率，但晶圓代工事業負責人韓鎮萬(Han Jin-man)於2026年6月公開表示，2027年轉盈「看來困難」，全年獲利目標訂在2028年才可望達成(Tech Times，2026年6月14日)，凸顯其晶圓代工長期處於虧損或接近損平狀態。技術面，台積電N2(2025年底量產)、三星SF2、Intel 18A(2026年1月隨Panther Lake量產)皆已採用環繞閘極電晶體(GAAFET)架構，惟命名各異——台積電稱「奈米片(nanosheet)」、三星稱「MBCFET」、Intel稱「RibbonFET」(並搭配PowerVia背面供電)；值得注意的是，三星才是全球最早量產GAA架構的廠商，其3奈米SF3製程已於2022年6月投產(三星官方新聞稿)，較台積電、Intel早了2-3年才切入GAA，但市占與良率表現並未同步轉化為競爭優勢。電晶體密度上，業界彙整資料顯示台積電N2約每平方毫米3.13億顆(公司官方揭露)，三星SF2約2.31億顆、Intel 18A約2.38億顆(均為業界估算彙整，非兩家公司官方揭露數字，且不同廠牌節點密度不能直接類比實際效能，詳見「製程節點命名≠實際電晶體尺寸」)。良率方面，三家均未完整揭露官方量產良率數字：三星2奈米(SF2)良率據報導自2025年底約20%快速爬升至2026年第1季逾60%，正逼近業界普遍認為可健康量產的70%門檻(Tech Times／FinancialContent報導，屬產業消息估算，非三星官方數字)；Intel 18A良率外界估計於2026年5月來到約50%(Morgan Stanley估計，SemiWiki引述)，Intel自身則以「月增約7%」的良率改善速度佐證進度(Intel副總裁John Pitzer於RBC資本市場科技論壇談話，TrendForce 2025年11月報導)，2026年Q2法說會並指出18A量產表現優於公司內部目標約25%、季增逾50%；台積電N2雖同樣無官方良率數字，但法人預期其放量僅稀釋公司毛利率約3-4個百分點，相對其他兩家良率爬升期普遍伴隨鉅額虧損，隱含其量產良率體質相對健康(業界推論，非官方數字)。市占率上，台積電以73%全球純晶圓代工市占(2026年Q2，Counterpoint Research)遙遙領先三星電子(7%)，差距達66個百分點；Intel Foundry雖已啟動18A對外量產，但2026年Q2對外部(非Intel自用)客戶營收僅2.93億美元，占其晶圓代工事業單季營收(58億美元)約5%，市占仍未擠進全球前十大純晶圓代工廠排名(Windows Forum引述Intel 10-Q申報資料，2026年8月)。整體而言，台積電在獲利能力、良率穩定性與外部客戶信賴度上仍保有壓倒性優勢，三星與Intel雖持續加碼先進製程投資並陸續取得包括Tesla、輝達等潛在訂單，但短期內市占與獲利結構要追上台積電仍有相當距離。",
+              companies: [
+                { n: "台積電", tw: 1, code: "2330" },
+                { n: "三星電子" },
+                { n: "Intel", code: "INTC" }
+              ],
+              stats: [
+                { v: "60.3% vs -36%", l: "台積電vs Intel Foundry營業利益率(2026年Q2；Intel Foundry營收58億美元、營業虧損21億美元)" },
+                { v: "313 vs 231 vs 238 MTr/mm²", l: "台積電N2 vs 三星SF2 vs Intel 18A電晶體密度估算(業界彙整資料，僅台積電數字為官方揭露)" },
+                { v: "20%→60%+", l: "三星SF2(2奈米)良率爬升趨勢(2025年底→2026年Q1，產業消息估算，非三星官方揭露)" },
+                { v: "~50%", l: "Morgan Stanley估計Intel 18A晶圓分選(wafer sort)良率(2026年5月，分析師估算，非Intel官方數字)" },
+                { v: "73% vs 7% vs ~5%", l: "台積電vs三星電子全球純晶圓代工市占(2026年Q2，Counterpoint) vs Intel Foundry外部客戶營收占比(2026年Q2)" }
+              ]
+            },
+            {
+              icon: "icon-chip",
+              title: "輝達躍居最大客戶",
+              sub: "NVIDIA BECOMES TSMC'S TOP CUSTOMER",
+              desc: "根據媒體於2026年1月引述供應鏈與法人資料，輝達已取代蘋果成為台積電最大單一客戶，主因AI GPU與相關ASIC的晶圓投片與先進封裝支出金額，已超越蘋果iPhone／Mac用A、M系列晶片，象徵AI伺服器需求正式成為台積電營收結構中最關鍵的成長引擎。",
+              companies: [
+                { n: "台積電", tw: 1, code: "2330" },
+                { n: "輝達 NVIDIA" },
+                { n: "蘋果 Apple" }
+              ],
+              stats: []
+            },
+            {
+              icon: "icon-foundry",
+              title: "三星電子晶圓代工：市占差距擴大",
+              sub: "SAMSUNG FOUNDRY — WIDENING GAP",
+              desc: "三星電子晶圓代工事業2026年第2季全球市占約7%，與台積電的差距擴大至66個百分點；三星同步推進自有2奈米GAA製程量產與外部客戶爭取，但整體規模與良率表現與台積電仍有明顯落差。",
+              companies: [{ n: "台積電", tw: 1, code: "2330" }, { n: "三星電子" }],
+              stats: [{ v: "7%", l: "三星電子全球純晶圓代工市占(2026年Q2)" }]
+            },
+            {
+              icon: "icon-foundry",
+              title: "Intel Foundry：18A量產但市占未進前十",
+              sub: "INTEL FOUNDRY — 18A IN PRODUCTION, SHARE STILL SMALL",
+              desc: "Intel Foundry於2026年1月隨Panther Lake AI PC處理器啟動18A製程量產，並積極對外爭取代工客戶與美國政府支持(2025年8月美國政府入股取得約9.9%股權)，但截至2026年第2季，其純晶圓代工市占仍尚未擠進全球前十大排名，反映對外代工業務仍處於早期發展階段。",
+              companies: [{ n: "Intel", code: "INTC" }],
+              stats: []
+            }
+          ]
+        },
+        {
+          icon: "icon-litho",
+          title: "上游設備與材料供應商",
+          sub: "UPSTREAM EQUIPMENT & MATERIALS SUPPLIERS",
+          parallelGroup: "tsmc-topics",
+          desc: "台積電先進製程仰賴極少數國際設備與材料龍頭，形成產業鏈中最集中的環節。微影設備由ASML獨家壟斷EUV機台供應；蝕刻、薄膜沉積與化學機械研磨設備商以應用材料(AMAT)、泛林集團(Lam Research)、東京威力科創(TEL)三強鼎立；量測與檢測設備以科磊(KLA)為龍頭；晶圓化學機械研磨(CMP)耗材如鑽石碟則由中砂等台廠與荏原製作所(Ebara)、應用材料共同供應。矽晶圓材料方面，台灣環球晶與日商信越化學、SUMCO並列全球前段矽晶圓三大供應商；2026年台積電資本支出中約70-80%配置於先進製程設備採購，是ASML、應用材料等設備龍頭最大宗訂單來源之一。",
+          companies: [
+            { n: "台積電", tw: 1, code: "2330" },
+            { n: "ASML" },
+            { n: "應用材料 AMAT" },
+            { n: "泛林集團 Lam Research" },
+            { n: "東京威力科創 TEL" },
+            { n: "科磊 KLA" },
+            { n: "荏原製作所 Ebara" },
+            { n: "環球晶", tw: 1, code: "6488" },
+            { n: "中砂", tw: 1, code: "1560" }
+          ],
+          tags: ["semiconductor-supply-chain"],
+          stats: [
+            { v: "70-80%", l: "台積電2026年資本支出配置於先進製程設備比重" },
+            { v: "僅此一家", l: "ASML為全球唯一EUV曝光機供應商" }
+          ],
+          children: [
+            {
+              icon: "icon-litho",
+              title: "微影設備：ASML獨家供應",
+              sub: "LITHOGRAPHY — ASML'S EUV MONOPOLY",
+              desc: "ASML是全球唯一能量產EUV微影機台的廠商，具完全獨佔地位，單台高階機台售價可達數億美元，是台積電先進製程資本支出中單價最高的設備品項；值得留意的是，台積電已表態A13、A12世代不採用ASML最新的High-NA EUV設備，顯示先進微影設備的導入節奏仍取決於各廠自身製程與成本考量，而非單向的技術升級競賽。",
+              companies: [{ n: "ASML" }],
+              stats: [{ v: "僅此一家", l: "全球唯一EUV曝光機供應商" }]
+            },
+            {
+              icon: "icon-etch",
+              title: "蝕刻／薄膜沉積設備三強",
+              sub: "ETCH & DEPOSITION — AMAT / LAM / TEL",
+              desc: "應用材料(AMAT)、泛林集團(Lam Research)、東京威力科創(TEL)是全球蝕刻與薄膜沉積設備三大供應商，在台積電先進製程產線中彼此互補、共同構成前段製程設備採購的主要對象，訂單規模隨台積電資本支出擴大同步成長。",
+              companies: [
+                { n: "應用材料 AMAT" },
+                { n: "泛林集團 Lam Research" },
+                { n: "東京威力科創 TEL" }
+              ],
+              stats: []
+            },
+            {
+              icon: "icon-metrology",
+              title: "量測檢測與CMP耗材",
+              sub: "METROLOGY & CMP CONSUMABLES",
+              desc: "科磊(KLA)是全球晶圓量測與檢測設備龍頭，用於監控先進製程的微小缺陷與尺寸精度；化學機械研磨(CMP)設備以應用材料與荏原製作所(Ebara)為兩大主要供應商，台廠中砂則供應CMP製程所需的鑽石碟等關鍵耗材，同步受惠台積電先進製程產能擴張。",
+              companies: [
+                { n: "科磊 KLA" },
+                { n: "荏原製作所 Ebara" },
+                { n: "中砂", tw: 1, code: "1560" }
+              ],
+              stats: []
+            },
+            {
+              icon: "icon-ingot",
+              title: "矽晶圓材料供應商",
+              sub: "SILICON WAFER MATERIALS",
+              desc: "台灣環球晶與日商信越化學、SUMCO並列全球前段矽晶圓三大供應商，供應台積電先進與成熟製程所需的12吋高純度矽晶圓，是晶圓代工最上游、也是產業鏈集中度最高的材料環節之一。",
+              companies: [{ n: "環球晶", tw: 1, code: "6488" }],
+              stats: []
+            }
+          ]
+        }
+      ]
+    },
     "ai-hardware": {
       name: "AI硬體",
       nameEn: "AI HARDWARE SUPPLY CHAIN",
@@ -955,6 +1466,8 @@
               stats:[{v:"313 vs 238",l:"N2 vs 18A電晶體密度(MTr/mm²，HD單元)"},{v:"~2012年起",l:"FinFET世代起「奈米」名稱與實體尺寸脫鉤"},{v:"15-20%",l:"英特爾14A較18A效能功耗比提升幅度"}] }
           ] },
         { icon:"icon-hbm", title:"高頻寬記憶體", sub:"HBM MEMORY",
+          diagram:"DIAGRAM_HBM",
+          diagramCaption:"HBM結構示意：多層DRAM晶粒以矽穿孔(TSV)垂直堆疊，底部為負責訊號中繼的邏輯基底晶片(Base/Logic Die)，再透過微凸塊連接至下方基板或中介層。",
           desc:"專為AI運算堆疊設計的高速記憶體，以矽穿孔（TSV）技術垂直堆疊多層DRAM，直接影響AI晶片的運算頻寬上限。目前產能集中於三大原廠，且全數處於售罄狀態。",
           companies:[{n:"SK海力士"},{n:"美光 Micron"},{n:"三星電子"}],
           stats:[{v:"~62%",l:"SK海力士HBM市占"},{v:"全數售罄",l:"三強2026年全年產能"}],
@@ -988,6 +1501,8 @@
           tags:["advanced-packaging","nvidia"],
           children:[
             { icon:"icon-substrate", title:"CoWoS-S矽中介層", sub:"COWOS-S SILICON INTERPOSER",
+              diagram:"DIAGRAM_COWOS",
+              diagramCaption:"CoWoS結構示意：邏輯運算晶片與多顆HBM記憶體堆疊共同座落於矽中介層上，中介層內以TSV垂直導通，再經錫球連接至下方封裝基板。",
               desc:"CoWoS家族中最成熟的標準方案，以矽中介層搭配TSV穿矽通孔技術，提供最高布線密度與最低訊號延遲，廣泛用於H100等單一運算晶粒搭配HBM的AI加速卡。台灣載板廠同步供應此環節所需的高階IC載板。",
               companies:[{n:"台積電",tw:1,code:"2330"},{n:"欣興",tw:1,code:"3037"},{n:"南電",tw:1,code:"8046"},{n:"景碩",tw:1,code:"3189"}],
               stats:[] },
@@ -1000,10 +1515,14 @@
               companies:[{n:"京元電子",tw:1,code:"2449"},{n:"精測",tw:1,code:"6510"},{n:"旺矽",tw:1,code:"6223"},{n:"穎崴",tw:1,code:"6515"}],
               stats:[] },
             { icon:"icon-interconnect", title:"SoIC 3D晶片堆疊", sub:"SoIC 3D STACKING",
+              diagram:"DIAGRAM_SOIC",
+              diagramCaption:"SoIC結構示意：多顆晶片以混合接合(Hybrid Bonding)技術銅對銅直接垂直堆疊，無需錫球，接合密度遠高於傳統封裝。",
               desc:"台積電自主開發的晶片堆疊技術，以混合接合方式將邏輯晶粒直接垂直互連，接合密度遠高於傳統凸塊封裝，是next-gen高效能運算晶片的關鍵封裝路線之一。",
               companies:[{n:"台積電",tw:1,code:"2330"}],
               stats:[] },
             { icon:"icon-package", title:"InFO扇出型封裝", sub:"InFO FAN-OUT PACKAGING",
+              diagram:"DIAGRAM_INFO",
+              diagramCaption:"InFO結構示意：晶片包埋於環氧模封材料中，重佈線層(RDL)向兩側「扇出」超出晶片邊界，使錫球分布範圍大於晶片本身。",
               desc:"將晶粒重新配置於載板並以扇出方式重佈線路，最早應用於手機晶片，如今也延伸至部分AI運算模組的封裝方案，兼顧成本與效能。",
               companies:[{n:"台積電",tw:1,code:"2330"}],
               stats:[] },
@@ -1023,6 +1542,8 @@
           tags:["pcb-manufacturing"],
           children:[
             { icon:"icon-substrate", title:"ABF載板三雄", sub:"ABF SUBSTRATE",
+              diagram:"DIAGRAM_ABF",
+              diagramCaption:"ABF載板結構示意：玻纖核心層兩側逐層增層堆疊(Build-up)，雷射微盲孔負責層間導通，最上層供覆晶(Flip-Chip)接合晶片。",
               desc:"高階CPU、GPU與AI ASIC封裝所需的Ajinomoto Build-up Film載板，技術門檻高、產能擴充週期長，台灣三大廠合計掌握全球絕大多數先進載板產能。",
               companies:[{n:"欣興",tw:1,code:"3037"},{n:"南電",tw:1,code:"8046"},{n:"景碩",tw:1,code:"3189"}],
               stats:[{v:">50%",l:"台廠全球ABF載板產能占比"}] },
@@ -1031,6 +1552,8 @@
               companies:[{n:"台光電",tw:1,code:"2383"},{n:"台燿",tw:1,code:"6274"},{n:"聯茂",tw:1,code:"6213"}],
               stats:[] },
             { icon:"icon-server", title:"高速伺服器主機板／PCB", sub:"HIGH-SPEED SERVER PCB",
+              diagram:"DIAGRAM_PCB",
+              diagramCaption:"PCB多層板結構示意：銅箔導電層與樹脂玻纖介電層交替疊合，鍍通孔(PTH)負責垂直導通各層，最外層覆蓋防焊綠漆。",
               desc:"AI伺服器主機板需承載GPU、記憶體與高速互連介面的密集訊號傳輸，對板材阻抗控制與層數要求遠高於一般伺服器，是台廠PCB大廠近年成長最快的應用別。",
               companies:[{n:"金像電",tw:1,code:"2368"},{n:"華通",tw:1,code:"2313"}],
               stats:[] },
@@ -1205,6 +1728,8 @@
               stats:[] }
           ] },
         { icon:"icon-hbm", title:"HBM高頻寬記憶體", sub:"HBM MEMORY",
+          diagram:"DIAGRAM_HBM",
+          diagramCaption:"HBM結構示意：多層DRAM晶粒以矽穿孔(TSV)垂直堆疊，底部為負責訊號中繼的邏輯基底晶片，再透過微凸塊連接至下方基板或中介層。",
           desc:"每張GPU模組搭載多顆HBM堆疊記憶體，Rubin平台起導入HBM4規格。SK海力士、三星、美光皆為輝達認證供應商，目前產能全數綁定AI客戶、處於供不應求狀態；台灣廠商目前並未參與HBM本體製造。",
           companies:[{n:"SK海力士"},{n:"三星電子"},{n:"美光 Micron"}],
           stats:[{v:"HBM4",l:"Rubin平台起導入的新一代記憶體規格"}],
@@ -1224,6 +1749,8 @@
               stats:[] }
           ] },
         { icon:"icon-package", title:"CoWoS先進封裝", sub:"CoWoS ADVANCED PACKAGING",
+          diagram:"DIAGRAM_COWOS",
+          diagramCaption:"CoWoS結構示意：GPU運算晶粒與多顆HBM記憶體堆疊共同座落於矽中介層上，中介層內以TSV垂直導通，再經錫球連接至下方封裝基板。",
           desc:"將GPU運算晶粒與HBM整合於同一載板上的關鍵封裝工序，是輝達新品放量最主要的產能瓶頸。台積電之外也導入委外封測夥伴分攤產能壓力。",
           companies:[{n:"台積電",tw:1,code:"2330"},{n:"日月光",tw:1,code:"3711"}],
           stats:[{v:"~60%",l:"Nvidia占CoWoS總需求比重"}],
@@ -1250,6 +1777,8 @@
           tags:["pcb-manufacturing"],
           children:[
             { icon:"icon-substrate", title:"超大尺寸ABF載板設計", sub:"ULTRA-LARGE ABF SUBSTRATE",
+              diagram:"DIAGRAM_ABF",
+              diagramCaption:"ABF載板結構示意：玻纖核心層兩側逐層增層堆疊(Build-up)，雷射微盲孔負責層間導通，最上層供覆晶(Flip-Chip)接合晶片。",
               desc:"隨GPU與HBM整合面積擴大，載板尺寸持續逼近ABF載板製程極限，對板廠的細線路精度與翹曲控制能力提出更高要求。",
               companies:[{n:"欣興",tw:1,code:"3037"},{n:"南電",tw:1,code:"8046"},{n:"景碩",tw:1,code:"3189"}],
               stats:[] },
@@ -1440,6 +1969,8 @@
               companies:[{n:"蘋果 Apple"}],
               stats:[] },
             { icon:"icon-package", title:"台積電先進封裝InFO_PoP應用", sub:"TSMC InFO_PoP PACKAGING",
+              diagram:"DIAGRAM_INFO",
+              diagramCaption:"InFO結構示意：晶片包埋於環氧模封材料中，重佈線層(RDL)向兩側「扇出」超出晶片邊界，使錫球分布範圍大於晶片本身，藉此縮小堆疊厚度。",
               desc:"蘋果A系列晶片自A10起採用台積電自行研發的InFO_PoP(整合扇出型封裝再疊記憶體)技術，取代傳統打線封裝，大幅縮小晶片堆疊厚度，是台積電先進封裝業務的重要應用案例。",
               companies:[{n:"台積電",tw:1,code:"2330"}],
               stats:[] },
@@ -1456,6 +1987,8 @@
           tags:["pcb-manufacturing"],
           children:[
             { icon:"icon-substrate", title:"蘋果專用ABF高階載板", sub:"APPLE-GRADE ABF SUBSTRATE",
+              diagram:"DIAGRAM_ABF",
+              diagramCaption:"ABF載板結構示意：玻纖核心層兩側逐層增層堆疊(Build-up)，雷射微盲孔負責層間導通，最上層供覆晶(Flip-Chip)接合晶片。",
               desc:"A系列與M系列處理器需搭配高層數、細線寬的ABF載板才能承載日益增加的I/O腳位數與訊號密度，規格與良率要求高於一般消費性電子產品，南電與欣興是主要供應來源。",
               companies:[{n:"南電",tw:1,code:"8046"},{n:"欣興",tw:1,code:"3037"}],
               stats:[] },
@@ -1534,6 +2067,8 @@
               companies:[{n:"臻鼎-KY",tw:1,code:"4958"},{n:"台郡",tw:1,code:"6269"}],
               stats:[] },
             { icon:"icon-substrate", title:"高密度互連硬板(HDI)", sub:"HDI RIGID PCB",
+              diagram:"DIAGRAM_PCB",
+              diagramCaption:"PCB多層板結構示意：銅箔導電層與樹脂玻纖介電層交替疊合，鍍通孔(PTH)負責垂直導通各層，最外層覆蓋防焊綠漆。",
               desc:"主機板需在有限面積內容納更多電子元件與訊號線路，高密度互連技術透過微盲孔與細線寬設計提升佈線密度，華通與嘉聯益在此領域具備長期供應蘋果的經驗。",
               companies:[{n:"華通",tw:1,code:"2313"},{n:"嘉聯益",tw:1,code:"6153"}],
               stats:[] },
@@ -1757,6 +2292,8 @@
       icon: "icon-hbm",
       title: "HBM高頻寬記憶體",
       sub: "HIGH BANDWIDTH MEMORY",
+      diagram: "DIAGRAM_HBM",
+      diagramCaption: "HBM結構示意：多層DRAM晶粒以矽穿孔(TSV)垂直堆疊，底部為負責訊號中繼的邏輯基底晶片，再透過微凸塊連接至下方基板或中介層。",
       desc: "TPU的HBM記憶體採購由Google直接主導，供應商集中在南韓兩大原廠，與輝達GPU供應鏈高度重疊。三星電子目前供應Ironwood約六成HBM3E用量，SK海力士約占四成；隨TPU v8世代啟動，雙方都在爭取新一代HBM4的資格認證與訂單占比。",
       companies: [
         { n: "三星電子 Samsung Electronics", code: "005930.KS" },
@@ -1818,6 +2355,8 @@
           icon: "icon-package",
           title: "CoWoS先進封裝",
           sub: "TSMC CoWoS",
+          diagram: "DIAGRAM_COWOS",
+          diagramCaption: "CoWoS結構示意：運算晶片與多顆HBM記憶體堆疊共同座落於矽中介層上，中介層內以TSV垂直導通，再經錫球連接至下方封裝基板。",
           desc: "台積電CoWoS將TPU運算晶片與多顆HBM堆疊、I/O Die整合封裝，是Google TPU與輝達GPU共用的同一條先進封裝產線；隨AI晶片需求全面吃緊，台積電持續擴充CoWoS月產能，目標2026年底上看約14萬片(含全體客戶)。",
           companies: [{ n: "台積電", tw: 1, code: "2330" }],
           stats: [{ v: "~14萬片/月", l: "台積電2026年底CoWoS產能目標(全客戶)" }]
@@ -1826,6 +2365,8 @@
           icon: "icon-substrate",
           title: "高密度ABF載板：Ibiden、Shinko",
           sub: "ULTRA HIGH-DENSITY ABF SUBSTRATE",
+          diagram: "DIAGRAM_ABF",
+          diagramCaption: "ABF載板結構示意：玻纖核心層兩側逐層增層堆疊(Build-up)，雷射微盲孔負責層間導通，最上層供覆晶(Flip-Chip)接合晶片。",
           desc: "日商Ibiden與Shinko Electric為Google TPU封裝供應超高密度ABF載板，用以承載大尺寸中介層與多顆HBM堆疊；由於良率要求與層數規格遠高於一般伺服器載板，售價溢價可達3倍，是TPU封裝成本中的關鍵瓶頸環節之一。",
           companies: [
             { n: "Ibiden", code: "4062.T" },
@@ -1851,6 +2392,7 @@
       icon: "icon-interconnect",
       title: "晶片互連與光路交換",
       sub: "ICI / OPTICAL CIRCUIT SWITCHING",
+      parallelGroup: "google-tpu-rack-integration",
       desc: "Google TPU叢集靠自研晶片間互連(ICI)與Apollo光路交換器(OCS)串接，Ironwood單一Superpod可連結9,216顆晶片，雙向頻寬達47Pb/s，較前代延遲降低約4成。OCS採Lumentum微機電(MEMS)反射鏡技術獨家供應，每台交換器僅耗電約100瓦，遠低於電子交換器的3,000瓦；800G以上光收發模組則以中國廠中際旭創、新易盛為主力，台廠聯亞、光聖、華星光同步受惠規格由800G升級至1.6T。",
       companies: [
         { n: "Lumentum", code: "LITE" },
@@ -1902,6 +2444,7 @@
       icon: "icon-server",
       title: "機櫃系統與伺服器ODM",
       sub: "RACK SYSTEM & SERVER ODM",
+      parallelGroup: "google-tpu-rack-integration",
       desc: "Google TPU伺服器機櫃規格由Google自行定義，與輝達標準化GB200/GB300機櫃不同，多世代機櫃由Google自有工廠與代工夥伴混合生產。英業達是台廠中參與時間最久的夥伴，過去四代TPU的L6機櫃與加拿大廠Celestica共同代工；TPU v7世代起英業達取得新一代ASIC伺服器專案，估其ASIC產品占AI伺服器業務比重將拉高至約五成，美國德州新廠2026年下半年進入量產。廣達、鴻海、緯創／緯穎則以GPU、ASIC伺服器並行方式參與Google及其他CSP的機櫃系統代工。",
       companies: [
         { n: "英業達", tw: 1, code: "2356" },
@@ -1952,6 +2495,7 @@
       icon: "icon-power",
       title: "電源與液冷散熱",
       sub: "POWER & LIQUID COOLING",
+      parallelGroup: "google-tpu-rack-integration",
       desc: "TPU伺服器機櫃全面採用液冷設計，Ironwood世代電源與散熱供應鏈同步轉向台系廠商。台達電為Google AI伺服器電源供應主力廠商之一，光寶科同步供應電源模組；奇鋐則於TPU v7世代首度打入Google ASIC液冷系統，標誌著液冷散熱供應鏈由美系業者逐步轉向台廠。",
       companies: [
         { n: "台達電", tw: 1, code: "2308" },
@@ -2151,6 +2695,8 @@
           icon: "icon-hbm",
           title: "HBM高頻寬記憶體",
           sub: "HIGH BANDWIDTH MEMORY",
+          diagram: "DIAGRAM_HBM",
+          diagramCaption: "HBM結構示意：多層DRAM晶粒以矽穿孔(TSV)垂直堆疊，底部為負責訊號中繼的邏輯基底晶片，再透過微凸塊連接至下方基板或中介層。",
           desc: "Trainium系列採用HBM高頻寬記憶體強化AI運算頻寬。2023年底已有報導證實Trainium2的HBM3訂單由三星電子與SK海力士共同供應；最新Trainium3單晶片改採12層堆疊HBM3e、容量達144GB，記憶體頻寬提升至9TB/s，個別廠商供應占比目前尚未由AWS官方逐一證實，市場預期南韓兩大原廠與美光將持續角逐訂單。",
           companies: [{ n: "三星電子" }, { n: "SK海力士" }, { n: "美光 Micron" }],
           stats: [
@@ -2211,6 +2757,8 @@
               icon: "icon-package",
               title: "CoWoS先進封裝：台積電",
               sub: "TSMC CoWoS ADVANCED PACKAGING",
+              diagram: "DIAGRAM_COWOS",
+              diagramCaption: "CoWoS結構示意：運算晶粒與多顆HBM記憶體堆疊共同座落於矽中介層上，中介層內以TSV垂直導通，再經錫球連接至下方封裝基板。",
               desc: "Trainium系列先進封裝委由台積電CoWoS平台處理，將運算晶粒與HBM堆疊整合於同一中介層；隨Trainium3放量，世芯-KY已向台積電加碼預訂CoWoS產能，是台積電先進封裝客戶結構中成長最快的雲端自研晶片訂單之一。",
               companies: [{ n: "台積電", tw: 1, code: "2330" }, { n: "世芯-KY", tw: 1, code: "3661" }],
               stats: []
@@ -2219,6 +2767,8 @@
               icon: "icon-substrate",
               title: "台灣ABF載板供應鏈",
               sub: "TAIWAN ABF SUBSTRATE MAKERS",
+              diagram: "DIAGRAM_ABF",
+              diagramCaption: "ABF載板結構示意：玻纖核心層兩側逐層增層堆疊(Build-up)，雷射微盲孔負責層間導通，最上層供覆晶(Flip-Chip)接合晶片。",
               desc: "欣興、南電、景碩為台灣ABF載板三大廠，目前並未被公開證實為AWS Trainium的指定專屬供應商，但同屬全球AI ASIC載板產能池的一員，隨AWS與其他雲端業者自研晶片放量同步受惠產能利用率與報價齊揚。",
               companies: [{ n: "欣興", tw: 1, code: "3037" }, { n: "南電", tw: 1, code: "8046" }, { n: "景碩", tw: 1, code: "3189" }],
               stats: []
@@ -2229,6 +2779,7 @@
           icon: "icon-network",
           title: "網通晶片與機櫃互連",
           sub: "NITRO SYSTEM & CUSTOM NETWORKING SILICON",
+          parallelGroup: "aws-rack-integration",
           desc: "AWS自2013年起自研Nitro System，將虛擬化、儲存、網路與安全功能自主機CPU卸載至專用晶片，全數由Annapurna Labs設計、委由台積電代工，是AWS雲端運算基礎架構的核心自研元件之一。Trainium叢集另搭配自研NeuronLink/NeuronSwitch晶片間互連架構，單一Trn3 UltraServer系統匯總頻寬達約706TB/s。",
           companies: [{ n: "Amazon", code: "AMZN" }, { n: "台積電", tw: 1, code: "2330" }],
           stats: [{ v: "706TB/s", l: "Trn3 UltraServer系統匯總頻寬" }],
@@ -2263,6 +2814,7 @@
           icon: "icon-server",
           title: "機櫃系統與伺服器ODM組裝",
           sub: "RACK SYSTEM & SERVER ODM ASSEMBLY",
+          parallelGroup: "aws-rack-integration",
           desc: "緯穎是財經媒體點名負責組裝AWS客製化AI伺服器的主要廠商，2025年9月營收年增達150%，法人歸因於AWS Trainium2出貨優於預期；緯創則供應主機板(L6)並透過子公司負責機櫃組裝、測試與系統整合(L10/L11)，廣達、英業達、鴻海同步以協力代工角色參與AWS AI伺服器建置浪潮。",
           companies: [
             { n: "緯穎", tw: 1, code: "6669" },
@@ -2303,6 +2855,7 @@
           icon: "icon-power",
           title: "電源與液冷散熱",
           sub: "POWER & LIQUID COOLING",
+          parallelGroup: "aws-rack-integration",
           tags: ["thermal-cooling","power-thermal"],
           desc: "AWS採自主設計的機櫃級電源架構與「liquid-to-chip」混合式液冷方案，2024年底發表的新一代資料中心元件可將機櫃供電密度於兩年內提升6倍、故障機櫃占比降低89%，同步支援自研Trainium2與輝達GB200 NVL72系統，並與輝達協作開發液冷機櫃設計。零組件層級，奇鋐已被財經媒體點名供應AWS資料中心水冷模組；台達電、光寶科、康舒為全球資料中心電源供應器三大廠，同步受惠包含AWS在內的雲端資本支出擴張，惟AWS未如輝達生態般逐一公開指定專屬電源供應商名單。",
           companies: [{ n: "Amazon", code: "AMZN" }, { n: "奇鋐", tw: 1, code: "3017" }],
@@ -2385,446 +2938,6 @@
         }
       ]
     },
-    "tsmc": {
-      name: "台積電供應鏈",
-      nameEn: "TSMC PRODUCT & SUPPLY CHAIN PROFILE",
-      tags: ["tsmc","wafer-fabrication","advanced-packaging"],
-      lede: "台積電（TSMC）是全球最大專業積體電路製造服務廠商，1987年由張忠謀創立於新竹，首創「純晶圓代工」商業模式，不與客戶競爭終端產品。2026年第2季台積電全球純晶圓代工市占率達73%，遙遙領先居次的三星電子(7%)；隨AI伺服器需求持續加速，公司已將2026年全年美元營收成長指引上修至逾40%，資本支出預算同步上修至600-640億美元，同步在美國、日本、德國展開歷來規模最大的海外建廠布局。",
-      updated: "2026年9月",
-      sources: [
-        "台積電投資人關係網站《2Q26 Management Report》《2Q26 Earnings Release》《2Q26 法說會簡報》(2026年7月)",
-        "The Motley Fool／Investing.com，台積電2026年第2季法說會逐字稿",
-        "Counterpoint Research，全球純晶圓代工市占率報告(2026年Q2)",
-        "TrendForce，台積電CoWoS產能、亞利桑那／熊本擴產時程與A16/A14製程藍圖相關報導(2026年)",
-        "台積電官方新聞稿：美國投資加碼至2,650億美元(2025年3月／2026年7月)、ESMC德勒斯登動土、JASM熊本開幕",
-        "CNBC、MacRumors，「輝達取代蘋果成為台積電最大客戶」報導(2026年1月)",
-        "Tom's Hardware，台積電2026年資本支出上修至600-640億美元與設備需求報導"
-      ],
-      disclaimer: "本頁面為公開資訊整理彙編，市占率、產能與產品規格等數據會隨市場狀況與廠商公告持續變動，僅供產業脈絡參考，不構成任何投資建議。",
-      nodes: [
-        {
-          icon: "icon-foundry",
-          title: "公司概況與純晶圓代工模式",
-          sub: "PURE-PLAY FOUNDRY MODEL & GLOBAL POSITION",
-          desc: "台積電1987年由張忠謀創立於新竹科學園區，首創「純晶圓代工」(Pure-play Foundry)商業模式——只接受客戶委託製造，不自行設計銷售終端晶片，藉此與所有IC設計客戶維持非競爭關係。2026年第2季公司合併營收達402.0億美元(約新台幣1兆2,703.8億元)，毛利率67.7%，全球純晶圓代工市占率達73%(Counterpoint Research統計)，法人會後將全年美元營收成長指引上修至「略高於40%」，全年資本支出預算同步上修至600-640億美元。",
-          companies: [
-            { n: "台積電", tw: 1, code: "2330" },
-            { n: "三星電子" },
-            { n: "Intel", code: "INTC" }
-          ],
-          stats: [
-            { v: "73%", l: "台積電2026年Q2全球純晶圓代工市占率(Counterpoint Research)" },
-            { v: "402.0億美元", l: "台積電2026年Q2合併營收" },
-            { v: "40%+", l: "公司上修之2026全年美元營收成長指引(2026年Q2法說會)" }
-          ],
-          children: [
-            {
-              icon: "icon-turnkey",
-              title: "純晶圓代工商業模式",
-              sub: "PURE-PLAY FOUNDRY BUSINESS MODEL",
-              desc: "台積電只承接晶圓代工訂單，不推出自有品牌終端晶片，藉此取得所有IC設計公司的信任、避免利益衝突，是1987年由張忠謀首創、至今仍是全球規模最大的商業模式，也是台積電有別於Intel等IDM(整合元件製造)廠商的根本差異。",
-              companies: [{ n: "台積電", tw: 1, code: "2330" }],
-              stats: []
-            },
-            {
-              icon: "icon-foundry",
-              title: "全球市占與競爭定位",
-              sub: "GLOBAL MARKET SHARE & COMPETITIVE POSITION",
-              desc: "2026年第2季台積電全球純晶圓代工市占率達73%，居次的三星電子僅7%，兩者差距擴大至66個百分點；英特爾雖以「Intel Foundry」策略積極對外接單，市占仍尚未擠進全球前十大純晶圓代工廠排名(Counterpoint Research)。",
-              companies: [{ n: "台積電", tw: 1, code: "2330" }, { n: "三星電子" }],
-              stats: [{ v: "73% vs 7%", l: "台積電vs三星電子全球純晶圓代工市占(2026年Q2)" }]
-            },
-            {
-              icon: "icon-generic",
-              title: "2026年營運展望與資本支出",
-              sub: "FY2026 OUTLOOK & CAPEX GUIDANCE",
-              desc: "台積電2026年第2季法說會將全年美元營收成長指引上修至「略高於40%」，第3季營收展望介於446-458億美元；全年資本支出預算同步由年初的520-560億美元上修至600-640億美元，其中約70-80%配置於先進製程、約10%配置於特殊製程、10-20%配置於先進封裝、測試與光罩製造。",
-              companies: [{ n: "台積電", tw: 1, code: "2330" }],
-              stats: [{ v: "US$600-640億", l: "台積電2026年全年資本支出預算(2026年Q2法說會上修)" }]
-            }
-          ]
-        },
-        {
-          icon: "icon-chip",
-          title: "先進製程節點與技術藍圖",
-          sub: "ADVANCED NODE ROADMAP: N3 → N2 → A16 → A14",
-          desc: "台積電先進製程路線圖自N3(2022年底量產)、N2(2025年底量產)，接續規劃A16(原名2奈米後續世代，2027年量產)與A14(2028年量產)，2029年再推出A13與A12。N2為台積電首個全面採用奈米片(nanosheet)環繞閘極電晶體(GAAFET)的世代，A16則首度導入「Super Power Rail」背面供電技術，是近十年最大幅度的電晶體結構變革之一。",
-          companies: [{ n: "台積電", tw: 1, code: "2330" }],
-          tags: ["wafer-fabrication"],
-          stats: [
-            { v: "A16", l: "首度導入Super Power Rail背面供電技術，規劃2027年量產" },
-            { v: "2028年", l: "A14量產規劃時程(第二代奈米片電晶體結構)" }
-          ],
-          children: [
-            {
-              icon: "icon-metrology",
-              title: "製程節點命名≠實際電晶體尺寸",
-              sub: "NODE NAMES ARE MARKETING LABELS, NOT PHYSICAL MEASUREMENTS",
-              desc: "業界自20奈米／16奈米FinFET世代起，「N3」「3奈米」「2奈米」「A16」等製程代號已與電晶體實際閘極長度或任何可量測的物理尺寸脫鉤，本質上是各廠自訂的世代／行銷命名，用以標示相對於前一世代在效能、功耗或密度上的提升幅度，晶片上並無任何結構真的是「3奈米」寬。以台積電N3為例，量產電晶體密度約達每平方毫米2.97億顆(較N5提升約1.7倍)，是較具意義的實測指標；但不同代工廠使用相同數字的製程——例如台積電N3、Intel 3、三星3奈米——彼此電晶體實際尺寸與密度並不相通，投資人比較各廠「幾奈米」時，應改看電晶體密度(transistors/mm²)、閘極間距(gate pitch)、鰭片或奈米片堆疊層數，以及同功耗下的效能提升幅度(performance-per-watt)等指標，而非單看節點名稱數字大小。",
-              companies: [
-                { n: "台積電", tw: 1, code: "2330" },
-                { n: "Intel", code: "INTC" },
-                { n: "三星電子" }
-              ],
-              stats: [{ v: "~2.97億顆/mm²", l: "台積電N3量產電晶體密度估算(較N5提升約1.7倍)" }]
-            },
-            {
-              icon: "icon-wafer",
-              title: "N3與N2量產現況",
-              sub: "N3 / N2 PRODUCTION STATUS",
-              desc: "N3系列自2022年底量產以來持續放量，是2026年台積電營收貢獻最大的製程家族之一；N2於2025年底進入量產，首批客戶包括蘋果、輝達、AMD、聯發科等，2026年第2季N2製程已占晶圓代工營收比重3%，法人預期2026下半年隨N2放量加速，將稀釋公司毛利率約3-4個百分點。",
-              companies: [
-                { n: "台積電", tw: 1, code: "2330" },
-                { n: "蘋果 Apple" },
-                { n: "輝達 NVIDIA" },
-                { n: "AMD", code: "AMD" },
-                { n: "聯發科", tw: 1, code: "2454" }
-              ],
-              stats: [{ v: "3%", l: "N2製程占晶圓代工營收比重(2026年Q2)" }]
-            },
-            {
-              icon: "icon-foundry",
-              title: "A16／A14世代新技術",
-              sub: "A16 / A14 — NEXT-GEN TRANSISTOR & POWER DELIVERY",
-              desc: "主打資料中心與HPC應用的A16首度導入「Super Power Rail」背面供電技術與第一代奈米片環繞閘極電晶體，原規劃2026年量產已延後至2027年；主打行動裝置的A14規劃2028年量產，2029年再接續推出A13(行動，較A14縮小約3%、密度提升約6%)與A12(資料中心，導入第二代奈米片與NanoFlex Pro技術)，兩者皆不採用High-NA EUV微影設備。",
-              companies: [{ n: "台積電", tw: 1, code: "2330" }],
-              stats: [
-                { v: "2027年", l: "A16量產規劃時程(原規劃2026年，已延後)" },
-                { v: "2029年", l: "A13(行動)／A12(資料中心)量產規劃時程" }
-              ]
-            }
-          ]
-        },
-        {
-          icon: "icon-wafer",
-          title: "製程節點營收占比",
-          sub: "REVENUE BY TECHNOLOGY NODE (2Q26)",
-          desc: "台積電每季法說會依製程節點揭露晶圓代工營收占比。2026年第2季(2Q26)數據顯示，先進製程(7奈米以下)合計占晶圓代工營收77%，其中5奈米33%為單一占比最高節點、3奈米30%、7奈米11%、2奈米3%(首季完整認列)；成熟與特殊製程合計占23%，主要來自16/20奈米(6%)、28奈米(6%)、65奈米(4%)、40/45奈米(2%)及0.13微米以上製程(合計約5%)。與去年同期(2Q25)相比，2奈米自0%起步升至3%、3奈米占比由24%擴大至30%，反映先進節點放量對整體營收占比的持續墊高；本節數字為2026年Q2單季快照，會隨後續季度製程世代交替而變動。",
-          companies: [{ n: "台積電", tw: 1, code: "2330" }],
-          stats: [
-            { v: "77%", l: "先進製程(7奈米以下)占晶圓代工營收比重(2026年Q2)" },
-            { v: "33%", l: "5奈米製程營收占比(2026年Q2，占比最高單一節點)" },
-            { v: "30%", l: "3奈米製程營收占比(2026年Q2)" },
-            { v: "3%", l: "2奈米製程營收占比(2026年Q2)" }
-          ],
-          children: [
-            {
-              icon: "icon-wafer",
-              title: "先進製程占77%：N2／N3／N5／N7",
-              sub: "ADVANCED NODES (≤N7) — 77% OF WAFER REVENUE",
-              desc: "2026年第2季先進製程(定義為7奈米以下)合計占晶圓代工營收77%：5奈米33%、3奈米30%、7奈米11%、2奈米3%。5奈米雖已量產逾5年，仍是單季貢獻最大的單一節點，反映其在HPC、手機晶片上長期扮演「性價比最佳先進節點」的角色；3奈米則隨蘋果、輝達、AMD、聯發科等客戶新品陸續放量持續擴大占比。",
-              companies: [{ n: "台積電", tw: 1, code: "2330" }],
-              stats: [{ v: "77%", l: "先進製程合計占晶圓代工營收比重(2026年Q2)" }]
-            },
-            {
-              icon: "icon-implant",
-              title: "成熟與特殊製程占23%",
-              sub: "MATURE & SPECIALTY NODES — 23% OF WAFER REVENUE",
-              desc: "成熟與特殊製程2026年Q2合計占晶圓代工營收23%：16/20奈米6%、28奈米6%、65奈米4%、40/45奈米2%、0.13微米以上製程合計約5%，主要供應車用、物聯網、電源管理與類比等對先進製程需求較低的應用，是台積電營收結構中相對穩定但成長性較低的一塊。",
-              companies: [{ n: "台積電", tw: 1, code: "2330" }],
-              stats: [{ v: "23%", l: "成熟與特殊製程合計占晶圓代工營收比重(2026年Q2)" }]
-            },
-            {
-              icon: "icon-metrology",
-              title: "單季趨勢：2奈米放量起步",
-              sub: "QUARTER-OVER-QUARTER SHIFT: 2NM RAMP BEGINS",
-              desc: "對比2026年第1季與第2季：2奈米占比由0%升至3%，3奈米由25%擴大至30%，同時5奈米占比則由36%小幅回落至33%、7奈米由13%降至11%，呈現典型的「新製程放量、舊製程占比讓位」節奏；隨N2於2026下半年加速放量，市場預期未來幾季2奈米占比將持續墊高。",
-              companies: [{ n: "台積電", tw: 1, code: "2330" }],
-              stats: [{ v: "0%→3%", l: "2奈米製程營收占比變化(1Q26→2Q26)" }]
-            }
-          ]
-        },
-        {
-          icon: "icon-datacenter",
-          title: "應用平台別營收占比",
-          sub: "REVENUE BY PLATFORM (2Q26)",
-          desc: "台積電依終端應用平台分為高效能運算(HPC)、智慧型手機、物聯網(IoT)、車用及數位消費性電子(DCE)五大類。2026年第2季HPC平台占淨營收比重達66%，居各平台之冠且較去年同期(2Q25:60%)持續攀升，主要受惠輝達、AMD等AI加速器與雲端業者自研ASIC投片動能；智慧型手機平台占22%(2Q25:27%)，比重持續遭AI伺服器排擠；物聯網5%、車用4%、數位消費性電子(DCE)僅1%，其他應用合計2%。本節數字為2026年Q2單季快照，會隨每季客戶投片結構調整。",
-          companies: [
-            { n: "台積電", tw: 1, code: "2330" },
-            { n: "輝達 NVIDIA" },
-            { n: "蘋果 Apple" }
-          ],
-          stats: [
-            { v: "66%", l: "HPC平台占淨營收比重(2026年Q2)" },
-            { v: "22%", l: "智慧型手機平台占淨營收比重(2026年Q2)" },
-            { v: "5% / 4% / 1%", l: "IoT／車用／DCE平台占淨營收比重(2026年Q2)" }
-          ],
-          children: [
-            {
-              icon: "icon-datacenter",
-              title: "HPC平台：AI驅動的最大成長引擎",
-              sub: "HPC PLATFORM — AI-DRIVEN GROWTH ENGINE",
-              desc: "HPC平台涵蓋AI加速器、資料中心CPU／GPU／ASIC等應用，2026年第2季占淨營收比重達66%，較去年同期(2Q25:60%)再擴大6個百分點，是台積電目前最大且成長最快的應用平台，主要動能來自輝達、AMD及Google、Amazon、Microsoft等雲端業者自研AI晶片投片需求。",
-              companies: [
-                { n: "台積電", tw: 1, code: "2330" },
-                { n: "輝達 NVIDIA" },
-                { n: "AMD", code: "AMD" }
-              ],
-              stats: [{ v: "60%→66%", l: "HPC平台占淨營收比重變化(2Q25→2Q26)" }]
-            },
-            {
-              icon: "icon-chip",
-              title: "智慧型手機平台：占比持續下滑",
-              sub: "SMARTPHONE PLATFORM — SHRINKING SHARE",
-              desc: "智慧型手機平台2026年第2季占淨營收比重22%，較去年同期(2Q25:27%)下滑5個百分點，主因HPC平台成長速度遠高於手機晶片，排擠了手機平台在營收結構中的相對占比；蘋果、聯發科、高通旗艦SoC仍是帶動N3、N2先進製程放量的重要客戶。",
-              companies: [
-                { n: "台積電", tw: 1, code: "2330" },
-                { n: "蘋果 Apple" },
-                { n: "聯發科", tw: 1, code: "2454" },
-                { n: "Qualcomm", code: "QCOM" }
-              ],
-              stats: [{ v: "27%→22%", l: "智慧型手機平台占淨營收比重變化(2Q25→2Q26)" }]
-            },
-            {
-              icon: "icon-device",
-              title: "IoT／車用／DCE：利基型平台",
-              sub: "IOT / AUTOMOTIVE / DCE — NICHE PLATFORMS",
-              desc: "物聯網(5%)、車用(4%)、數位消費性電子(1%)三個平台2026年第2季合計占淨營收約10%，多數投片於成熟與特殊製程，成長性與波動度均低於HPC與手機兩大主力平台，但車用平台近年隨車用晶片高階化(如ADAS、座艙SoC)同步導入部分先進與準先進製程。",
-              companies: [{ n: "台積電", tw: 1, code: "2330" }],
-              stats: [{ v: "~10%", l: "IoT+車用+DCE平台合計占淨營收比重(2026年Q2)" }]
-            }
-          ]
-        },
-        {
-          icon: "icon-package",
-          title: "先進封裝（CoWoS／InFO／SoIC）",
-          sub: "ADVANCED PACKAGING: CoWoS / InFO / SoIC",
-          desc: "先進封裝已成為台積電僅次於前段晶圓製造的第二大資本支出項目，2026年全年資本支出中約10-20%配置於先進封裝、測試與光罩製造。CoWoS月產能規劃於2026年底達12-14萬片(不含委外OSAT夥伴約5-6萬片產能，合計全產業鏈上看近20萬片)，市場估CoWoS供需缺口將由目前約20%收斂至年底約10%；InFO系列(含InFO_PoP)長期為蘋果A／M系列晶片主力封裝方案，SoIC(3D堆疊)則用於輝達、AMD等高階HPC產品的晶粒堆疊，並延伸出CoPoS(Chip-on-Panel-on-Substrate)新一代面板級封裝平台，規劃搭配輝達下世代Feynman平台於2028-2029年導入。",
-          companies: [
-            { n: "台積電", tw: 1, code: "2330" },
-            { n: "日月光", tw: 1, code: "3711" },
-            { n: "輝達 NVIDIA" },
-            { n: "蘋果 Apple" }
-          ],
-          tags: ["advanced-packaging"],
-          stats: [
-            { v: "12-14萬片/月", l: "台積電CoWoS月產能規劃(2026年底)" },
-            { v: "~10%", l: "CoWoS供需缺口收斂目標(2026年底，原約20%)" }
-          ],
-          children: [
-            {
-              icon: "icon-package",
-              title: "CoWoS：2.5D中介層封裝",
-              sub: "CoWoS — 2.5D INTERPOSER PACKAGING",
-              desc: "CoWoS(Chip-on-Wafer-on-Substrate)將運算晶粒與多顆HBM堆疊整合於同一中介層，是輝達GPU、AMD MI系列及各雲端業者自研AI ASIC共用的核心先進封裝平台，長期是AI晶片放量的最大產能瓶頸；台積電規劃自有月產能於2026年底擴至12-14萬片，並持續透過日月光等OSAT夥伴分攤約5-6萬片委外產能。",
-              companies: [
-                { n: "台積電", tw: 1, code: "2330" },
-                { n: "日月光", tw: 1, code: "3711" },
-                { n: "輝達 NVIDIA" }
-              ],
-              stats: [{ v: "12-14萬片/月", l: "台積電CoWoS自有月產能規劃(2026年底)" }]
-            },
-            {
-              icon: "icon-package",
-              title: "InFO：整合扇出封裝",
-              sub: "InFO — INTEGRATED FAN-OUT PACKAGING",
-              desc: "InFO_PoP(整合扇出型封裝再疊記憶體)自2016年A10晶片起長期為蘋果iPhone用A系列處理器主力封裝方案，取代傳統打線封裝並大幅縮小晶片堆疊厚度，是台積電先進封裝業務中歷史最久、與單一大客戶綁定最深的產品線之一。",
-              companies: [
-                { n: "台積電", tw: 1, code: "2330" },
-                { n: "蘋果 Apple" }
-              ],
-              stats: []
-            },
-            {
-              icon: "icon-interconnect",
-              title: "SoIC與CoPoS：3D異質整合新平台",
-              sub: "SoIC & CoPoS — NEXT-GEN 3D INTEGRATION",
-              desc: "SoIC(System on Integrated Chips)採晶圓對晶圓／晶片對晶圓混合接合技術，實現無凸塊(bump-less)3D堆疊，應用於輝達、AMD等高階HPC產品的運算晶粒堆疊；台積電並開發面板級封裝新平台CoPoS(Chip-on-Panel-on-Substrate)，市場預期將搭配輝達下世代Feynman平台於2028-2029年導入，用以突破現有基板尺寸與良率限制。",
-              companies: [
-                { n: "台積電", tw: 1, code: "2330" },
-                { n: "輝達 NVIDIA" },
-                { n: "AMD", code: "AMD" }
-              ],
-              stats: []
-            }
-          ]
-        },
-        {
-          icon: "icon-device",
-          title: "特殊製程與類比／車用晶圓代工",
-          sub: "SPECIALTY & AUTOMOTIVE FOUNDRY",
-          desc: "除先進邏輯製程外，台積電同步維持特殊製程(Specialty Technology)產品線，涵蓋射頻(RF)、嵌入式快閃記憶體、影像感測器、電源管理(BCD)及車用等應用，2026年資本支出中約一成配置於特殊製程產能；車用產品線以N7、N6等成熟至準先進製程為主，提供對應「零缺陷」品質認證與長達15年以上的產品生命週期支援，客戶涵蓋恩智浦、英飛凌、博世等歐系車用半導體大廠，以及聯發科等台廠車用晶片設計商，德國德勒斯登新廠即是專為歐洲車用與工業客戶設立的特殊製程據點。",
-          companies: [
-            { n: "台積電", tw: 1, code: "2330" },
-            { n: "聯發科", tw: 1, code: "2454" }
-          ],
-          stats: [
-            { v: "~10%", l: "2026年資本支出配置於特殊製程比重" },
-            { v: "15年+", l: "車用製程典型產品生命週期支援年限" }
-          ],
-          children: [
-            {
-              icon: "icon-device",
-              title: "特殊製程平台：RF／BCD／嵌入式記憶體",
-              sub: "SPECIALTY PLATFORMS: RF / BCD / EMBEDDED MEMORY",
-              desc: "特殊製程涵蓋射頻(RF，供應5G／Wi-Fi前端晶片)、BCD電源管理製程、嵌入式快閃記憶體與影像感測器等技術平台，多數建置於28奈米以上成熟節點，客戶對製程穩定性與良率的要求往往高於對電晶體密度的要求。",
-              companies: [{ n: "台積電", tw: 1, code: "2330" }],
-              stats: []
-            },
-            {
-              icon: "icon-device",
-              title: "車用晶圓代工與零缺陷品質標準",
-              sub: "AUTOMOTIVE FOUNDRY & ZERO-DEFECT QUALITY",
-              desc: "車用晶片需通過遠高於消費性電子的「零缺陷」(Zero Defect)品質認證與長達15年以上的產品生命週期供貨承諾，台積電以N7、N6及更成熟製程對應此類需求，客戶涵蓋恩智浦、英飛凌、博世等歐系車用半導體大廠；德國德勒斯登ESMC新廠即鎖定28/22奈米平面與16/12奈米FinFET製程，專為服務歐洲車用與工業客戶而設立。",
-              companies: [{ n: "台積電", tw: 1, code: "2330" }],
-              stats: []
-            }
-          ]
-        },
-        {
-          icon: "icon-server",
-          title: "海外建廠布局（美國／日本／德國）",
-          sub: "OVERSEAS FAB EXPANSION: US / JAPAN / GERMANY",
-          desc: "因應美中科技競爭與客戶要求供應鏈分散，台積電近年大舉擴大海外投資。美國亞利桑那州目前是最大海外據點，2025年3月宣布加碼至1,650億美元、規劃3座晶圓廠、2座先進封裝廠及一座研發中心，2026年7月法說會再宣布加碼1,000億美元，美國總投資額上看2,650億美元、規劃最終興建至多10座晶圓廠；日本熊本JASM一廠已於2024年底量產(12/16/22/28奈米成熟製程，主攻車用與工業應用，2025年首季轉虧為盈)，與Sony半導體、Denso、豐田合資的二廠原規劃6奈米，2026年2月因應AI需求調整為3奈米製程；德國德勒斯登ESMC廠(與博世、英飛凌、恩智浦合資)2024年8月動工，目標28/22奈米平面與16/12奈米FinFET製程，規劃月產能4萬片12吋晶圓，鎖定歐洲車用與工業客戶，設備預計2026年下半年開始進駐。",
-          companies: [{ n: "台積電", tw: 1, code: "2330" }],
-          stats: [
-            { v: "US$2,650億", l: "台積電美國(亞利桑那)累計投資總額(2026年7月加碼後)" },
-            { v: "2H2027", l: "亞利桑那二廠3奈米量產規劃時程" }
-          ],
-          children: [
-            {
-              icon: "icon-server",
-              title: "美國亞利桑那：先進製程與封裝重鎮",
-              sub: "ARIZONA — ADVANCED LOGIC & PACKAGING HUB",
-              desc: "亞利桑那一廠已量產(N4等製程)，二廠原規劃導入N3、目標2027年下半年量產；2025年3月台積電宣布加碼投資至1,650億美元、規劃3座晶圓廠、2座先進封裝廠及一座研發中心，2026年7月法說會再加碼1,000億美元，總投資額上看2,650億美元，最終規劃於當地興建至多10座晶圓廠，涵蓋2奈米以下邏輯製程與先進封裝產能。",
-              companies: [{ n: "台積電", tw: 1, code: "2330" }],
-              stats: [{ v: "US$2,650億", l: "台積電美國累計投資總額(2026年7月起)" }]
-            },
-            {
-              icon: "icon-server",
-              title: "日本熊本JASM：車用與特殊製程",
-              sub: "JASM KUMAMOTO — AUTOMOTIVE & SPECIALTY NODES",
-              desc: "JASM(Japan Advanced Semiconductor Manufacturing)由台積電主導、Sony半導體與Denso合資成立，一廠已於2024年底量產12/16/22/28奈米成熟製程，主攻車用與工業應用，2025年第1季轉虧為盈；豐田隨後加入投資二廠，二廠原規劃導入6奈米，2026年2月因應AI需求強勁調整為3奈米製程。",
-              companies: [{ n: "台積電", tw: 1, code: "2330" }],
-              stats: [{ v: "2028年", l: "熊本二廠3奈米量產規劃時程(原規劃6奈米)" }]
-            },
-            {
-              icon: "icon-server",
-              title: "德國德勒斯登ESMC：歐洲車用據點",
-              sub: "ESMC DRESDEN — EUROPEAN AUTOMOTIVE FOUNDRY",
-              desc: "ESMC(European Semiconductor Manufacturing Company)由台積電與博世、英飛凌、恩智浦合資成立，2024年8月動工，目標製程為28/22奈米平面CMOS與16/12奈米FinFET，規劃月產能4萬片12吋晶圓，總投資逾100億歐元，鎖定歐洲車用與工業客戶，設備預計2026年下半年開始進駐廠房。",
-              companies: [{ n: "台積電", tw: 1, code: "2330" }],
-              stats: [{ v: "4萬片/月", l: "ESMC規劃12吋晶圓月產能" }]
-            }
-          ]
-        },
-        {
-          icon: "icon-chip",
-          title: "主要客戶結構與晶圓代工競爭格局",
-          sub: "CUSTOMER MIX & FOUNDRY COMPETITIVE LANDSCAPE",
-          desc: "2026年以來，輝達已取代蘋果成為台積電最大單一客戶，反映AI伺服器晶片投片金額首度超越智慧型手機。以客戶所在地區觀察，北美客戶(輝達、蘋果、AMD、高通、Google、Amazon等美系IC設計與雲端業者為主)2026年第2季合計貢獻台積電淨營收約78%，是最大宗營收來源；亞太(含台灣聯發科等IC設計業者)占8%，中國、日本、歐洲合計約14%。競爭格局上，台積電以73%全球純晶圓代工市占(2026年Q2)遠遙領先居次的三星電子(7%)，兩者差距擴大至66個百分點；英特爾雖以「Intel Foundry」策略推動18A製程對外接單，市占仍尚未擠進全球前十大純晶圓代工廠排名。",
-          companies: [
-            { n: "台積電", tw: 1, code: "2330" },
-            { n: "輝達 NVIDIA" },
-            { n: "蘋果 Apple" },
-            { n: "AMD", code: "AMD" },
-            { n: "聯發科", tw: 1, code: "2454" },
-            { n: "Qualcomm", code: "QCOM" },
-            { n: "三星電子" },
-            { n: "Intel", code: "INTC" }
-          ],
-          tags: ["nvidia","apple-supply-chain"],
-          stats: [
-            { v: "78%", l: "北美客戶占台積電淨營收比重(2026年Q2)" },
-            { v: "73% vs 7%", l: "台積電vs三星電子全球純晶圓代工市占(2026年Q2)" }
-          ],
-          children: [
-            {
-              icon: "icon-chip",
-              title: "輝達躍居最大客戶",
-              sub: "NVIDIA BECOMES TSMC'S TOP CUSTOMER",
-              desc: "根據媒體於2026年1月引述供應鏈與法人資料，輝達已取代蘋果成為台積電最大單一客戶，主因AI GPU與相關ASIC的晶圓投片與先進封裝支出金額，已超越蘋果iPhone／Mac用A、M系列晶片，象徵AI伺服器需求正式成為台積電營收結構中最關鍵的成長引擎。",
-              companies: [
-                { n: "台積電", tw: 1, code: "2330" },
-                { n: "輝達 NVIDIA" },
-                { n: "蘋果 Apple" }
-              ],
-              stats: []
-            },
-            {
-              icon: "icon-foundry",
-              title: "三星電子晶圓代工：市占差距擴大",
-              sub: "SAMSUNG FOUNDRY — WIDENING GAP",
-              desc: "三星電子晶圓代工事業2026年第2季全球市占約7%，與台積電的差距擴大至66個百分點；三星同步推進自有2奈米GAA製程量產與外部客戶爭取，但整體規模與良率表現與台積電仍有明顯落差。",
-              companies: [{ n: "台積電", tw: 1, code: "2330" }, { n: "三星電子" }],
-              stats: [{ v: "7%", l: "三星電子全球純晶圓代工市占(2026年Q2)" }]
-            },
-            {
-              icon: "icon-foundry",
-              title: "Intel Foundry：18A量產但市占未進前十",
-              sub: "INTEL FOUNDRY — 18A IN PRODUCTION, SHARE STILL SMALL",
-              desc: "Intel Foundry於2026年1月隨Panther Lake AI PC處理器啟動18A製程量產，並積極對外爭取代工客戶與美國政府支持(2025年8月美國政府入股取得約9.9%股權)，但截至2026年第2季，其純晶圓代工市占仍尚未擠進全球前十大排名，反映對外代工業務仍處於早期發展階段。",
-              companies: [{ n: "Intel", code: "INTC" }],
-              stats: []
-            }
-          ]
-        },
-        {
-          icon: "icon-litho",
-          title: "上游設備與材料供應商",
-          sub: "UPSTREAM EQUIPMENT & MATERIALS SUPPLIERS",
-          desc: "台積電先進製程仰賴極少數國際設備與材料龍頭，形成產業鏈中最集中的環節。微影設備由ASML獨家壟斷EUV機台供應；蝕刻、薄膜沉積與化學機械研磨設備商以應用材料(AMAT)、泛林集團(Lam Research)、東京威力科創(TEL)三強鼎立；量測與檢測設備以科磊(KLA)為龍頭；晶圓化學機械研磨(CMP)耗材如鑽石碟則由中砂等台廠與荏原製作所(Ebara)、應用材料共同供應。矽晶圓材料方面，台灣環球晶與日商信越化學、SUMCO並列全球前段矽晶圓三大供應商；2026年台積電資本支出中約70-80%配置於先進製程設備採購，是ASML、應用材料等設備龍頭最大宗訂單來源之一。",
-          companies: [
-            { n: "台積電", tw: 1, code: "2330" },
-            { n: "ASML" },
-            { n: "應用材料 AMAT" },
-            { n: "泛林集團 Lam Research" },
-            { n: "東京威力科創 TEL" },
-            { n: "科磊 KLA" },
-            { n: "荏原製作所 Ebara" },
-            { n: "環球晶", tw: 1, code: "6488" },
-            { n: "中砂", tw: 1, code: "1560" }
-          ],
-          tags: ["semiconductor-supply-chain"],
-          stats: [
-            { v: "70-80%", l: "台積電2026年資本支出配置於先進製程設備比重" },
-            { v: "僅此一家", l: "ASML為全球唯一EUV曝光機供應商" }
-          ],
-          children: [
-            {
-              icon: "icon-litho",
-              title: "微影設備：ASML獨家供應",
-              sub: "LITHOGRAPHY — ASML'S EUV MONOPOLY",
-              desc: "ASML是全球唯一能量產EUV微影機台的廠商，具完全獨佔地位，單台高階機台售價可達數億美元，是台積電先進製程資本支出中單價最高的設備品項；值得留意的是，台積電已表態A13、A12世代不採用ASML最新的High-NA EUV設備，顯示先進微影設備的導入節奏仍取決於各廠自身製程與成本考量，而非單向的技術升級競賽。",
-              companies: [{ n: "ASML" }],
-              stats: [{ v: "僅此一家", l: "全球唯一EUV曝光機供應商" }]
-            },
-            {
-              icon: "icon-etch",
-              title: "蝕刻／薄膜沉積設備三強",
-              sub: "ETCH & DEPOSITION — AMAT / LAM / TEL",
-              desc: "應用材料(AMAT)、泛林集團(Lam Research)、東京威力科創(TEL)是全球蝕刻與薄膜沉積設備三大供應商，在台積電先進製程產線中彼此互補、共同構成前段製程設備採購的主要對象，訂單規模隨台積電資本支出擴大同步成長。",
-              companies: [
-                { n: "應用材料 AMAT" },
-                { n: "泛林集團 Lam Research" },
-                { n: "東京威力科創 TEL" }
-              ],
-              stats: []
-            },
-            {
-              icon: "icon-metrology",
-              title: "量測檢測與CMP耗材",
-              sub: "METROLOGY & CMP CONSUMABLES",
-              desc: "科磊(KLA)是全球晶圓量測與檢測設備龍頭，用於監控先進製程的微小缺陷與尺寸精度；化學機械研磨(CMP)設備以應用材料與荏原製作所(Ebara)為兩大主要供應商，台廠中砂則供應CMP製程所需的鑽石碟等關鍵耗材，同步受惠台積電先進製程產能擴張。",
-              companies: [
-                { n: "科磊 KLA" },
-                { n: "荏原製作所 Ebara" },
-                { n: "中砂", tw: 1, code: "1560" }
-              ],
-              stats: []
-            },
-            {
-              icon: "icon-ingot",
-              title: "矽晶圓材料供應商",
-              sub: "SILICON WAFER MATERIALS",
-              desc: "台灣環球晶與日商信越化學、SUMCO並列全球前段矽晶圓三大供應商，供應台積電先進與成熟製程所需的12吋高純度矽晶圓，是晶圓代工最上游、也是產業鏈集中度最高的材料環節之一。",
-              companies: [{ n: "環球晶", tw: 1, code: "6488" }],
-              stats: []
-            }
-          ]
-        }
-      ]
-    },
     "pcb": {
       name: "PCB電路板製造",
       nameEn: "PCB MANUFACTURING PROCESS",
@@ -2858,6 +2971,8 @@
               stats:[{v:"18.9%",l:"台光電2026年全球CCL市占率，全球第一"},{v:"37.4%",l:"台灣CCL廠商2026年合計全球市占率"}] }
           ] },
         { icon:"icon-substrate", title:"內層前處理與壓合", sub:"INNER LAYER LAMINATION",
+          diagram:"DIAGRAM_PCB",
+          diagramCaption:"PCB多層板結構示意：銅箔導電層與樹脂玻纖介電層交替疊合，鍍通孔(PTH)負責垂直導通各層，最外層覆蓋防焊綠漆。",
           desc:"將多片薄型內層板材與膠片依疊層設計堆疊，於高溫高壓下壓合成一體多層結構，壓合精度決定板厚均勻度與層間對準準確性，是多層板製程的結構基礎。",
           companies:[{n:"欣興",tw:1,code:"3037"},{n:"南電",tw:1,code:"8046"},{n:"景碩",tw:1,code:"3189"}],
           stats:[],
@@ -4006,6 +4121,8 @@
               companies:[{n:"順德工業",tw:1},{n:"長華科技",tw:1},{n:"界霖工業",tw:1},{n:"一詮精密",tw:1}],
               stats:[] },
             { icon:"icon-substrate", title:"IC封裝載板(BGA／FC Substrate)", sub:"IC PACKAGE SUBSTRATE",
+              diagram:"DIAGRAM_ABF",
+              diagramCaption:"ABF載板結構示意：玻纖核心層兩側逐層增層堆疊(Build-up)，雷射微盲孔負責層間導通，最上層供覆晶(Flip-Chip)接合晶片。",
               desc:"覆晶與BGA封裝須以多層電路載板取代傳統導線架，提供更高密度線路布局與訊號完整性。欣興為全球ABF載板龍頭廠商之一，南電與景碩同為台灣主要IC載板供應商，AI伺服器與高階CPU/GPU需求帶動載板產能長期吃緊，也是PCB與封測供應鏈的重疊環節。",
               companies:[{n:"欣興",tw:1,code:"3037"},{n:"南電",tw:1,code:"8046"},{n:"景碩",tw:1,code:"3189"}],
               stats:[] },
@@ -4097,6 +4214,8 @@
               companies:[{n:"日月光",tw:1}],
               stats:[] },
             { icon:"icon-package", title:"Fan-Out扇出型晶圓級封裝", sub:"FAN-OUT WLP (eWLB)",
+              diagram:"DIAGRAM_INFO",
+              diagramCaption:"扇出型封裝結構示意：晶片包埋於模封材料中，重佈線層(RDL)向兩側「扇出」超出晶片邊界，使I/O接點分布範圍大於晶片本身。",
               desc:"扇出型封裝以人工重構晶圓(Reconstituted Wafer)搭配重佈線層，突破傳統WLCSP受限於晶片本身尺寸的I/O布局限制，可支援更高接腳數與多晶粒整合，日月光與矽品在此技術領域皆有長期布局。",
               companies:[{n:"日月光",tw:1},{n:"矽品",tw:1}],
               stats:[] },
@@ -4825,6 +4944,8 @@
       icon: "icon-substrate",
       title: "多層增層堆疊與真空壓合",
       sub: "BUILD-UP LAYER STACKING & LAMINATION",
+      diagram: "DIAGRAM_ABF",
+      diagramCaption: "ABF載板結構示意：玻纖核心層兩側逐層增層堆疊(Build-up)，雷射微盲孔負責層間導通，最上層供覆晶(Flip-Chip)接合晶片。",
       desc: "完成一層線路後，需再貼附一層ABF增層膜、真空壓合、雷射鑽孔、電鍍，如此反覆堆疊出多層結構，高階CPU/GPU載板堆疊層數已達10層以上；每增加一層都會放大層間對位公差與翹曲風險，因此壓合與對位設備的精度直接決定良率高低。",
       companies: [{n:"志聖",tw:1,code:"2467"},{n:"欣興",tw:1,code:"3037"},{n:"南電",tw:1,code:"8046"}],
       stats: [{v:"10層以上",l:"高階AI伺服器載板典型增層層數"}],
@@ -5311,6 +5432,8 @@
       title:"IC載板（ABF載板）",
       sub:"CPU/GPU ABF SUBSTRATE",
       tags:["ic-substrate"],
+      diagram:"DIAGRAM_ABF",
+      diagramCaption:"ABF載板結構示意：玻纖核心層兩側逐層增層堆疊(Build-up)，雷射微盲孔負責層間導通，最上層供覆晶(Flip-Chip)接合晶片。",
       desc:"高階CPU、GPU封裝所需的ABF載板長期供不應求，台灣欣興、南電、景碩「載板三雄」合計掌握全球高階ABF載板主要產能。2026年5月AMD公開點名加碼投資台灣載板供應鏈，反映AI伺服器與PC需求同步回溫下，載板已成CPU供應鏈瓶頸環節之一。",
       companies:[{n:"欣興",tw:1,code:"3037"},{n:"南電",tw:1,code:"8046"},{n:"景碩",tw:1,code:"3189"}],
       stats:[{v:"$100億+",l:"AMD 2026年5月加碼投資台灣載板/封測供應鏈金額"}],
@@ -5701,6 +5824,13 @@
       return '<div class="stat-tile"><div class="stat-value mono">'+s.v+'</div><div class="stat-label">'+s.l+'</div></div>';
     }).join("");
   }
+  /* 結構示意圖：node.diagram 對應 DIAGRAMS 裡的 key，node.diagramCaption 為圖說文字 */
+  function diagramHtmlFor(node){
+    if(!node.diagram || !DIAGRAMS[node.diagram]) return "";
+    return '<figure class="node-diagram"><div class="node-diagram-svg">'+DIAGRAMS[node.diagram]+'</div>' +
+      (node.diagramCaption ? '<figcaption>'+node.diagramCaption+'</figcaption>' : '') +
+      '</figure>';
+  }
 
   /* 自動相關產業比對：只要節點的 tags 與其他產業 meta.tags 有交集，
      就會自動出現跳轉按鈕——之後新增產業只要標好 tags，既有節點會自動連過去，
@@ -5763,6 +5893,7 @@
           '<div class="panel-sub">'+(node.sub||"")+'</div>' +
         '</div></div>' +
         '<p class="panel-desc">'+node.desc+'</p>' +
+        diagramHtmlFor(node) +
         parallelHtml +
         crossLinkHtml +
         '<div class="chip-label">代表廠商</div>' +
@@ -5816,6 +5947,7 @@
           '<div class="panel-sub">'+(child.sub||"")+'</div>' +
         '</div></div>' +
         '<p class="panel-desc">'+child.desc+'</p>' +
+        diagramHtmlFor(child) +
         '<div class="chip-label">代表廠商</div>' +
         '<div class="chips">'+chipsHtmlFor(child.companies)+'</div>' +
         '<div class="stats">'+statsHtmlFor(child.stats)+'</div>' +
