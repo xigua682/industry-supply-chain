@@ -108,7 +108,8 @@
   .panel-title{ margin:.15rem 0 0; font-size:1.4rem; font-weight:800; letter-spacing:-.01em; }
   .panel-sub{ font-family:'IBM Plex Mono',monospace; font-size:.76rem; color:var(--copper); letter-spacing:.08em; margin-top:.15rem; }
   .panel-desc{ margin:.9rem 0 0; color:var(--ink-soft); line-height:1.75; font-size:.95rem; max-width:68ch; }
-  .cross-link{ display:inline-flex; align-items:center; gap:.6rem; margin-top:1rem; padding:.65rem 1rem; border-radius:10px; background:var(--copper-soft); border:1px solid var(--copper-soft-line); color:var(--copper-ink); font-family:'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif; font-weight:700; font-size:.88rem; cursor:pointer; transition:border-color .15s ease, background .15s ease, color .15s ease; }
+  .cross-link-group{ display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1rem; }
+  .cross-link{ display:inline-flex; align-items:center; gap:.6rem; padding:.65rem 1rem; border-radius:10px; background:var(--copper-soft); border:1px solid var(--copper-soft-line); color:var(--copper-ink); font-family:'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif; font-weight:700; font-size:.88rem; cursor:pointer; transition:border-color .15s ease, background .15s ease, color .15s ease; }
   .cross-link:hover{ background:var(--copper); border-color:var(--copper); color:#fff; }
   .cross-link:focus-visible{ outline:2px solid var(--copper); outline-offset:2px; }
   .cross-link-arrow{ font-family:'IBM Plex Mono',monospace; }
@@ -384,6 +385,40 @@
             <line x1="16.5" y1="10" x2="23.5" y2="13.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
             <line x1="16.5" y1="14.5" x2="23.5" y2="18" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
           </symbol>
+          <symbol id="icon-gear" viewBox="0 0 40 40">
+            <circle cx="20" cy="20" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="20" cy="20" r="2.2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+            <line x1="20" y1="6" x2="20" y2="10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="20" y1="30" x2="20" y2="34" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="6" y1="20" x2="10" y2="20" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="30" y1="20" x2="34" y2="20" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="10.1" y1="10.1" x2="12.9" y2="12.9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="27.1" y1="27.1" x2="29.9" y2="29.9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="10.1" y1="29.9" x2="12.9" y2="27.1" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="27.1" y1="12.9" x2="29.9" y2="10.1" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+          </symbol>
+          <symbol id="icon-motor" viewBox="0 0 40 40">
+            <rect x="8" y="12" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+            <line x1="26" y1="20" x2="34" y2="20" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+            <line x1="12" y1="12" x2="12" y2="8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <line x1="16" y1="12" x2="16" y2="8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <circle cx="17" cy="20" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          </symbol>
+          <symbol id="icon-lens" viewBox="0 0 40 40">
+            <circle cx="20" cy="20" r="13" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="20" cy="20" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <circle cx="20" cy="20" r="2" fill="currentColor"/>
+          </symbol>
+          <symbol id="icon-device" viewBox="0 0 40 40">
+            <rect x="12" y="5" width="16" height="30" rx="3" fill="none" stroke="currentColor" stroke-width="2"/>
+            <line x1="17" y1="9" x2="23" y2="9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <circle cx="20" cy="31" r="1.6" fill="currentColor"/>
+          </symbol>
+          <symbol id="icon-battery" viewBox="0 0 40 40">
+            <rect x="7" y="14" width="24" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+            <rect x="31" y="18" width="3" height="4" rx="1" fill="currentColor"/>
+            <rect x="11" y="17" width="10" height="6" fill="currentColor" opacity="0.85"/>
+          </symbol>
         </defs>
 
         <g id="segmentsLayer"></g>
@@ -419,8 +454,9 @@
   var INDUSTRIES = {
 
     "ai-hardware": {
-      name: "AI硬體供應鏈",
+      name: "AI硬體",
       nameEn: "AI HARDWARE SUPPLY CHAIN",
+      tags: ["ai-hardware","semiconductor-supply-chain"],
       lede: "從矽晶圓到資料中心，AI伺服器供應鏈的十個關鍵環節。點選任一節點，查看代表廠商、市場地位與最新數據。",
       updated: "2026年9月",
       sources: [
@@ -435,6 +471,7 @@
           desc:"半導體最原始的起點：從高純度矽晶棒切割出矽晶圓，搭配光阻、特殊氣體等化學材料，以及微影、蝕刻、薄膜沉積、量測等關鍵設備，是所有晶片誕生前必須具備的基礎材料與產線工具。",
           companies:[{n:"環球晶",tw:1},{n:"信越化學"},{n:"SUMCO"},{n:"ASML"},{n:"應用材料"},{n:"科磊 KLA"}],
           stats:[{v:"~60%",l:"日韓廠矽晶圓產能占全球比重"},{v:"僅此一家",l:"ASML為全球唯一EUV曝光機供應商"}],
+          tags:["equipment-materials"],
           children:[
             { icon:"icon-litho", title:"微影／光刻設備", sub:"LITHOGRAPHY",
               desc:"將電路圖案精確投影到晶圓表面的曝光機台。先進製程仰賴極紫外光（EUV）微影技術，是整個半導體設備產業中技術門檻最高、單價最貴的機種，也是最容易被列入出口管制的項目。",
@@ -473,6 +510,7 @@
           desc:"雲端巨頭與晶片大廠在此決定運算架構——從輝達、超微、博通等商用GPU／ASIC設計商，到Google、Amazon、Meta等雲端業者近年積極投入自研晶片。台灣的IC設計服務業者（世芯-KY、創意電子、智原）則是雲端巨頭自研ASIC背後最關鍵的矽智財與設計代工夥伴，隨著「去輝達化」浪潮承接大量訂單。",
           companies:[{n:"聯發科",tw:1},{n:"世芯-KY",tw:1},{n:"創意電子",tw:1},{n:"智原",tw:1},{n:"輝達 NVIDIA"},{n:"超微 AMD"},{n:"博通 Broadcom"},{n:"雲端自研 Google／Amazon"}],
           stats:[{v:"~86%",l:"Nvidia資料中心GPU市占"},{v:"~US$20億",l:"2026年AI ASIC市場規模"}],
+          tags:["ic-design","nvidia"],
           children:[
             { icon:"icon-ip", title:"IP／矽智財授權", sub:"SILICON IP LICENSING",
               desc:"提供可重複使用的設計模組，例如高速傳輸介面、記憶體介面、Die-to-Die互連等現成矽智財，讓客戶不必從零開發，大幅縮短晶片開發週期並降低設計風險。",
@@ -506,13 +544,13 @@
         { icon:"icon-foundry", title:"晶圓代工", sub:"FOUNDRY",
           desc:"將IC設計圖轉換為實體晶片的核心產線。先進製程（N3／N2）幾乎所有商用GPU與自研ASIC最終都在此投片，是全球AI晶片產能最大的瓶頸環節之一。",
           companies:[{n:"台積電",tw:1},{n:"聯電",tw:1},{n:"三星電子"},{n:"英特爾"}],
-          crossLink:{ industry:"wafer-fab", text:"想知道晶圓怎麼「做出來」？查看完整晶圓製造前段十三道工序" },
-          stats:[{v:"~72%",l:"台積電先進製程代工市占"},{v:"至2027-28",l:"N3／N2訂單能見度"}] },
+          stats:[{v:"~72%",l:"台積電先進製程代工市占"},{v:"至2027-28",l:"N3／N2訂單能見度"}],
+          tags:["wafer-fabrication","nvidia"] },
         { icon:"icon-hbm", title:"高頻寬記憶體", sub:"HBM MEMORY",
           desc:"專為AI運算堆疊設計的高速記憶體，以矽穿孔（TSV）技術垂直堆疊多層DRAM，直接影響AI晶片的運算頻寬上限。目前產能集中於三大原廠，且全數處於售罄狀態。",
           companies:[{n:"SK海力士"},{n:"美光 Micron"},{n:"三星電子"}],
           stats:[{v:"~62%",l:"SK海力士HBM市占"},{v:"全數售罄",l:"三強2026年全年產能"}],
-          crossLink:{ industry:"memory", text:"想了解記憶體從晶粒到模組的完整供應鏈？查看記憶體供應鏈總覽" },
+          tags:["memory-supply-chain","nvidia"],
           children:[
             { icon:"icon-chip", title:"DRAM顆粒製造", sub:"DRAM DIE MANUFACTURING",
               desc:"以奈米等級製程生產標準DRAM裸晶，是HBM堆疊的基礎單元。由於HBM需求排擠標準DRAM產能，生產同容量的HBM約需消耗數倍於標準DRAM的產能，是近年DRAM現貨價格大漲的主因之一。",
@@ -539,6 +577,7 @@
           desc:"將運算晶粒與HBM記憶體整合於同一載板上的關鍵工序（CoWoS、CoPoS等）。封裝良率與產能直接決定AI晶片最終出貨速度，目前100%仍集中於台灣與亞洲產線完成。",
           companies:[{n:"台積電 CoWoS",tw:1},{n:"日月光",tw:1},{n:"矽品",tw:1},{n:"Amkor"}],
           stats:[{v:"12-13萬片",l:"CoWoS 2026年底月產能目標"},{v:"~60%",l:"Nvidia占CoWoS總需求比重"}],
+          tags:["advanced-packaging","nvidia"],
           children:[
             { icon:"icon-substrate", title:"CoWoS中介層／載板", sub:"INTERPOSER & SUBSTRATE",
               desc:"將運算晶粒與HBM堆疊於矽中介層（Interposer）上再固定於封裝載板，是CoWoS技術的核心結構。台灣載板廠同步供應此環節所需的高階IC載板。",
@@ -569,7 +608,7 @@
           desc:"承載晶片與各元件的多層電路載板。ABF載板技術門檻高、產能長期吃緊，高速PCB則需承受AI伺服器高頻高速訊號傳輸的嚴苛要求，是台廠掌握度極高的一環。",
           companies:[{n:"欣興",tw:1},{n:"南電",tw:1},{n:"景碩",tw:1},{n:"台光電",tw:1},{n:"金像電",tw:1}],
           stats:[{v:">50%",l:"台廠全球ABF載板產能占比"}],
-          crossLink:{ industry:"pcb", text:"想知道電路板怎麼「做出來」？查看PCB電路板完整製造流程" },
+          tags:["pcb-manufacturing"],
           children:[
             { icon:"icon-substrate", title:"ABF載板三雄", sub:"ABF SUBSTRATE",
               desc:"高階CPU、GPU與AI ASIC封裝所需的Ajinomoto Build-up Film載板，技術門檻高、產能擴充週期長，台灣三大廠合計掌握全球絕大多數先進載板產能。",
@@ -592,6 +631,7 @@
           desc:"讓數萬顆晶片能協同運算的高速傳輸技術，涵蓋晶片內部SerDes連結、機櫃內NVLink，到跨機櫃的乙太網路交換器、光模組與矽光子(CPO)，是AI叢集能否持續擴大規模的關鍵瓶頸。台灣廠商在光模組與矽光子環節已從代工角色，逐漸切入技術含量更高的CPO關鍵零組件供應。",
           companies:[{n:"聯發科",tw:1},{n:"聯亞光電",tw:1},{n:"波若威",tw:1},{n:"上詮",tw:1},{n:"華星光",tw:1},{n:"博通 Broadcom"},{n:"Marvell"}],
           stats:[{v:"224G SerDes",l:"聯發科藉此切入Google TPU v8e"}],
+          tags:["networking-interconnect","nvidia","optical-communications"],
           children:[
             { icon:"icon-interconnect", title:"晶片內高速訊號傳輸(SerDes)", sub:"SERDES INTERCONNECT",
               desc:"晶片與晶片、機櫃內裝置之間的高速序列傳輸介面，是決定AI叢集能否有效同步運算的底層技術。台廠IC設計服務業者已藉自研SerDes IP切入雲端巨頭自研晶片專案。",
@@ -614,32 +654,26 @@
               companies:[{n:"貿聯-KY",tw:1}],
               stats:[] }
           ] },
-        { icon:"icon-power", title:"電源與散熱管理", sub:"POWER & THERMAL",
-          desc:"AI機櫃功耗屢創新高，800V高壓直流（HVDC）配電與液冷技術已成為次世代AI伺服器標配。台廠在此環節掌握全球逾半市占，是少數具備明顯定價權的關鍵位置。",
-          companies:[{n:"台達電",tw:1},{n:"奇鋐",tw:1},{n:"雙鴻",tw:1},{n:"光寶科",tw:1}],
-          stats:[{v:"~60%",l:"台達電AI伺服器電源市占"},{v:"40-50%",l:"奇鋐GB200／GB300水冷板市占"}],
+        { icon:"icon-power", title:"電源管理", sub:"POWER MANAGEMENT",
+          desc:"AI機櫃功耗屢創新高，800V高壓直流（HVDC）配電已成為次世代AI伺服器的電力架構標準。台廠在此環節掌握全球逾半市占，是少數具備明顯定價權的關鍵位置；液冷與散熱零組件詳見「散熱」頁籤完整供應鏈。",
+          companies:[{n:"台達電",tw:1},{n:"光寶科",tw:1}],
+          stats:[{v:"~60%",l:"台達電AI伺服器電源市占"}],
+          tags:["power-thermal","thermal-cooling"],
           children:[
             { icon:"icon-power", title:"800V HVDC電源機櫃", sub:"800V HVDC POWER",
               desc:"以800V高壓直流取代傳統市電交流配電，大幅減少轉換損耗並支援單機櫃百萬瓦級供電，是next-gen AI資料中心的電力架構標準，台廠電源大廠已推出對應機櫃級產品。",
               companies:[{n:"台達電",tw:1},{n:"光寶科",tw:1}],
               stats:[{v:">98%",l:"800V HVDC機櫃電源轉換效率"}] },
-            { icon:"icon-clean", title:"液冷水冷板(Cold Plate)", sub:"LIQUID COOLING COLD PLATE",
-              desc:"直接貼附於GPU晶片表面的銅製微流道結構，以循環冷卻液帶走熱源，是目前主流AI晶片液冷方案的核心零組件。",
-              companies:[{n:"奇鋐",tw:1},{n:"雙鴻",tw:1}],
-              stats:[{v:"40-50%",l:"奇鋐GB200／GB300水冷板市占"}] },
-            { icon:"icon-power", title:"CDU冷卻液分配單元", sub:"COOLANT DISTRIBUTION UNIT",
-              desc:"負責管理機櫃內冷卻液循環、溫度與流量的核心裝置，單台可支援高達千瓦級冷卻能力，是液冷機櫃能否穩定運作的中樞控制單元。",
-              companies:[{n:"台達電",tw:1}],
-              stats:[] },
-            { icon:"icon-power", title:"風冷散熱模組", sub:"AIR COOLING MODULES",
-              desc:"均熱片、散熱鰭片與風扇模組等傳統氣冷元件，雖然逐步讓位給液冷方案，但在中低功耗機型與液冷系統的輔助散熱中仍持續扮演角色。",
-              companies:[{n:"雙鴻",tw:1},{n:"奇鋐",tw:1}],
+            { icon:"icon-power", title:"AI伺服器電源模組(PSU)", sub:"SERVER POWER SUPPLY UNIT",
+              desc:"將市電轉換為伺服器所需直流電壓的電源供應器，AI伺服器功率密度提升帶動高瓦數、高效率PSU需求同步成長，台達電、光寶科與群光電子是全球伺服器電源三大供應商。",
+              companies:[{n:"台達電",tw:1},{n:"光寶科",tw:1},{n:"群光電子",tw:1}],
               stats:[] }
           ] },
         { icon:"icon-server", title:"伺服器系統整合", sub:"SYSTEM INTEGRATION",
           desc:"將晶片、記憶體、電源、散熱等零組件組裝為完整AI伺服器機櫃的代工環節。台廠ODM廠商包辦全球絕大多數AI伺服器組裝產能。",
           companies:[{n:"鴻海",tw:1},{n:"廣達",tw:1},{n:"緯創",tw:1},{n:"英業達",tw:1},{n:"緯穎",tw:1}],
           stats:[{v:"~40%",l:"鴻海全球AI伺服器機櫃組裝占比"}],
+          tags:["system-integration","nvidia"],
           children:[
             { icon:"icon-server", title:"ODM整機設計與組裝", sub:"ODM DESIGN & ASSEMBLY",
               desc:"依雲端業者規格進行整機設計、生產與交付的委託製造模式，台灣ODM廠商包辦全球絕大多數AI伺服器組裝產能，是這波AI資本支出成長中最直接的受惠環節之一。",
@@ -666,6 +700,7 @@
           desc:"供應鏈最末端的實際應用場域。雲端業者將整合完成的AI伺服器部署於資料中心，提供模型訓練與推論算力，電力與土地取得已成為此階段最大的成長瓶頸。",
           companies:[{n:"微軟 Microsoft"},{n:"Google"},{n:"AWS"},{n:"Meta"},{n:"甲骨文 Oracle"}],
           stats:[{v:"36-48個月",l:"美國高壓變壓器交期，部分達5年"}],
+          tags:["datacenter-cloud"],
           children:[
             { icon:"icon-datacenter", title:"雲端服務供應商資本支出", sub:"CSP CAPEX",
               desc:"微軟、Google、AWS、Meta等雲端巨頭以驚人速度擴建資料中心，資本支出規模逐年創新高，是驅動整條AI硬體供應鏈需求的最終源頭，也是判斷供應鏈景氣最重要的先行指標。",
@@ -690,6 +725,7 @@
     "wafer-fab": {
       name: "晶圓製造",
       nameEn: "WAFER FABRICATION PROCESS",
+      tags: ["wafer-fabrication"],
       lede: "從一粒矽砂到一片測試完成的晶圓，前段製程的十三道關鍵工序。每一層電路都要重複微影、蝕刻、佈植、沉積的循環數十次，是整條半導體供應鏈中設備密集度最高、也最燒錢的一段。",
       updated: "2026年9月",
       sources: [
@@ -757,6 +793,7 @@
     "pcb": {
       name: "PCB電路板製造",
       nameEn: "PCB MANUFACTURING PROCESS",
+      tags: ["pcb-manufacturing"],
       lede: "從銅箔基板到多層電路板出貨，印刷電路板從材料到成品的核心製程。AI伺服器與高速運算應用對板材阻抗控制、層數與訊號完整性要求日益嚴苛，是這波AI資本支出中拉貨動能最強勁的應用區塊之一。",
       updated: "2026年9月",
       sources: [
@@ -814,8 +851,9 @@
     },
 
     "memory": {
-      name: "記憶體供應鏈",
+      name: "記憶體",
       nameEn: "MEMORY SUPPLY CHAIN",
+      tags: ["memory-supply-chain"],
       lede: "從記憶體晶粒設計、晶圓製造到封裝測試、模組組裝，DRAM與NAND Flash從裸晶到成品模組的完整供應鏈。台灣在利基型記憶體IC設計、委外測試與模組組裝環節掌握重要地位。",
       updated: "2026年9月",
       sources: [
@@ -856,6 +894,424 @@
         { icon:"icon-generic", title:"通路與品牌銷售", sub:"DISTRIBUTION & BRANDING",
           desc:"模組廠透過自有品牌與通路網路銷售終端產品，涵蓋消費型、企業級與車用記憶體模組市場，是記憶體供應鏈中最貼近終端需求的一環。",
           companies:[{n:"威剛",tw:1},{n:"創見",tw:1}],
+          stats:[] }
+      ]
+    },
+
+    "nvidia": {
+      name: "輝達(NVIDIA)",
+      nameEn: "NVIDIA SUPPLY CHAIN",
+      tags: ["nvidia","gpu-supply-chain"],
+      lede: "從GPU架構設計、晶圓代工到整機整櫃組裝，再到雲端、企業、遊戲與車用等下游應用，輝達如何整合上游關鍵夥伴，又如何驅動下游龐大的資本支出循環。台廠身兼晶圓代工、載板、組裝與散熱等多重要角，是這波AI浪潮中掌握度最深的供應鏈之一。",
+      updated: "2026年9月",
+      sources: [
+        "領趨投資觀點－「NVIDIA Vera Rubin 台／美／韓供應鏈分析」",
+        "小企鵝 Penchan－「輝達供應鏈：NVIDIA 的 AI 晶片到整櫃，台廠做了哪些」",
+        "口袋學堂－「輝達（NVIDIA）供應鏈概念股：核心合作夥伴、產業環節與投資機會」",
+        "NVIDIA官方新聞稿－「Spectrum-X Photonics共同封裝光學網路交換器」"
+      ],
+      disclaimer: "本頁面為公開資訊整理彙編，官方夥伴名單與媒體報導僅代表角色相符，不代表已接獲多少訂單或必然受惠；市占率、產能與產品規格等數據會隨市場狀況與廠商公告持續變動，僅供產業脈絡參考，不構成任何投資建議。",
+      nodes: [
+        { icon:"icon-chip", title:"GPU架構設計與IP", sub:"IN-HOUSE GPU ARCHITECTURE & IP",
+          desc:"輝達自主設計GPU微架構（如Blackwell、Rubin），並整合Arm CPU核心（Grace）、CUDA運算平台與軟體生態系進行軟硬體協同設計，是輝達技術護城河最核心的環節，也是毛利率遠高於同業的主要原因。",
+          companies:[{n:"輝達 NVIDIA"},{n:"Arm"}],
+          stats:[{v:"CUDA生態系",l:"軟體平台鎖定效應為輝達最深的護城河"}],
+          tags:["gpu-architecture"] },
+        { icon:"icon-eda", title:"EDA設計工具與IP授權", sub:"EDA & IP LICENSING",
+          desc:"晶片架構定案後，仰賴電子設計自動化軟體完成電路設計、模擬與驗證，並授權部分現成IP模組，貫穿晶片設計全流程，是IC設計產業最上游的關鍵基礎建設。",
+          companies:[{n:"新思科技 Synopsys"},{n:"益華電腦 Cadence"},{n:"Arm"}],
+          stats:[],
+          tags:["eda-ip"] },
+        { icon:"icon-foundry", title:"晶圓代工(台積電)", sub:"FOUNDRY (TSMC)",
+          desc:"Blackwell系列採用台積電客製化4NP製程，次世代Rubin平台轉進3奈米製程，台積電先進製程的產能與良率，直接決定輝達新品能否如期放量出貨。",
+          companies:[{n:"台積電",tw:1}],
+          stats:[{v:"4NP／3nm",l:"Blackwell／Rubin平台採用台積電製程節點"}],
+          tags:["wafer-fabrication"] },
+        { icon:"icon-hbm", title:"HBM高頻寬記憶體", sub:"HBM MEMORY",
+          desc:"每張GPU模組搭載多顆HBM堆疊記憶體，Rubin平台起導入HBM4規格。SK海力士、三星、美光皆為輝達認證供應商，目前產能全數綁定AI客戶、處於供不應求狀態；台灣廠商目前並未參與HBM本體製造。",
+          companies:[{n:"SK海力士"},{n:"三星電子"},{n:"美光 Micron"}],
+          stats:[{v:"HBM4",l:"Rubin平台起導入的新一代記憶體規格"}],
+          tags:["memory-supply-chain"] },
+        { icon:"icon-package", title:"CoWoS先進封裝", sub:"CoWoS ADVANCED PACKAGING",
+          desc:"將GPU運算晶粒與HBM整合於同一載板上的關鍵封裝工序，是輝達新品放量最主要的產能瓶頸。台積電之外也導入委外封測夥伴分攤產能壓力。",
+          companies:[{n:"台積電",tw:1},{n:"日月光",tw:1}],
+          stats:[{v:"~60%",l:"Nvidia占CoWoS總需求比重"}],
+          tags:["advanced-packaging"] },
+        { icon:"icon-substrate", title:"GPU模組載板", sub:"GPU MODULE SUBSTRATE",
+          desc:"承載GPU與HBM的高階IC載板，技術規格要求極高、產能長期吃緊，台灣載板廠是輝達認證供應鏈中不可或缺的一環。",
+          companies:[{n:"欣興",tw:1},{n:"南電",tw:1},{n:"景碩",tw:1}],
+          stats:[],
+          tags:["pcb-manufacturing"] },
+        { icon:"icon-server", title:"伺服器主機板與機櫃設計", sub:"SERVER BASEBOARD & RACK DESIGN",
+          desc:"輝達提供NVL72等機櫃級參考設計，再由夥伴廠商依規格生產承載GPU模組的高速主機板。緯創在NVIDIA CoWoS基板訂單中占比最高，是這一環節技術含量最高的台廠夥伴。",
+          companies:[{n:"緯創",tw:1},{n:"廣達",tw:1}],
+          stats:[{v:"~85%",l:"緯創NVIDIA CoWoS基板訂單占比"}],
+          tags:["system-integration"] },
+        { icon:"icon-server", title:"ODM整機整櫃組裝", sub:"ODM SYSTEM & RACK ASSEMBLY",
+          desc:"依輝達參考設計完成整機與整櫃組裝、測試與交付。鴻海（Ingrasys）、廣達（雲達QCT）、緯創、緯穎、和碩、英業達、技嘉、華碩等台廠皆列名輝達官方合作夥伴名單，是這波AI浪潮中台廠參與最全面的環節。",
+          companies:[{n:"鴻海",tw:1},{n:"廣達",tw:1},{n:"緯創",tw:1},{n:"緯穎",tw:1},{n:"英業達",tw:1}],
+          stats:[],
+          tags:["system-integration","ai-hardware"] },
+        { icon:"icon-power", title:"電源管理系統", sub:"POWER MANAGEMENT SYSTEM",
+          desc:"因應GB200／NVL72等機櫃功耗持續攀升，800V HVDC電源已成為輝達參考設計的標準配置，台廠在此環節掌握全球逾半市占，是少數具備明顯定價權的關鍵位置；液冷與散熱零組件詳見「散熱」頁籤完整供應鏈。",
+          companies:[{n:"台達電",tw:1},{n:"光寶科",tw:1}],
+          stats:[],
+          tags:["power-thermal","thermal-cooling"] },
+        { icon:"icon-network", title:"網通與機櫃內互連", sub:"NETWORKING & INTERCONNECT",
+          desc:"以自研NVLink串連機櫃內GPU，搭配Quantum InfiniBand與Spectrum-X乙太網路交換器串連機櫃間流量。2026年起導入Spectrum-X Photonics共同封裝光學（CPO）技術，目標將AI叢集規模擴展至數百萬顆GPU等級。",
+          companies:[{n:"輝達 NVIDIA"},{n:"博通 Broadcom"}],
+          stats:[],
+          tags:["networking-interconnect","optical-communications"] },
+        { icon:"icon-generic", title:"顯示卡通路夥伴(AIC/AIB)", sub:"ADD-IN CARD PARTNERS",
+          desc:"消費級GeForce顯示卡由授權通路夥伴代工製造與銷售，涵蓋公版設計與自製強化散熱版本，台灣廠商長期在此環節扮演核心角色。",
+          companies:[{n:"華碩",tw:1},{n:"技嘉",tw:1},{n:"微星",tw:1}],
+          stats:[],
+          tags:["gaming-aic"] },
+        { icon:"icon-datacenter", title:"下游：雲端服務供應商", sub:"CSP CUSTOMERS",
+          desc:"微軟、Google、AWS、Meta、Oracle等雲端巨頭是輝達資料中心GPU最大宗買家，資本支出規模與輝達營收成長高度連動，是觀察輝達業績最重要的先行指標。",
+          companies:[{n:"微軟 Microsoft"},{n:"Google"},{n:"AWS"},{n:"Meta"},{n:"甲骨文 Oracle"}],
+          stats:[],
+          tags:["datacenter-cloud","ai-hardware"] },
+        { icon:"icon-generic", title:"下游：企業與主權AI", sub:"ENTERPRISE & SOVEREIGN AI",
+          desc:"各國政府與主權基金近年積極投資自主AI基礎建設，加上金融、電信、製造業等企業自建私有AI叢集，是輝達除雲端巨頭外成長最快的新客群，也是分散雲端業者資本支出集中度風險的重要來源。",
+          companies:[{n:"各國政府主權AI專案"},{n:"電信與金融企業客戶"}],
+          stats:[],
+          tags:["enterprise-sovereign-ai"] },
+        { icon:"icon-generic", title:"下游：車用與機器人", sub:"AUTOMOTIVE & ROBOTICS",
+          desc:"透過DRIVE平台與Jetson系列晶片切入自動駕駛與機器人運算市場，是輝達布局資料中心以外、鎖定「物理AI」（Physical AI）的長期成長引擎，鴻海也藉電動車代工平台切入此一生態系。",
+          companies:[{n:"賓士 Mercedes-Benz"},{n:"比亞迪"},{n:"鴻海",tw:1}],
+          stats:[],
+          tags:["automotive-robotics"] }
+      ]
+    },
+
+    "robot": {
+      name: "機器人",
+      nameEn: "ROBOTICS SUPPLY CHAIN",
+      tags: ["robotics","robot-supply-chain","automotive-robotics"],
+      lede: "從諧波減速機、伺服馬達到感測器、運算平台與整機系統整合，工業機器人與人形機器人共通的關鍵零組件供應鏈。關節致動器（減速機＋馬達＋感測器）合計可佔一台人形機器人BOM成本三到五成，是台廠掌握度最深、定價能力最強的環節。",
+      updated: "2026年9月",
+      sources: [
+        "優分析UAnalyze－「AI機器人｜人形機器人關鍵零組件 諧波減速機 需求有望明顯提升？」",
+        "MJL美士誌－「台灣人形機器人供應鏈深度解析：50家企業聯盟、52公頃研發中心與精密零組件核心技術剖析」",
+        "PTT股票公社－「人形機器人概念股整理：減速機、馬達、視覺，台廠供應鏈地圖一次看」"
+      ],
+      disclaimer: "本頁面為公開資訊整理彙編，市占率、產能與產品規格等數據會隨市場狀況與廠商公告持續變動，僅供產業脈絡參考，不構成任何投資建議。",
+      nodes: [
+        { icon:"icon-gear", title:"減速機（諧波／RV／行星）", sub:"REDUCERS (HARMONIC/RV/PLANETARY)",
+          desc:"機器人關節的核心動力傳遞元件，將馬達的高轉速轉換為低轉速、高扭矩輸出。諧波減速機精度最高、RV減速機承載力最強、行星減速機成本較低，三種技術依應用場景分工互補。",
+          companies:[{n:"上銀",tw:1},{n:"大銀微系統",tw:1},{n:"和大",tw:1},{n:"盟英科技",tw:1}],
+          stats:[{v:"30-50%",l:"關節致動器占人形機器人BOM成本比重"}],
+          tags:["robot-reducer"],
+          children:[
+            { icon:"icon-gear", title:"諧波減速機(Harmonic Drive)", sub:"HARMONIC DRIVE",
+              desc:"體積小、精度高、幾乎零背隙，是機器人手臂與手腕等高精度關節的主流方案。上銀已打入國際人形機器人大廠供應鏈，2026年Q1機器人相關營收占比達12%；大銀微系統為上銀集團子公司，同步布局諧波減速機與關節模組。",
+              companies:[{n:"上銀",tw:1},{n:"大銀微系統",tw:1},{n:"Harmonic Drive Systems"}],
+              stats:[{v:"12%",l:"上銀2026年Q1機器人營收占比"}] },
+            { icon:"icon-gear", title:"RV減速機(RV Reducer)", sub:"RV REDUCER",
+              desc:"承載力最強的減速機型式，多用於機器人腰部、髖部、膝蓋等高負載關節。日廠納博特斯克長期居國際龍頭地位，台廠利銘機械、長機近年切入此利基市場。",
+              companies:[{n:"利銘機械",tw:1},{n:"長機",tw:1},{n:"納博特斯克 Nabtesco"}],
+              stats:[] },
+            { icon:"icon-gear", title:"行星減速機(Planetary Gear)", sub:"PLANETARY GEAR",
+              desc:"結構簡單、成本相對較低的減速機型式，適合搭配四肢等中低負載關節。和大是特斯拉Optimus人形機器人此零件的唯一台廠供應商，每台約需40組；盟英科技為和大與盟立自動化合資公司，同步布局關節模組。",
+              companies:[{n:"和大",tw:1},{n:"盟英科技",tw:1}],
+              stats:[{v:"40組",l:"單台Optimus約需行星減速機組數"}] },
+            { icon:"icon-interconnect", title:"精密軸承與傳動零件", sub:"PRECISION BEARINGS & TRANSMISSION PARTS",
+              desc:"交叉滾柱軸承、精密滾珠螺桿等關節傳動核心支撐零件，直接影響關節運動精度與壽命，上銀集團在此領域具備全球數一數二的技術與產能基礎。",
+              companies:[{n:"上銀",tw:1},{n:"大銀微系統",tw:1}],
+              stats:[] }
+          ] },
+        { icon:"icon-motor", title:"伺服馬達與驅動器", sub:"SERVO MOTOR & DRIVE",
+          desc:"提供機器人關節精確位置、速度與扭矩控制的動力來源，搭配驅動器即時調節電流輸出。台廠在工業伺服馬達領域已有多年基礎，近年積極切入人形機器人所需的高功率密度關節馬達。",
+          companies:[{n:"台達電",tw:1},{n:"東元",tw:1},{n:"富田",tw:1}],
+          stats:[],
+          children:[
+            { icon:"icon-motor", title:"伺服馬達本體", sub:"SERVO MOTOR",
+              desc:"提供關節旋轉動力的核心馬達。台達電ASDA系列採一體化設計，將馬達、驅動器與編碼器整合於單一模組；東元則以工業馬達技術為基礎，推出獲台灣精品金質獎的M1-140仿生機器人關節電機模組；士林電機在中小功率伺服馬達領域亦有完整產品線。",
+              companies:[{n:"台達電",tw:1},{n:"東元",tw:1},{n:"士林電機",tw:1}],
+              stats:[] },
+            { icon:"icon-motor", title:"驅動器與控制IC", sub:"SERVO DRIVE & CONTROL IC",
+              desc:"即時調節電流輸出、執行位置與扭矩閉環控制演算法的驅動系統，是伺服馬達能否精準響應指令的關鍵。大銀微系統另提供線型馬達、力矩馬達等特殊驅動產品線，切入更高階的關節致動應用。",
+              companies:[{n:"台達電",tw:1},{n:"大銀微系統",tw:1}],
+              stats:[] },
+            { icon:"icon-battery", title:"無稀土永磁馬達材料", sub:"RARE-EARTH-FREE MAGNET",
+              desc:"富田電機開發無稀土永磁馬達技術，降低對中國稀土磁石供應的依賴，機器狗關節動力模組預計2026年Q4出貨，是台廠在馬達材料自主化的代表案例。",
+              companies:[{n:"富田",tw:1}],
+              stats:[] },
+            { icon:"icon-probe", title:"編碼器(Encoder)", sub:"ENCODER",
+              desc:"回饋馬達轉子精確角度與速度的感測元件，是伺服系統閉環控制不可或缺的關鍵零件。目前高精度編碼器仍以德、日大廠為主，台廠伺服馬達廠多將編碼器整合於自製模組內。",
+              companies:[{n:"海德漢 Heidenhain"},{n:"多摩川精機 Tamagawa Seiki"}],
+              stats:[] }
+          ] },
+        { icon:"icon-interconnect", title:"滾珠螺桿與線性傳動", sub:"BALL SCREW & LINEAR MOTION",
+          desc:"將旋轉運動轉換為直線運動的精密傳動元件，廣泛用於機器人手臂與四肢的直線關節。上銀在滾珠螺桿與線性滑軌領域是全球數一數二的供應商。",
+          companies:[{n:"上銀",tw:1},{n:"大銀微系統",tw:1}],
+          stats:[] },
+        { icon:"icon-probe", title:"力矩／力覺感測器", sub:"TORQUE & FORCE SENSORS",
+          desc:"安裝於機器人關節與末端執行器，即時回饋接觸力道與扭矩，是機器人能否安全、細膩地與環境互動的關鍵感測元件。目前此環節仍以日系與歐美大廠為主，台廠多處於導入驗證階段。",
+          companies:[{n:"歐姆龍 OMRON"},{n:"ATI Industrial Automation"}],
+          stats:[] },
+        { icon:"icon-metrology", title:"視覺與影像感測", sub:"MACHINE VISION & PERCEPTION",
+          desc:"讓機器人具備環境辨識、物件抓取與空間定位能力的視覺系統，是實現全自主作業不可或缺的感知層，台廠在3D視覺與AI取放系統已有具體出貨實績。",
+          companies:[{n:"所羅門",tw:1},{n:"奇景光電",tw:1},{n:"歐特明",tw:1}],
+          stats:[] },
+        { icon:"icon-chip", title:"運算控制平台", sub:"COMPUTE & CONTROL PLATFORM",
+          desc:"執行機器人動作規劃、感測融合與AI推論運算的嵌入式運算平台，決定機器人反應速度與自主決策能力，多數平台採輝達Jetson系列運算模組為核心。",
+          companies:[{n:"凌華科技",tw:1},{n:"研華",tw:1},{n:"輝達 NVIDIA"}],
+          stats:[],
+          tags:["nvidia"] },
+        { icon:"icon-battery", title:"電池與能源管理", sub:"BATTERY & POWER MANAGEMENT",
+          desc:"提供人形機器人長時間自主作業所需的可攜式電力來源，需在能量密度、重量與安全性之間取得平衡，是機器人續航力的核心限制因素。",
+          companies:[{n:"高達能源",tw:1}],
+          stats:[] },
+        { icon:"icon-generic", title:"氣動與傳動零組件", sub:"PNEUMATIC & TRANSMISSION COMPONENTS",
+          desc:"提供工業機器人與協作型機器人所需的氣動元件與精密傳動零件，是自動化產線中歷史悠久、應用範圍最廣的基礎零組件供應鏈。",
+          companies:[{n:"亞德客-KY",tw:1}],
+          stats:[] },
+        { icon:"icon-server", title:"機器人本體與系統整合", sub:"ROBOT BODY & SYSTEM INTEGRATION",
+          desc:"將關節模組、感測器與運算平台整合為完整機器人本體，並依應用場景開發控制軟體與作業流程，是機器人產業鏈中附加價值最終體現的環節。",
+          companies:[{n:"鴻海",tw:1},{n:"達明機器人",tw:1},{n:"盟立自動化",tw:1}],
+          stats:[] },
+        { icon:"icon-generic", title:"下游：工業與物流應用", sub:"INDUSTRIAL & LOGISTICS APPLICATIONS",
+          desc:"機械手臂與協作型機器人目前最大宗的應用場域，涵蓋電子製造、汽車產線與倉儲物流自動化，是機器人產業現階段最主要的營收來源。",
+          companies:[{n:"台達電",tw:1},{n:"鴻海",tw:1}],
+          stats:[] },
+        { icon:"icon-generic", title:"下游：服務與人形機器人應用", sub:"SERVICE & HUMANOID ROBOTICS",
+          desc:"特斯拉Optimus等人形機器人專案帶動零組件需求快速成長，未來應用可望延伸至居家照護、零售服務與危險環境作業，是機器人產業長期成長性最受矚目的新興應用領域。",
+          companies:[{n:"特斯拉 Tesla"}],
+          stats:[] }
+      ]
+    },
+
+    "apple": {
+      name: "蘋果(Apple)",
+      nameEn: "APPLE SUPPLY CHAIN",
+      tags: ["apple-supply-chain"],
+      lede: "從A／M系列晶片設計代工、機殼結構件到相機模組、電池與整機組裝，蘋果全球供應鏈中台廠參與最深的關鍵環節。組裝代工雖仍以台廠為主力，但機殼與電池模組近年面臨陸廠競爭加劇，供應鏈版圖持續變動中。",
+      updated: "2026年9月",
+      sources: [
+        "CapFutures－「蘋果供應鏈台股完整地圖：從晶片到組裝，哪些台廠在iPhone裡？」",
+        "Roo.Cash－「蘋果供應鏈名單彙整：2026最新蘋果概念股介紹、市場表現一次看」",
+        "各供應商法說會與公開資訊觀測站公告"
+      ],
+      disclaimer: "本頁面為公開資訊整理彙編，官方供應商名單與媒體報導僅代表角色相符，不代表已接獲多少訂單或必然受惠；市占率與供應關係會隨產品世代與市場狀況持續變動，僅供產業脈絡參考，不構成任何投資建議。",
+      nodes: [
+        { icon:"icon-chip", title:"晶片設計與代工(A／M系列)", sub:"CHIP DESIGN & FOUNDRY",
+          desc:"蘋果自主設計iPhone用A系列與Mac用M系列處理器，交由台積電以最先進製程代工生產。台積電在蘋果晶片供應鏈中的地位幾乎無可取代，是蘋果每年最先導入新製程節點的旗艦客戶之一。",
+          companies:[{n:"台積電",tw:1},{n:"蘋果 Apple"}],
+          stats:[],
+          tags:["wafer-fabrication"] },
+        { icon:"icon-substrate", title:"IC載板與天線封裝", sub:"IC SUBSTRATE & ANTENNA PACKAGE",
+          desc:"承載處理器晶片的高階IC載板，以及整合天線結構的封裝載板，是晶片能否順利與主機板電性連接、並維持通訊效能的關鍵中介層。",
+          companies:[{n:"南電",tw:1},{n:"欣興",tw:1}],
+          stats:[],
+          tags:["pcb-manufacturing"] },
+        { icon:"icon-hbm", title:"記憶體與儲存", sub:"MEMORY & STORAGE",
+          desc:"提供iPhone與Mac所需的行動式DRAM與NAND Flash儲存晶片，蘋果供應商以南韓與美系原廠為主，台廠則在利基型記憶體與控制晶片領域維持部分參與。",
+          companies:[{n:"華邦電",tw:1},{n:"SK海力士"},{n:"美光 Micron"},{n:"三星電子"}],
+          stats:[],
+          tags:["memory-supply-chain"] },
+        { icon:"icon-lens", title:"相機模組與光學鏡頭", sub:"CAMERA MODULE & OPTICS",
+          desc:"蘋果多鏡頭系統對光學品質要求極高，大立光在手機鏡頭玻璃鏡片領域長期居於領導地位，玉晶光則在相機模組與鏡頭組裝環節扮演重要角色。",
+          companies:[{n:"大立光",tw:1},{n:"玉晶光",tw:1}],
+          stats:[] },
+        { icon:"icon-generic", title:"被動元件", sub:"PASSIVE COMPONENTS",
+          desc:"電容、電阻、電感等被動元件雖然單價低廉，但單機用量龐大，是電子產品中不可或缺的基礎零組件。國巨是目前唯一打入蘋果官方供應鏈名單的台灣被動元件廠。",
+          companies:[{n:"國巨",tw:1}],
+          stats:[],
+          tags:["passive-components"] },
+        { icon:"icon-substrate", title:"軟硬板與載板(FPC／HDI)", sub:"FLEXIBLE & RIGID-FLEX PCB",
+          desc:"連接主機板與各模組的軟性電路板與高密度互連板，需承受反覆彎折與極高的空間堆疊密度要求，是台廠PCB供應鏈中技術含量最高的產品線之一。",
+          companies:[{n:"臻鼎-KY",tw:1},{n:"嘉聯益",tw:1},{n:"台郡",tw:1},{n:"華通",tw:1}],
+          stats:[] },
+        { icon:"icon-generic", title:"石英元件", sub:"QUARTZ COMPONENTS",
+          desc:"提供時脈訊號與頻率控制的石英晶體元件，雖然單價不高，但是主機板電路穩定運作不可或缺的基礎被動元件，晶技是官方供應鏈名單中的代表廠商。",
+          companies:[{n:"晶技",tw:1}],
+          stats:[] },
+        { icon:"icon-device", title:"機殼與結構件", sub:"CASING & STRUCTURAL PARTS",
+          desc:"以鋁合金或鈦合金精密加工製成的機身結構件，兼顧強度、散熱與外觀質感，是蘋果產品工業設計能否量產實現的關鍵製造環節。",
+          companies:[{n:"可成",tw:1},{n:"鴻準",tw:1}],
+          stats:[] },
+        { icon:"icon-package", title:"封裝測試(SiP系統級封裝)", sub:"SiP PACKAGING & TEST",
+          desc:"將處理器、記憶體與周邊晶片整合封裝於單一模組的系統級封裝技術，大幅縮小主機板占用空間，是穿戴裝置與輕薄化產品的關鍵封裝方案。",
+          companies:[{n:"日月光",tw:1}],
+          stats:[] },
+        { icon:"icon-power", title:"電源管理與快充", sub:"POWER MANAGEMENT & CHARGING",
+          desc:"提供電源轉換、快充協定與電力分配的相關晶片與模組，台廠在電源供應器與轉接器代工領域長期是蘋果供應鏈的重要夥伴。",
+          companies:[{n:"台達電",tw:1},{n:"光寶科",tw:1}],
+          stats:[] },
+        { icon:"icon-battery", title:"電池模組", sub:"BATTERY PACK",
+          desc:"提供iPhone、Mac與穿戴裝置所需的鋰電池芯與電池管理模組。台廠電池模組廠具備長期合作基礎，但近年面臨陸廠競爭加劇，訂單版圖持續變動。",
+          companies:[{n:"新普",tw:1},{n:"順達",tw:1}],
+          stats:[] },
+        { icon:"icon-server", title:"組裝代工(EMS／ODM)", sub:"FINAL ASSEMBLY (EMS/ODM)",
+          desc:"依蘋果規格完成整機組裝、測試與品保出貨的委託製造環節。鴻海是iPhone最主要的組裝代工夥伴，和碩、仁寶、廣達、緯創則依產品線分工，涵蓋Mac、Apple Watch與AirPods等品項。",
+          companies:[{n:"鴻海",tw:1},{n:"和碩",tw:1},{n:"仁寶",tw:1},{n:"廣達",tw:1},{n:"緯創",tw:1}],
+          stats:[] }
+      ]
+    },
+
+    "photonics": {
+      name: "光通訊",
+      nameEn: "OPTICAL COMMUNICATIONS SUPPLY CHAIN",
+      tags: ["optical-communications","photonics"],
+      lede: "從化合物半導體磊晶、雷射與光偵測器晶粒，到矽光子晶片、CPO共同封裝光學與光收發模組，AI叢集高速互連背後的光通訊完整供應鏈。台灣廠商在光學元件與模組組裝環節已逐漸從代工角色，切入技術含量更高的關鍵零組件供應。",
+      updated: "2026年9月",
+      sources: [
+        "數位時代 BusinessNext－「矽光子概念股28檔完整整理，CPO、InP差異一次懂，台股光通訊供應鏈全解析」",
+        "TechNews科技新報－「2026迎矽光子元年、CPO加速商轉！台灣『光電部隊』各就各位」",
+        "各光通訊廠商法說會與公開資訊觀測站公告"
+      ],
+      disclaimer: "本頁面為公開資訊整理彙編，市占率、產能與產品規格等數據會隨市場狀況與廠商公告持續變動，僅供產業脈絡參考，不構成任何投資建議。",
+      nodes: [
+        { icon:"icon-ingot", title:"磊晶片與化合物半導體基板", sub:"LASER EPITAXY & COMPOUND SEMICONDUCTOR",
+          desc:"以InP、GaAs等化合物半導體材料成長磊晶薄膜，是雷射與光偵測器晶粒最上游的基礎材料，磊晶品質直接決定後段元件的發光效率與訊號品質。",
+          companies:[{n:"全新",tw:1},{n:"英特磊",tw:1},{n:"聯亞",tw:1}],
+          stats:[] },
+        { icon:"icon-chip", title:"雷射晶粒(LD／VCSEL)", sub:"LASER DIODE CHIPS",
+          desc:"將電訊號轉換為光訊號的核心主動元件，依應用場景可分為邊射型雷射（EEL）與垂直共振腔面射型雷射（VCSEL），是光通訊系統中光源的來源。",
+          companies:[{n:"聯亞光電",tw:1},{n:"全新",tw:1}],
+          stats:[] },
+        { icon:"icon-metrology", title:"光偵測器晶粒(PD／APD)", sub:"PHOTODETECTOR CHIPS",
+          desc:"將接收到的光訊號還原為電訊號的感光元件，靈敏度與響應速度直接影響長距離傳輸的訊號完整性。",
+          companies:[{n:"全新",tw:1},{n:"英特磊",tw:1}],
+          stats:[] },
+        { icon:"icon-foundry", title:"矽光子晶片(Silicon Photonics)", sub:"SILICON PHOTONICS CHIP",
+          desc:"在標準CMOS晶圓上整合光波導、調變器與光耦合結構，以晶圓代工製程量產光學元件，是next-gen高速光通訊大幅降低成本的關鍵技術路徑，台積電COUPE平台是此技術的核心製程基礎。",
+          companies:[{n:"台積電",tw:1}],
+          stats:[] },
+        { icon:"icon-package", title:"光主動元件封裝(TOSA／ROSA)", sub:"OPTICAL SUB-ASSEMBLY PACKAGING",
+          desc:"將雷射與光偵測器晶粒封裝為可直接整合進模組的光收發次組件，封裝精度需達次微米等級以確保光耦合效率。",
+          companies:[{n:"波若威",tw:1},{n:"上詮",tw:1}],
+          stats:[] },
+        { icon:"icon-generic", title:"光被動元件(耦合器／濾波器／隔離器)", sub:"PASSIVE OPTICAL COMPONENTS",
+          desc:"包含光纖耦合器、波長分波多工濾波器與光隔離器等被動元件，用於分光、合波與抑制反射雜訊，是光路系統中精密度要求最高的機構元件之一。上詮在光纖陣列對準（FAU）與矽光子晶片精密耦合領域已建立技術地位。",
+          companies:[{n:"上詮",tw:1},{n:"波若威",tw:1}],
+          stats:[] },
+        { icon:"icon-network", title:"光收發模組組裝與測試", sub:"OPTICAL TRANSCEIVER ASSEMBLY & TEST",
+          desc:"將光主動元件、驅動IC與被動元件整合為完整可插拔光收發模組，並進行嚴格的光學與電性測試，是現行AI叢集機櫃間連結的主流方案。",
+          companies:[{n:"華星光",tw:1},{n:"波若威",tw:1}],
+          stats:[] },
+        { icon:"icon-network", title:"CPO共同封裝光學", sub:"CO-PACKAGED OPTICS (CPO)",
+          desc:"將光學引擎直接與交換器ASIC共同封裝於同一基板，取代傳統可插拔模組，大幅降低訊號損耗與功耗，是2026年起加速商轉的next-gen互連技術，日月光已切入CPO先進封裝環節。",
+          companies:[{n:"台積電",tw:1},{n:"日月光",tw:1},{n:"博通 Broadcom"}],
+          stats:[] },
+        { icon:"icon-metrology", title:"材料與可靠度分析", sub:"MATERIALS & RELIABILITY ANALYSIS",
+          desc:"提供光學元件與矽光子晶片製程中的材料檢測、失效分析與良率診斷服務，是精密光學製造能否穩定量產不可或缺的品保後盾。",
+          companies:[{n:"汎銓",tw:1},{n:"閎康",tw:1},{n:"宜特",tw:1}],
+          stats:[] },
+        { icon:"icon-interconnect", title:"光纖與線纜", sub:"OPTICAL FIBER & CABLING",
+          desc:"傳輸光訊號的實體介質，資料中心內部與跨機房連結皆仰賴光纖網路，是資料中心基礎建設中不可或缺的被動傳輸層。",
+          companies:[{n:"康寧 Corning"},{n:"住友電工 Sumitomo Electric"}],
+          stats:[] },
+        { icon:"icon-datacenter", title:"下游應用：資料中心與電信網路", sub:"DOWNSTREAM: DATA CENTER & TELECOM",
+          desc:"光通訊技術最終服務於資料中心內部高速互連與電信業者的長途骨幹網路，AI運算需求是近年拉動光模組出貨量成長最主要的動能來源。",
+          companies:[{n:"雲端服務供應商"},{n:"電信業者"}],
+          stats:[] }
+      ]
+    },
+
+    "thermal": {
+      name: "散熱",
+      nameEn: "THERMAL & COOLING SUPPLY CHAIN",
+      tags: ["thermal-cooling"],
+      lede: "從均熱板(VC)、水冷板到晶片封裝結構件(Lid／Stiffener)、CDU與液冷機房整合，AI伺服器散熱從晶片級到機房級的完整零組件供應鏈。台廠在液冷關鍵零組件領域掌握全球逾半市占，是這波AI浪潮中少數具備明顯定價權的環節。",
+      updated: "2026年9月",
+      sources: [
+        "豐雲學堂－「NVIDIA Level-10水冷板供應商名單！解析VR200液冷伺服器技術趨勢」",
+        "鉅亨網－「環形均熱片成AI新標配 竑騰獨吞設備訂單、雙軌並進大擴產」",
+        "各散熱廠商法說會與公開資訊觀測站公告"
+      ],
+      disclaimer: "本頁面為公開資訊整理彙編，市占率、產能與產品規格等數據會隨市場狀況與廠商公告持續變動，僅供產業脈絡參考，不構成任何投資建議。",
+      nodes: [
+        { icon:"icon-clean", title:"均熱板(VC／Vapor Chamber)", sub:"VAPOR CHAMBER",
+          desc:"內部填充工作流體的真空腔體均熱元件，透過液氣相變化快速將熱源熱量均勻擴散，是晶片與模組散熱設計中最基礎的被動式均溫方案。輝達新世代晶片導入環形均熱片設計，進一步強化封裝周邊的散熱能力。",
+          companies:[{n:"健策",tw:1},{n:"雙鴻",tw:1}],
+          stats:[] },
+        { icon:"icon-clean", title:"水冷板(Cold Plate)", sub:"COLD PLATE",
+          desc:"直接貼附於GPU或CPU晶片表面的銅製微流道結構，以循環冷卻液帶走熱源，是目前主流AI晶片液冷方案的核心零組件。",
+          companies:[{n:"奇鋐",tw:1},{n:"雙鴻",tw:1},{n:"健策",tw:1}],
+          stats:[{v:"40-50%",l:"奇鋐GB200／GB300水冷板市占"}] },
+        { icon:"icon-package", title:"晶片封裝結構件(Lid／Stiffener)", sub:"PACKAGE LID & STIFFENER",
+          desc:"Lid（散熱蓋／IHS）覆蓋於晶粒上方，作為熱傳導介面兼機械保護層；Stiffener（補強框）環繞封裝基板周邊提供結構支撐、防止基板翹曲。兩者皆須與冷板精密貼合，才能發揮完整散熱效果。",
+          companies:[{n:"健策",tw:1}],
+          stats:[] },
+        { icon:"icon-cmp", title:"均熱片壓合設備", sub:"THERMAL BONDING EQUIPMENT",
+          desc:"提供均熱片與散熱結構件植片、壓合所需的精密生產設備，是散熱零件能否穩定量產放量的關鍵製程工具供應商，隨輝達新世代晶片裸晶數量增加，設備訂單同步受惠。",
+          companies:[{n:"竑騰",tw:1}],
+          stats:[] },
+        { icon:"icon-power", title:"CDU冷卻液分配單元", sub:"COOLANT DISTRIBUTION UNIT",
+          desc:"負責管理機櫃內冷卻液循環、溫度與流量的核心裝置，內部分歧管（Manifold）設計決定多節點液冷分配的穩定度，單台可支援高達千瓦級冷卻能力。",
+          companies:[{n:"奇鋐",tw:1},{n:"雙鴻",tw:1}],
+          stats:[] },
+        { icon:"icon-power", title:"熱交換器", sub:"HEAT EXCHANGER",
+          desc:"在機房層級進行冷熱液體交換、將機櫃內部熱量最終排出至外部冷卻系統的關鍵設備，是液冷架構中連接機櫃與建築冷卻基礎設施的樞紐。",
+          companies:[{n:"高力",tw:1}],
+          stats:[] },
+        { icon:"icon-interconnect", title:"液冷管路與快接頭", sub:"LIQUID COOLING TUBING & QUICK CONNECTORS",
+          desc:"連接冷板、CDU與機櫃管路系統的軟管與防漏快速接頭，需承受長期高壓循環而不滲漏，是液冷系統可靠度的最後一道防線。",
+          companies:[{n:"CPC"},{n:"派克漢尼汾 Parker Hannifin"}],
+          stats:[] },
+        { icon:"icon-power", title:"風扇模組與氣冷散熱", sub:"FAN MODULES & AIR COOLING",
+          desc:"均熱片、散熱鰭片與風扇模組等傳統氣冷元件，雖然逐步讓位給液冷方案，但在中低功耗機型與液冷系統的輔助散熱中仍持續扮演角色。",
+          companies:[{n:"奇鋐",tw:1},{n:"建準",tw:1}],
+          stats:[] },
+        { icon:"icon-datacenter", title:"液冷機房整合與監控", sub:"LIQUID COOLING FACILITY INTEGRATION",
+          desc:"提供資料中心液冷機房的整廠輸出工程、管路布建與監控軟體整合服務，是液冷系統從機櫃層級擴展至機房層級不可或缺的系統整合角色。",
+          companies:[{n:"廣運",tw:1}],
+          stats:[] }
+      ]
+    },
+
+    "passive": {
+      name: "被動元件",
+      nameEn: "PASSIVE COMPONENTS SUPPLY CHAIN",
+      tags: ["passive-components"],
+      lede: "從陶瓷粉體材料、MLCC積層陶瓷電容、晶片電阻到電感與磁性元件，電子產品中單價低廉卻用量龐大的基礎零組件供應鏈。AI伺服器單機MLCC用量已從一般伺服器的2,200顆暴增至2萬顆以上，帶動台廠被動元件業者迎來結構性成長行情。",
+      updated: "2026年9月",
+      sources: [
+        "商周－「被動元件是什麼？2026漲價概念股名單、MLCC、產業鏈一次看懂」",
+        "豐雲學堂－「AI伺服器規格飛躍式成長：MLCC用量狂翻90倍，這些被動元件廠將迎來結構性大行情？」",
+        "口袋學堂－「AI伺服器帶旺被動元件！2026產業趨勢解析：國巨、華新科誰受惠？」",
+        "太赫電通－「MLCC需求爆棚！一台AI伺服器用量飆3萬顆」"
+      ],
+      disclaimer: "本頁面為公開資訊整理彙編，市占率、產能與產品規格等數據會隨市場狀況與廠商公告持續變動，僅供產業脈絡參考，不構成任何投資建議。",
+      nodes: [
+        { icon:"icon-ingot", title:"上游材料（陶瓷粉體／貴金屬漿料）", sub:"UPSTREAM MATERIALS",
+          desc:"介電陶瓷粉、氧化鋁基板、銀漿等被動元件關鍵原材料，目前台灣被動元件所需的關鍵材料有七成以上仍由日系廠商掌握，是台廠被動元件產業鏈中自主性最低的一環。",
+          companies:[{n:"村田 Murata"},{n:"TDK"},{n:"京瓷 Kyocera"}],
+          stats:[] },
+        { icon:"icon-chip", title:"積層陶瓷電容(MLCC)", sub:"MULTI-LAYER CERAMIC CAPACITOR",
+          desc:"電子產品中用量最大的被動元件，AI伺服器高階運算與供電迴路需要更高容值、更耐高溫的MLCC，單機用量從一般伺服器約2,200顆暴增至現階段AI伺服器2萬顆，村田預估下一代機種可達3萬顆。國巨、華新科為台廠雙雄，禾伸堂在小容值NP0 MLCC全球市占逾五成。",
+          companies:[{n:"國巨",tw:1},{n:"華新科",tw:1},{n:"禾伸堂",tw:1},{n:"信昌電",tw:1},{n:"凱美",tw:1}],
+          stats:[{v:"2,200→20,000顆",l:"一般伺服器→AI伺服器單機MLCC用量"},{v:">50%",l:"禾伸堂NP0 MLCC全球市占"}] },
+        { icon:"icon-chip", title:"晶片電阻(Chip Resistor)", sub:"CHIP RESISTOR",
+          desc:"提供電路限流、分壓功能的基礎被動元件，雖單價最低但用量與MLCC同級。國巨為全球前三大晶片電阻廠，大毅與光頡則以中低阻值與薄膜電阻產品線見長。",
+          companies:[{n:"國巨",tw:1},{n:"大毅",tw:1},{n:"光頡",tw:1}],
+          stats:[] },
+        { icon:"icon-package", title:"鉭質電容與固態電容", sub:"TANTALUM & POLYMER CAPACITOR",
+          desc:"提供高容值、低等效串聯電阻（ESR）特性的電容元件，常用於電源濾波與穩壓電路。國巨鉭質電容全球市占居前，鈺邦專攻固態電容，立隆電與金山電則以鋁質電容為主力產品。",
+          companies:[{n:"國巨",tw:1},{n:"鈺邦",tw:1},{n:"立隆電",tw:1},{n:"金山電",tw:1}],
+          stats:[] },
+        { icon:"icon-power", title:"電感與磁性元件", sub:"INDUCTOR & MAGNETICS",
+          desc:"用於電源濾波、能量儲存與電磁干擾抑制的磁性元件，AI伺服器800V HVDC與多相位供電架構帶動TLVR（耦合電感）等新型態電感需求快速成長，三集瑞是TLVR電感主要供應商之一。",
+          companies:[{n:"國巨",tw:1},{n:"三集瑞",tw:1},{n:"台嘉碩",tw:1}],
+          stats:[] },
+        { icon:"icon-generic", title:"熱敏電阻與特殊被動元件", sub:"NTC/PTC & SPECIALTY COMPONENTS",
+          desc:"熱敏電阻（NTC／PTC）用於溫度感測與突波電流抑制，變阻器（Varistor）則提供過電壓保護，是消費性電子與車用電子安規設計中不可或缺的特殊被動元件。",
+          companies:[{n:"興勤",tw:1}],
+          stats:[] },
+        { icon:"icon-network", title:"通路與代理商", sub:"DISTRIBUTION",
+          desc:"被動元件廠商透過通路商將產品銷售給下游終端客戶，並協助管理庫存與交期，在缺料或漲價循環中扮演調節供需的重要角色。",
+          companies:[{n:"堡達",tw:1},{n:"日電貿",tw:1}],
+          stats:[] },
+        { icon:"icon-datacenter", title:"下游應用：AI伺服器與資料中心", sub:"DOWNSTREAM: AI SERVER & DATA CENTER",
+          desc:"AI伺服器高運算密度與複雜供電迴路對高階、耐用被動元件需求爆發性成長，是這波被動元件產業復甦最主要的成長引擎，村田預估2030年AI伺服器用MLCC需求將較2025年成長3.3倍，年複合成長率達30%。",
+          companies:[{n:"雲端服務供應商"},{n:"AI伺服器ODM"}],
+          stats:[{v:"3.3倍",l:"2030年AI伺服器MLCC需求較2025年成長預估"}] },
+        { icon:"icon-device", title:"下游應用：消費性電子與車用", sub:"DOWNSTREAM: CONSUMER & AUTOMOTIVE",
+          desc:"智慧型手機、筆電等消費性電子仍是被動元件最大宗的傳統應用市場，車用電子規格升級（如電動車電源管理系統）則帶動高壓、高可靠度被動元件的新一波需求成長。",
+          companies:[{n:"品牌手機／筆電廠"},{n:"車用電子廠"}],
           stats:[] }
       ]
     }
@@ -1007,6 +1463,21 @@
     }).join("");
   }
 
+  /* 自動相關產業比對：只要節點的 tags 與其他產業 meta.tags 有交集，
+     就會自動出現跳轉按鈕——之後新增產業只要標好 tags，既有節點會自動連過去，
+     不需要每次手動加 crossLink。 */
+  function relatedIndustriesFor(node){
+    if(!node.tags || !node.tags.length) return [];
+    var matches = [];
+    INDUSTRY_ORDER.forEach(function(key){
+      if(key === state.industry) return;
+      var indTags = INDUSTRIES[key].tags || [];
+      var hit = node.tags.some(function(t){ return indTags.indexOf(t) !== -1; });
+      if(hit) matches.push({ key:key, name: INDUSTRIES[key].name });
+    });
+    return matches;
+  }
+
   function renderPanel(i){
     var node = state.nodes[i];
     var subGridHtml = "";
@@ -1019,11 +1490,15 @@
           '</button>';
         }).join("") + '</div>';
     }
+    var related = relatedIndustriesFor(node);
     var crossLinkHtml = "";
-    if(node.crossLink){
-      crossLinkHtml = '<button class="cross-link" id="crossLinkBtn" data-target="'+node.crossLink.industry+'">' +
-        '<span>'+node.crossLink.text+'</span><span class="cross-link-arrow">→</span>' +
-      '</button>';
+    if(related.length){
+      crossLinkHtml = '<div class="cross-link-group">' +
+        related.map(function(m){
+          return '<button class="cross-link" data-target="'+m.key+'">' +
+            '<span>查看「'+m.name+'」完整內容</span><span class="cross-link-arrow">→</span>' +
+          '</button>';
+        }).join("") + '</div>';
     }
 
     panel.innerHTML =
@@ -1056,9 +1531,11 @@
         });
       });
     }
-    if(node.crossLink){
-      document.getElementById("crossLinkBtn").addEventListener("click", function(){
-        selectIndustry(node.crossLink.industry);
+    if(related.length){
+      Array.prototype.forEach.call(panel.querySelectorAll(".cross-link"), function(btn){
+        btn.addEventListener("click", function(){
+          selectIndustry(btn.getAttribute("data-target"), node.tags);
+        });
       });
     }
   }
@@ -1106,18 +1583,26 @@
     renderPanel(i);
   }
 
-  function selectIndustry(key){
+  function selectIndustry(key, preferTags){
     state.industry = key;
     var ind = INDUSTRIES[key];
     renderSwitcher();
     renderMeta(ind);
     buildDiagram(ind);
-    selectNode(0);
+    var targetIdx = 0;
+    if(preferTags && preferTags.length){
+      for(var i=0;i<state.nodes.length;i++){
+        var nt = state.nodes[i].tags || [];
+        if(nt.some(function(t){ return preferTags.indexOf(t) !== -1; })){ targetIdx = i; break; }
+      }
+    }
+    selectNode(targetIdx);
   }
 
   selectIndustry(INDUSTRY_ORDER[0]);
 })();
 </script>
 
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d301fb5d8988445c86ad436107563389"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
