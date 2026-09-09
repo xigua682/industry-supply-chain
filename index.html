@@ -605,8 +605,7 @@
      方便未來局部查核時快速定位。
      ============================================================ */
   var INDUSTRIES = {
-
-    "wafer-fab": {
+"wafer-fab": {
       name: "晶圓製造",
       nameEn: "WAFER FABRICATION PROCESS",
       tags: ["wafer-fabrication"],
@@ -881,7 +880,8 @@
           ] }
       ]
     },
-    "tsmc": {
+
+"tsmc": {
       name: "台積電",
       nameEn: "TSMC PRODUCT & SUPPLY CHAIN PROFILE",
       tags: ["tsmc","wafer-fabrication","advanced-packaging"],
@@ -1373,7 +1373,8 @@
         }
       ]
     },
-    "ai-hardware": {
+
+"ai-hardware": {
       name: "AI硬體",
       nameEn: "AI HARDWARE SUPPLY CHAIN",
       tags: ["ai-hardware","semiconductor-supply-chain"],
@@ -1675,7 +1676,8 @@
           ] }
       ]
     },
-    "nvidia": {
+
+"nvidia": {
       name: "輝達(NVIDIA)",
       nameEn: "NVIDIA SUPPLY CHAIN",
       tags: ["nvidia","gpu-supply-chain"],
@@ -1964,7 +1966,8 @@
           ] }
       ]
     },
-    "apple": {
+
+"apple": {
       name: "蘋果(Apple)",
       nameEn: "APPLE SUPPLY CHAIN",
       tags: ["apple-supply-chain"],
@@ -2206,6 +2209,7 @@
           ] }
       ]
     },
+
 "google-tpu": {
   name: "Google TPU",
   nameEn: "GOOGLE TPU SUPPLY CHAIN",
@@ -2607,7 +2611,8 @@
     }
   ]
 },
-    "aws": {
+
+"aws": {
       name: "AWS供應鏈",
       nameEn: "AWS CUSTOM SILICON & CLOUD INFRASTRUCTURE SUPPLY CHAIN",
       tags: ["aws","ai-hardware","datacenter-cloud","custom-silicon"],
@@ -2957,7 +2962,8 @@
         }
       ]
     },
-    "pcb": {
+
+"pcb": {
       name: "PCB電路板製造",
       nameEn: "PCB MANUFACTURING PROCESS",
       tags: ["pcb-manufacturing"],
@@ -3177,7 +3183,8 @@
           ] }
       ]
     },
-    "memory": {
+
+"memory": {
       name: "記憶體",
       nameEn: "MEMORY SUPPLY CHAIN",
       tags: ["memory-supply-chain"],
@@ -3340,7 +3347,8 @@
           ] }
       ]
     },
-    "robot": {
+
+"robot": {
       name: "機器人",
       nameEn: "ROBOTICS SUPPLY CHAIN",
       tags: ["robotics","robot-supply-chain","automotive-robotics"],
@@ -3563,7 +3571,8 @@
           ] }
       ]
     },
-    "photonics": {
+
+"photonics": {
       name: "光通訊",
       nameEn: "OPTICAL COMMUNICATIONS SUPPLY CHAIN",
       tags: ["optical-communications","photonics"],
@@ -3765,7 +3774,8 @@
           ] }
       ]
     },
-    "thermal": {
+
+"thermal": {
       name: "散熱",
       nameEn: "THERMAL & COOLING SUPPLY CHAIN",
       tags: ["thermal-cooling"],
@@ -3941,7 +3951,8 @@
           ] }
       ]
     },
-    "passive": {
+
+"passive": {
       name: "被動元件",
       nameEn: "PASSIVE COMPONENTS SUPPLY CHAIN",
       tags: ["passive-components"],
@@ -4115,7 +4126,8 @@
           ] }
       ]
     },
-    "packaging-test": {
+
+"packaging-test": {
       name: "封測",
       nameEn: "OSAT / PACKAGING & TEST",
       tags: ["packaging-test","advanced-packaging"],
@@ -4373,6 +4385,7 @@
           ] }
       ]
     },
+
 "power-grid": {
   name: "電力設備",
   nameEn: "POWER & GRID EQUIPMENT",
@@ -4807,7 +4820,8 @@
     }
   ]
 },
-    "abf-substrate": {
+
+"abf-substrate": {
   name: "ABF載板",
   nameEn: "ABF SUBSTRATE / IC PACKAGE SUBSTRATE",
   tags: ["ic-substrate","advanced-packaging"],
@@ -5134,7 +5148,8 @@
     }
   ]
 },
-    "leo-satellite": {
+
+"leo-satellite": {
   name: "低軌衛星",
   nameEn: "LEO SATELLITE COMMUNICATIONS",
   tags: ["leo-satellite","satellite-communications"],
@@ -5332,7 +5347,8 @@
     }
   ]
 },
-    "cpu": {
+
+"cpu": {
   name: "CPU",
   nameEn: "CPU SUPPLY CHAIN",
   tags: ["cpu","ic-design"],
@@ -5619,17 +5635,8 @@
       ]
     }
   ]
-},
-
-    /* 之後新增產業，比照上面格式在這裡加一個 key，例如：
-    "ev-battery": {
-      name: "電動車電池供應鏈", nameEn: "EV BATTERY SUPPLY CHAIN",
-      lede: "...", updated: "...", sources:[...], disclaimer:"...",
-      nodes: [ { icon:"icon-generic", title:"...", sub:"...", desc:"...",
-                 companies:[{n:"...",tw:1}], stats:[{v:"...",l:"..."}] }, ... ]
-    }
-    */
-  };
+}
+};
 
   var INDUSTRY_ORDER = Object.keys(INDUSTRIES);
 
