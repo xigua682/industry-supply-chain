@@ -55,7 +55,18 @@
   .meta-row .dot{ display:inline-block; width:7px;height:7px;border-radius:50%; background:var(--copper); margin-right:.45em; vertical-align:middle; }
 
   /* ---------- industry switcher ---------- */
-  .switcher{ display:flex; flex-wrap:wrap; gap:.5rem; margin:1.4rem 0 1.2rem; }
+  .switcher{ display:flex; flex-direction:column; gap:.7rem; margin:1.4rem 0 1.2rem; }
+  .switcher-group{ display:flex; flex-wrap:wrap; align-items:center; gap:.5rem; }
+  .switcher-group-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:.68rem;
+    letter-spacing:.04em;
+    color:var(--ink-faint);
+    white-space:nowrap;
+    margin-right:.15rem;
+    min-width:6.4em;
+  }
+  @media (max-width:640px){ .switcher-group{ padding-left:0; } .switcher-group-label{ min-width:0; width:100%; margin-bottom:-.1rem; } }
   .tab{
     font-family:'IBM Plex Mono',monospace;
     font-size:.78rem;
@@ -169,22 +180,42 @@
   .chip:hover{ border-color:var(--copper); color:var(--copper-ink); background:var(--copper-soft); transform:translateY(-1px); }
   .chip:focus-visible{ outline:2px solid var(--copper); outline-offset:2px; }
 
-  /* ---------- company profile modal ---------- */
-  .modal-backdrop{ display:none; position:fixed; inset:0; background:rgba(11,15,22,.55); backdrop-filter:blur(2px); z-index:100; align-items:flex-start; justify-content:center; padding:5vh 1rem; overflow-y:auto; }
-  .modal-backdrop.open{ display:flex; }
-  .company-modal{ background:var(--surface); border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow); max-width:640px; width:100%; padding:1.8rem; position:relative; margin-bottom:5vh; }
-  .modal-close{ position:absolute; top:1.1rem; right:1.1rem; width:32px; height:32px; border-radius:50%; border:1px solid var(--line); background:var(--surface-2); color:var(--ink-soft); font-size:1rem; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center; }
-  .modal-close:hover{ color:var(--ink); border-color:var(--copper); }
-  .modal-close:focus-visible{ outline:2px solid var(--copper); outline-offset:2px; }
-  .modal-header{ display:flex; align-items:center; gap:.6rem; flex-wrap:wrap; padding-right:2.2rem; }
-  .modal-company-name{ font-size:1.35rem; font-weight:800; letter-spacing:-.01em; color:var(--ink); }
-  .modal-code{ font-family:'IBM Plex Mono',monospace; font-size:.85rem; font-weight:700; color:var(--copper-ink); background:var(--copper-soft); border:1px solid var(--copper-soft-line); border-radius:7px; padding:.15rem .55rem; }
-  .modal-count{ margin:.4rem 0 0; font-size:.82rem; color:var(--ink-faint); }
-  .modal-loc-list{ margin-top:1.1rem; border-top:1px solid var(--line); }
-  .modal-loc-item{ display:block; width:100%; text-align:left; padding:.75rem .2rem; border:none; border-bottom:1px solid var(--line); background:none; cursor:pointer; font-family:'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif; font-size:.87rem; color:var(--ink-soft); }
-  .modal-loc-item:hover{ color:var(--copper-ink); }
-  .modal-loc-industry{ color:var(--copper-ink); font-weight:700; }
-  .modal-loc-arrow{ font-family:'IBM Plex Mono',monospace; color:var(--ink-faint); margin:0 .3em; }
+  /* ---------- company hover preview (滑鼠懸浮在公司名稱標籤上時的迷你預覽卡) ---------- */
+  .company-hover-tip{ display:none; position:absolute; z-index:150; max-width:320px; background:var(--surface); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); padding:.85rem .95rem; }
+  .hover-tip-header{ display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; }
+  .hover-tip-name{ font-size:1rem; font-weight:800; color:var(--ink); }
+  .hover-tip-code{ font-family:'IBM Plex Mono',monospace; font-size:.72rem; font-weight:700; color:var(--copper-ink); background:var(--copper-soft); border:1px solid var(--copper-soft-line); border-radius:6px; padding:.1rem .45rem; }
+  .hover-tip-count{ margin:.3rem 0 0; font-size:.74rem; color:var(--ink-faint); }
+  .hover-tip-list{ margin-top:.55rem; display:flex; flex-direction:column; gap:.35rem; }
+  .hover-tip-loc{ font-size:.76rem; color:var(--ink-soft); line-height:1.4; }
+  .hover-tip-industry{ color:var(--copper-ink); font-weight:700; }
+  .hover-tip-arrow{ font-family:'IBM Plex Mono',monospace; color:var(--ink-faint); margin:0 .3em; }
+  .hover-tip-more{ margin-top:.4rem; font-size:.7rem; color:var(--ink-faint); }
+  .hover-tip-hint{ margin-top:.55rem; padding-top:.5rem; border-top:1px solid var(--line); font-size:.7rem; color:var(--copper-ink); font-family:'IBM Plex Mono',monospace; }
+
+  /* ---------- company profile page（點擊公司名稱標籤後導向的個股頁面） ---------- */
+  .company-page{ position:fixed; inset:0; z-index:120; background:var(--bg); overflow-y:auto; }
+  .company-page[hidden]{ display:none; }
+  .company-page-inner{ max-width:1180px; margin:0 auto; padding:2rem 1.4rem 3rem; }
+  .company-page-back{ display:inline-flex; align-items:center; background:none; border:none; padding:0; margin:0 0 1.2rem; font-family:'IBM Plex Mono',monospace; font-size:.82rem; color:var(--copper); cursor:pointer; }
+  .company-page-back:hover{ text-decoration:underline; }
+  .company-page-back:focus-visible{ outline:2px solid var(--copper); outline-offset:2px; }
+  .company-page-header{ display:flex; align-items:flex-start; gap:1rem; }
+  .company-page-icon{ flex-shrink:0; width:52px; height:52px; border-radius:14px; background:var(--copper-soft); border:1px solid var(--copper-soft-line); display:flex; align-items:center; justify-content:center; }
+  .company-page-icon svg{ width:28px; height:28px; color:var(--copper-ink); }
+  .company-page-eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--copper); font-weight:600; }
+  .company-page-name{ margin:.2rem 0 0; font-size:1.6rem; font-weight:800; letter-spacing:-.01em; color:var(--ink); }
+  .company-page-code{ display:inline-block; margin-top:.35rem; font-size:.85rem; font-weight:700; color:var(--copper-ink); background:var(--copper-soft); border:1px solid var(--copper-soft-line); border-radius:7px; padding:.15rem .55rem; }
+  .company-page-count{ margin:1rem 0 0; font-size:.85rem; color:var(--ink-faint); }
+  .company-page-diagram-card{ margin-top:1.2rem; }
+  .company-page-loclist{ display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:.6rem; margin-top:1rem; }
+  .company-page-loc-btn{ text-align:left; padding:.75rem .85rem; border-radius:10px; background:var(--surface); border:1px solid var(--line); cursor:pointer; font-family:inherit; color:var(--ink); transition:border-color .15s ease, background .15s ease; }
+  .company-page-loc-btn:hover{ border-color:var(--copper); background:var(--copper-soft); }
+  .company-page-loc-btn:focus-visible{ outline:2px solid var(--copper); outline-offset:2px; }
+  .company-page-loc-industry{ display:block; font-size:.78rem; font-weight:700; color:var(--copper-ink); }
+  .company-page-loc-node{ display:block; margin-top:.2rem; font-size:.8rem; color:var(--ink-soft); line-height:1.4; }
+  .company-page-empty{ margin-top:1.5rem; font-size:.88rem; color:var(--ink-faint); }
+  @media (max-width:640px){ .company-page-header{ gap:.7rem; } .company-page-icon{ width:44px; height:44px; } .company-page-name{ font-size:1.3rem; } }
   .stats{ display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:.8rem; margin-top:1.2rem; }
   .stat-tile{ background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:.75rem .9rem; }
   .stat-value{ font-family:'IBM Plex Mono',monospace; font-variant-numeric:tabular-nums; font-weight:600; font-size:1.25rem; color:var(--signal); }
@@ -212,34 +243,6 @@
   .disclaimer{ font-size:.74rem; color:var(--ink-faint); line-height:1.6; max-width:78ch; }
 
   @media (prefers-reduced-motion: reduce){ *{ transition:none !important; } }
-
-  .print-only{ display:none; }
-  .print-fab{ position:fixed; bottom:1.2rem; right:1.2rem; z-index:40; font-family:'IBM Plex Mono',monospace; font-size:.78rem; letter-spacing:.02em; background:var(--copper); color:#FFFFFF; border:none; border-radius:999px; padding:.75rem 1.15rem; box-shadow:0 4px 14px rgba(17,22,31,.28); cursor:pointer; transition:transform .15s ease, box-shadow .15s ease; }
-  .print-fab:hover{ transform:translateY(-1px); box-shadow:0 6px 18px rgba(17,22,31,.32); }
-  .print-fab:focus-visible{ outline:2px solid var(--copper-ink); outline-offset:2px; }
-  @media (max-width:640px){ .print-fab{ bottom:.8rem; right:.8rem; padding:.65rem .95rem; font-size:.72rem; } }
-
-  @media print{
-    :root, :root[data-theme="dark"], :root:not([data-theme="light"]){
-      --bg:#FFFFFF !important; --surface:#FFFFFF !important; --surface-2:#F4F6F9 !important;
-      --ink:#11161F !important; --ink-soft:#3A4149 !important; --ink-faint:#5B6470 !important;
-      --line:#C7CDD5 !important; --line-strong:#AEB6C0 !important;
-      --copper:#8A5620 !important; --copper-ink:#6E4419 !important; --copper-soft:#F1E4D3 !important; --copper-soft-line:#D8BE97 !important;
-      --signal:#146B50 !important; --signal-soft:#DCEFE8 !important;
-      --shadow:none !important;
-    }
-    body{ background:#FFFFFF !important; color:#11161F !important; }
-    header.head, .search-wrap, .switcher, .diagram-card, .scroll-hint, .print-fab, .modal-backdrop{ display:none !important; }
-    .panel-nav, .breadcrumb{ display:none !important; }
-    .page{ max-width:none; padding:0; margin:0; }
-    .panel{ box-shadow:none; border:none; padding:0; grid-template-columns:auto 1fr; }
-    .panel-icon-wrap{ box-shadow:none; }
-    .sub-card{ cursor:default; break-inside:avoid; }
-    .stat-tile, .chip{ break-inside:avoid; }
-    footer{ margin-top:1.2rem; padding-top:.8rem; }
-    .print-only{ display:block; font-size:.72rem; color:var(--ink-faint); margin-top:.6rem; }
-    @page{ margin:1.5cm; }
-  }
 </style>
 </head>
 <body>
@@ -565,26 +568,40 @@
 
   <section class="panel" id="panel" aria-live="polite"></section>
 
-  <button class="print-fab" id="printBtn" type="button" title="將目前這個節點存成PDF或列印，方便分享給客戶">🖨️ 存成PDF／列印本節點</button>
-
   <footer>
     <div class="sources-label">資料來源</div>
     <ul class="sources-list" id="sourcesList"></ul>
     <p class="disclaimer" id="disclaimer"></p>
-    <p class="print-only print-footer-note">產業供應鏈全流程地圖　https://xigua682.github.io/industry-supply-chain/</p>
   </footer>
 
 </div>
 
-<div class="modal-backdrop" id="companyModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalCompanyName">
-  <div class="company-modal">
-    <button class="modal-close" id="modalCloseBtn" aria-label="關閉">✕</button>
-    <div class="modal-header">
-      <span class="modal-company-name" id="modalCompanyName"></span>
-      <span class="modal-code" id="modalCompanyCode" hidden></span>
+<div class="company-hover-tip" id="companyHoverTip" role="tooltip"></div>
+
+<div class="company-page" id="companyPage" hidden role="dialog" aria-modal="true" aria-labelledby="companyPageName">
+  <div class="company-page-inner">
+    <button class="company-page-back" id="companyPageBack">‹ 返回供應鏈地圖</button>
+    <div class="company-page-header">
+      <div class="company-page-icon"><svg viewBox="0 0 40 40"><use href="#icon-generic"></use></svg></div>
+      <div>
+        <div class="company-page-eyebrow">公司個股頁面 · COMPANY PROFILE</div>
+        <h2 class="company-page-name" id="companyPageName"></h2>
+        <span class="company-page-code mono" id="companyPageCode" hidden></span>
+      </div>
     </div>
-    <p class="modal-count" id="modalCompanyCount"></p>
-    <div class="modal-loc-list" id="modalLocList"></div>
+    <p class="company-page-count" id="companyPageCount"></p>
+    <div class="diagram-card company-page-diagram-card" id="companyPageDiagramCard">
+      <div class="diagram-scroll">
+        <svg class="flow-svg" id="companyFlowSvg" viewBox="0 0 1400 460" role="img" aria-label="該公司在供應鏈中的位置">
+          <g id="companySegmentsLayer"></g>
+          <g id="companyNodesLayer"></g>
+        </svg>
+      </div>
+      <div class="scroll-hint">← 左右滑動查看完整位置 →</div>
+    </div>
+    <div class="company-page-loclist" id="companyPageLocList"></div>
+    <!-- 預留區塊：日後可在此放入少數重點公司的產品別／營收別佔比資料（含資料日期與來源） -->
+    <div id="companyPageRevenue" hidden></div>
   </div>
 </div>
 
@@ -1069,6 +1086,230 @@
           ] }
       ]
     },
+
+"facility": {
+  name: "廠務工程",
+  nameEn: "FAB FACILITY SYSTEMS",
+  tags: ["facility-systems","semiconductor-supply-chain"],
+  lede: "台積電等半導體廠今年計畫新建近10座晶圓廠，加上美國、日本、德國等海外新廠同步動工，帶動「廠務」工程——無塵室機電、氣體與化學品供應系統、超純水與水處理系統——訂單能見度普遍拉長至2027、2028年。廠務工程不是晶圓製造設備本身，而是讓晶圓廠得以運作的地基與管線系統，同時受惠台積電本島擴產與海外新廠建置的雙重需求，近年成為台股「護國神山概念股」中較少被留意、但訂單能見度同樣亮眼的一環。",
+  updated: "2026年9月",
+  sources: [
+    "Vocus《半導體廠務工程：AI建廠循環下的產業地圖》",
+    "經濟日報《台積電今年新建9座廠 廠務供應商接單旺》",
+    "工商時報《半導體工程廠 今年營運旺 漢唐、聖暉、洋基等訂單滿手》",
+    "商業周刊《台積電今年要蓋9座新廠！這5間台廠訂單爆滿》",
+    "各公司法說會簡報與公開資訊觀測站(MOPS)公告"
+  ],
+  disclaimer: "本頁面為公開資訊整理彙編，在手訂單、營收占比等數據多引自各公司法說會與新聞媒體報導，會隨公司公告持續變動，僅供產業脈絡參考，不構成任何投資建議；廠務工程訂單認列進度與晶圓廠實際動工時程可能有落差，請以各公司公開資訊觀測站最新公告為準。",
+  nodes: [
+    {
+      icon: "icon-turnkey",
+      title: "廠務工程統包／無塵室機電整合",
+      sub: "TURNKEY CLEANROOM & M&E CONTRACTORS",
+      parallelGroup: "facility-system-types",
+      desc: "無塵室機電整合是廠務工程中規模最大的一環，統包商負責從無塵室潔淨度等級、空調(HVAC)、風機過濾機組(FFU)到廠房機電系統的整體設計施工，是晶圓廠動工後最早進場、規模最大的工程項目。隨台積電本島擴產加上美國、日本新廠同步動工，主要統包商在手訂單普遍創歷史新高，並加速往海外布局分散客戶集中度風險。",
+      companies: [
+        { n: "聖暉工程科技", tw: 1, code: "5536" },
+        { n: "漢唐集成", tw: 1, code: "2404" },
+        { n: "亞翔工程", tw: 1, code: "6139" },
+        { n: "洋基工程", tw: 1, code: "6691" },
+        { n: "巨漢", tw: 1, code: "6903" }
+      ],
+      stats: [
+        { v: "9座", l: "台積電2026年計畫新建晶圓廠數量" },
+        { v: "1,700億元+", l: "亞翔工程2025年底在手訂單" }
+      ],
+      children: [
+        {
+          icon: "icon-turnkey",
+          title: "聖暉工程科技：無塵室機電龍頭",
+          sub: "ACTER — CLEANROOM & M&E LEADER",
+          desc: "聖暉工程科技(股票代號顯示為「聖暉*」)是台灣無塵室機電整合龍頭，2025年營收約七成來自無塵室與機電工程、約二成來自水氣系統，在手訂單規模居同業之冠；2025年11月成立美國子公司，目標2027年美國營收占比拉高至15%至20%，反映客戶群同步往台積電海外新廠擴散。",
+          companies: [{ n: "聖暉工程科技", tw: 1, code: "5536" }],
+          stats: [{ v: "5,000億元+", l: "聖暉工程科技2026年初在手訂單" }]
+        },
+        {
+          icon: "icon-turnkey",
+          title: "漢唐集成：台積電、美光雙主力客戶",
+          sub: "UNITED INTEGRATED SERVICES — TSMC & MICRON",
+          desc: "漢唐集成是台灣規模最大的整廠(無塵室＋機電)統包商，客戶高度集中於台積電與美光(Micron)，兩者合計約占營收八至九成；子公司漢科(3402)專攻特殊氣體與化學品二次配管工程。2025年營收美國占比約二成五、台灣約六成七，在手訂單逾1,300億元，多數預計於未來兩年內認列。",
+          companies: [{ n: "漢唐集成", tw: 1, code: "2404" }, { n: "漢科", tw: 1, code: "3402" }],
+          stats: [{ v: "80-90%", l: "台積電＋美光占漢唐集成營收比重" }]
+        },
+        {
+          icon: "icon-turnkey",
+          title: "亞翔工程：東南亞新廠訂單挹注",
+          sub: "UNITED ENVIRONMENT — SOUTHEAST ASIA EXPANSION",
+          desc: "亞翔工程同步布局半導體、實驗室、製藥與光電廠房無塵室機電工程，子公司榮工承接公共工程；受惠美光、聯電新加坡新廠等東南亞擴產案，2025年東協區域營收占比達六成以上，2025年底在手訂單創下歷史新高紀錄。",
+          companies: [{ n: "亞翔工程", tw: 1, code: "6139" }],
+          stats: [{ v: "1,753億元+", l: "亞翔工程2025年底在手訂單(創新高)" }]
+        },
+        {
+          icon: "icon-turnkey",
+          title: "洋基工程與巨漢：中小型統包商成長動能",
+          sub: "YFC & CHUHAN — EMERGING TURNKEY PLAYERS",
+          desc: "洋基工程客戶以半導體(占比約五成六)與PCB(約二成)為主，2025年底在手訂單約553億元，其中七成預計於2026年認列，並取得美光單筆歷來最大訂單(約200億元)；巨漢則是規模較小、成長較快的無塵室機電整合商，目前營收全數來自台灣本地，正加速拓展海外據點，AI相關營收占比已逾七成。",
+          companies: [{ n: "洋基工程", tw: 1, code: "6691" }, { n: "巨漢", tw: 1, code: "6903" }],
+          stats: [{ v: "200億元", l: "洋基工程取得美光歷來最大單筆訂單" }]
+        }
+      ]
+    },
+    {
+      icon: "icon-power",
+      title: "主氣體系統與特殊氣體二次配",
+      sub: "MAIN GAS SYSTEMS & SPECIALTY GAS DISTRIBUTION",
+      parallelGroup: "facility-system-types",
+      desc: "晶圓廠製程需要氮氣、氧氣、氬氣等大宗氣體，以及矽甲烷、三氟化氮等高純度特殊氣體供應到每一台製程機台，氣體系統廠商負責從廠區主管路到機台端二次配管的設計施工，屬於製程可靠度要求最高的廠務環節之一，與晶圓廠停機風險直接相關。此環節與氣體本身的生產(如聯華林德、亞東工業氣體等多為集團子公司或合資企業，非台股獨立上市公司)不同，這裡指的是負責系統設計、管路施工的廠務工程商。",
+      companies: [
+        { n: "和淞科技", tw: 1, code: "6826" },
+        { n: "銳澤", tw: 1, code: "7703" },
+        { n: "漢科", tw: 1, code: "3402" },
+        { n: "聚賢研發", tw: 1, code: "7631" }
+      ],
+      stats: [
+        { v: "80%", l: "和淞科技來自台積電主氣體系統業務之營收占比" }
+      ],
+      children: [
+        {
+          icon: "icon-power",
+          title: "和淞科技：台積電主氣體系統主力供應商",
+          sub: "HOSSIN TECHNOLOGY — TSMC MAIN GAS SYSTEM",
+          desc: "和淞科技專攻晶圓廠主氣體系統設計施工，並跨足高科技廠務設備代工，約八成營收來自台積電，是最早參與台積電美國亞利桑那P1廠氣體系統工程的台廠之一，2026年第一季在手訂單約400億元。",
+          companies: [{ n: "和淞科技", tw: 1, code: "6826" }],
+          stats: [{ v: "400億元", l: "和淞科技2026年第一季在手訂單" }]
+        },
+        {
+          icon: "icon-power",
+          title: "銳澤：氣體二次配專業廠商",
+          sub: "REZAL — SECONDARY GAS DISTRIBUTION",
+          desc: "銳澤隸屬聖暉集團，專攻氣體製程二次配管與整廠氣體系統工程，二次配管業務約占營收五成、主氣體系統約三成；客戶以台積電(約四至五成)、美光(約三成)為主，並已跨足日本、新加坡與美國市場。",
+          companies: [{ n: "銳澤", tw: 1, code: "7703" }],
+          stats: []
+        },
+        {
+          icon: "icon-power",
+          title: "聚賢研發：新廠海外據點布局",
+          sub: "CHUHSIEN R&D — OVERSEAS EXPANSION",
+          desc: "聚賢研發專攻特殊氣體二次配管工程，2024年起陸續於日本、新加坡、德國成立子公司，客戶以台積電為主、亦服務美光與聯電，是台積電美國亞利桑那廠特殊氣體二次配工程的供應商之一。",
+          companies: [{ n: "聚賢研發", tw: 1, code: "7631" }],
+          stats: []
+        }
+      ]
+    },
+    {
+      icon: "icon-clean",
+      title: "化學品供應系統(CCSS)",
+      sub: "CENTRAL CHEMICAL SUPPLY SYSTEM",
+      parallelGroup: "facility-system-types",
+      desc: "中央化學品供應系統(CCSS)負責將濕式製程所需的高純度化學藥液，從中央儲槽經管路精準輸送至各製程機台，管路材質、純度控制與防洩漏設計要求極高，是廠務系統中技術門檻較高的一環，部分廠商同時跨足設備代理與自動化整合業務。",
+      companies: [
+        { n: "帆宣系統科技", tw: 1, code: "6196" },
+        { n: "矽科宏晟", tw: 1, code: "6725" },
+        { n: "信紘科", tw: 1, code: "6667" },
+        { n: "朋億", tw: 1, code: "6613" }
+      ],
+      stats: [
+        { v: "1,000億元+", l: "帆宣系統科技2026年在手訂單(已突破此水準)" }
+      ],
+      children: [
+        {
+          icon: "icon-clean",
+          title: "帆宣系統科技：CCSS規模最大上市廠商",
+          sub: "GPTC — LARGEST LISTED CCSS PLAYER",
+          desc: "帆宣系統科技是化學品供應系統(CDS)領域規模最大的上市公司，業務橫跨設備代工、材料代理、自動化供應系統與廠務系統整合，營收同步分散於台灣、中國與美國，2026年在手訂單已突破千億元，訂單能見度延伸至2028年。",
+          companies: [{ n: "帆宣系統科技", tw: 1, code: "6196" }],
+          stats: [{ v: "1,000億元+", l: "帆宣系統科技在手訂單(2026年已突破)" }]
+        },
+        {
+          icon: "icon-clean",
+          title: "矽科宏晟與信紘科：化學品系統與二次配專家",
+          sub: "SIGURD & HXTC — CDS & SECONDARY DISTRIBUTION",
+          desc: "矽科宏晟同步服務先進邏輯製程廠與高階面板廠的化學品供應系統與廢液處理，業務組成以設備約七成、工程約二成為主；信紘科則是化學品二次配管領域的主力廠商，並將業務延伸至「綠色製程」功能水系統與廢液處理，逐步從二次配管承包商轉型為全案統包商。",
+          companies: [{ n: "矽科宏晟", tw: 1, code: "6725" }, { n: "信紘科", tw: 1, code: "6667" }],
+          stats: []
+        },
+        {
+          icon: "icon-clean",
+          title: "朋億：化學品與CMP研磨液輸送系統",
+          sub: "PY BIOTECH — CDS & CMP SLURRY DELIVERY",
+          desc: "朋億隸屬聖暉集團，除化學品供應系統外，也專攻CMP研磨液(Slurry)輸送系統，客戶分散於美光、南亞科、力積電等多家記憶體與晶圓代工廠，無單一客戶占比超過一成，2026年成長動能來自美光擴產與中國封測產能爬升。",
+          companies: [{ n: "朋億", tw: 1, code: "6613" }],
+          stats: []
+        }
+      ]
+    },
+    {
+      icon: "icon-clean",
+      title: "超純水與水處理系統",
+      sub: "ULTRA-PURE WATER & WASTEWATER TREATMENT",
+      parallelGroup: "facility-system-types",
+      desc: "晶圓製程每個環節幾乎都需要超純水(UPW)清洗，水處理系統廠商負責從純水製造、超純水系統到廢水回收再利用的整體設計施工與後續維運；隨環保法規趨嚴與台積電海外新廠陸續啟用，具備長期維運(O&M)服務能力的廠商正逐漸從單純工程承包商轉型為具備經常性收入的服務商。",
+      companies: [
+        { n: "兆聯實業", tw: 1, code: "6944" },
+        { n: "聯純", tw: 1, code: "6977" },
+        { n: "騏億鑫", tw: 1, code: "7848" },
+        { n: "中宇環保", tw: 1, code: "1535" }
+      ],
+      stats: [
+        { v: "212億元", l: "兆聯實業2025年底在手訂單" }
+      ],
+      children: [
+        {
+          icon: "icon-clean",
+          title: "兆聯實業：純水系統轉型維運服務商",
+          sub: "TASI — TOWARD O&M SERVICES",
+          desc: "兆聯實業專攻純水、超純水、廢水處理與回收再利用系統設計施工，2025年營收約七成來自台灣、近二成來自台積電美國亞利桑那廠案，並與聯純、信紘科同為台積電美國廠水處理供應鏈的台廠成員之一；近年積極將業務延伸至長期維運服務，2025年底在手訂單約212億元，約七成預計於2026年認列。",
+          companies: [{ n: "兆聯實業", tw: 1, code: "6944" }],
+          stats: [{ v: "212億元", l: "兆聯實業2025年底在手訂單" }]
+        },
+        {
+          icon: "icon-clean",
+          title: "聯純：純水系統中國市場布局",
+          sub: "LIAN CHUN — CHINA-FOCUSED PW/UPW SYSTEMS",
+          desc: "聯純專攻純水(PW)、超純水(UPW)與回收水系統的設計、施工與維運服務，客戶以日月光、精材等封測廠為主，營收中國與台灣比重約三比一，近年隨訂單量增快速擴編人力。",
+          companies: [{ n: "聯純", tw: 1, code: "6977" }],
+          stats: []
+        },
+        {
+          icon: "icon-clean",
+          title: "騏億鑫：主管路施工與自製鋼構能力",
+          sub: "CHI YI XIN — MAIN PIPING & STEEL FABRICATION",
+          desc: "騏億鑫專攻給排水主管路施工，以及製程冷卻水(PCW)、氣體系統之二次配管工程，客戶以台積電為主(占比逾八成)，是台灣少數具備自製結構鋼構能力的廠務工程商；2026年營收成長目標達二成，並已切入新加坡市場。",
+          companies: [{ n: "騏億鑫", tw: 1, code: "7848" }],
+          stats: []
+        },
+        {
+          icon: "icon-clean",
+          title: "中宇環保：水處理工程另一指標廠商",
+          sub: "CHONG YU ENVIRONMENTAL — WATER TREATMENT",
+          desc: "中宇環保為台灣水處理工程領域另一家上市公司，業務涵蓋自來水、污水與工業廢水處理工程，近年同步受惠半導體廠水處理需求成長，與兆聯實業、聯純等同業共同構成台廠切入台積電海內外新廠水處理供應鏈的成員。",
+          companies: [{ n: "中宇環保", tw: 1, code: "1535" }],
+          stats: []
+        }
+      ]
+    },
+    {
+      icon: "icon-clean",
+      title: "特殊氣體與化學品原料生產商",
+      sub: "SPECIALTY GAS & CHEMICAL MATERIAL PRODUCERS",
+      desc: "與前述負責系統工程施工的廠商不同，這裡指的是實際生產特殊氣體或高純度化學品的原料供應商。台灣本地的大宗工業氣體供應多由外商集團在台子公司或合資企業(如聯華林德、亞東工業氣體)負責，並非台股獨立上市公司；三福化工則是少數同時具備上市地位、且產品線同步涵蓋半導體精密化學品的本土廠商。",
+      companies: [
+        { n: "三福化工", tw: 1, code: "4755" }
+      ],
+      stats: [],
+      children: [
+        {
+          icon: "icon-clean",
+          title: "三福化工：半導體精密化學品供應商",
+          sub: "SUFA CHEMICAL — SEMICONDUCTOR-GRADE CHEMICALS",
+          desc: "三福化工產品線涵蓋氫氟酸及鋁、鉬、銅等金屬蝕刻液等半導體精密化學品(亦可見於晶圓廠濕式蝕刻製程供應鏈)，近年半導體材料營收占比持續提升，並規劃於越南新建氣體廠擴充產能，反映其業務同步橫跨傳產化工與半導體材料兩大主軸。",
+          companies: [{ n: "三福化工", tw: 1, code: "4755" }],
+          stats: []
+        }
+      ]
+    }
+  ]
+},
 
 "tsmc": {
       name: "台積電",
@@ -3777,6 +4018,9 @@
         "數位時代 BusinessNext－「矽光子概念股28檔完整整理，CPO、InP差異一次懂，台股光通訊供應鏈全解析」",
         "TechNews科技新報－「2026迎矽光子元年、CPO加速商轉！台灣『光電部隊』各就各位」",
         "股海小英雄－「光學股王」系列圖文（大立光CPO光纖陣列耦合技術解析）",
+        "七仔財經筆記－「采鈺（6789）做什麼？台積電小金雞的彩色濾光膜與微透鏡技術解析」、「眾達-KY（4977）深度解析」",
+        "理財周刊－「訊芯-KY 擴大規模布局矽光子趨勢不缺席」、「眾達-KY股價狂飆！矽光子＋CPO雙題材引爆」",
+        "Vocus－「鼎元(2426)：[矽光子] 為什麼光通訊國際大廠都來找他要貨？」",
         "各光通訊廠商法說會與公開資訊觀測站公告"
       ],
       disclaimer: "本頁面為公開資訊整理彙編，市占率、產能與產品規格等數據會隨市場狀況與廠商公告持續變動，僅供產業脈絡參考，不構成任何投資建議。",
@@ -3819,30 +4063,30 @@
           ] },
         { icon:"icon-metrology", title:"光偵測器晶粒(PD／APD)", parallelGroup:"photonic-chip-types", sub:"PHOTODETECTOR CHIPS",
           desc:"將接收到的光訊號還原為電訊號的感光元件，靈敏度與響應速度直接影響長距離傳輸的訊號完整性。",
-          companies:[{n:"全新",tw:1,code:"2455"},{n:"英特磊",tw:1,code:"4971"}],
+          companies:[{n:"全新",tw:1,code:"2455"},{n:"英特磊",tw:1,code:"4971"},{n:"鼎元",tw:1,code:"2426"}],
           stats:[],
           children:[
             { icon:"icon-device", title:"PIN光電二極體", sub:"PIN PHOTODIODE",
-              desc:"PIN光電二極體是高速光收發模組接收端主力元件，結構簡單、響應速度快。英特磊200G PIN已成為其光通訊營收主力產品，2026年上半年光通訊產品占英特磊營收比重達51.8%，已超越傳統電子產品（全年數據尚未結算）。",
-              companies:[{n:"英特磊",tw:1,code:"4971"},{n:"全新光電",tw:1,code:"2455"}],
+              desc:"PIN光電二極體是高速光收發模組接收端主力元件，結構簡單、響應速度快。英特磊200G PIN已成為其光通訊營收主力產品，2026年上半年光通訊產品占英特磊營收比重達51.8%，已超越傳統電子產品（全年數據尚未結算）。鼎元同樣以PD接收端元件為主力，產品線涵蓋Pin PD、APD系列，應用於100G、200G等高速光模組，光通訊產品約占其整體營收29%，定位為接收端元件供應商，填補日系大廠退出後的產能缺口，博通、Lumentum、Coherent等美系大廠已主動洽談合作。",
+              companies:[{n:"英特磊",tw:1,code:"4971"},{n:"全新光電",tw:1,code:"2455"},{n:"鼎元",tw:1,code:"2426"}],
               stats:[{v:"51.8%",l:"2026年上半年光通訊產品占英特磊營收比重"}] },
             { icon:"icon-device", title:"崩潰型光電二極體(APD)", sub:"AVALANCHE PHOTODIODE",
-              desc:"APD利用雪崩倍增效應提升接收靈敏度，適用於長距離、高損耗的電信骨幹網路鏈路。全新、英特磊具備APD磊晶與晶粒設計能力，國際大廠則以Lumentum、Broadcom等為主。",
-              companies:[{n:"全新光電",tw:1,code:"2455"},{n:"英特磊",tw:1,code:"4971"},{n:"Lumentum"},{n:"博通 Broadcom"}],
+              desc:"APD利用雪崩倍增效應提升接收靈敏度，適用於長距離、高損耗的電信骨幹網路鏈路。全新、英特磊具備APD磊晶與晶粒設計能力，鼎元同步供應APD系列產品，國際大廠則以Lumentum、Broadcom等為主。",
+              companies:[{n:"全新光電",tw:1,code:"2455"},{n:"英特磊",tw:1,code:"4971"},{n:"鼎元",tw:1,code:"2426"},{n:"Lumentum"},{n:"博通 Broadcom"}],
               stats:[] },
             { icon:"icon-device", title:"高速光偵測器(資料中心Scale-up應用)", sub:"HIGH-SPEED PHOTODETECTOR",
-              desc:"因應AI伺服器Scale-up架構對短距、高頻寬互連需求提升，英特磊200G高速PIN偵測器已成主力產品線，帶動InP磊晶與晶粒產能同步吃緊。",
-              companies:[{n:"英特磊",tw:1,code:"4971"},{n:"全新光電",tw:1,code:"2455"}],
+              desc:"因應AI伺服器Scale-up架構對短距、高頻寬互連需求提升，英特磊200G高速PIN偵測器已成主力產品線，帶動InP磊晶與晶粒產能同步吃緊。鼎元推出覆晶光電二極體(Flip Photo Diode)封裝產品，已成功應用於800G及1.6T高速光模組，滿足更高頻寬需求下的先進封裝路線。",
+              companies:[{n:"英特磊",tw:1,code:"4971"},{n:"全新光電",tw:1,code:"2455"},{n:"鼎元",tw:1,code:"2426"}],
               stats:[] }
           ] },
         { icon:"icon-foundry", title:"矽光子晶片(Silicon Photonics)", parallelGroup:"photonic-chip-types", sub:"SILICON PHOTONICS CHIP",
           desc:"在標準CMOS晶圓上整合光波導、調變器與光耦合結構，以晶圓代工製程量產光學元件，是next-gen高速光通訊大幅降低成本的關鍵技術路徑，台積電COUPE平台是此技術的核心製程基礎。",
-          companies:[{n:"台積電",tw:1,code:"2330"}],
+          companies:[{n:"台積電",tw:1,code:"2330"},{n:"采鈺",tw:1,code:"6789"}],
           stats:[],
           children:[
             { icon:"icon-chip", title:"光波導與調變器(Modulator)", sub:"WAVEGUIDE & MODULATOR",
-              desc:"矽光子利用成熟CMOS製程在SOI基板上蝕刻光波導、調變器等元件，將光學元件微縮整合於矽晶片。台積電COUPE平台提供完整PDK，涵蓋光波導、彎曲結構、耦合器與調變器，200Gbps微環調變器規劃2026年量產。",
-              companies:[{n:"台積電",tw:1,code:"2330"},{n:"Coherent"},{n:"Lumentum"}],
+              desc:"矽光子利用成熟CMOS製程在SOI基板上蝕刻光波導、調變器等元件，將光學元件微縮整合於矽晶片。台積電COUPE平台提供完整PDK，涵蓋光波導、彎曲結構、耦合器與調變器，200Gbps微環調變器規劃2026年量產。采鈺為台積電轉投資子公司（台積電持股約70%），本業為CMOS影像感測器彩色濾光膜與微透鏡等晶圓級光學元件加工，2026年起切入台積電COUPE／CPO生態，提供晶圓級光學薄膜、光波導與超穎透鏡(Metalens)等高毛利元件；法人估其CPO相關營收貢獻2026～2027年仍僅個位數占比，短期以車用／安控CIS營收為主力，CPO更多反映在毛利率結構上。",
+              companies:[{n:"台積電",tw:1,code:"2330"},{n:"Coherent"},{n:"Lumentum"},{n:"采鈺",tw:1,code:"6789"}],
               stats:[{v:"200Gbps",l:"COUPE微環調變器規劃2026年量產速率"}] },
             { icon:"icon-lens", title:"光柵耦合器(Grating Coupler)", sub:"GRATING COUPLER",
               desc:"光柵耦合器負責將外部光纖與晶片上的光波導對接，是矽光子晶片與光纖高效耦合的關鍵介面技術。台積電COUPE平台的GC架構包含矽透鏡、金屬反射鏡與Si/SiN光柵耦合器；GC耦合面朝上、光路垂直射入晶片，優點是可在晶圓切割前於整片晶圓上直接測試、晶片上方也保留堆疊多層光纖陣列的空間以利未來擴充通道數，缺點是耦合損耗相對較高，是目前市場主流方案，大立光目前送樣驗證的光纖陣列即採此路徑。COUPE平台另提供邊緣耦合器(EC)方案作為替代路徑：EC將光纖陣列自晶片側邊水平插入對接，耦合損耗較低、頻寬較寬，但僅能沿晶片邊緣排列(通道數上限受邊長限制)、需額外切割與拋光晶片邊緣、且晶片上方無法向上堆疊，康寧(Corning)「Glass Bridge」即為EC代表產品，台積電目前也同步於晶圓級測試EC方案。",
@@ -3912,17 +4156,17 @@
         { icon:"icon-network", title:"CPO共同封裝光學", parallelGroup:"photonic-interconnect-approaches", sub:"CO-PACKAGED OPTICS (CPO)",
           tags:["networking-interconnect"],
           desc:"將光學引擎直接與交換器ASIC共同封裝於同一基板，取代傳統可插拔模組，大幅降低訊號損耗與功耗，是2026年起加速商轉的next-gen互連技術，日月光已切入CPO先進封裝環節。趨勢背後的原理：當單通道傳輸速率推進到112G、224G等級，銅線纜的訊號衰減與功耗會隨傳輸距離與速率同步惡化，機櫃間互連距離一旦超過1~2公尺，銅線就必須仰賴耗電的訊號重收發晶片(retimer)才能維持訊號完整性；光訊號則幾乎不受傳輸距離影響、單位頻寬功耗遠低於銅，是AI叢集規模持續擴大（單一叢集要串連數萬至數十萬顆GPU/ASIC）下，網路互連從「銅」走向「光」的根本原因，機櫃內部短距離仍以銅纜/主動電纜為主、機櫃間與跨機房則加速轉向光模組與CPO。可參考「AI硬體」「輝達(NVIDIA)」頁籤的網通節點了解GPU叢集端的對應布局。",
-          companies:[{n:"台積電",tw:1,code:"2330"},{n:"日月光",tw:1,code:"3711"},{n:"博通 Broadcom"}],
+          companies:[{n:"台積電",tw:1,code:"2330"},{n:"日月光",tw:1,code:"3711"},{n:"博通 Broadcom"},{n:"訊芯-KY",tw:1,code:"6451"},{n:"眾達-KY",tw:1,code:"4977"}],
           stats:[],
           children:[
             { icon:"icon-datacenter", title:"光引擎(Optical Engine)", sub:"CO-PACKAGED OPTICAL ENGINE",
-              desc:"光引擎將雷射光源、調變器與光偵測器整合封裝於交換器晶片旁，取代傳統可插拔模組以降低功耗與延遲。博通Tomahawk 6-Davisson CPO交換器已於2025年10月發表、交換容量達102.4 Tb/s並向早期客戶供樣；台積電COUPE平台則被市場點名可能供應超微、輝達Vera Rubin等潛在客戶光子引擎方案，惟台積電官方未證實具體客戶名單。高盛報告並指出，Marvell於2026年宣布收購CPO新創Celestial AI，強化其CPO for XPU(客製化AI晶片)布局；輝達CPO布局分兩層推進——機櫃間交換器互連(Quantum-X／Spectrum-X Photonics)已隨Blackwell Ultra至Rubin世代量產爬坡，機櫃內GPU對GPU的NVLink互連則據輝達2026年3月GTC公布的路線圖，將延後至下一世代Feynman(規劃2028年)才導入光學NVLink，Rubin Ultra世代的NVLink互連仍以銅纜為主，此一時程隨路線圖持續調整，實際導入世代請以輝達官方公告為準。總頻寬等於「通道數×單通道速率」，而單通道速率存在物理上限，下一階段頻寬提升須仰賴增加堆疊層數：大立光已於Computex展示4排×8入口、合計約6.4T的多層堆疊光纖陣列示範；台積電COUPE平台路線圖則規劃先以單層(single-layer)方案於2026年量產，2030年前後才會邁向多層(multi-layer)堆疊世代，現階段客戶需求仍以單層方案為主。",
-              companies:[{n:"台積電",tw:1,code:"2330"},{n:"博通 Broadcom"},{n:"輝達 NVIDIA"},{n:"Marvell"},{n:"Celestial AI"},{n:"大立光",tw:1,code:"3008"}],
+              desc:"光引擎將雷射光源、調變器與光偵測器整合封裝於交換器晶片旁，取代傳統可插拔模組以降低功耗與延遲。博通Tomahawk 6-Davisson CPO交換器已於2025年10月發表、交換容量達102.4 Tb/s並向早期客戶供樣；台積電COUPE平台則被市場點名可能供應超微、輝達Vera Rubin等潛在客戶光子引擎方案，惟台積電官方未證實具體客戶名單。高盛報告並指出，Marvell於2026年宣布收購CPO新創Celestial AI，強化其CPO for XPU(客製化AI晶片)布局；輝達CPO布局分兩層推進——機櫃間交換器互連(Quantum-X／Spectrum-X Photonics)已隨Blackwell Ultra至Rubin世代量產爬坡，機櫃內GPU對GPU的NVLink互連則據輝達2026年3月GTC公布的路線圖，將延後至下一世代Feynman(規劃2028年)才導入光學NVLink，Rubin Ultra世代的NVLink互連仍以銅纜為主，此一時程隨路線圖持續調整，實際導入世代請以輝達官方公告為準。總頻寬等於「通道數×單通道速率」，而單通道速率存在物理上限，下一階段頻寬提升須仰賴增加堆疊層數：大立光已於Computex展示4排×8入口、合計約6.4T的多層堆疊光纖陣列示範；台積電COUPE平台路線圖則規劃先以單層(single-layer)方案於2026年量產，2030年前後才會邁向多層(multi-layer)堆疊世代，現階段客戶需求仍以單層方案為主。眾達-KY定位於光電整合封裝，專攻CPO中奈米級對位、高散熱設計與高頻封裝等最關鍵環節，將光學引擎與交換器ASIC共同封裝以縮短訊號路徑、降低功耗，同步布局矽光子平台，法人估CPO與矽光子市場未來5年複合成長率可望超過50%，2026～2027年為其營運成長關鍵期。",
+              companies:[{n:"台積電",tw:1,code:"2330"},{n:"博通 Broadcom"},{n:"輝達 NVIDIA"},{n:"Marvell"},{n:"Celestial AI"},{n:"大立光",tw:1,code:"3008"},{n:"眾達-KY",tw:1,code:"4977"}],
               stats:[{v:"102.4 Tb/s",l:"博通Tomahawk 6-Davisson CPO交換容量"},{v:"約6.4T",l:"大立光Computex展示4排×8入口多層堆疊示範頻寬"}] },
             { icon:"icon-package", title:"先進封裝整合(與交換器ASIC共封裝)", sub:"ADVANCED PACKAGING WITH SWITCH ASIC",
-              desc:"CPO須將光子晶片(PIC)與電子晶片(EIC)透過先進封裝技術(如台積電SoIC-X鍵合)與交換器ASIC緊密共封裝。日月光投控提供CPO相關先進封裝與測試服務；鴻海集團亦公開表示將矽光子/CPO列為新戰場並評估切入組裝與封裝服務，是台灣封測與系統整合產業切入AI網路基礎設施的新戰場。",
-              companies:[{n:"台積電",tw:1,code:"2330"},{n:"日月光",tw:1,code:"3711"},{n:"鴻海",tw:1,code:"2317"}],
-              stats:[] },
+              desc:"CPO須將光子晶片(PIC)與電子晶片(EIC)透過先進封裝技術(如台積電SoIC-X鍵合)與交換器ASIC緊密共封裝。日月光投控提供CPO相關先進封裝與測試服務；鴻海集團亦公開表示將矽光子/CPO列為新戰場並評估切入組裝與封裝服務，是台灣封測與系統整合產業切入AI網路基礎設施的新戰場。訊芯-KY為鴻海集團旗下高速光收發模組與CPO封裝廠，51.2T CPO已小量出貨北美與中國客戶，102.4T CPO已完成新產品導入(NPI)並交付終端客戶測試，2025年全年營收75.32億元、年增45.18%，並擴建北越廠預計2026年中試產以強化歐美日客戶供應能力。",
+              companies:[{n:"台積電",tw:1,code:"2330"},{n:"日月光",tw:1,code:"3711"},{n:"鴻海",tw:1,code:"2317"},{n:"訊芯-KY",tw:1,code:"6451"}],
+              stats:[{v:"75.32億元",l:"訊芯-KY 2025年全年營收(年增45.18%)"}] },
             { icon:"icon-metrology", title:"CPO精密耦光設備", sub:"CPO PRECISION COUPLING EQUIPMENT",
               desc:"CPO量產須仰賴自動化耦光設備，將FAU、光引擎等元件以次微米級精度對位固定於交換器基板上，是連接零組件供應與模組量產的關鍵設備環節。高明鐵(GMT)由傳統線性滑軌廠轉型切入矽光子耦光設備，已展示矽光耦光工站、晶圓級光學測試與自動化整合方案，同步取得800G／1.6T光模組耦光設備訂單，惟法人提醒現階段訂單仍以模組廠客戶為主、不等同於直接取得台積電CPO平台認證。萬潤(All Ring)原為CoWoS段AOI設備供應商，法人預期其2026年營運動能將自CoWoS放緩轉向WMCM與CPO設備需求，惟相關營收貢獻時點尚未經公司正式量化證實。",
               companies:[{n:"高明鐵",tw:1,code:"4573"},{n:"萬潤",tw:1,code:"6187"}],
@@ -5969,6 +6213,16 @@
 
   var INDUSTRY_ORDER = Object.keys(INDUSTRIES);
 
+  /* 頁籤分組設定：把頁籤依主題分成幾群並排顯示，避免全部擠成一長排
+     不好閱讀。新增分頁時，把 key 加進對應分組即可；沒有被任何分組
+     收錄的 key 會自動落入最後的「其他」分組，不會漏掉。 */
+  var SWITCHER_GROUPS = [
+    { label: "晶圓製造與封測", keys: ["wafer-fab","facility","tsmc","packaging-test","abf-substrate"] },
+    { label: "系統廠與雲端客戶", keys: ["ai-hardware","nvidia","apple","google-tpu","aws","cpu"] },
+    { label: "關鍵零組件與材料", keys: ["pcb","memory","passive","thermal","photonics"] },
+    { label: "新興應用與基礎設施", keys: ["robot","power-grid","leo-satellite"] }
+  ];
+
   /* ============================================================
      繪圖／互動引擎　RENDER ENGINE — 通用，不需因新增產業而修改
      ============================================================ */
@@ -6054,12 +6308,37 @@
     switcherEl.innerHTML = "";
     if(INDUSTRY_ORDER.length < 2){ switcherEl.style.display = "none"; return; }
     switcherEl.style.display = "flex";
-    INDUSTRY_ORDER.forEach(function(key){
-      var btn = document.createElement("button");
-      btn.className = "tab" + (key===state.industry ? " active" : "");
-      btn.textContent = INDUSTRIES[key].name;
-      btn.addEventListener("click", function(){ selectIndustry(key); });
-      switcherEl.appendChild(btn);
+
+    // 依 SWITCHER_GROUPS 分組；任何未被收錄的 key 自動歸入「其他」，
+    // 確保新增分頁忘記分組時也不會從頁籤列消失。
+    var grouped = {};
+    SWITCHER_GROUPS.forEach(function(g){ grouped[g.label] = []; });
+    var seen = {};
+    SWITCHER_GROUPS.forEach(function(g){
+      g.keys.forEach(function(key){
+        if(INDUSTRIES[key]){ grouped[g.label].push(key); seen[key] = true; }
+      });
+    });
+    var others = INDUSTRY_ORDER.filter(function(key){ return !seen[key]; });
+    var groupList = SWITCHER_GROUPS.map(function(g){ return { label:g.label, keys:grouped[g.label] }; });
+    if(others.length) groupList.push({ label:"其他", keys:others });
+
+    groupList.forEach(function(g){
+      if(!g.keys.length) return;
+      var groupEl = document.createElement("div");
+      groupEl.className = "switcher-group";
+      var labelEl = document.createElement("span");
+      labelEl.className = "switcher-group-label";
+      labelEl.textContent = g.label;
+      groupEl.appendChild(labelEl);
+      g.keys.forEach(function(key){
+        var btn = document.createElement("button");
+        btn.className = "tab" + (key===state.industry ? " active" : "");
+        btn.textContent = INDUSTRIES[key].name;
+        btn.addEventListener("click", function(){ selectIndustry(key); });
+        groupEl.appendChild(btn);
+      });
+      switcherEl.appendChild(groupEl);
     });
   }
 
@@ -6175,7 +6454,7 @@
   function wireChipClicks(container){
     Array.prototype.forEach.call(container.querySelectorAll(".chip[data-company]"), function(btn){
       btn.addEventListener("click", function(){
-        openCompanyModal(btn.getAttribute("data-company"));
+        openCompanyPage(btn.getAttribute("data-company"));
       });
     });
   }
@@ -6621,63 +6900,222 @@
   }
 
   /* ============================================================
-     公司檔案彈窗 — 點擊「代表廠商」標籤，顯示該公司在全站所有
-     產業／環節的完整清單
+     公司懸浮預覽 ＋ 公司個股頁面
+     ------------------------------------------------------------
+     滑鼠懸浮在「代表廠商」標籤上：顯示迷你預覽卡（該公司在全站的
+     出現位置摘要，即先前彈窗顯示的內容）。
+     點擊標籤：導向獨立的公司個股頁面，上方公司名稱／代號，下方用
+     與首頁相同的流程圖排版引擎（layout()）畫出該公司在供應鏈中的
+     所有位置——因為這些位置彼此並非製程先後關係，一律以中性虛線
+     （parallel 樣式）連接，不畫方向箭頭。通用於全站約250家公司，
+     不需要每家公司另外寫資料。
      ============================================================ */
-  function openCompanyModal(name){
-    var entry = companyIndex[name];
-    var backdrop = document.getElementById("companyModalBackdrop");
-    var nameEl = document.getElementById("modalCompanyName");
-    var codeEl = document.getElementById("modalCompanyCode");
-    var countEl = document.getElementById("modalCompanyCount");
-    var listEl = document.getElementById("modalLocList");
-
-    if(!entry){
-      // 極少數情況：companies 陣列裡有 tw 以外未被索引到的名稱，仍給基本畫面
-      entry = { name:name, tw:false, code:null, locs:[] };
-    }
-
-    nameEl.textContent = entry.name;
-    if(entry.code){
-      codeEl.textContent = entry.code;
-      codeEl.hidden = false;
-    } else {
-      codeEl.hidden = true;
-    }
-    countEl.textContent = entry.locs.length
+  function hoverPreviewHtml(entry){
+    var codeHtml = entry.code ? '<span class="hover-tip-code mono">'+entry.code+'</span>' : "";
+    var countText = entry.locs.length
       ? '出現在 '+entry.locs.length+' 個供應鏈位置'
       : '目前資料庫中查無此公司的詳細環節資料';
-
-    listEl.innerHTML = entry.locs.map(function(loc, li){
-      var label = '<span class="modal-loc-industry">'+loc.industryName+'</span><span class="modal-loc-arrow">›</span>' + loc.nodeTitle +
-        (loc.childTitle ? '<span class="modal-loc-arrow">›</span>' + loc.childTitle : "");
-      return '<button type="button" class="modal-loc-item" data-loc="'+li+'">'+label+'</button>';
+    var shown = entry.locs.slice(0, 6);
+    var listHtml = shown.map(function(loc){
+      return '<div class="hover-tip-loc"><span class="hover-tip-industry">'+escapeHtml(loc.industryName)+'</span>' +
+        '<span class="hover-tip-arrow">›</span>' + escapeHtml(loc.nodeTitle) +
+        (loc.childTitle ? '<span class="hover-tip-arrow">›</span>' + escapeHtml(loc.childTitle) : "") + '</div>';
     }).join("");
+    var more = entry.locs.length > shown.length
+      ? '<div class="hover-tip-more">還有 '+(entry.locs.length - shown.length)+' 個位置…</div>' : "";
+    return '<div class="hover-tip-header"><span class="hover-tip-name">'+escapeHtml(entry.name)+'</span>'+codeHtml+'</div>' +
+      '<div class="hover-tip-count">'+countText+'</div>' +
+      '<div class="hover-tip-list">'+listHtml+'</div>' + more +
+      '<div class="hover-tip-hint">點擊查看完整個股頁面 →</div>';
+  }
 
-    Array.prototype.forEach.call(listEl.querySelectorAll(".modal-loc-item"), function(btn){
-      btn.addEventListener("click", function(){
-        var loc = entry.locs[parseInt(btn.getAttribute("data-loc"), 10)];
-        closeCompanyModal();
-        goToSearchLocation(loc);
+  function initCompanyHoverPreview(){
+    var tip = document.getElementById("companyHoverTip");
+    var showTimer = null, hideTimer = null;
+
+    function positionNear(chip){
+      var r = chip.getBoundingClientRect();
+      tip.style.display = "block";
+      var tw = tip.offsetWidth, th = tip.offsetHeight;
+      var left = r.left + window.scrollX;
+      var maxLeft = window.scrollX + document.documentElement.clientWidth - tw - 12;
+      if(left > maxLeft) left = Math.max(12, maxLeft);
+      var top = r.bottom + window.scrollY + 8;
+      var maxTop = window.scrollY + document.documentElement.clientHeight - th - 8;
+      if(top > maxTop) top = Math.max(window.scrollY + 8, r.top + window.scrollY - th - 8);
+      tip.style.left = left + "px";
+      tip.style.top = top + "px";
+    }
+
+    function show(chip){
+      var name = chip.getAttribute("data-company");
+      var entry = companyIndex[name];
+      if(!entry) return;
+      tip.innerHTML = hoverPreviewHtml(entry);
+      positionNear(chip);
+    }
+    function hide(){ tip.style.display = "none"; }
+
+    document.addEventListener("mouseover", function(e){
+      var chip = e.target.closest && e.target.closest(".chip[data-company]");
+      if(!chip) return;
+      clearTimeout(hideTimer);
+      clearTimeout(showTimer);
+      showTimer = setTimeout(function(){ show(chip); }, 180);
+    });
+    document.addEventListener("mouseout", function(e){
+      var chip = e.target.closest && e.target.closest(".chip[data-company]");
+      if(!chip) return;
+      clearTimeout(showTimer);
+      hideTimer = setTimeout(hide, 200);
+    });
+    document.addEventListener("focusin", function(e){
+      var chip = e.target.closest && e.target.closest(".chip[data-company]");
+      if(chip) show(chip);
+    });
+    document.addEventListener("focusout", function(e){
+      var chip = e.target.closest && e.target.closest(".chip[data-company]");
+      if(chip) hide();
+    });
+    tip.addEventListener("mouseover", function(){ clearTimeout(hideTimer); });
+    tip.addEventListener("mouseout", function(){ hideTimer = setTimeout(hide, 200); });
+    document.addEventListener("scroll", hide, true);
+    window.addEventListener("resize", hide);
+  }
+
+  /* 通用公司流程圖：重用首頁的 layout()／el()／splitTitle()／fitSubText() 排版
+     函式，把「該公司出現的所有位置」畫成同一種卡片＋S型排列的流程圖，只是
+     節點內容換成「產業名稱」＋「環節名稱」，彼此用無方向虛線連接（因為這些
+     位置之間並非上下游關係，純粹是同一家公司在全站的分布）。 */
+  function buildCompanyLocDiagram(svgEl, segLayerEl, nodeLayerEl, locs, onSelect){
+    segLayerEl.innerHTML = "";
+    nodeLayerEl.innerHTML = "";
+    var L = layout(locs.length);
+    svgEl.setAttribute("viewBox", "0 0 1400 " + L.viewH);
+
+    for(var i=0;i<locs.length-1;i++){
+      var a = L.pos[i], b = L.pos[i+1];
+      var path;
+      if(a.y !== b.y){
+        var x = a.x + BOX_W/2;
+        path = "M"+x+","+(a.y+BOX_H)+" L"+x+","+b.y;
+      } else {
+        var y = a.y + BOX_H/2;
+        var x1, x2;
+        if(b.x > a.x){ x1=a.x+BOX_W; x2=b.x; } else { x1=a.x; x2=b.x+BOX_W; }
+        path = "M"+x1+","+y+" L"+x2+","+y;
+      }
+      var line = el("path", {class:"segment segment-parallel", d:path});
+      segLayerEl.appendChild(line);
+    }
+
+    locs.forEach(function(loc, i){
+      var p = L.pos[i];
+      var g = el("g", {class:"node-group parallel", tabindex:"0", role:"button",
+        "aria-label":loc.industryName+"："+loc.nodeTitle+(loc.childTitle?"／"+loc.childTitle:"")});
+      g.appendChild(el("rect", {class:"node-box", x:p.x, y:p.y, width:BOX_W, height:BOX_H, rx:14}));
+
+      var iconSize = 30, iconX = p.x+BOX_W/2-iconSize/2, iconY = p.y+12;
+      var use = el("use", {href:"#icon-generic", x:iconX, y:iconY, width:iconSize, height:iconSize});
+      use.setAttribute("class","node-icon");
+      g.appendChild(use);
+
+      var wrapped = splitTitle(loc.industryName, BOX_W-30);
+      var twoLine = wrapped.lines.length > 1;
+      var titleY = twoLine ? p.y+54 : p.y+66;
+      var title = el("text", {class:"node-title", x:p.x+BOX_W/2, y:titleY, "text-anchor":"middle", "font-size":String(wrapped.fs)});
+      wrapped.lines.forEach(function(line, li){
+        var tspan = el("tspan", {x:p.x+BOX_W/2, dy: li===0 ? 0 : (wrapped.fs+4)});
+        tspan.textContent = line;
+        title.appendChild(tspan);
       });
-    });
+      g.appendChild(title);
 
-    backdrop.classList.add("open");
-    document.getElementById("modalCloseBtn").focus();
+      var subText = loc.nodeTitle + (loc.childTitle ? " ／ "+loc.childTitle : "");
+      var subY = twoLine ? (titleY + (wrapped.fs+4) + 26) : p.y+86;
+      var subFit = fitSubText(subText, BOX_W-24);
+      var sub = el("text", {class:"node-sub", x:p.x+BOX_W/2, y:subY, "text-anchor":"middle", "font-size":String(subFit.fs+2.5)});
+      sub.textContent = subFit.text;
+      g.appendChild(sub);
+
+      g.addEventListener("click", function(idx){ return function(){ onSelect(locs[idx]); }; }(i));
+      g.addEventListener("keydown", function(idx){ return function(e){
+        if(e.key==="Enter"||e.key===" "){ e.preventDefault(); onSelect(locs[idx]); }
+      }; }(i));
+
+      nodeLayerEl.appendChild(g);
+    });
   }
 
-  function closeCompanyModal(){
-    document.getElementById("companyModalBackdrop").classList.remove("open");
+  var companyPageLastFocus = null;
+
+  function openCompanyPage(name){
+    var entry = companyIndex[name];
+    if(!entry){
+      // 極少數情況：companies 陣列裡有未被索引到的名稱，仍給基本畫面
+      entry = { name:name, tw:false, code:null, locs:[] };
+    }
+    document.getElementById("companyHoverTip").style.display = "none";
+
+    document.getElementById("companyPageName").textContent = entry.name;
+    var codeEl = document.getElementById("companyPageCode");
+    if(entry.code){ codeEl.textContent = entry.code; codeEl.hidden = false; }
+    else { codeEl.hidden = true; }
+    document.getElementById("companyPageCount").textContent = entry.locs.length
+      ? '出現在全站 '+entry.locs.length+' 個供應鏈位置（點擊下方節點或清單可直接跳轉）'
+      : '目前資料庫中查無此公司的詳細環節資料';
+
+    var diagramCard = document.getElementById("companyPageDiagramCard");
+    var listEl = document.getElementById("companyPageLocList");
+
+    function jump(loc){
+      closeCompanyPage();
+      goToSearchLocation(loc);
+    }
+
+    if(entry.locs.length){
+      diagramCard.hidden = false;
+      buildCompanyLocDiagram(
+        document.getElementById("companyFlowSvg"),
+        document.getElementById("companySegmentsLayer"),
+        document.getElementById("companyNodesLayer"),
+        entry.locs,
+        jump
+      );
+      listEl.innerHTML = entry.locs.map(function(loc, li){
+        return '<button type="button" class="company-page-loc-btn" data-loc="'+li+'">' +
+          '<span class="company-page-loc-industry">'+escapeHtml(loc.industryName)+'</span>' +
+          '<span class="company-page-loc-node">'+escapeHtml(loc.nodeTitle)+(loc.childTitle?' ／ '+escapeHtml(loc.childTitle):'')+'</span>' +
+        '</button>';
+      }).join("");
+      Array.prototype.forEach.call(listEl.querySelectorAll(".company-page-loc-btn"), function(btn){
+        btn.addEventListener("click", function(){
+          jump(entry.locs[parseInt(btn.getAttribute("data-loc"), 10)]);
+        });
+      });
+    } else {
+      diagramCard.hidden = true;
+      listEl.innerHTML = '<div class="company-page-empty">目前資料庫中查無此公司的詳細環節資料，之後補充相關內容時會自動出現在這裡。</div>';
+    }
+
+    companyPageLastFocus = document.activeElement;
+    var page = document.getElementById("companyPage");
+    page.hidden = false;
+    window.scrollTo(0, 0);
+    document.getElementById("companyPageBack").focus();
   }
 
-  function initCompanyModal(){
-    var backdrop = document.getElementById("companyModalBackdrop");
-    document.getElementById("modalCloseBtn").addEventListener("click", closeCompanyModal);
-    backdrop.addEventListener("click", function(e){
-      if(e.target === backdrop) closeCompanyModal();
-    });
+  function closeCompanyPage(){
+    document.getElementById("companyPage").hidden = true;
+    if(companyPageLastFocus && typeof companyPageLastFocus.focus === "function"){
+      companyPageLastFocus.focus();
+    }
+  }
+
+  function initCompanyPage(){
+    document.getElementById("companyPageBack").addEventListener("click", closeCompanyPage);
     document.addEventListener("keydown", function(e){
-      if(e.key === "Escape" && backdrop.classList.contains("open")) closeCompanyModal();
+      if(e.key === "Escape" && !document.getElementById("companyPage").hidden) closeCompanyPage();
     });
   }
 
@@ -6720,15 +7158,10 @@
     });
   }
 
-  function initPrintButton(){
-    var btn = document.getElementById("printBtn");
-    if(btn) btn.addEventListener("click", function(){ window.print(); });
-  }
-
   selectIndustry(INDUSTRY_ORDER[0]);
   initCompanySearch();
-  initCompanyModal();
-  initPrintButton();
+  initCompanyPage();
+  initCompanyHoverPreview();
 })();
 </script>
 
