@@ -212,6 +212,34 @@
   .disclaimer{ font-size:.74rem; color:var(--ink-faint); line-height:1.6; max-width:78ch; }
 
   @media (prefers-reduced-motion: reduce){ *{ transition:none !important; } }
+
+  .print-only{ display:none; }
+  .print-fab{ position:fixed; bottom:1.2rem; right:1.2rem; z-index:40; font-family:'IBM Plex Mono',monospace; font-size:.78rem; letter-spacing:.02em; background:var(--copper); color:#FFFFFF; border:none; border-radius:999px; padding:.75rem 1.15rem; box-shadow:0 4px 14px rgba(17,22,31,.28); cursor:pointer; transition:transform .15s ease, box-shadow .15s ease; }
+  .print-fab:hover{ transform:translateY(-1px); box-shadow:0 6px 18px rgba(17,22,31,.32); }
+  .print-fab:focus-visible{ outline:2px solid var(--copper-ink); outline-offset:2px; }
+  @media (max-width:640px){ .print-fab{ bottom:.8rem; right:.8rem; padding:.65rem .95rem; font-size:.72rem; } }
+
+  @media print{
+    :root, :root[data-theme="dark"], :root:not([data-theme="light"]){
+      --bg:#FFFFFF !important; --surface:#FFFFFF !important; --surface-2:#F4F6F9 !important;
+      --ink:#11161F !important; --ink-soft:#3A4149 !important; --ink-faint:#5B6470 !important;
+      --line:#C7CDD5 !important; --line-strong:#AEB6C0 !important;
+      --copper:#8A5620 !important; --copper-ink:#6E4419 !important; --copper-soft:#F1E4D3 !important; --copper-soft-line:#D8BE97 !important;
+      --signal:#146B50 !important; --signal-soft:#DCEFE8 !important;
+      --shadow:none !important;
+    }
+    body{ background:#FFFFFF !important; color:#11161F !important; }
+    header.head, .search-wrap, .switcher, .diagram-card, .scroll-hint, .print-fab, .modal-backdrop{ display:none !important; }
+    .panel-nav, .breadcrumb{ display:none !important; }
+    .page{ max-width:none; padding:0; margin:0; }
+    .panel{ box-shadow:none; border:none; padding:0; grid-template-columns:auto 1fr; }
+    .panel-icon-wrap{ box-shadow:none; }
+    .sub-card{ cursor:default; break-inside:avoid; }
+    .stat-tile, .chip{ break-inside:avoid; }
+    footer{ margin-top:1.2rem; padding-top:.8rem; }
+    .print-only{ display:block; font-size:.72rem; color:var(--ink-faint); margin-top:.6rem; }
+    @page{ margin:1.5cm; }
+  }
 </style>
 </head>
 <body>
@@ -229,7 +257,7 @@
   <div class="search-wrap" id="searchWrap">
     <div class="search-box">
       <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" class="search-input" id="companySearchInput" placeholder="搜尋公司名稱、股票代號或關鍵字，例如：台積電、2330、封測…" autocomplete="off" aria-label="搜尋公司名稱、股票代號或產業關鍵字">
+      <input type="text" class="search-input" id="companySearchInput" placeholder="搜尋公司名稱、股票代號、拼音或關鍵字，例如：台積電、2330、taiji、tjd、封測…" autocomplete="off" aria-label="搜尋公司名稱、股票代號、拼音或產業關鍵字">
       <button class="search-clear" id="searchClearBtn" type="button" aria-label="清除搜尋">✕</button>
     </div>
     <div class="search-results" id="searchResults" role="listbox"></div>
@@ -537,10 +565,13 @@
 
   <section class="panel" id="panel" aria-live="polite"></section>
 
+  <button class="print-fab" id="printBtn" type="button" title="將目前這個節點存成PDF或列印，方便分享給客戶">🖨️ 存成PDF／列印本節點</button>
+
   <footer>
     <div class="sources-label">資料來源</div>
     <ul class="sources-list" id="sourcesList"></ul>
     <p class="disclaimer" id="disclaimer"></p>
+    <p class="print-only print-footer-note">產業供應鏈全流程地圖　https://xigua682.github.io/industry-supply-chain/</p>
   </footer>
 
 </div>
@@ -722,7 +753,15 @@
     DIAGRAM_PHASED_ARRAY: `<svg viewBox="0 0 660 375" role="img" aria-label="相控陣天線結構示意圖：數百至數千個輻射單元排列成陣列，背後RF晶片層各自調整訊號相位，以電子方式控制波束指向"><g font-family="'Noto Sans TC',sans-serif"><circle cx="190" cy="110" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="222" cy="110" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="254" cy="110" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="286" cy="110" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="318" cy="110" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="350" cy="110" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="382" cy="110" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="414" cy="110" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="190" cy="134" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="222" cy="134" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="254" cy="134" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="286" cy="134" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="318" cy="134" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="350" cy="134" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="382" cy="134" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="414" cy="134" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="190" cy="158" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="222" cy="158" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="254" cy="158" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="286" cy="158" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="318" cy="158" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="350" cy="158" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="382" cy="158" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="414" cy="158" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="190" cy="182" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="222" cy="182" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="254" cy="182" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="286" cy="182" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="318" cy="182" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="350" cy="182" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="382" cy="182" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="414" cy="182" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="190" cy="206" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="222" cy="206" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="254" cy="206" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="286" cy="206" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="318" cy="206" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="350" cy="206" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="382" cy="206" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="414" cy="206" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="190" cy="230" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="222" cy="230" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="254" cy="230" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="286" cy="230" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="318" cy="230" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="350" cy="230" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="382" cy="230" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><circle cx="414" cy="230" r="8" fill="var(--surface)" stroke="var(--copper)" stroke-width="1.6"/><line x1="414" y1="110" x2="500" y2="80" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="508" y="76" text-anchor="start" font-size="12" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">天線單元陣列</text><text x="508" y="92" text-anchor="start" font-size="9" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">RADIATING ELEMENT ARRAY</text><text x="508" y="106" text-anchor="start" font-size="9" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">(數百至數千顆)</text><line x1="190" y1="230" x2="110" y2="280" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="102" y="276" text-anchor="end" font-size="12" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">晶圓級RF晶片層</text><text x="102" y="292" text-anchor="end" font-size="9" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">RF BEAMFORMING IC</text><text x="102" y="306" text-anchor="end" font-size="9" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">(內含移相器／放大器)</text><text x="340" y="350" text-anchor="middle" font-size="10.5" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">相控陣天線：以電子方式調整各單元訊號相位，無須機械轉動即可電子控制波束方向，追蹤低軌衛星</text></g></svg>`,
     DIAGRAM_OPTICAL_TRANSCEIVER: `<svg viewBox="0 0 640 320" role="img" aria-label="800G/1.6T光收發模組結構示意圖：模組內含負責發射的TOSA次組件、負責接收的ROSA次組件與中央DSP/驅動IC，尾端經光纖接頭連接"><g font-family="'Noto Sans TC',sans-serif"><rect x="110" y="140" width="340" height="80" rx="4" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.8"/><rect x="130" y="158" width="70" height="44" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1.4"/><rect x="215" y="158" width="90" height="44" fill="var(--copper-soft)" stroke="var(--copper-soft-line)" stroke-width="1.4"/><rect x="320" y="158" width="70" height="44" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1.4"/><line x1="405" y1="160" x2="405" y2="200" stroke="var(--ink-faint)" stroke-width="1"/><line x1="408" y1="160" x2="408" y2="200" stroke="var(--ink-faint)" stroke-width="1"/><line x1="411" y1="160" x2="411" y2="200" stroke="var(--ink-faint)" stroke-width="1"/><line x1="414" y1="160" x2="414" y2="200" stroke="var(--ink-faint)" stroke-width="1"/><line x1="417" y1="160" x2="417" y2="200" stroke="var(--ink-faint)" stroke-width="1"/><line x1="420" y1="160" x2="420" y2="200" stroke="var(--ink-faint)" stroke-width="1"/><line x1="423" y1="160" x2="423" y2="200" stroke="var(--ink-faint)" stroke-width="1"/><line x1="426" y1="160" x2="426" y2="200" stroke="var(--ink-faint)" stroke-width="1"/><line x1="429" y1="160" x2="429" y2="200" stroke="var(--ink-faint)" stroke-width="1"/><line x1="432" y1="160" x2="432" y2="200" stroke="var(--ink-faint)" stroke-width="1"/><line x1="435" y1="160" x2="435" y2="200" stroke="var(--ink-faint)" stroke-width="1"/><line x1="438" y1="160" x2="438" y2="200" stroke="var(--ink-faint)" stroke-width="1"/><line x1="441" y1="160" x2="441" y2="200" stroke="var(--ink-faint)" stroke-width="1"/><line x1="444" y1="160" x2="444" y2="200" stroke="var(--ink-faint)" stroke-width="1"/><line x1="165" y1="158" x2="120" y2="100" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="112" y="96" text-anchor="end" font-size="12" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">TOSA(發射次組件)</text><text x="112" y="112" text-anchor="end" font-size="9.8" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">TOSA — LASER TX</text><line x1="260" y1="158" x2="260" y2="90" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="260" y="86" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">DSP/驅動IC</text><text x="260" y="102" text-anchor="middle" font-size="9.8" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">DSP & DRIVER IC</text><line x1="355" y1="158" x2="436" y2="100" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="444" y="96" text-anchor="start" font-size="12" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">ROSA(接收次組件)</text><text x="444" y="112" text-anchor="start" font-size="9.8" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">ROSA — PHOTODETECTOR RX</text><line x1="450" y1="180" x2="480" y2="220" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="488" y="216" text-anchor="start" font-size="12" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">光纖尾端</text><text x="488" y="232" text-anchor="start" font-size="9" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">FIBER CONNECTOR</text><text x="488" y="246" text-anchor="start" font-size="9" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">(LC/MPO接頭)</text><text x="280" y="300" text-anchor="middle" font-size="10.5" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">光收發模組：TOSA負責電光轉換發射訊號、ROSA負責光電轉換接收訊號，中央DSP晶片處理高速訊號</text></g></svg>`,
     DIAGRAM_TOSA_ROSA: `<svg viewBox="0 0 580 290" role="img" aria-label="TOSA光發射次組件結構示意圖：封裝內雷射晶粒發出光訊號，經聚焦透鏡精密對準耦合進入光纖，對準精度決定耦合效率"><g font-family="'Noto Sans TC',sans-serif"><rect x="150" y="150" width="120" height="70" rx="4" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.8"/><circle cx="185" cy="185" r="10" fill="var(--copper-soft)" stroke="var(--copper-soft-line)" stroke-width="1.4"/><circle cx="235" cy="185" r="7" fill="none" stroke="var(--signal)" stroke-width="1.8"/><line x1="270" y1="185" x2="330" y2="185" stroke="var(--ink-faint)" stroke-width="2"/><circle cx="330" cy="185" r="4" fill="var(--ink-faint)"/><line x1="185" y1="175" x2="140" y2="110" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="132" y="106" text-anchor="end" font-size="12" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">雷射晶粒(LD)</text><text x="132" y="122" text-anchor="end" font-size="9.8" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">LASER DIODE CHIP</text><line x1="235" y1="178" x2="300" y2="120" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="308" y="116" text-anchor="start" font-size="12" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">聚焦透鏡</text><text x="308" y="132" text-anchor="start" font-size="9.8" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">FOCUSING LENS</text><line x1="300" y1="185" x2="360" y2="220" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="368" y="216" text-anchor="start" font-size="12" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">光纖耦合對準</text><text x="368" y="232" text-anchor="start" font-size="9" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">FIBER ALIGNMENT</text><text x="368" y="246" text-anchor="start" font-size="9" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">& COUPLING</text><text x="260" y="270" text-anchor="middle" font-size="10.5" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">TOSA次組件：雷射晶粒發出的光訊號經聚焦透鏡精密對準耦合進入光纖，對準精度直接決定耦合效率與良率</text></g></svg>`,
+    DIAGRAM_PKG_EVOLUTION: `<svg viewBox="0 0 1100 620" role="img" aria-label="高階效能封裝技術演進示意圖：由左至右、由上至下呈現單晶粒覆晶封裝、2.5D矽中介層(基本型、分割配置、多晶粒＋HBM)、基板內嵌橋接、2.3D有機中介層、玻璃核心基板到3D/3.5D混合鍵合堆疊共八種封裝平台，呈現產業邁向異質整合的技術演進路徑"><g font-family="'Noto Sans TC',sans-serif"><text x="550.0" y="24" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">高階效能封裝技術演進：從單晶粒覆晶封裝邁向異質整合</text><text x="550.0" y="40" text-anchor="middle" font-size="9.5" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">ADVANCED PACKAGING EVOLUTION — TOWARD HETEROGENEOUS INTEGRATION</text><rect x="58" y="81" width="234" height="220" rx="6" fill="none" stroke="var(--line)" stroke-width="1" stroke-dasharray="2,3"/><rect x="100.0" y="153" width="150" height="16" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1.3"/><circle cx="120.0" cy="153" r="2.1" fill="var(--ink-faint)"/><circle cx="138.3" cy="153" r="2.1" fill="var(--ink-faint)"/><circle cx="156.7" cy="153" r="2.1" fill="var(--ink-faint)"/><circle cx="175.0" cy="153" r="2.1" fill="var(--ink-faint)"/><circle cx="193.3" cy="153" r="2.1" fill="var(--ink-faint)"/><circle cx="211.7" cy="153" r="2.1" fill="var(--ink-faint)"/><circle cx="230.0" cy="153" r="2.1" fill="var(--ink-faint)"/><rect x="140.0" y="125" width="70" height="26" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.5"/><text x="175.0" y="187" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">① 單晶粒FCBGA</text><text x="175.0" y="202" text-anchor="middle" font-size="8.6" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">FLIP-CHIP BGA (SINGLE DIE)</text><text x="175.0" y="218" text-anchor="middle" font-size="9.3" fill="var(--ink-faint)" font-family="'Noto Sans TC',sans-serif">晶片覆晶接合於載板，結構最單純</text><line x1="296" y1="135" x2="304" y2="135" stroke="var(--ink-faint)" stroke-width="1.4"/><polygon points="304,132 309,135 304,138" fill="var(--ink-faint)"/><rect x="308" y="81" width="234" height="220" rx="6" fill="none" stroke="var(--line)" stroke-width="1" stroke-dasharray="2,3"/><rect x="350.0" y="157" width="150" height="14" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1.3"/><circle cx="360.0" cy="157" r="2.1" fill="var(--ink-faint)"/><circle cx="376.2" cy="157" r="2.1" fill="var(--ink-faint)"/><circle cx="392.5" cy="157" r="2.1" fill="var(--ink-faint)"/><circle cx="408.8" cy="157" r="2.1" fill="var(--ink-faint)"/><circle cx="425.0" cy="157" r="2.1" fill="var(--ink-faint)"/><circle cx="441.2" cy="157" r="2.1" fill="var(--ink-faint)"/><circle cx="457.5" cy="157" r="2.1" fill="var(--ink-faint)"/><circle cx="473.8" cy="157" r="2.1" fill="var(--ink-faint)"/><circle cx="490.0" cy="157" r="2.1" fill="var(--ink-faint)"/><rect x="355.0" y="135" width="140" height="18" fill="var(--copper-soft)" stroke="var(--copper-soft-line)" stroke-width="1.3"/><line x1="380.0" y1="153" x2="380.0" y2="137" stroke="var(--signal)" stroke-width="1.3"/><line x1="410.0" y1="153" x2="410.0" y2="137" stroke="var(--signal)" stroke-width="1.3"/><line x1="440.0" y1="153" x2="440.0" y2="137" stroke="var(--signal)" stroke-width="1.3"/><line x1="470.0" y1="153" x2="470.0" y2="137" stroke="var(--signal)" stroke-width="1.3"/><rect x="367.5" y="113" width="45" height="20" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.5"/><rect x="437.5" y="113" width="45" height="20" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.5"/><text x="425.0" y="187" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">② 2.5D矽中介層</text><text x="425.0" y="202" text-anchor="middle" font-size="8.6" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">2.5D Si INTERPOSER (BASIC)</text><text x="425.0" y="218" text-anchor="middle" font-size="9.3" fill="var(--ink-faint)" font-family="'Noto Sans TC',sans-serif">邏輯晶片與記憶體並列於矽中介層</text><line x1="546" y1="135" x2="554" y2="135" stroke="var(--ink-faint)" stroke-width="1.4"/><polygon points="554,132 559,135 554,138" fill="var(--ink-faint)"/><rect x="558" y="81" width="234" height="220" rx="6" fill="none" stroke="var(--line)" stroke-width="1" stroke-dasharray="2,3"/><rect x="600.0" y="157" width="150" height="14" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1.3"/><circle cx="610.0" cy="157" r="2.1" fill="var(--ink-faint)"/><circle cx="626.2" cy="157" r="2.1" fill="var(--ink-faint)"/><circle cx="642.5" cy="157" r="2.1" fill="var(--ink-faint)"/><circle cx="658.8" cy="157" r="2.1" fill="var(--ink-faint)"/><circle cx="675.0" cy="157" r="2.1" fill="var(--ink-faint)"/><circle cx="691.2" cy="157" r="2.1" fill="var(--ink-faint)"/><circle cx="707.5" cy="157" r="2.1" fill="var(--ink-faint)"/><circle cx="723.8" cy="157" r="2.1" fill="var(--ink-faint)"/><circle cx="740.0" cy="157" r="2.1" fill="var(--ink-faint)"/><rect x="605.0" y="135" width="140" height="18" fill="var(--copper-soft)" stroke="var(--copper-soft-line)" stroke-width="1.3"/><line x1="675.0" y1="135" x2="675.0" y2="153" stroke="var(--signal)" stroke-width="1.6" stroke-dasharray="3,2"/><rect x="606.0" y="113" width="66" height="20" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.5"/><rect x="678.0" y="113" width="66" height="20" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.5"/><text x="675.0" y="187" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">③ 中介層晶粒分割配置</text><text x="675.0" y="202" text-anchor="middle" font-size="8.6" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">RETICLE-STITCHED SPLIT INTERPOSER</text><text x="675.0" y="218" text-anchor="middle" font-size="9.3" fill="var(--ink-faint)" font-family="'Noto Sans TC',sans-serif">光罩接合拼接，突破單一曝光尺寸上限</text><line x1="796" y1="135" x2="804" y2="135" stroke="var(--ink-faint)" stroke-width="1.4"/><polygon points="804,132 809,135 804,138" fill="var(--ink-faint)"/><rect x="808" y="81" width="234" height="220" rx="6" fill="none" stroke="var(--line)" stroke-width="1" stroke-dasharray="2,3"/><rect x="845.0" y="159" width="160" height="14" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1.3"/><circle cx="855.0" cy="159" r="2.1" fill="var(--ink-faint)"/><circle cx="870.6" cy="159" r="2.1" fill="var(--ink-faint)"/><circle cx="886.1" cy="159" r="2.1" fill="var(--ink-faint)"/><circle cx="901.7" cy="159" r="2.1" fill="var(--ink-faint)"/><circle cx="917.2" cy="159" r="2.1" fill="var(--ink-faint)"/><circle cx="932.8" cy="159" r="2.1" fill="var(--ink-faint)"/><circle cx="948.3" cy="159" r="2.1" fill="var(--ink-faint)"/><circle cx="963.9" cy="159" r="2.1" fill="var(--ink-faint)"/><circle cx="979.4" cy="159" r="2.1" fill="var(--ink-faint)"/><circle cx="995.0" cy="159" r="2.1" fill="var(--ink-faint)"/><rect x="847.0" y="139" width="156" height="16" fill="var(--copper-soft)" stroke="var(--copper-soft-line)" stroke-width="1.3"/><rect x="860.0" y="119" width="40" height="18" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.5"/><rect x="915.0" y="119" width="30" height="18" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.5"/><rect x="856.0" y="125" width="18" height="6" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1"/><rect x="856.0" y="118" width="18" height="6" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1"/><rect x="856.0" y="111" width="18" height="6" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1"/><rect x="956.0" y="125" width="18" height="6" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1"/><rect x="956.0" y="118" width="18" height="6" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1"/><rect x="956.0" y="111" width="18" height="6" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1"/><rect x="978.0" y="125" width="18" height="6" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1"/><rect x="978.0" y="118" width="18" height="6" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1"/><rect x="978.0" y="111" width="18" height="6" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1"/><text x="925.0" y="187" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">④ 多晶粒＋HBM中介層</text><text x="925.0" y="202" text-anchor="middle" font-size="8.6" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">MULTI-DIE + HBM INTERPOSER</text><text x="925.0" y="218" text-anchor="middle" font-size="9.3" fill="var(--ink-faint)" font-family="'Noto Sans TC',sans-serif">多顆邏輯晶粒偕多顆HBM堆疊並列</text><rect x="58" y="331" width="234" height="220" rx="6" fill="none" stroke="var(--line)" stroke-width="1" stroke-dasharray="2,3"/><rect x="100.0" y="403" width="150" height="20" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1.3"/><rect x="159.0" y="405" width="32" height="14" fill="var(--copper-soft)" stroke="var(--copper-soft-line)" stroke-width="1.3"/><circle cx="120.0" cy="403" r="2.1" fill="var(--ink-faint)"/><circle cx="138.3" cy="403" r="2.1" fill="var(--ink-faint)"/><circle cx="156.7" cy="403" r="2.1" fill="var(--ink-faint)"/><circle cx="175.0" cy="403" r="2.1" fill="var(--ink-faint)"/><circle cx="193.3" cy="403" r="2.1" fill="var(--ink-faint)"/><circle cx="211.7" cy="403" r="2.1" fill="var(--ink-faint)"/><circle cx="230.0" cy="403" r="2.1" fill="var(--ink-faint)"/><rect x="107.5" y="375" width="55" height="22" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.5"/><rect x="182.5" y="375" width="55" height="22" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.5"/><text x="175.0" y="437" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">⑤ 基板內嵌橋接(EMIB)</text><text x="175.0" y="452" text-anchor="middle" font-size="8.6" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">EMBEDDED BRIDGE (EMIB)</text><text x="175.0" y="468" text-anchor="middle" font-size="9.3" fill="var(--ink-faint)" font-family="'Noto Sans TC',sans-serif">僅晶粒交界處嵌入小面積矽橋接</text><line x1="296" y1="385" x2="304" y2="385" stroke="var(--ink-faint)" stroke-width="1.4"/><polygon points="304,382 309,385 304,388" fill="var(--ink-faint)"/><rect x="308" y="331" width="234" height="220" rx="6" fill="none" stroke="var(--line)" stroke-width="1" stroke-dasharray="2,3"/><rect x="350.0" y="407" width="150" height="14" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1.3"/><circle cx="360.0" cy="407" r="2.1" fill="var(--ink-faint)"/><circle cx="376.2" cy="407" r="2.1" fill="var(--ink-faint)"/><circle cx="392.5" cy="407" r="2.1" fill="var(--ink-faint)"/><circle cx="408.8" cy="407" r="2.1" fill="var(--ink-faint)"/><circle cx="425.0" cy="407" r="2.1" fill="var(--ink-faint)"/><circle cx="441.2" cy="407" r="2.1" fill="var(--ink-faint)"/><circle cx="457.5" cy="407" r="2.1" fill="var(--ink-faint)"/><circle cx="473.8" cy="407" r="2.1" fill="var(--ink-faint)"/><circle cx="490.0" cy="407" r="2.1" fill="var(--ink-faint)"/><rect x="355.0" y="391" width="140" height="12" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.2"/><line x1="361.0" y1="391" x2="367.0" y2="403" stroke="var(--copper)" stroke-width="1"/><line x1="377.0" y1="391" x2="383.0" y2="403" stroke="var(--copper)" stroke-width="1"/><line x1="393.0" y1="391" x2="399.0" y2="403" stroke="var(--copper)" stroke-width="1"/><line x1="409.0" y1="391" x2="415.0" y2="403" stroke="var(--copper)" stroke-width="1"/><line x1="425.0" y1="391" x2="431.0" y2="403" stroke="var(--copper)" stroke-width="1"/><line x1="441.0" y1="391" x2="447.0" y2="403" stroke="var(--copper)" stroke-width="1"/><line x1="457.0" y1="391" x2="463.0" y2="403" stroke="var(--copper)" stroke-width="1"/><line x1="473.0" y1="391" x2="479.0" y2="403" stroke="var(--copper)" stroke-width="1"/><line x1="489.0" y1="391" x2="495.0" y2="403" stroke="var(--copper)" stroke-width="1"/><rect x="367.5" y="367" width="45" height="20" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.5"/><rect x="437.5" y="367" width="45" height="20" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.5"/><text x="425.0" y="437" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">⑥ 2.3D有機中介層</text><text x="425.0" y="452" text-anchor="middle" font-size="8.6" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">RDL INTERPOSER (ORGANIC)</text><text x="425.0" y="468" text-anchor="middle" font-size="9.3" fill="var(--ink-faint)" font-family="'Noto Sans TC',sans-serif">重佈線層取代矽中介層，可面板化量產</text><line x1="546" y1="385" x2="554" y2="385" stroke="var(--ink-faint)" stroke-width="1.4"/><polygon points="554,382 559,385 554,388" fill="var(--ink-faint)"/><rect x="558" y="331" width="234" height="220" rx="6" fill="none" stroke="var(--line)" stroke-width="1" stroke-dasharray="2,3"/><rect x="600.0" y="397" width="150" height="10" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1.2"/><rect x="600.0" y="407" width="150" height="14" fill="var(--signal-soft)" stroke="var(--signal)" stroke-width="1.4"/><rect x="600.0" y="421" width="150" height="10" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1.2"/><circle cx="620.0" cy="397" r="2.1" fill="var(--ink-faint)"/><circle cx="638.3" cy="397" r="2.1" fill="var(--ink-faint)"/><circle cx="656.7" cy="397" r="2.1" fill="var(--ink-faint)"/><circle cx="675.0" cy="397" r="2.1" fill="var(--ink-faint)"/><circle cx="693.3" cy="397" r="2.1" fill="var(--ink-faint)"/><circle cx="711.7" cy="397" r="2.1" fill="var(--ink-faint)"/><circle cx="730.0" cy="397" r="2.1" fill="var(--ink-faint)"/><rect x="640.0" y="369" width="70" height="24" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.5"/><text x="675.0" y="437" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">⑦ 玻璃核心基板</text><text x="675.0" y="452" text-anchor="middle" font-size="8.6" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">GLASS-CORE SUBSTRATE</text><text x="675.0" y="468" text-anchor="middle" font-size="9.3" fill="var(--ink-faint)" font-family="'Noto Sans TC',sans-serif">玻璃／陶瓷核心提升剛性，抑制翹曲</text><line x1="796" y1="385" x2="804" y2="385" stroke="var(--ink-faint)" stroke-width="1.4"/><polygon points="804,382 809,385 804,388" fill="var(--ink-faint)"/><rect x="808" y="331" width="234" height="220" rx="6" fill="none" stroke="var(--line)" stroke-width="1" stroke-dasharray="2,3"/><rect x="850.0" y="409" width="150" height="14" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1.3"/><circle cx="865.0" cy="409" r="2.1" fill="var(--ink-faint)"/><circle cx="882.1" cy="409" r="2.1" fill="var(--ink-faint)"/><circle cx="899.3" cy="409" r="2.1" fill="var(--ink-faint)"/><circle cx="916.4" cy="409" r="2.1" fill="var(--ink-faint)"/><circle cx="933.6" cy="409" r="2.1" fill="var(--ink-faint)"/><circle cx="950.7" cy="409" r="2.1" fill="var(--ink-faint)"/><circle cx="967.9" cy="409" r="2.1" fill="var(--ink-faint)"/><circle cx="985.0" cy="409" r="2.1" fill="var(--ink-faint)"/><rect x="880.0" y="387" width="90" height="18" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.5"/><rect x="880.0" y="367" width="90" height="18" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.5"/><rect x="880.0" y="347" width="90" height="18" fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.5"/><line x1="887.0" y1="347" x2="887.0" y2="405" stroke="var(--copper)" stroke-width="0.8" opacity="0.55"/><line x1="902.0" y1="347" x2="902.0" y2="405" stroke="var(--copper)" stroke-width="0.8" opacity="0.55"/><line x1="917.0" y1="347" x2="917.0" y2="405" stroke="var(--copper)" stroke-width="0.8" opacity="0.55"/><line x1="932.0" y1="347" x2="932.0" y2="405" stroke="var(--copper)" stroke-width="0.8" opacity="0.55"/><line x1="947.0" y1="347" x2="947.0" y2="405" stroke="var(--copper)" stroke-width="0.8" opacity="0.55"/><line x1="962.0" y1="347" x2="962.0" y2="405" stroke="var(--copper)" stroke-width="0.8" opacity="0.55"/><text x="925.0" y="437" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">⑧ 3D/3.5D堆疊</text><text x="925.0" y="452" text-anchor="middle" font-size="8.6" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">HYBRID BONDING STACK</text><text x="925.0" y="468" text-anchor="middle" font-size="9.3" fill="var(--ink-faint)" font-family="'Noto Sans TC',sans-serif">晶粒以銅對銅直接鍵合，堆疊密度最高</text><text x="550.0" y="606" text-anchor="middle" font-size="10.5" fill="var(--ink-faint)" font-family='IBM Plex Mono',monospace">從矽中介層路線(②③④)、基板內嵌橋接(⑤)、有機面板中介層(⑥)到玻璃核心基板(⑦)，業界正以不同技術路徑逼近同一目標：更高密度的異質整合</text></g></svg>`,
+    DIAGRAM_PCB_DRILLING: `<svg viewBox="0 0 840 340" role="img" aria-label="PCB鑽孔製程比較示意圖：左側CNC機械鑽孔形成貫穿全板的通孔，右側UV／CO2雷射鑽孔僅貫穿單一介電層形成細小盲孔"><g font-family="'Noto Sans TC',sans-serif"><rect x="70" y="120" width="220" height="14" fill="var(--copper)" stroke="var(--copper-ink)" stroke-width="1"/><rect x="70" y="134" width="220" height="26" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/><rect x="70" y="160" width="220" height="14" fill="var(--copper)" stroke="var(--copper-ink)" stroke-width="1"/><rect x="70" y="174" width="220" height="26" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1"/><rect x="70" y="200" width="220" height="14" fill="var(--copper)" stroke="var(--copper-ink)" stroke-width="1"/><rect x="70" y="214" width="220" height="26" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/><rect x="70" y="240" width="220" height="14" fill="var(--copper)" stroke="var(--copper-ink)" stroke-width="1"/><rect x="168" y="110" width="24" height="154" fill="var(--bg)" stroke="var(--copper-ink)" stroke-width="1.6"/><polygon points="180,40 172,68 188,68" fill="var(--surface-2)" stroke="var(--ink-soft)" stroke-width="1.6"/><rect x="176" y="14" width="8" height="26" fill="var(--surface-2)" stroke="var(--ink-soft)" stroke-width="1.6"/><line x1="180" y1="68" x2="180" y2="108" stroke="var(--ink-soft)" stroke-width="1.6" stroke-dasharray="3,2"/><text x="180" y="285" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">CNC機械鑽孔</text><text x="180" y="300" text-anchor="middle" font-size="9.5" font-weight="400" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">MECHANICAL DRILLING</text><line x1="192" y1="187" x2="300" y2="187" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="304" y="183" text-anchor="start" font-size="12" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">貫穿全板通孔</text><text x="304" y="198" text-anchor="start" font-size="9.5" font-weight="400" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">THROUGH-HOLE · 孔徑通常＞100微米</text><line x1="390" y1="40" x2="390" y2="300" stroke="var(--line)" stroke-width="1" stroke-dasharray="4,4"/><text x="390" y="325" text-anchor="middle" font-size="10" font-weight="400" fill="var(--ink-faint)" font-family="'Noto Sans TC','PingFang TC',sans-serif">孔壁均需再經化學銅／電鍍銅完成孔壁金屬化，才能導通各層線路</text><rect x="470" y="120" width="220" height="14" fill="var(--copper)" stroke="var(--copper-ink)" stroke-width="1"/><rect x="470" y="134" width="220" height="26" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/><rect x="470" y="160" width="220" height="14" fill="var(--copper)" stroke="var(--copper-ink)" stroke-width="1"/><rect x="470" y="174" width="220" height="26" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1"/><rect x="470" y="200" width="220" height="14" fill="var(--copper)" stroke="var(--copper-ink)" stroke-width="1"/><rect x="470" y="214" width="220" height="26" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/><rect x="470" y="240" width="220" height="14" fill="var(--copper)" stroke="var(--copper-ink)" stroke-width="1"/><polygon points="562,120 598,120 590,160 570,160" fill="var(--bg)" stroke="var(--copper-ink)" stroke-width="1.6"/><line x1="572" y1="50" x2="565" y2="120" stroke="var(--signal)" stroke-width="1.6"/><line x1="580" y1="50" x2="580" y2="120" stroke="var(--signal)" stroke-width="1.6"/><line x1="588" y1="50" x2="595" y2="120" stroke="var(--signal)" stroke-width="1.6"/><text x="580" y="285" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">UV／CO2雷射鑽孔</text><text x="580" y="300" text-anchor="middle" font-size="9.5" font-weight="400" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">UV / CO2 LASER MICROVIA</text><line x1="598" y1="140" x2="690" y2="120" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="694" y="116" text-anchor="start" font-size="12" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">單層盲孔(Blind Via)</text><text x="694" y="131" text-anchor="start" font-size="9.3" font-weight="400" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">BLIND VIA</text><text x="694" y="145" text-anchor="start" font-size="9.3" font-weight="400" fill="var(--ink-faint)" font-family="'Noto Sans TC','PingFang TC',sans-serif">僅貫穿單一介電層，孔徑&lt;75微米</text></g></svg>`,
+    DIAGRAM_TGV_CLT_LIDE: `<svg viewBox="0 0 860 340" role="img" aria-label="玻璃通孔(TGV)兩大技術路線比較示意圖：左側康寧CLT以雷射引導孔搭配熱應力全乾式裂解，右側LPKF LIDE以雷射改質區搭配濕式蝕刻溶孔"><g font-family="'Noto Sans TC',sans-serif"><rect x="70" y="90" width="220" height="160" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="1.4"/><circle cx="180" cy="170" r="10" fill="var(--bg)" stroke="var(--copper-ink)" stroke-width="1.6"/><line x1="180" y1="90" x2="180" y2="160" stroke="var(--signal)" stroke-width="1.3" stroke-dasharray="2,3"/><line x1="180" y1="180" x2="180" y2="250" stroke="var(--signal)" stroke-width="1.3" stroke-dasharray="2,3"/><circle cx="180" cy="110" r="2.6" fill="var(--signal)"/><circle cx="180" cy="130" r="2.6" fill="var(--signal)"/><circle cx="180" cy="150" r="2.6" fill="var(--signal)"/><circle cx="180" cy="190" r="2.6" fill="var(--signal)"/><circle cx="180" cy="210" r="2.6" fill="var(--signal)"/><circle cx="180" cy="230" r="2.6" fill="var(--signal)"/><text x="180" y="280" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">康寧 CLT</text><text x="180" y="295" text-anchor="middle" font-size="9.5" font-weight="400" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">全乾式：雷射引導孔＋熱應力裂解</text><line x1="200" y1="165" x2="300" y2="150" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="304" y="146" text-anchor="start" font-size="12" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">奈米級引導孔</text><text x="304" y="161" text-anchor="start" font-size="9.3" font-weight="400" fill="var(--ink-faint)" font-family="'Noto Sans TC','PingFang TC',sans-serif">沿路徑打出引導孔後，CO2雷射熱應</text><text x="304" y="174" text-anchor="start" font-size="9.3" font-weight="400" fill="var(--ink-faint)" font-family="'Noto Sans TC','PingFang TC',sans-serif">力精準裂解，孔壁相對垂直平整</text><line x1="390" y1="40" x2="390" y2="300" stroke="var(--line)" stroke-width="1" stroke-dasharray="4,4"/><rect x="470" y="90" width="220" height="160" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="1.4"/><ellipse cx="580" cy="170" rx="16" ry="50" fill="var(--copper-soft)" stroke="var(--copper-soft-line)" stroke-width="1.3"/><ellipse cx="580" cy="170" rx="9" ry="42" fill="var(--bg)" stroke="var(--copper-ink)" stroke-width="1.6"/><text x="580" y="280" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">LPKF LIDE</text><text x="580" y="295" text-anchor="middle" font-size="9.5" font-weight="400" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">雷射改質區＋強酸濕蝕刻溶孔</text><line x1="596" y1="150" x2="690" y2="116" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="694" y="112" text-anchor="start" font-size="12" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">雷射改質區</text><text x="694" y="127" text-anchor="start" font-size="9.3" font-weight="400" fill="var(--ink-faint)" font-family="'Noto Sans TC','PingFang TC',sans-serif">雷射先在玻璃內部形成局部</text><text x="694" y="140" text-anchor="start" font-size="9.3" font-weight="400" fill="var(--ink-faint)" font-family="'Noto Sans TC','PingFang TC',sans-serif">改質區(尚未打穿)</text><line x1="596" y1="195" x2="690" y2="220" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="694" y="216" text-anchor="start" font-size="12" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">濕蝕刻溶孔</text><text x="694" y="231" text-anchor="start" font-size="9.3" font-weight="400" fill="var(--ink-faint)" font-family="'Noto Sans TC','PingFang TC',sans-serif">強酸將改質區快速溶解成孔，</text><text x="694" y="244" text-anchor="start" font-size="9.3" font-weight="400" fill="var(--ink-faint)" font-family="'Noto Sans TC','PingFang TC',sans-serif">孔壁光滑無重凝層，效率較高</text></g></svg>`,
+    DIAGRAM_SAT_LASER_LINK: `<svg viewBox="0 0 780 320" role="img" aria-label="低軌衛星星間雷射鏈路示意圖：兩枚衛星各自以可指向的光學終端機對準，透過調變雷射光束傳輸資料，取代傳統無線電星間鏈路" xmlns="http://www.w3.org/2000/svg"><g font-family="'Noto Sans TC',sans-serif"><rect x="90" y="140" width="70" height="46" rx="4" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1.6"/><rect x="40" y="150" width="44" height="26" fill="var(--copper-soft)" stroke="var(--copper-soft-line)" stroke-width="1.2"/><rect x="166" y="150" width="44" height="26" fill="var(--copper-soft)" stroke="var(--copper-soft-line)" stroke-width="1.2"/><circle cx="160" cy="150" r="7" fill="none" stroke="var(--copper)" stroke-width="2.4"/><rect x="620" y="90" width="70" height="46" rx="4" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1.6"/><rect x="570" y="100" width="44" height="26" fill="var(--copper-soft)" stroke="var(--copper-soft-line)" stroke-width="1.2"/><rect x="696" y="100" width="44" height="26" fill="var(--copper-soft)" stroke="var(--copper-soft-line)" stroke-width="1.2"/><circle cx="620" cy="100" r="7" fill="none" stroke="var(--copper)" stroke-width="2.4"/><line x1="166" y1="147" x2="614" y2="103" stroke="var(--signal)" stroke-width="2.2"/><circle cx="260" cy="138" r="2.4" fill="var(--signal)"/><circle cx="350" cy="129" r="2.4" fill="var(--signal)"/><circle cx="440" cy="120" r="2.4" fill="var(--signal)"/><circle cx="530" cy="111" r="2.4" fill="var(--signal)"/><text x="125" y="210" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">衛星A：光學終端機</text><text x="125" y="225" text-anchor="middle" font-size="9" font-weight="400" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">POINTING OPTICAL TERMINAL</text><text x="655" y="70" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">衛星B：光學終端機</text><text x="655" y="55" text-anchor="middle" font-size="9" font-weight="400" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">POINTING OPTICAL TERMINAL</text><line x1="390" y1="125" x2="390" y2="60" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="390" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">調變雷射光束(星間鏈路)</text><text x="390" y="58" text-anchor="middle" font-size="9.5" font-weight="400" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">MODULATED LASER LINK · 需精準指向追蹤對方終端</text><line x1="160" y1="143" x2="160" y2="240" stroke="var(--ink-faint)" stroke-width="1.1" stroke-dasharray="2,2"/><text x="160" y="255" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)" font-family="'Noto Sans TC','PingFang TC',sans-serif">TOSA／ROSA收發次組件</text><text x="160" y="269" text-anchor="middle" font-size="9.3" font-weight="400" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">雷射發射與光偵測接收模組，封裝精度直接決定鏈路對準能力</text><text x="390" y="298" text-anchor="middle" font-size="10.5" fill="var(--ink-faint)" font-family="'IBM Plex Mono',monospace">星間光通訊取代傳統RF鏈路，可大幅提升星系內部傳輸頻寬並降低頻譜壅塞風險</text></g></svg>`,
   };
+
+  /* 拼音／模糊搜尋用字元對照表：涵蓋全站公司名稱與環節標題中出現的所有中文字，
+     供 pinyinOf() 將中文轉為無聲調拼音，讓輸入「taijidian」也能找到「台積電」。 */
+  var PINYIN_MAP = {"一":"yi","七":"qi","三":"san","上":"shang","下":"xia","不":"bu","且":"qie","世":"shi","並":"bing","中":"zhong","串":"chuan","丹":"dan","主":"zhu","久":"jiu","之":"zhi","乎":"hu","乏":"fa","乘":"cheng","乙":"yi","也":"ye","乾":"qian","了":"le","予":"yu","事":"shi","二":"er","互":"hu","五":"wu","井":"jing","些":"xie","亞":"ya","交":"jiao","亦":"yi","亨":"heng","京":"jing","人":"ren","什":"shen","仁":"ren","今":"jin","介":"jie","仍":"reng","他":"ta","付":"fu","代":"dai","令":"ling","以":"yi","仰":"yang","件":"jian","任":"ren","份":"fen","仿":"fang","企":"qi","伊":"yi","伏":"fu","估":"gu","伴":"ban","伸":"shen","伺":"ci","似":"shi","但":"dan","佈":"bu","位":"wei","低":"di","住":"zhu","佐":"zuo","佔":"zhan","何":"he","佛":"fu","作":"zuo","佳":"jia","併":"bing","使":"shi","來":"lai","例":"li","供":"gong","依":"yi","侵":"qin","侷":"ju","便":"bian","係":"xi","促":"cu","俏":"qiao","俗":"su","保":"bao","俠":"xia","信":"xin","修":"xiu","倉":"cang","個":"ge","倍":"bei","倒":"dao","倚":"yi","借":"jie","值":"zhi","偉":"wei","偏":"pian","做":"zuo","健":"jian","側":"ce","偵":"zhen","備":"bei","傳":"chuan","傷":"shang","傾":"qing","僅":"jin","像":"xiang","價":"jia","儀":"yi","億":"yi","償":"chang","優":"you","儲":"chu","允":"yun","元":"yuan","充":"chong","兆":"zhao","先":"xian","光":"guang","克":"ke","兌":"dui","免":"mian","入":"ru","內":"nei","全":"quan","兩":"liang","八":"ba","公":"gong","六":"liu","共":"gong","兵":"bing","其":"qi","具":"ju","典":"dian","兼":"jian","再":"zai","冠":"guan","冶":"ye","冷":"leng","凌":"ling","凝":"ning","凱":"kai","凸":"tu","出":"chu","函":"han","刀":"dao","分":"fen","切":"qie","刊":"kan","列":"lie","初":"chu","判":"pan","別":"bie","利":"li","到":"dao","制":"zhi","刷":"shua","券":"quan","刻":"ke","則":"ze","削":"xue","前":"qian","剔":"ti","剖":"pou","剛":"gang","剝":"bo","剩":"sheng","剪":"jian","副":"fu","割":"ge","創":"chuang","劃":"hua","劇":"ju","劑":"ji","力":"li","功":"gong","加":"jia","劣":"lie","助":"zhu","勁":"jin","勒":"lei","動":"dong","務":"wu","勝":"sheng","募":"mu","勢":"shi","勤":"qin","勻":"yun","包":"bao","化":"hua","北":"bei","匙":"shi","匯":"hui","匹":"pi","區":"qu","十":"shi","千":"qian","升":"sheng","半":"ban","協":"xie","南":"nan","博":"bo","占":"zhan","卡":"ka","印":"yin","危":"wei","即":"ji","卸":"xie","卻":"que","厚":"hou","原":"yuan","去":"qu","參":"can","又":"you","叉":"cha","及":"ji","友":"you","反":"fan","取":"qu","受":"shou","叢":"cong","口":"kou","另":"ling","叩":"kou","只":"zhi","叫":"jiao","可":"ke","台":"tai","史":"shi","右":"you","司":"si","吃":"chi","各":"ge","合":"he","吉":"ji","吋":"cun","同":"tong","名":"ming","向":"xiang","吞":"tun","否":"fou","含":"han","吸":"xi","呈":"cheng","告":"gao","周":"zhou","味":"wei","呼":"hu","命":"ming","和":"he","品":"pin","員":"yuan","哥":"ge","哩":"li","哪":"na","售":"shou","唯":"wei","商":"shang","問":"wen","啟":"qi","善":"shan","喬":"qiao","單":"dan","嗪":"qin","嘉":"jia","嘴":"zui","器":"qi","噴":"pen","嚙":"nie","嚴":"yan","囊":"nang","四":"si","回":"hui","因":"yin","困":"kun","固":"gu","圈":"quan","國":"guo","圍":"wei","園":"yuan","圓":"yuan","圖":"tu","團":"tuan","土":"tu","在":"zai","地":"di","址":"zhi","均":"jun","坡":"po","坤":"kun","坦":"tan","坩":"gan","垂":"chui","型":"xing","埋":"mai","城":"cheng","域":"yu","埠":"bu","執":"zhi","基":"ji","堂":"tang","堅":"jian","堆":"dui","堝":"guo","堡":"bao","報":"bao","場":"chang","堺":"jie","塊":"kuai","塑":"su","塗":"tu","塚":"zhong","填":"tian","境":"jing","墊":"dian","增":"zeng","墨":"mo","壁":"bi","壇":"tan","壓":"ya","壘":"lei","壞":"huai","壟":"long","士":"shi","壽":"shou","外":"wai","多":"duo","夠":"gou","夥":"huo","大":"da","天":"tian","太":"tai","央":"yang","失":"shi","夾":"jia","奇":"qi","奈":"nai","奏":"zou","套":"tao","奧":"ao","她":"ta","好":"hao","如":"ru","姆":"mu","始":"shi","委":"wei","姿":"zi","威":"wei","媒":"mei","嫁":"jia","子":"zi","孔":"kong","字":"zi","存":"cun","季":"ji","學":"xue","宇":"yu","守":"shou","安":"an","完":"wan","宏":"hong","宗":"zong","官":"guan","定":"ding","宜":"yi","客":"ke","宣":"xuan","室":"shi","害":"hai","家":"jia","容":"rong","寄":"ji","密":"mi","富":"fu","察":"cha","寡":"gua","實":"shi","寧":"ning","審":"shen","寫":"xie","寬":"kuan","寶":"bao","寸":"cun","封":"feng","射":"she","將":"jiang","專":"zhuan","尋":"xun","對":"dui","導":"dao","小":"xiao","少":"shao","尖":"jian","尚":"shang","尤":"you","就":"jiu","尺":"chi","尼":"ni","尾":"wei","局":"ju","居":"ju","屆":"jie","展":"zhan","屢":"lv","層":"ceng","屬":"shu","山":"shan","岡":"gang","岸":"an","峰":"feng","島":"dao","崛":"jue","崩":"beng","崴":"wai","嵌":"qian","嶺":"ling","川":"chuan","州":"zhou","巡":"xun","工":"gong","左":"zuo","巧":"qiao","巨":"ju","差":"cha","已":"yi","巴":"ba","市":"shi","布":"bu","希":"xi","師":"shi","帶":"dai","常":"chang","幅":"fu","幕":"mu","幣":"bi","幫":"bang","干":"gan","平":"ping","年":"nian","幹":"gan","幾":"ji","床":"chuang","序":"xu","底":"di","府":"fu","度":"du","座":"zuo","庫":"ku","庭":"ting","康":"kang","廉":"lian","廓":"kuo","廠":"chang","廣":"guang","延":"yan","建":"jian","式":"shi","引":"yin","弘":"hong","弧":"hu","張":"zhang","強":"qiang","彈":"dan","彎":"wan","彙":"hui","形":"xing","影":"ying","彼":"bi","往":"wang","待":"dai","律":"lv","後":"hou","徑":"jing","得":"de","從":"cong","復":"fu","循":"xun","微":"wei","徵":"zheng","德":"de","心":"xin","必":"bi","忍":"ren","志":"zhi","忠":"zhong","快":"kuai","念":"nian","怎":"zen","思":"si","急":"ji","性":"xing","恐":"kong","恩":"en","息":"xi","恰":"qia","悠":"you","情":"qing","惟":"wei","惠":"hui","惡":"e","想":"xiang","愈":"yu","意":"yi","愛":"ai","感":"gan","態":"tai","慢":"man","慧":"hui","憑":"ping","憶":"yi","懂":"dong","應":"ying","懋":"mao","懸":"xuan","成":"cheng","我":"wo","或":"huo","截":"jie","戰":"zhan","戲":"xi","戴":"dai","戶":"hu","房":"fang","所":"suo","扁":"bian","扇":"shan","手":"shou","才":"cai","打":"da","扭":"niu","扮":"ban","批":"pi","找":"zhao","承":"cheng","技":"ji","把":"ba","抑":"yi","抓":"zhua","投":"tou","抗":"kang","折":"zhe","抵":"di","抽":"chou","拆":"chai","拉":"la","拋":"pao","拍":"pai","拓":"tuo","拔":"ba","拖":"tuo","括":"kuo","拼":"pin","拿":"na","持":"chi","指":"zhi","挑":"tiao","挪":"nuo","振":"zhen","挾":"xie","捆":"kun","捉":"zhuo","捕":"bu","捲":"juan","掃":"sao","授":"shou","掉":"diao","掌":"zhang","排":"pai","掛":"gua","採":"cai","探":"tan","接":"jie","控":"kong","推":"tui","掰":"bai","描":"miao","提":"ti","插":"cha","揚":"yang","換":"huan","握":"wo","揭":"jie","揮":"hui","援":"yuan","損":"sun","搜":"sou","搬":"ban","搭":"da","搶":"qiang","摩":"mo","摺":"zhe","摻":"can","撐":"cheng","撓":"nao","撕":"si","撞":"zhuang","撿":"jian","擁":"yong","擇":"ze","擊":"ji","擋":"dang","操":"cao","擎":"qing","擔":"dan","據":"ju","擠":"ji","擬":"ni","擴":"kuo","擾":"rao","攀":"pan","攔":"lan","攜":"xie","攝":"she","攤":"tan","支":"zhi","收":"shou","改":"gai","攻":"gong","放":"fang","政":"zheng","故":"gu","效":"xiao","敏":"min","救":"jiu","敗":"bai","散":"san","整":"zheng","數":"shu","斂":"lian","文":"wen","料":"liao","斯":"si","新":"xin","斷":"duan","方":"fang","於":"yu","施":"shi","旁":"pang","旋":"xuan","族":"zu","旗":"qi","既":"ji","日":"ri","旦":"dan","早":"zao","旭":"xu","旺":"wang","昂":"ang","昇":"sheng","昌":"chang","明":"ming","易":"yi","星":"xing","映":"ying","春":"chun","是":"shi","昱":"yu","時":"shi","晉":"jin","晔":"ye","普":"pu","景":"jing","晶":"jing","智":"zhi","暢":"chang","暨":"ji","暫":"zan","暴":"bao","曄":"ye","曝":"pu","曲":"qu","更":"geng","曹":"cao","曾":"ceng","替":"ti","最":"zui","會":"hui","月":"yue","有":"you","服":"fu","望":"wang","朝":"chao","期":"qi","木":"mu","未":"wei","末":"mo","本":"ben","朵":"duo","材":"cai","村":"cun","杜":"du","束":"shu","杰":"jie","東":"dong","松":"song","板":"ban","析":"xi","林":"lin","枚":"mei","果":"guo","架":"jia","染":"ran","柔":"rou","查":"cha","柱":"zhu","柴":"chai","柵":"shan","校":"xiao","株":"zhu","核":"he","根":"gen","格":"ge","框":"kuang","案":"an","桌":"zhuo","桑":"sang","桿":"gan","條":"tiao","梯":"ti","械":"xie","棄":"qi","棒":"bang","棕":"zong","棚":"peng","森":"sen","植":"zhi","椿":"chun","業":"ye","極":"ji","概":"gai","榜":"bang","榮":"rong","構":"gou","槍":"qiang","槓":"gang","槽":"cao","樁":"zhuang","樂":"le","標":"biao","樞":"shu","模":"mo","樣":"yang","樸":"pu","樹":"shu","橋":"qiao","機":"ji","橡":"xiang","橢":"tuo","橫":"heng","檔":"dang","檢":"jian","檯":"tai","檻":"kan","櫃":"gui","權":"quan","次":"ci","欣":"xin","款":"kuan","歇":"xie","歐":"ou","止":"zhi","正":"zheng","此":"ci","步":"bu","武":"wu","歧":"qi","歷":"li","歸":"gui","死":"si","殊":"shu","殘":"can","段":"duan","殷":"yin","殼":"ke","毅":"yi","母":"mu","每":"mei","比":"bi","毛":"mao","毫":"hao","氏":"shi","民":"min","氟":"fu","氣":"qi","氧":"yang","氨":"an","氫":"qing","氮":"dan","氯":"lv","水":"shui","永":"yong","求":"qiu","汎":"fan","汙":"wu","江":"jiang","池":"chi","污":"wu","汲":"ji","決":"jue","汽":"qi","汾":"fen","沉":"chen","沒":"mei","沖":"chong","沙":"sha","河":"he","油":"you","治":"zhi","沿":"yan","況":"kuang","法":"fa","泛":"fan","泡":"pao","波":"bo","泥":"ni","注":"zhu","泰":"tai","洋":"yang","洗":"xi","洞":"dong","洲":"zhou","活":"huo","洽":"qia","派":"pai","流":"liu","浦":"pu","浪":"lang","浮":"fu","海":"hai","浸":"jin","消":"xiao","涉":"she","液":"ye","涵":"han","淋":"lin","淨":"jing","深":"shen","混":"hun","淺":"qian","添":"tian","清":"qing","減":"jian","測":"ce","游":"you","源":"yuan","準":"zhun","溝":"gou","溢":"yi","溫":"wen","溯":"su","溶":"rong","滑":"hua","滲":"shen","滴":"di","滾":"gun","滿":"man","漆":"qi","漏":"lou","演":"yan","漢":"han","漲":"zhang","漸":"jian","漿":"jiang","潔":"jie","潛":"qian","潤":"run","潮":"chao","潰":"kui","澤":"ze","澳":"ao","濃":"nong","濕":"shi","濟":"ji","濺":"jian","濾":"lv","灌":"guan","灑":"sa","灣":"wan","火":"huo","災":"zai","為":"wei","烘":"hong","烤":"kao","烷":"wan","烽":"feng","焊":"han","無":"wu","焦":"jiao","然":"ran","煉":"lian","照":"zhao","熊":"xiong","熔":"rong","熟":"shu","熱":"re","燃":"ran","燒":"shao","營":"ying","燿":"yao","爆":"bao","爐":"lu","爪":"zhao","爬":"pa","爭":"zheng","爾":"er","片":"pian","版":"ban","牌":"pai","牙":"ya","牢":"lao","物":"wu","特":"te","牽":"qian","狀":"zhuang","狂":"kuang","狗":"gou","獎":"jiang","獨":"du","獲":"huo","獵":"lie","獻":"xian","率":"lv","玉":"yu","王":"wang","玖":"jiu","玩":"wan","玻":"bo","珍":"zhen","珠":"zhu","現":"xian","球":"qiu","理":"li","瑕":"xia","瑙":"nao","瑞":"rui","璃":"li","璐":"lu","環":"huan","瓦":"wa","瓩":"qian","瓶":"ping","瓷":"ci","甚":"shen","生":"sheng","產":"chan","甦":"su","用":"yong","田":"tian","由":"you","甲":"jia","申":"shen","界":"jie","留":"liu","略":"lve","畫":"hua","異":"yi","當":"dang","疇":"chou","疊":"die","疑":"yi","疵":"ci","痕":"hen","療":"liao","登":"deng","發":"fa","白":"bai","百":"bai","的":"de","皆":"jie","皮":"pi","盈":"ying","益":"yi","盒":"he","盛":"sheng","盟":"meng","監":"jian","盤":"pan","盪":"dang","目":"mu","盲":"mang","直":"zhi","相":"xiang","盾":"dun","省":"sheng","看":"kan","真":"zhen","眼":"yan","眾":"zhong","睿":"rui","瞬":"shun","瞻":"zhan","矚":"zhu","知":"zhi","矩":"ju","短":"duan","石":"shi","矽":"xi","砂":"sha","研":"yan","破":"po","砷":"shen","硝":"xiao","硫":"liu","硬":"ying","硼":"peng","碁":"qi","碎":"sui","碑":"bei","碟":"die","碩":"shuo","碰":"peng","碳":"tan","確":"que","碼":"ma","磁":"ci","磊":"lei","磨":"mo","磷":"lin","礎":"chu","礙":"ai","礦":"kuang","示":"shi","社":"she","神":"shen","祥":"xiang","票":"piao","福":"fu","禦":"yu","禮":"li","禾":"he","私":"si","科":"ke","秒":"miao","秘":"mi","租":"zu","移":"yi","稀":"xi","稅":"shui","程":"cheng","稜":"leng","種":"zhong","稱":"cheng","稼":"jia","稽":"ji","稿":"gao","積":"ji","穎":"ying","穩":"wen","究":"jiu","空":"kong","穿":"chuan","突":"tu","窄":"zhai","窗":"chuang","立":"li","竑":"hong","站":"zhan","章":"zhang","端":"duan","競":"jing","竹":"zhu","符":"fu","第":"di","筆":"bi","等":"deng","策":"ce","箔":"bo","算":"suan","管":"guan","箭":"jian","箱":"xiang","節":"jie","範":"fan","築":"zhu","篩":"shai","簡":"jian","簧":"huang","簽":"qian","簾":"lian","籤":"qian","米":"mi","粉":"fen","粒":"li","粗":"cu","粘":"zhan","精":"jing","糙":"cao","系":"xi","紀":"ji","約":"yue","紅":"hong","紋":"wen","納":"na","紐":"niu","紓":"shu","純":"chun","級":"ji","紛":"fen","素":"su","紡":"fang","索":"suo","紫":"zi","累":"lei","細":"xi","紹":"shao","終":"zhong","組":"zu","絆":"ban","結":"jie","絕":"jue","絡":"luo","給":"gei","統":"tong","絲":"si","綁":"bang","經":"jing","綜":"zong","綠":"lv","維":"wei","網":"wang","緊":"jin","線":"xian","緣":"yuan","編":"bian","緩":"huan","緯":"wei","練":"lian","緻":"zhi","縮":"suo","總":"zong","績":"ji","繁":"fan","織":"zhi","繞":"rao","繪":"hui","繼":"ji","續":"xu","纏":"chan","纖":"xian","纜":"lan","缸":"gang","缺":"que","罄":"qing","罩":"zhao","置":"zhi","署":"shu","羅":"luo","美":"mei","群":"qun","義":"yi","翊":"yi","習":"xi","翔":"xiang","翹":"qiao","翻":"fan","耀":"yao","老":"lao","考":"kao","者":"zhe","而":"er","耐":"nai","耕":"geng","耗":"hao","耘":"yun","耦":"ou","耳":"er","聖":"sheng","聚":"ju","聞":"wen","聯":"lian","肖":"xiao","股":"gu","肢":"zhi","肯":"ken","背":"bei","胚":"pei","胺":"an","能":"neng","脂":"zhi","脆":"cui","脈":"mai","脖":"bo","脫":"tuo","脹":"zhang","腐":"fu","腔":"qiang","腕":"wan","腦":"nao","腰":"yao","腳":"jiao","膏":"gao","膚":"fu","膜":"mo","膝":"xi","膠":"jiao","膨":"peng","膩":"ni","臂":"bi","臥":"wo","臨":"lin","自":"zi","至":"zhi","致":"zhi","臻":"zhen","與":"yu","興":"xing","舉":"ju","舊":"jiu","舍":"she","舒":"shu","航":"hang","般":"ban","船":"chuan","艇":"ting","艙":"cang","艦":"jian","良":"liang","色":"se","艾":"ai","芯":"xin","苛":"ke","若":"ruo","苯":"ben","英":"ying","茂":"mao","茗":"ming","茲":"zi","荏":"ren","荷":"he","華":"hua","菱":"ling","萬":"wan","落":"luo","著":"zhu","董":"dong","蒸":"zheng","蓋":"gai","蔽":"bi","薄":"bao","藉":"ji","藍":"lan","藥":"yao","蘇":"su","蘋":"ping","蘭":"lan","虎":"hu","處":"chu","虛":"xu","號":"hao","虧":"kui","虹":"hong","蝕":"shi","融":"rong","螢":"ying","螺":"luo","蟬":"chan","血":"xue","行":"xing","術":"shu","衛":"wei","衝":"chong","衡":"heng","表":"biao","衰":"shuai","袋":"dai","被":"bei","裁":"cai","裂":"lie","補":"bu","裝":"zhuang","裡":"li","裸":"luo","製":"zhi","複":"fu","褪":"tui","西":"xi","要":"yao","覆":"fu","見":"jian","規":"gui","視":"shi","親":"qin","覺":"jue","觀":"guan","角":"jiao","解":"jie","觸":"chu","言":"yan","訂":"ding","計":"ji","訊":"xun","討":"tao","訓":"xun","託":"tuo","記":"ji","訣":"jue","訪":"fang","設":"she","許":"xu","診":"zhen","評":"ping","詠":"yong","試":"shi","詮":"quan","話":"hua","該":"gai","詳":"xiang","誌":"zhi","認":"ren","誕":"dan","誘":"you","語":"yu","誤":"wu","說":"shuo","説":"shuo","誰":"shui","課":"ke","調":"diao","談":"tan","請":"qing","論":"lun","諧":"xie","諾":"nuo","謀":"mou","講":"jiang","謹":"jin","證":"zheng","識":"shi","警":"jing","議":"yi","護":"hu","譽":"yu","讀":"du","變":"bian","讓":"rang","豐":"feng","象":"xiang","豪":"hao","負":"fu","財":"cai","貢":"gong","貨":"huo","貫":"guan","責":"ze","貴":"gui","買":"mai","費":"fei","貼":"tie","貿":"mao","賀":"he","賃":"lin","資":"zi","賓":"bin","賦":"fu","質":"zhi","賴":"lai","購":"gou","賽":"sai","赫":"he","走":"zou","赴":"fu","起":"qi","超":"chao","越":"yue","趕":"gan","趨":"qu","足":"zu","距":"ju","跟":"gen","跡":"ji","跨":"kua","路":"lu","跳":"tiao","蹤":"zong","躍":"yue","身":"shen","躺":"tang","車":"che","軌":"gui","軍":"jun","軟":"ruan","軸":"zhou","較":"jiao","載":"zai","輒":"zhe","輔":"fu","輕":"qing","輝":"hui","輪":"lun","輯":"ji","輸":"shu","輻":"fu","轉":"zhuan","轟":"hong","辛":"xin","辦":"ban","辨":"bian","迄":"qi","迎":"ying","近":"jin","返":"fan","迪":"di","迫":"po","迭":"die","述":"shu","迴":"hui","追":"zhui","退":"tui","送":"song","透":"tou","逐":"zhu","途":"tu","這":"zhe","通":"tong","速":"su","造":"zao","連":"lian","週":"zhou","進":"jin","逼":"bi","逾":"yu","遊":"you","運":"yun","遍":"bian","過":"guo","道":"dao","達":"da","遙":"yao","遜":"xun","遞":"di","遠":"yuan","適":"shi","遭":"zao","遮":"zhe","遲":"chi","遷":"qian","選":"xuan","避":"bi","邁":"mai","還":"hai","邊":"bian","邏":"luo","那":"na","邦":"bang","郡":"jun","部":"bu","都":"dou","鄉":"xiang","配":"pei","酬":"chou","酯":"zhi","酰":"xian","酸":"suan","醒":"xing","醫":"yi","醯":"xi","釋":"shi","里":"li","重":"zhong","量":"liang","釐":"li","金":"jin","針":"zhen","鈀":"ba","鈞":"jun","鈦":"tai","鈺":"yu","鉅":"ju","鉤":"gou","鉬":"mu","鉭":"tan","鉻":"ge","鉿":"jia","銀":"yin","銅":"tong","銑":"xian","銓":"quan","銜":"xian","銲":"han","銳":"rui","銷":"xiao","鋁":"lv","鋇":"bei","鋐":"hong","鋪":"pu","鋰":"li","鋸":"ju","鋼":"gang","錄":"lu","錠":"ding","錡":"qi","錢":"qian","錫":"xi","錯":"cuo","錶":"biao","鍍":"du","鍵":"jian","鎖":"suo","鎢":"wu","鎧":"kai","鎮":"zhen","鎳":"nie","鎵":"jia","鏈":"lian","鏡":"jing","鐘":"zhong","鐳":"lei","鐵":"tie","鑛":"kuang","鑫":"xin","鑰":"yao","鑽":"zuan","長":"zhang","門":"men","閃":"shan","閉":"bi","開":"kai","閎":"hong","間":"jian","閘":"zha","閥":"fa","關":"guan","防":"fang","阻":"zu","阿":"a","附":"fu","降":"jiang","限":"xian","陞":"sheng","院":"yuan","陣":"zhen","除":"chu","陶":"tao","陷":"xian","陸":"lu","陽":"yang","隆":"long","隊":"dui","階":"jie","隔":"ge","隙":"xi","際":"ji","障":"zhang","隨":"sui","險":"xian","隱":"yin","隸":"li","雄":"xiong","集":"ji","雖":"sui","雙":"shuang","雛":"chu","雜":"za","離":"li","難":"nan","雪":"xue","雲":"yun","零":"ling","雷":"lei","電":"dian","需":"xu","震":"zhen","霖":"lin","露":"lu","靈":"ling","靜":"jing","非":"fei","靠":"kao","面":"mian","革":"ge","靶":"ba","韌":"ren","韓":"han","音":"yin","響":"xiang","頁":"ye","頂":"ding","頃":"qing","項":"xiang","順":"shun","須":"xu","頌":"song","預":"yu","頓":"dun","領":"ling","頡":"xie","頭":"tou","頸":"jing","頻":"pin","顆":"ke","題":"ti","額":"e","類":"lei","顧":"gu","顯":"xian","風":"feng","飆":"biao","飛":"fei","食":"shi","飲":"yin","餅":"bing","餐":"can","餘":"yu","饋":"kui","首":"shou","馬":"ma","駐":"zhu","駕":"jia","駛":"shi","騰":"teng","驅":"qu","驗":"yan","驚":"jing","驟":"zhou","骨":"gu","體":"ti","髖":"kuan","高":"gao","鬆":"song","魚":"yu","鰭":"qi","鴻":"hong","鵝":"e","鷹":"ying","鹼":"jian","鹽":"yan","麥":"mai","麼":"me","黏":"nian","黑":"hei","點":"dian","鼎":"ding","齊":"qi","齒":"chi","龍":"long","龐":"pang"};
 
   /* ============================================================
      內容查核紀錄 CONTENT AUDIT LOG
@@ -1705,7 +1744,7 @@
               companies:[{n:"中砂",tw:1,code:"1560"},{n:"家登精密",tw:1,code:"3680"}],
               stats:[] }
           ] },
-        { icon:"icon-substrate", title:"基板與高速PCB", sub:"SUBSTRATE & HIGH-SPEED PCB",
+        { icon:"icon-substrate", title:"基板與高速PCB", parallelGroup:"ai-hw-board-integration", sub:"SUBSTRATE & HIGH-SPEED PCB",
           desc:"承載晶片與各元件的多層電路載板。ABF載板技術門檻高、產能長期吃緊，高速PCB則需承受AI伺服器高頻高速訊號傳輸的嚴苛要求，是台廠掌握度極高的一環。",
           companies:[{n:"欣興",tw:1,code:"3037"},{n:"南電",tw:1,code:"8046"},{n:"景碩",tw:1,code:"3189"},{n:"台光電",tw:1,code:"2383"},{n:"金像電",tw:1,code:"2368"}],
           stats:[{v:">50%",l:"台廠全球ABF載板產能占比"}],
@@ -1732,7 +1771,7 @@
               companies:[{n:"臻鼎-KY",tw:1,code:"4958"},{n:"華通",tw:1,code:"2313"}],
               stats:[] }
           ] },
-        { icon:"icon-network", title:"網通與高速互連", sub:"NETWORKING & INTERCONNECT",
+        { icon:"icon-network", title:"網通與高速互連", parallelGroup:"ai-hw-board-integration", sub:"NETWORKING & INTERCONNECT",
           desc:"讓數萬顆晶片能協同運算的高速傳輸技術，涵蓋晶片內部SerDes連結、機櫃內NVLink，到跨機櫃的乙太網路交換器、光模組與矽光子(CPO)，是AI叢集能否持續擴大規模的關鍵瓶頸。台灣廠商在光模組與矽光子環節已從代工角色，逐漸切入技術含量更高的CPO關鍵零組件供應。高盛(Goldman Sachs)2026年4月報告《Optical Networking: The Next Mega Trend in AI Infrastructure》估算，從GB300世代到Rubin Ultra世代，光通訊相關總潛在市場(TAM)有機會成長近9倍，其中CPO在scale-up/scale-out互連市場的占比估計可達約59%。",
           companies:[{n:"聯發科",tw:1,code:"2454"},{n:"聯亞光電",tw:1,code:"3081"},{n:"波若威",tw:1,code:"3163"},{n:"上詮",tw:1,code:"3363"},{n:"華星光",tw:1,code:"4979"},{n:"博通 Broadcom"},{n:"Marvell"}],
           stats:[{v:"336G SerDes(傳)",l:"聯發科藉此切入Google TPU 8t/8i(市場傳聞，各方版本不一)"},{v:"~9倍",l:"高盛估算GB300→Rubin Ultra世代光通訊TAM成長倍數"},{v:"~59%",l:"高盛估算CPO於scale-up/scale-out互連市場占比"}],
@@ -1759,7 +1798,7 @@
               companies:[{n:"貿聯-KY",tw:1,code:"3665"}],
               stats:[] }
           ] },
-        { icon:"icon-power", title:"電源管理", sub:"POWER MANAGEMENT",
+        { icon:"icon-power", title:"電源管理", parallelGroup:"ai-hw-board-integration", sub:"POWER MANAGEMENT",
           desc:"AI機櫃功耗屢創新高，現行GB200/GB300 NVL72機櫃供電架構為54V直流，輝達規劃於2027年Kyber機櫃(Rubin Ultra世代)全面導入800V高壓直流（HVDC）配電。台廠在此環節據法人估計掌握全球逾半市占(無官方或機構正式出處)，是少數具備明顯定價權的關鍵位置；液冷與散熱零組件詳見「散熱」頁籤完整供應鏈。",
           companies:[{n:"台達電",tw:1,code:"2308"},{n:"光寶科",tw:1,code:"2301"}],
           stats:[{v:"~60%",l:"台達電AI伺服器電源市占(法人估計，無公司或機構官方出處)"}],
@@ -1962,7 +2001,7 @@
               companies:[{n:"欣興",tw:1,code:"3037"},{n:"南電",tw:1,code:"8046"}],
               stats:[] }
           ] },
-        { icon:"icon-server", title:"伺服器主機板與機櫃設計", sub:"SERVER BASEBOARD & RACK DESIGN",
+        { icon:"icon-server", title:"伺服器主機板與機櫃設計", parallelGroup:"nvidia-rack-integration", sub:"SERVER BASEBOARD & RACK DESIGN",
           desc:"輝達提供NVL72等機櫃級參考設計，再由夥伴廠商依規格生產承載GPU模組的高速主機板（GPU baseboard／compute tray）。GB200/GB300世代訂單由鴻海、緯創、廣達三家分食，是這一環節技術含量最高的台廠夥伴群。",
           companies:[{n:"緯創",tw:1,code:"3231"},{n:"廣達",tw:1,code:"2382"},{n:"鴻海",tw:1,code:"2317"}],
           stats:[{v:"~3成",l:"緯創GB200/GB300世代GPU主機板訂單占比(法人估計)"}],
@@ -1981,7 +2020,7 @@
               companies:[{n:"緯創",tw:1,code:"3231"},{n:"廣達",tw:1,code:"2382"}],
               stats:[] }
           ] },
-        { icon:"icon-server", title:"ODM整機整櫃組裝", sub:"ODM SYSTEM & RACK ASSEMBLY",
+        { icon:"icon-server", title:"ODM整機整櫃組裝", parallelGroup:"nvidia-rack-integration", sub:"ODM SYSTEM & RACK ASSEMBLY",
           desc:"依輝達參考設計完成整機與整櫃組裝、測試與交付。鴻海（Ingrasys）、廣達（雲達QCT）、緯創、緯穎、和碩、英業達、技嘉、華碩等台廠皆列名輝達官方合作夥伴名單，是這波AI浪潮中台廠參與最全面的環節。",
           companies:[{n:"鴻海",tw:1,code:"2317"},{n:"廣達",tw:1,code:"2382"},{n:"緯創",tw:1,code:"3231"},{n:"緯穎",tw:1,code:"6669"},{n:"英業達",tw:1,code:"2356"}],
           stats:[],
@@ -2000,7 +2039,7 @@
               companies:[{n:"廣達",tw:1,code:"2382"},{n:"緯穎",tw:1,code:"6669"},{n:"英業達",tw:1,code:"2356"}],
               stats:[] }
           ] },
-        { icon:"icon-power", title:"電源管理系統", sub:"POWER MANAGEMENT SYSTEM",
+        { icon:"icon-power", title:"電源管理系統", parallelGroup:"nvidia-rack-integration", sub:"POWER MANAGEMENT SYSTEM",
           desc:"因應GB200／NVL72等機櫃功耗持續攀升，現行機櫃供電架構為54V直流，輝達規劃於2027年Kyber機櫃(Rubin Ultra世代)導入800V HVDC電源，台廠在此環節據法人估計掌握全球逾半市占(無官方或機構正式出處)，是少數具備明顯定價權的關鍵位置；液冷與散熱零組件詳見「散熱」頁籤完整供應鏈。",
           companies:[{n:"台達電",tw:1,code:"2308"},{n:"光寶科",tw:1,code:"2301"}],
           stats:[],
@@ -2019,7 +2058,7 @@
               companies:[{n:"台達電",tw:1,code:"2308"},{n:"光寶科",tw:1,code:"2301"},{n:"康舒",tw:1,code:"6282"}],
               stats:[] }
           ] },
-        { icon:"icon-network", title:"網通與機櫃內互連", sub:"NETWORKING & INTERCONNECT",
+        { icon:"icon-network", title:"網通與機櫃內互連", parallelGroup:"nvidia-rack-integration", sub:"NETWORKING & INTERCONNECT",
           desc:"以自研NVLink串連機櫃內GPU，搭配Quantum InfiniBand與Spectrum-X乙太網路交換器串連機櫃間流量。2026年起導入Spectrum-X Photonics共同封裝光學（CPO）技術，目標將AI叢集規模擴展至數百萬顆GPU等級。",
           companies:[{n:"輝達 NVIDIA"},{n:"博通 Broadcom"}],
           stats:[],
@@ -2057,7 +2096,7 @@
               companies:[{n:"華碩",tw:1,code:"2357"},{n:"技嘉",tw:1,code:"2376"},{n:"微星",tw:1,code:"2377"}],
               stats:[] }
           ] },
-        { icon:"icon-datacenter", title:"下游：雲端服務供應商", sub:"CSP CUSTOMERS",
+        { icon:"icon-datacenter", title:"下游：雲端服務供應商", parallelGroup:"nvidia-downstream-segments", sub:"CSP CUSTOMERS",
           desc:"微軟、Google、AWS、Meta、Oracle等雲端巨頭是輝達資料中心GPU最大宗買家，資本支出規模與輝達營收成長高度連動，是觀察輝達業績最重要的先行指標。",
           companies:[{n:"微軟 Microsoft"},{n:"Google"},{n:"AWS"},{n:"Meta"},{n:"甲骨文 Oracle"}],
           stats:[],
@@ -2076,7 +2115,7 @@
               companies:[{n:"CoreWeave"}],
               stats:[] }
           ] },
-        { icon:"icon-generic", title:"下游：企業與主權AI", sub:"ENTERPRISE & SOVEREIGN AI",
+        { icon:"icon-generic", title:"下游：企業與主權AI", parallelGroup:"nvidia-downstream-segments", sub:"ENTERPRISE & SOVEREIGN AI",
           desc:"各國政府與主權基金近年積極投資自主AI基礎建設，加上金融、電信、製造業等企業自建私有AI叢集，是輝達除雲端巨頭外成長最快的新客群，也是分散雲端業者資本支出集中度風險的重要來源。",
           companies:[{n:"各國政府主權AI專案"},{n:"電信與金融企業客戶"}],
           stats:[],
@@ -2095,7 +2134,7 @@
               companies:[{n:"電信與金融企業客戶"}],
               stats:[] }
           ] },
-        { icon:"icon-generic", title:"下游：車用與機器人", sub:"AUTOMOTIVE & ROBOTICS",
+        { icon:"icon-generic", title:"下游：車用與機器人", parallelGroup:"nvidia-downstream-segments", sub:"AUTOMOTIVE & ROBOTICS",
           desc:"透過DRIVE平台與Jetson系列晶片切入自動駕駛與機器人運算市場，是輝達布局資料中心以外、鎖定「物理AI」（Physical AI）的長期成長引擎，鴻海也藉電動車代工平台切入此一生態系。",
           companies:[{n:"賓士 Mercedes-Benz"},{n:"比亞迪"},{n:"鴻海",tw:1,code:"2317"}],
           stats:[],
@@ -2151,7 +2190,7 @@
               companies:[{n:"台積電",tw:1,code:"2330"}],
               stats:[] }
           ] },
-        { icon:"icon-substrate", title:"IC載板與天線封裝", sub:"IC SUBSTRATE & ANTENNA PACKAGE",
+        { icon:"icon-substrate", title:"IC載板與天線封裝", parallelGroup:"apple-components", sub:"IC SUBSTRATE & ANTENNA PACKAGE",
           tags:["ic-substrate"],
           desc:"承載處理器晶片的高階IC載板，以及整合天線結構的封裝載板，是晶片能否順利與主機板電性連接、並維持通訊效能的關鍵中介層。",
           companies:[{n:"南電",tw:1,code:"8046"},{n:"欣興",tw:1,code:"3037"}],
@@ -2173,7 +2212,7 @@
               companies:[{n:"南電",tw:1,code:"8046"},{n:"欣興",tw:1,code:"3037"}],
               stats:[] }
           ] },
-        { icon:"icon-hbm", title:"記憶體與儲存", sub:"MEMORY & STORAGE",
+        { icon:"icon-hbm", title:"記憶體與儲存", parallelGroup:"apple-components", sub:"MEMORY & STORAGE",
           desc:"提供iPhone與Mac所需的行動式DRAM與NAND Flash儲存晶片，蘋果供應商以南韓與美系原廠為主，台廠則在利基型記憶體與控制晶片領域維持部分參與。",
           companies:[{n:"華邦電",tw:1,code:"2344"},{n:"SK海力士"},{n:"美光 Micron"},{n:"三星電子"}],
           stats:[],
@@ -2192,7 +2231,7 @@
               companies:[{n:"華邦電",tw:1,code:"2344"}],
               stats:[] }
           ] },
-        { icon:"icon-lens", title:"相機模組與光學鏡頭", sub:"CAMERA MODULE & OPTICS",
+        { icon:"icon-lens", title:"相機模組與光學鏡頭", parallelGroup:"apple-components", sub:"CAMERA MODULE & OPTICS",
           desc:"蘋果多鏡頭系統對光學品質要求極高，大立光與玉晶光皆以精密塑膠非球面鏡片見長，在手機鏡頭光學鏡片領域居於領導地位；實際相機模組組裝則由LG Innotek、Sharp、Cowell(高偉)等海外廠商負責，台廠目前無代表性業者。",
           companies:[{n:"大立光",tw:1,code:"3008"},{n:"玉晶光",tw:1,code:"3406"}],
           stats:[],
@@ -2210,7 +2249,7 @@
               companies:[{n:"索尼 Sony"},{n:"三星電子"}],
               stats:[] }
           ] },
-        { icon:"icon-generic", title:"被動元件", sub:"PASSIVE COMPONENTS",
+        { icon:"icon-generic", title:"被動元件", parallelGroup:"apple-components", sub:"PASSIVE COMPONENTS",
           desc:"電容、電阻、電感等被動元件雖然單價低廉，但單機用量龐大，是電子產品中不可或缺的基礎零組件。國巨是目前唯一打入蘋果官方供應鏈名單的台灣被動元件廠。",
           companies:[{n:"國巨",tw:1,code:"2327"}],
           stats:[],
@@ -2229,7 +2268,7 @@
               companies:[{n:"國巨",tw:1,code:"2327"}],
               stats:[] }
           ] },
-        { icon:"icon-substrate", title:"軟硬板與載板(FPC／HDI)", sub:"FLEXIBLE & RIGID-FLEX PCB",
+        { icon:"icon-substrate", title:"軟硬板與載板(FPC／HDI)", parallelGroup:"apple-components", sub:"FLEXIBLE & RIGID-FLEX PCB",
           desc:"連接主機板與各模組的軟性電路板與高密度互連板，需承受反覆彎折與極高的空間堆疊密度要求，是台廠PCB供應鏈中技術含量最高的產品線之一。",
           companies:[{n:"臻鼎-KY",tw:1,code:"4958"},{n:"嘉聯益",tw:1,code:"6153"},{n:"台郡",tw:1,code:"6269"},{n:"華通",tw:1,code:"2313"}],
           stats:[],
@@ -2249,7 +2288,7 @@
               companies:[{n:"臻鼎-KY",tw:1,code:"4958"},{n:"嘉聯益",tw:1,code:"6153"}],
               stats:[] }
           ] },
-        { icon:"icon-generic", title:"石英元件", sub:"QUARTZ COMPONENTS",
+        { icon:"icon-generic", title:"石英元件", parallelGroup:"apple-components", sub:"QUARTZ COMPONENTS",
           desc:"提供時脈訊號與頻率控制的石英晶體元件，雖然單價不高，但是主機板電路穩定運作不可或缺的基礎被動元件，晶技是官方供應鏈名單中的代表廠商。",
           companies:[{n:"晶技",tw:1,code:"3042"}],
           stats:[],
@@ -2267,7 +2306,7 @@
               companies:[],
               stats:[] }
           ] },
-        { icon:"icon-device", title:"機殼與結構件", sub:"CASING & STRUCTURAL PARTS",
+        { icon:"icon-device", title:"機殼與結構件", parallelGroup:"apple-components", sub:"CASING & STRUCTURAL PARTS",
           desc:"以鋁合金或鈦合金精密加工製成的機身結構件，兼顧強度、散熱與外觀質感，是蘋果產品工業設計能否量產實現的關鍵製造環節；可成已於2020年將iPhone機殼事業出售予藍思科技並退出蘋果手機機殼供應鏈，目前鴻準與藍思科技是主要供應商。",
           companies:[{n:"鴻準",tw:1,code:"2354"},{n:"藍思科技"}],
           stats:[],
@@ -2285,7 +2324,7 @@
               companies:[{n:"鴻準",tw:1,code:"2354"}],
               stats:[] }
           ] },
-        { icon:"icon-package", title:"封裝測試(SiP系統級封裝)", sub:"SiP PACKAGING & TEST",
+        { icon:"icon-package", title:"封裝測試(SiP系統級封裝)", parallelGroup:"apple-components", sub:"SiP PACKAGING & TEST",
           desc:"將處理器、記憶體與周邊晶片整合封裝於單一模組的系統級封裝技術，大幅縮小主機板占用空間，是穿戴裝置與輕薄化產品的關鍵封裝方案。",
           companies:[{n:"日月光",tw:1,code:"3711"}],
           stats:[],
@@ -2303,7 +2342,7 @@
               companies:[{n:"日月光",tw:1,code:"3711"}],
               stats:[] }
           ] },
-        { icon:"icon-power", title:"電源管理與快充", sub:"POWER MANAGEMENT & CHARGING",
+        { icon:"icon-power", title:"電源管理與快充", parallelGroup:"apple-components", sub:"POWER MANAGEMENT & CHARGING",
           desc:"提供電源轉換、快充協定與電力分配的相關晶片與模組，台廠在電源供應器與轉接器代工領域長期是蘋果供應鏈的重要夥伴。",
           companies:[{n:"台達電",tw:1,code:"2308"},{n:"光寶科",tw:1,code:"2301"}],
           stats:[],
@@ -2321,7 +2360,7 @@
               companies:[{n:"台達電",tw:1,code:"2308"}],
               stats:[] }
           ] },
-        { icon:"icon-battery", title:"電池模組", sub:"BATTERY PACK",
+        { icon:"icon-battery", title:"電池模組", parallelGroup:"apple-components", sub:"BATTERY PACK",
           desc:"提供iPhone、Mac與穿戴裝置所需的鋰電池芯與電池管理模組。台廠電池模組廠具備長期合作基礎，但近年面臨陸廠競爭加劇，訂單版圖持續變動。",
           companies:[{n:"新普",tw:1,code:"6121"},{n:"順達",tw:1,code:"3211"}],
           stats:[],
@@ -3138,7 +3177,7 @@
               stats:[] },
             { icon:"icon-substrate", title:"銅箔(Copper Foil)製造", sub:"ELECTROLYTIC COPPER FOIL",
               desc:"電解銅箔是CCL的導電層，須依線寬需求控制厚度與表面粗糙度。長春集團同時是全球電動車負極銅箔與PCB用電子級銅箔的重要供應商，南亞塑膠則自製銅箔垂直整合供應內部CCL產線，因應AI伺服器帶動的低輪廓(HVLP)銅箔需求成長。",
-              companies:[{n:"長春石油化學",tw:1},{n:"南亞塑膠",tw:1,code:"1303"},{n:"三井金屬鑛業"}],
+              companies:[{n:"長春石油化學",tw:1,code:"1764"},{n:"南亞塑膠",tw:1,code:"1303"},{n:"三井金屬鑛業"}],
               stats:[{v:"48.1%",l:"2025年HVLP低輪廓銅箔產能年增幅(TPCA/工研院)"}] },
             { icon:"icon-substrate", title:"高頻高速基板材料", sub:"LOW-DK/DF LAMINATE FOR AI SERVERS",
               desc:"因應AI伺服器與800G交換器架構升級，M8/M9世代低介電損耗(Low-Dk/Df)材料需求爆發，台光電、台燿、聯茂並稱台股「CCL三雄」。根據TPCA與工研院統計，台光電以2025年18.9%市占率蟬聯全球第一，台系廠商2025年合計市占達37.4%。",
@@ -3187,6 +3226,8 @@
           desc:"以機械鑽針或雷射光束在板材上鑽出導通孔與微盲孔，高階伺服器板單片可能需要數萬個孔位，孔徑精度與孔壁品質直接影響後續電鍍與電性可靠度。",
           companies:[{n:"欣興",tw:1,code:"3037"},{n:"華通",tw:1,code:"2313"},{n:"金像電",tw:1,code:"2368"}],
           stats:[{v:"數萬孔",l:"高階伺服器板單片孔位數量級"}],
+          diagram: "DIAGRAM_PCB_DRILLING",
+          diagramCaption: "CNC機械鑽孔以鑽針貫穿全板形成通孔，孔徑通常大於100微米；UV／CO2雷射鑽孔僅貫穿單一介電層形成微盲孔，孔徑可小於75微米，兩者互補用於不同層間導通需求。",
           children:[
             { icon:"icon-drill", title:"CNC機械鑽孔", sub:"CNC MECHANICAL DRILLING",
               desc:"以高速主軸(轉速可達20萬轉/分鐘)搭載鎢鋼鑽針，於多層板上鑽出通孔(PTH)供層間導通。台廠大量科技為台灣主要CNC鑽孔機廠商，尖點科技則同時供應鑽針耗材與鑽孔設備，並在台灣與中國設有生產基地。",
@@ -3758,7 +3799,7 @@
               companies:[{n:"Aixtron"},{n:"Veeco"}],
               stats:[{v:"7億元",l:"聯亞光電2026年MOCVD相關資本支出"}] }
           ] },
-        { icon:"icon-chip", title:"雷射晶粒(LD／VCSEL)", sub:"LASER DIODE CHIPS",
+        { icon:"icon-chip", title:"雷射晶粒(LD／VCSEL)", parallelGroup:"photonic-chip-types", sub:"LASER DIODE CHIPS",
           desc:"將電訊號轉換為光訊號的核心主動元件，依應用場景可分為邊射型雷射（EEL）與垂直共振腔面射型雷射（VCSEL），是光通訊系統中光源的來源。",
           companies:[{n:"聯亞光電",tw:1,code:"3081"},{n:"全新",tw:1,code:"2455"}],
           stats:[],
@@ -3776,7 +3817,7 @@
               companies:[{n:"全新光電",tw:1,code:"2455"},{n:"聯亞光電",tw:1,code:"3081"},{n:"Lumentum"},{n:"Coherent"}],
               stats:[] }
           ] },
-        { icon:"icon-metrology", title:"光偵測器晶粒(PD／APD)", sub:"PHOTODETECTOR CHIPS",
+        { icon:"icon-metrology", title:"光偵測器晶粒(PD／APD)", parallelGroup:"photonic-chip-types", sub:"PHOTODETECTOR CHIPS",
           desc:"將接收到的光訊號還原為電訊號的感光元件，靈敏度與響應速度直接影響長距離傳輸的訊號完整性。",
           companies:[{n:"全新",tw:1,code:"2455"},{n:"英特磊",tw:1,code:"4971"}],
           stats:[],
@@ -3794,7 +3835,7 @@
               companies:[{n:"英特磊",tw:1,code:"4971"},{n:"全新光電",tw:1,code:"2455"}],
               stats:[] }
           ] },
-        { icon:"icon-foundry", title:"矽光子晶片(Silicon Photonics)", sub:"SILICON PHOTONICS CHIP",
+        { icon:"icon-foundry", title:"矽光子晶片(Silicon Photonics)", parallelGroup:"photonic-chip-types", sub:"SILICON PHOTONICS CHIP",
           desc:"在標準CMOS晶圓上整合光波導、調變器與光耦合結構，以晶圓代工製程量產光學元件，是next-gen高速光通訊大幅降低成本的關鍵技術路徑，台積電COUPE平台是此技術的核心製程基礎。",
           companies:[{n:"台積電",tw:1,code:"2330"}],
           stats:[],
@@ -3812,7 +3853,7 @@
               companies:[{n:"台積電",tw:1,code:"2330"}],
               stats:[{v:"3.3倍",l:"COUPE平台支援最大reticle size倍數"}] }
           ] },
-        { icon:"icon-package", title:"光主動元件封裝(TOSA／ROSA)", sub:"OPTICAL SUB-ASSEMBLY PACKAGING",
+        { icon:"icon-package", title:"光主動元件封裝(TOSA／ROSA)", parallelGroup:"photonic-component-types", sub:"OPTICAL SUB-ASSEMBLY PACKAGING",
           desc:"將雷射與光偵測器晶粒封裝為可直接整合進模組的光收發次組件，封裝精度需達次微米等級以確保光耦合效率。",
           companies:[{n:"波若威",tw:1,code:"3163"},{n:"上詮",tw:1,code:"3363"}],
           stats:[],
@@ -3831,7 +3872,7 @@
               companies:[{n:"波若威",tw:1,code:"3163"},{n:"輝達 NVIDIA"}],
               stats:[{v:"200Gb/s",l:"輝達Spectrum-X Photonics SerDes規格"}] }
           ] },
-        { icon:"icon-generic", title:"光被動元件(耦合器／濾波器／隔離器)", sub:"PASSIVE OPTICAL COMPONENTS",
+        { icon:"icon-generic", title:"光被動元件(耦合器／濾波器／隔離器)", parallelGroup:"photonic-component-types", sub:"PASSIVE OPTICAL COMPONENTS",
           desc:"包含光纖耦合器、波長分波多工濾波器與光隔離器等被動元件，用於分光、合波與抑制反射雜訊，是光路系統中精密度要求最高的機構元件之一。上詮在光纖陣列對準耦合(FAU)與矽光子晶片精密耦合領域已建立技術地位，大立光則以FA光纖陣列與PMLA稜鏡微透鏡切入CPO零組件供應鏈。",
           companies:[{n:"上詮",tw:1,code:"3363"},{n:"波若威",tw:1,code:"3163"},{n:"大立光",tw:1,code:"3008"}],
           stats:[],
@@ -3853,7 +3894,7 @@
               companies:[{n:"波若威",tw:1,code:"3163"}],
               stats:[] }
           ] },
-        { icon:"icon-network", title:"光收發模組組裝與測試", sub:"OPTICAL TRANSCEIVER ASSEMBLY & TEST",
+        { icon:"icon-network", title:"光收發模組組裝與測試", parallelGroup:"photonic-interconnect-approaches", sub:"OPTICAL TRANSCEIVER ASSEMBLY & TEST",
           desc:"將光主動元件、驅動IC與被動元件整合為完整可插拔光收發模組，並進行嚴格的光學與電性測試，是現行AI叢集機櫃間連結的主流方案。",
           companies:[{n:"華星光",tw:1,code:"4979"},{n:"波若威",tw:1,code:"3163"}],
           stats:[],
@@ -3868,14 +3909,14 @@
               companies:[{n:"華星光",tw:1,code:"4979"},{n:"波若威",tw:1,code:"3163"}],
               stats:[] }
           ] },
-        { icon:"icon-network", title:"CPO共同封裝光學", sub:"CO-PACKAGED OPTICS (CPO)",
+        { icon:"icon-network", title:"CPO共同封裝光學", parallelGroup:"photonic-interconnect-approaches", sub:"CO-PACKAGED OPTICS (CPO)",
           tags:["networking-interconnect"],
           desc:"將光學引擎直接與交換器ASIC共同封裝於同一基板，取代傳統可插拔模組，大幅降低訊號損耗與功耗，是2026年起加速商轉的next-gen互連技術，日月光已切入CPO先進封裝環節。趨勢背後的原理：當單通道傳輸速率推進到112G、224G等級，銅線纜的訊號衰減與功耗會隨傳輸距離與速率同步惡化，機櫃間互連距離一旦超過1~2公尺，銅線就必須仰賴耗電的訊號重收發晶片(retimer)才能維持訊號完整性；光訊號則幾乎不受傳輸距離影響、單位頻寬功耗遠低於銅，是AI叢集規模持續擴大（單一叢集要串連數萬至數十萬顆GPU/ASIC）下，網路互連從「銅」走向「光」的根本原因，機櫃內部短距離仍以銅纜/主動電纜為主、機櫃間與跨機房則加速轉向光模組與CPO。可參考「AI硬體」「輝達(NVIDIA)」頁籤的網通節點了解GPU叢集端的對應布局。",
           companies:[{n:"台積電",tw:1,code:"2330"},{n:"日月光",tw:1,code:"3711"},{n:"博通 Broadcom"}],
           stats:[],
           children:[
             { icon:"icon-datacenter", title:"光引擎(Optical Engine)", sub:"CO-PACKAGED OPTICAL ENGINE",
-              desc:"光引擎將雷射光源、調變器與光偵測器整合封裝於交換器晶片旁，取代傳統可插拔模組以降低功耗與延遲。博通Tomahawk 6-Davisson CPO交換器已於2025年10月發表、交換容量達102.4 Tb/s並向早期客戶供樣；台積電COUPE平台則被市場點名可能供應超微、輝達Vera Rubin等潛在客戶光子引擎方案，惟台積電官方未證實具體客戶名單。高盛報告並指出，Marvell於2026年宣布收購CPO新創Celestial AI，強化其CPO for XPU(客製化AI晶片)布局；輝達則規劃自2026年起於Rubin Ultra世代平台導入CPO技術商轉，帶動光引擎供應鏈需求同步成長。總頻寬等於「通道數×單通道速率」，而單通道速率存在物理上限，下一階段頻寬提升須仰賴增加堆疊層數：大立光已於Computex展示4排×8入口、合計約6.4T的多層堆疊光纖陣列示範；台積電COUPE平台路線圖則規劃先以單層(single-layer)方案於2026年量產，2030年前後才會邁向多層(multi-layer)堆疊世代，現階段客戶需求仍以單層方案為主。",
+              desc:"光引擎將雷射光源、調變器與光偵測器整合封裝於交換器晶片旁，取代傳統可插拔模組以降低功耗與延遲。博通Tomahawk 6-Davisson CPO交換器已於2025年10月發表、交換容量達102.4 Tb/s並向早期客戶供樣；台積電COUPE平台則被市場點名可能供應超微、輝達Vera Rubin等潛在客戶光子引擎方案，惟台積電官方未證實具體客戶名單。高盛報告並指出，Marvell於2026年宣布收購CPO新創Celestial AI，強化其CPO for XPU(客製化AI晶片)布局；輝達CPO布局分兩層推進——機櫃間交換器互連(Quantum-X／Spectrum-X Photonics)已隨Blackwell Ultra至Rubin世代量產爬坡，機櫃內GPU對GPU的NVLink互連則據輝達2026年3月GTC公布的路線圖，將延後至下一世代Feynman(規劃2028年)才導入光學NVLink，Rubin Ultra世代的NVLink互連仍以銅纜為主，此一時程隨路線圖持續調整，實際導入世代請以輝達官方公告為準。總頻寬等於「通道數×單通道速率」，而單通道速率存在物理上限，下一階段頻寬提升須仰賴增加堆疊層數：大立光已於Computex展示4排×8入口、合計約6.4T的多層堆疊光纖陣列示範；台積電COUPE平台路線圖則規劃先以單層(single-layer)方案於2026年量產，2030年前後才會邁向多層(multi-layer)堆疊世代，現階段客戶需求仍以單層方案為主。",
               companies:[{n:"台積電",tw:1,code:"2330"},{n:"博通 Broadcom"},{n:"輝達 NVIDIA"},{n:"Marvell"},{n:"Celestial AI"},{n:"大立光",tw:1,code:"3008"}],
               stats:[{v:"102.4 Tb/s",l:"博通Tomahawk 6-Davisson CPO交換容量"},{v:"約6.4T",l:"大立光Computex展示4排×8入口多層堆疊示範頻寬"}] },
             { icon:"icon-package", title:"先進封裝整合(與交換器ASIC共封裝)", sub:"ADVANCED PACKAGING WITH SWITCH ASIC",
@@ -3891,7 +3932,7 @@
               companies:[{n:"旺矽科技",tw:1,code:"6223"},{n:"致茂電子",tw:1,code:"2360"},{n:"鴻勁精密",tw:1,code:"7769"}],
               stats:[{v:"2026年10月",l:"鴻勁CPO光電同測設備起始出貨月份"}] }
           ] },
-        { icon:"icon-network", title:"光路交換(OCS)", sub:"OPTICAL CIRCUIT SWITCHING (OCS)",
+        { icon:"icon-network", title:"光路交換(OCS)", parallelGroup:"photonic-interconnect-approaches", sub:"OPTICAL CIRCUIT SWITCHING (OCS)",
           tags:["networking-interconnect"],
           desc:"OCS利用MEMS微鏡陣列直接在光域上進行路由切換，訊號無需經過光電轉換，可大幅降低資料中心網路的延遲與功耗，是Google等雲端業者用於叢集內拓樸動態重組的關鍵技術。高盛報告將OCS與CPO並列為AI基礎設施光通訊下一波成長動能，惟OCS供應鏈國際化程度高，台廠參與度目前仍低於CPO與傳統光模組環節。",
           companies:[{n:"Google"},{n:"Lumentum"},{n:"Coherent"}],
@@ -4214,7 +4255,7 @@
           children:[
             { icon:"icon-package", title:"鉭質電容", sub:"TANTALUM CAPACITOR",
               desc:"具高容值密度與長期穩定性，廣泛用於通訊基礎設施、工業與車用電子。國巨於2020年併購美商KEMET後，成為全球前三大鉭質電容供應商之一。",
-              companies:[{n:"國巨（KEMET）",tw:1}],
+              companies:[{n:"國巨（KEMET）",tw:1,code:"2327"}],
               stats:[] },
             { icon:"icon-package", title:"固態電解電容", sub:"POLYMER SOLID CAPACITOR",
               desc:"具低等效串聯電阻（ESR）與長壽命特性，常用於主機板、電源供應器等電源濾波電路，鈺邦是台灣固態電容主要供應商，產品線涵蓋消費性與工業應用。",
@@ -4325,11 +4366,14 @@
         "TrendForce－「2024年全球十大封測廠營收排名」與後續AI先進封裝供需分析",
         "各封測廠（日月光、力成、京元電子、南茂科技等）法說會簡報與公開資訊觀測站公告",
         "科技新報、經濟日報、工商時報等媒體對日月光VIPack、力成2.5D/3D先進封裝與FOPLP供應鏈報導",
-        "SEMI、豐雲學堂等產業研究機構之封測與導線架／載板供應鏈整理"
+        "SEMI、豐雲學堂等產業研究機構之封測與導線架／載板供應鏈整理",
+        "科技新報－「晶片走向系統、先進封裝成關鍵戰場！Rapidus：晶圓代工、基板、OSAT廠競爭加劇」(2026年8月)報導Rapidus封裝業務技術長Rozalia Beica於OCP APAC Summit 2026之演講內容",
+        "design-reuse.com對Rapidus面板級中介層(Panel-Level Interposer)規劃之技術分析報導",
+        "Rapidus Corporation官方網站與其IIM(Innovative Integration and Manufacturing)模式公開說明"
       ],
       disclaimer: "本頁面為公開資訊整理彙編，市占率、產能與產品規格等數據會隨市場狀況與廠商公告持續變動，僅供產業脈絡參考，不構成任何投資建議。",
       nodes: [
-        { icon:"icon-substrate", title:"封裝基礎材料（導線架／載板／樹脂）", sub:"LEADFRAME / SUBSTRATE / MOLDING MATERIALS",
+        { icon:"icon-substrate", title:"封裝基礎材料（導線架／載板／樹脂）", parallelGroup:"pkg-materials", sub:"LEADFRAME / SUBSTRATE / MOLDING MATERIALS",
           tags:["ic-substrate"],
           desc:"導線架、IC封裝載板與環氧樹脂模封料(EMC)是打線封裝與覆晶封裝的三大基礎材料，分別對應晶片承載、線路布局與機構保護功能，材料規格與供貨穩定度直接影響下游封測廠的產能與成本結構。",
           companies:[{n:"順德工業",tw:1,code:"2351"},{n:"欣興",tw:1,code:"3037"},{n:"長興材料",tw:1,code:"1717"}],
@@ -4350,7 +4394,7 @@
               companies:[{n:"住友電木 Sumitomo Bakelite"},{n:"信越化學 Shin-Etsu"},{n:"長興材料",tw:1,code:"1717"}],
               stats:[] }
           ] },
-        { icon:"icon-interconnect", title:"打線材料（金線／銅線）", sub:"BONDING WIRE MATERIALS",
+        { icon:"icon-interconnect", title:"打線材料（金線／銅線）", parallelGroup:"pkg-materials", sub:"BONDING WIRE MATERIALS",
           desc:"打線接合是傳統封裝最主要的晶片對外連接方式，金線、銅線與鈀銅合金線的線徑、純度與延展性直接影響打線良率與長期可靠度，銅線已因成本優勢逐漸取代部分金線應用。",
           companies:[{n:"田中貴金屬"},{n:"賀利氏 Heraeus"}],
           stats:[],
@@ -4368,7 +4412,7 @@
               companies:[{n:"ASM Pacific Technology"},{n:"Kulicke & Soffa"}],
               stats:[] }
           ] },
-        { icon:"icon-package", title:"傳統打線封裝(Wire Bonding Package)", sub:"QFN / QFP / SOP PACKAGING",
+        { icon:"icon-package", title:"傳統打線封裝(Wire Bonding Package)", parallelGroup:"pkg-technology-types", sub:"QFN / QFP / SOP PACKAGING",
           desc:"以打線接合技術將晶片電性連接至導線架或基板，再以環氧樹脂模封成型，是成本最低、應用最廣泛的封裝型態，廣泛用於類比IC、電源管理IC、MCU與消費性電子產品。",
           companies:[{n:"日月光",tw:1,code:"3711"},{n:"菱生精密",tw:1,code:"2369"},{n:"南茂科技",tw:1,code:"8150"}],
           stats:[],
@@ -4386,7 +4430,7 @@
               companies:[{n:"日月光",tw:1,code:"3711"},{n:"南茂科技",tw:1,code:"8150"}],
               stats:[] }
           ] },
-        { icon:"icon-interconnect", title:"覆晶封裝(Flip Chip)", sub:"FC-BGA / FC-CSP PACKAGING",
+        { icon:"icon-interconnect", title:"覆晶封裝(Flip Chip)", parallelGroup:"pkg-technology-types", sub:"FC-BGA / FC-CSP PACKAGING",
           desc:"覆晶封裝以晶片正面凸塊直接倒裝焊接於載板，取代傳統打線，大幅縮短訊號路徑、提升電性表現與散熱效率，是CPU、GPU與高階邏輯晶片的主流封裝型態。",
           companies:[{n:"日月光",tw:1,code:"3711"},{n:"矽品",tw:1},{n:"力成",tw:1,code:"6239"}],
           stats:[],
@@ -4404,7 +4448,7 @@
               companies:[{n:"力成",tw:1,code:"6239"},{n:"日月光",tw:1,code:"3711"}],
               stats:[] }
           ] },
-        { icon:"icon-package", title:"先進封裝／異質整合(OSAT自主平台)", sub:"ADVANCED PACKAGING / HETEROGENEOUS INTEGRATION",
+        { icon:"icon-package", title:"先進封裝／異質整合(OSAT自主平台)", parallelGroup:"pkg-technology-types", sub:"ADVANCED PACKAGING / HETEROGENEOUS INTEGRATION",
           desc:"面對晶圓代工廠CoWoS等先進封裝方案的競爭與互補，主要封測廠亦各自發展自有先進封裝平台，將多顆異質晶粒(Chiplet)整合於扇出型基板或橋接結構上，是封測廠切入AI與高效能運算供應鏈、拉高附加價值的關鍵戰略布局。",
           companies:[{n:"日月光",tw:1,code:"3711"},{n:"力成",tw:1,code:"6239"},{n:"矽品",tw:1},{n:"Amkor"}],
           stats:[],
@@ -4423,7 +4467,28 @@
               companies:[{n:"Amkor"},{n:"JCET 江蘇長電科技"}],
               stats:[] }
           ] },
-        { icon:"icon-package", title:"晶圓級封裝(WLP／Fan-Out)", sub:"WAFER-LEVEL PACKAGING / FAN-OUT",
+        { icon:"icon-package", title:"晶圓代工／基板廠跨界競逐先進封裝：Rapidus案例", parallelGroup:"pkg-technology-types", sub:"FOUNDRY × SUBSTRATE MAKER CONVERGENCE (RAPIDUS CASE)",
+          desc:"日本新創晶圓代工廠Rapidus除了主推2奈米以下邏輯製程，也積極布局自有先進封裝平台，並在2026年OCP APAC高峰會上，由其封裝業務技術長Rozalia Beica發表產業趨勢演說。她指出AI正重新定義半導體創新的重心，封裝已從製程的最後一哩路，變成決定系統效能與差異化的關鍵戰場；競爭邏輯也從「晶片對晶片」轉向「生態系對生態系」。隨著晶圓代工廠、基板／載板廠與OSAT封測廠都想切入更高複雜度的先進封裝環節，三方陣營的技術版圖正逐漸重疊，形成跨界競爭態勢。",
+          companies:[{n:"Rapidus"}],
+          stats:[{v:"約1.6兆美元",l:"麥肯錫估2030年全球半導體市場規模(2021年逾5,000億美元)"}],
+          tags:["advanced-packaging"],
+          children:[
+            { icon:"icon-package", title:"封裝平台版圖收斂：業界俗稱MEOL的中段製程地帶", sub:"PACKAGING CONVERGENCE TOWARD MID-PROCESS (\"MEOL\")",
+              desc:"隨著先進封裝整合的晶粒與功能越來越多，晶片翹曲(Warpage)問題日益嚴重，促使業界導入玻璃核心、矽核心、陶瓷核心等高剛性材料因應。原本壁壘分明的晶圓代工前段製程(FEOL)、基板／載板後段製造(BEOL)與封測廠(OSAT)，也因此朝封裝製程的中段地帶匯流競爭，業界常以「MEOL」（Middle-End-of-Line，中段製程）稱呼這個晶圓廠、基板廠、OSAT三方陣營技術版圖重疊、彼此既競爭又互補的中間地帶。Rapidus預期到2030年，先進系統將整合2奈米以下邏輯製程、高頻寬記憶體、Chiplet、光互連與混合鍵合、面板級封裝等多項技術於同一平台，此一「產業版圖收斂」的框架與座標式定位圖，是Rapidus在OCP APAC 2026演講中用以說明產業趨勢的整理方式，實際各廠布局仍以官方公告為準。",
+              companies:[{n:"Rapidus"}],
+              stats:[] },
+            { icon:"icon-substrate", title:"Rapidus的IIM模式：300mm晶圓與600mm大面板雙軌並行", sub:"INNOVATIVE INTEGRATION & MANUFACTURING (IIM)",
+              desc:"Rapidus規劃以「創新整合與製造」(IIM, Innovative Integration and Manufacturing)模式，在同一廠區內整合前段晶圓製程與後段封裝製程，並導入AI感測與製程預測技術，讓晶片設計與封裝製造協同最佳化。IIM同時提供300mm晶圓級與600mm面板級兩種先進封裝路線：面板級路線以矩形大面板取代圓形晶圓做為中介層(Interposer)載體，藉由更大的單批次可用面積提升生產效率、降低單位面積成本。以同一顆8倍光罩(Reticle)尺寸中介層為例，Rapidus規劃至2030年可望在300mm晶圓上切出4顆，300×300mm面板切出9顆，510×515mm面板切出36顆，600×600mm面板則可達49顆；中介層面積則依4倍、6倍、8倍光罩規劃，分別約為3,320、4,980、6,640平方毫米，逐世代放大。Rapidus已於2025年展示大尺寸面板中介層原型，但外部報導對於原型材質(玻璃或有機材料)與正式量產時程說法不一，實際規格仍待官方正式公告確認。",
+              companies:[{n:"Rapidus"}],
+              stats:[{v:"49顆／片",l:"Rapidus規劃600×600mm面板可切出的8倍光罩中介層數量，較300mm晶圓(4顆)大幅提升"},{v:"6,640mm²",l:"8倍光罩中介層規劃面積，對應600×600mm面板製程"}] },
+            { icon:"icon-package", title:"高階效能封裝技術演進：邁向異質整合的八種平台", sub:"ADVANCED PACKAGING EVOLUTION TOWARD HETEROGENEOUS INTEGRATION",
+              diagram:"DIAGRAM_PKG_EVOLUTION",
+              diagramCaption:"高階效能封裝技術演進：由單晶粒覆晶封裝(FCBGA)出發，經矽中介層路線(基本型、光罩分割配置、多晶粒＋HBM)、基板內嵌橋接(EMIB)、有機面板中介層(RDL Interposer)、玻璃核心基板，最終走向3D/3.5D混合鍵合堆疊，呈現業界以不同技術路徑逼近同一目標：更高密度的異質整合。",
+              desc:"從最基礎的單晶粒覆晶球柵陣列封裝(FCBGA)出發，先進封裝技術大致沿著兩條路線往異質整合演進：一是矽中介層(Si Interposer)路線，從單純的邏輯晶片＋記憶體並列，發展到以光罩接合(Reticle Stitching)技術突破單一曝光尺寸上限的分割配置，再到整合多顆邏輯晶粒與多顆HBM的高階組態；二是尋求中介層替代方案的路線，包括僅在晶粒交界處嵌入小面積矽橋接、降低成本的英特爾EMIB架構，以重佈線層(RDL)取代矽中介層、可用面板製程量產的2.3D有機中介層，以及以玻璃或陶瓷核心提升剛性、抑制大面積封裝翹曲的玻璃核心基板。兩條路線最終都指向3D/3.5D混合鍵合堆疊——晶粒間以銅對銅直接鍵合取代傳統凸塊，堆疊密度最高、訊號延遲最短，是目前異質整合的技術終點。",
+              companies:[],
+              stats:[] }
+          ] },
+        { icon:"icon-package", title:"晶圓級封裝(WLP／Fan-Out)", parallelGroup:"pkg-technology-types", sub:"WAFER-LEVEL PACKAGING / FAN-OUT",
           desc:"晶圓級封裝直接在整片晶圓上完成封裝工序後才切割成單顆晶片，省略傳統載板環節，具備薄型化與低成本優勢；扇出型封裝(Fan-Out)更以重佈線層擴展I/O布局空間，近年並延伸至面板級封裝(FOPLP)以提升生產效率。",
           companies:[{n:"日月光",tw:1,code:"3711"},{n:"矽品",tw:1},{n:"力成",tw:1,code:"6239"}],
           stats:[],
@@ -4592,6 +4657,7 @@
     {
       icon: "icon-transformer",
       title: "超高壓變壓器",
+      parallelGroup: "power-equipment-types",
       sub: "ULTRA-HIGH-VOLTAGE TRANSFORMERS",
       desc: "AI資料中心與半導體先進製程廠帶動特高壓、超高壓電力變壓器需求，台電同步啟動10年5,645億元強韌電網計畫。「重電四雄」華城、士電、中興電、亞力訂單能見度普遍延伸至2028至2030年，2026年第一季合計在手訂單逾800億元，成為台股AI電力題材的核心指標股。",
       companies: [
@@ -4654,6 +4720,7 @@
     {
       icon: "icon-grid",
       title: "氣體絕緣開關設備(GIS)與配電盤",
+      parallelGroup: "power-equipment-types",
       sub: "GAS-INSULATED SWITCHGEAR & PANELS",
       desc: "資料中心與半導體廠擴建帶動受電盤、配電盤及超高壓氣體絕緣開關(GIS)需求，台電及台積電新廠陸續釋出GIS標案；中興電、亞力等廠商受惠，訂單能見度延伸至2029年以後。",
       companies: [
@@ -4707,6 +4774,7 @@
     {
       icon: "icon-network",
       title: "電網基礎建設與特高壓輸電",
+      parallelGroup: "power-equipment-types",
       sub: "GRID INFRASTRUCTURE & TRANSMISSION",
       tags: ["power-thermal"],
       desc: "台電推動10年5,645億元強韌電網計畫，強化電網分散韌性、擴建特高壓變電站，並研議對大型資料中心採「電廠直供」機制；離岸風電併網與跨區輸電同步帶動電網層級高壓直流輸電(HVDC)技術的應用討論。",
@@ -4768,6 +4836,7 @@
     {
       icon: "icon-chip",
       title: "功率半導體(SiC／GaN)",
+      parallelGroup: "power-equipment-types",
       sub: "POWER SEMICONDUCTORS",
       desc: "AI伺服器800V直流供電架構帶動SiC、GaN等第三代半導體需求；357億美元(2024年)成長至615億美元(2030年)、年複合成長率約9.5%的估計為整體功率半導體市場規模（含矽基IGBT/MOSFET等），各機構對純SiC/GaN市場規模的估值遠低於此，具體數字應個別查證來源；台廠涵蓋從基板磊晶到功率元件代工的完整供應鏈。",
       companies: [
@@ -4819,6 +4888,7 @@
     {
       icon: "icon-power",
       title: "資料中心備援電力：UPS、發電機與BBU",
+      parallelGroup: "power-equipment-types",
       sub: "BACKUP POWER, UPS & BBU",
       desc: "AI伺服器機櫃功率持續攀升，帶動不斷電系統(UPS)、備用發電機組與伺服器內建備援電池模組(BBU)需求同步成長，其中BBU可在市電中斷瞬間提供毫秒級電力支撐，2026年已成為北美CSP資料中心機櫃標配元件。",
       companies: [
@@ -4877,6 +4947,7 @@
     {
       icon: "icon-battery",
       title: "儲能系統(ESS)",
+      parallelGroup: "power-equipment-types",
       sub: "ENERGY STORAGE SYSTEMS",
       desc: "電網尖離峰調度壓力與資料中心用電穩定性需求，帶動表前(電廠級)與表後(用戶端)儲能系統建置；經濟部並推出表後儲能補助方案，台泥、格斯科技、興能高等廠商跨足電芯製造與系統整合。",
       companies: [
@@ -4917,6 +4988,7 @@
     {
       icon: "icon-device",
       title: "智慧電網與電表(AMI)",
+      parallelGroup: "power-equipment-types",
       sub: "SMART GRID & AMI METERING",
       desc: "台電規劃2030年布建600萬具智慧電表(AMI)並升級饋線自動化與電網監控系統，作為強韌電網與因應資料中心大型負載進駐的基礎工程，大同、康舒、玖鼎電力等廠商受惠標案商機。",
       companies: [
@@ -5310,25 +5382,51 @@
         },
         {
           icon: "icon-litho",
-          title: "TGV雷射穿孔兩大陣營：全乾式裂解 vs LIDE雷射改質濕蝕刻",
-          sub: "TGV LASER DRILLING: DRY LASER SPLIT VS LIDE",
-          desc: "玻璃質地又硬又脆，傳統機械鑽孔容易直接碎裂，因此玻璃通孔(TGV)幾乎全數改用雷射加工，目前業界最受關注的兩條路線分別是「全乾式雷射裂解」與「雷射改質＋濕式化學蝕刻(LIDE)」。以康寧(Corning)的CLT(Corning Laser Technologies)全乾式製程為例：先以皮秒雷射沿設計路徑在玻璃內部打出一連串奈米級穿孔引導線，再射出一道CO2雷射，透過熱應力使玻璃沿著引導線精準裂解、整齊脫落，全程不需濕蝕刻，孔壁也相對垂直平整。LIDE(雷射誘導深蝕刻，Laser Induced Deep Etching)則以德商LPKF為代表，是目前業界最主流的TGV路線：同樣先以皮秒雷射在玻璃內部形成局部改質區(不直接打穿)，再以強酸濕式蝕刻將已改質的區域快速溶解、形成穿孔。LIDE的優勢在於孔壁光滑、無重凝層(recast layer)、也沒有雷射直接燒穿常見的熱影響區(HAZ)或微裂紋，加上量產效率與良率較高、可達到小於10微米的孔徑與大於50:1的深寬比，是目前多數設備商投入的主要方向；但因濕蝕刻是等向性反應，越早接觸蝕刻液的表面(即孔洞開口處)被溶解的時間也越長，理論上容易使孔洞兩端開口略大、中段相對較細，形成中央內縮的孔形，這會提高後續無孔洞(void-free)填銅的難度，是LIDE製程仍待持續優化的環節。之所以採用皮秒甚至飛秒等級的超短脈衝雷射，關鍵在於能在數兆分之一秒至千兆分之一秒的極短時間內釋放能量，讓玻璃分子鏈在熱量還來不及傳導擴散前就被切斷，藉此避免熱影響區與玻璃碎裂；同時透過非線性光學吸收效應，使雷射能量集中在玻璃內部特定焦點造成局部改質，是達成小孔徑、高深寬比穿孔的物理基礎。",
+          title: "皮秒雷射打孔的物理原理：玻璃為何不能用一般雷射加工",
+          sub: "WHY PICOSECOND / FEMTOSECOND LASERS FOR TGV",
+          desc: "玻璃質地又硬又脆，傳統機械鑽孔或長脈衝雷射都容易讓玻璃直接碎裂，因此業界TGV(玻璃通孔)加工幾乎全數改用皮秒甚至飛秒等級的超短脈衝雷射。\n\n關鍵在於這類雷射能在數兆分之一秒至千兆分之一秒的極短時間內釋放能量，讓玻璃分子鏈在熱量還來不及傳導擴散前就被切斷，避免熱影響區(HAZ)與周邊微裂紋；同時利用非線性光學吸收效應，使雷射能量集中聚焦在玻璃內部特定焦點形成局部改質，是後續達成小孔徑、高深寬比穿孔的物理基礎。",
+          companies: [],
+          stats: []
+        },
+        {
+          icon: "icon-litho",
+          title: "TGV兩大技術陣營：康寧CLT全乾式裂解 vs LPKF LIDE濕蝕刻",
+          sub: "TWO CAMPS: CORNING CLT (DRY) VS LPKF LIDE (WET ETCH)",
+          desc: "目前業界TGV加工主要分成兩條路線。康寧(Corning)的CLT(Corning Laser Technologies)製程屬全乾式：先以雷射沿設計路徑在玻璃內部打出一連串奈米級引導孔，再以CO2雷射熱應力使玻璃沿引導線精準裂解脫落，全程不經濕蝕刻，孔壁相對垂直平整。\n\n以德商LPKF為代表的LIDE(雷射誘導深蝕刻)則是目前最主流的路線：先以雷射在玻璃內部形成局部改質區(尚未打穿)，再以強酸濕式蝕刻將改質區快速溶解成孔，孔壁光滑、無重凝層(recast layer)，量產效率與良率也較高，可達到小於10微米孔徑、大於50:1深寬比的水準，是目前多數設備商投入的主要方向。",
           companies: [{n:"康寧 Corning"},{n:"LPKF"},{n:"鈦昇",tw:1,code:"8027"}],
-          stats: [{v:"<10μm",l:"LIDE製程可達成的孔徑水準"},{v:">50:1",l:"LIDE製程可達成的深寬比水準"}]
+          stats: [{v:"<10μm",l:"LIDE製程可達成的孔徑水準"},{v:">50:1",l:"LIDE製程可達成的深寬比水準"}],
+          diagram: "DIAGRAM_TGV_CLT_LIDE",
+          diagramCaption: "康寧CLT以雷射沿路徑打出一連串奈米級引導孔、再以熱應力全乾式裂解，孔壁相對垂直平整；LPKF LIDE先以雷射在玻璃內部形成局部改質區，再以強酸濕蝕刻溶孔，孔壁光滑無重凝層，是目前多數設備商投入的主流路線。"
+        },
+        {
+          icon: "icon-metrology",
+          title: "LIDE的孔形難題：中央內縮如何拖累填銅良率",
+          sub: "LIDE HOURGLASS PROFILE & VOID-FREE COPPER FILL",
+          desc: "LIDE屬於等向性濕蝕刻，孔洞開口處最早接觸蝕刻液、被溶解的時間也最長，理論上容易讓孔洞兩端開口略大、中段相對較細，形成中央內縮的沙漏狀孔形。\n\n這種孔形會讓後段電鍍填銅時，電鍍液與銅離子更不容易均勻填滿孔洞中段，若殘留氣泡就會形成孔洞(Void)缺陷，直接影響銅柱電性可靠度與整體良率——這也是「無孔洞(void-free)填銅」成為整段金屬化製程中最考驗設備與化學藥液配方環節的原因，是LIDE製程相較全乾式路線仍待持續優化的關鍵課題。",
+          companies: [],
+          stats: []
         },
         {
           icon: "icon-cmp",
-          title: "TGV金屬化製程：從種子層濺鍍到RDL重佈線",
-          sub: "TGV METALLIZATION: SEED LAYER TO RDL",
-          desc: "通孔成形後，TGV還須歷經表面清洗/改質、Ti/Cu種子層濺鍍、銅電鍍填孔、銅CMP平坦化，最後才進行RDL重佈線層金屬化與鍵合，才能完成一片可承載晶片的玻璃基板半成品：先以紫外線照射搭配鹼性脫脂清潔玻璃表面，再以物理氣相沉積(PVD)方式濺鍍一層鈦、一層銅作為導電種子層(業界也同步開發濕式化學鍍方案以提升孔壁覆蓋完整度)，接著以電化學沉積(電鍍)方式將銅填入孔中，之後再以CMP研磨將表面多餘銅層平坦化，才能進入後段RDL金屬化與鍵合。其中「無孔洞(void-free)填銅」是整段製程中最考驗設備與化學藥液配方的環節——尤其若孔形呈現LIDE製程常見的中段內縮，電鍍液與離子更不容易均勻填滿孔洞中段，容易在填銅過程中殘留氣泡形成孔洞缺陷，直接影響銅柱電性可靠度與整體良率。弘塑、辛耘等台灣濕製程設備廠具備半導體與ABF載板電鍍/清洗設備經驗，正評估延伸至玻璃基板填銅應用，惟目前多數仍處於與基板廠送樣測試階段，尚未進入量產供貨。",
+          title: "銅金屬化基礎製程：從種子層濺鍍到CMP平坦化",
+          sub: "COPPER METALLIZATION: SEED LAYER TO CMP",
+          desc: "通孔成形後，須先以紫外線照射搭配鹼性脫脂清潔玻璃表面，再以物理氣相沉積(PVD)濺鍍一層鈦、一層銅作為導電種子層(業界也同步開發濕式化學鍍方案以提升孔壁覆蓋完整度)，接著以電化學沉積(電鍍)方式將銅填入孔中，最後以CMP研磨將表面多餘銅層平坦化，才能進入後段RDL重佈線層金屬化與鍵合，完成一片可承載晶片的玻璃基板半成品。\n\n弘塑、辛耘等台灣濕製程設備廠具備半導體與ABF載板電鍍/清洗設備經驗，正評估延伸至玻璃基板填銅應用，惟目前多數仍處於與基板廠送樣測試階段，尚未進入量產供貨。",
           companies: [{n:"弘塑",tw:1,code:"3131"},{n:"辛耘",tw:1,code:"3583"}],
           stats: []
         },
         {
           icon: "icon-metrology",
-          title: "TGV品質檢測：從雷射鑽孔到填銅良率把關",
-          sub: "TGV INSPECTION: LASER DRILLING TO COPPER-FILL YIELD",
-          desc: "玻璃基板材質特殊，多數矽晶圓時代累積的光學檢測設備無法直接沿用，須重新開發專用檢測方案，是決定TGV良率的關鍵拼圖之一。雷射鑽孔階段可用「光彈檢測」(photoelastic stress detection)即時監控雷射加工在玻璃內部造成的殘留應力與微裂紋；鑽孔完成、尚未鍍銅前，則是唯一能直接看穿整孔的檢測窗口——因為金屬銅會阻擋光波穿透，此時須把握時機以穿透力極強的3D近紅外光(3D NIR)掃描整片面板的孔型與微裂紋分布，一旦鍍上銅這類光學方案就不再適用。進入填銅階段後，則改以能穿透金屬的X光作為主要檢測手段：先以2D/2.5D X-ray快速掃描整片面板，找出大面積電鍍不良的區塊，再針對有疑點的區域以離線3D X-ray CT進行抽樣檢測，確認銅柱與玻璃介面是否存在裂紋，最後再以高速多點飛針(flying probe)測試進行電性全檢，才算完成一輪完整品管。其中AOI(自動光學檢測)與AXI(自動X光檢測)是常被相提並論的兩種站點：AOI以高速光學相機拍照比對表面外觀缺陷，檢測速度快但看不穿金屬與內部結構；AXI則以X光穿透觀察內部與隱蔽處的結構缺陷，填銅後必須仰賴AXI才能確認銅柱內部是否有孔洞、裂紋等AOI無法偵測的問題，但檢測速度遠慢於AOI，兩者在TGV品管流程中屬互補而非替代關係。睿生光電以X光與3D-NIR非破壞檢測技術見長，是台灣少數同步布局AXI與先進封裝檢測方案的廠商之一。整體而言，CTE失配、玻璃裂紋控制、大尺寸面板平整度與良率仍是TGV量產前必須逐一克服的課題，市場普遍預期須到2028年以後才可能達到穩定量產的品質標準，與前述玻璃基板整體商用化時程互相呼應。",
+          title: "TGV檢測的時間窗難題：鍍銅前後方案完全不同",
+          sub: "INSPECTION WINDOW: BEFORE VS AFTER COPPER PLATING",
+          desc: "玻璃基板材質特殊，多數矽晶圓時代累積的光學檢測設備無法直接沿用。鑽孔完成、尚未鍍銅前，是唯一能直接看穿整孔的檢測窗口，可用光彈檢測(photoelastic stress detection)即時監控雷射加工殘留應力與微裂紋，並以穿透力極強的3D近紅外光(3D NIR)掃描整片面板孔型分布。\n\n一旦鍍上銅，金屬會阻擋光波穿透，這類光學方案就完全失效，必須改用能穿透金屬的X光接手：先以2D/2.5D X-ray快速掃描找出大面積電鍍不良區塊，再以離線3D X-ray CT對疑點區域抽樣檢測銅柱與玻璃介面是否有裂紋，最後以高速多點飛針(flying probe)測試進行電性全檢，才算完成一輪完整品管。",
+          companies: [],
+          stats: []
+        },
+        {
+          icon: "icon-metrology",
+          title: "AOI與AXI分工：光學檢測 vs X光透視檢測",
+          sub: "AOI (OPTICAL) VS AXI (X-RAY) — COMPLEMENTARY, NOT SUBSTITUTE",
+          desc: "AOI(自動光學檢測)與AXI(自動X光檢測)是TGV品管中常被相提並論的兩種站點：AOI以高速光學相機拍照比對表面外觀缺陷，速度快但看不穿金屬與內部結構；AXI則以X光穿透觀察內部與隱蔽處的結構缺陷，填銅後必須仰賴AXI才能確認銅柱內部是否有孔洞、裂紋等AOI無法偵測的問題，但檢測速度遠慢於AOI，兩者屬互補而非替代關係。睿生光電以X光與3D-NIR非破壞檢測技術見長，是台灣少數同步布局AXI與先進封裝檢測方案的廠商之一。\n\nCTE失配、玻璃裂紋控制與大尺寸面板平整度仍是TGV量產前的課題，市場普遍預期須到2028年以後才可能達到穩定量產的品質標準。",
           companies: [{n:"睿生光電",tw:1,code:"6861"}],
           stats: []
         }
@@ -5407,7 +5505,7 @@
       ]
     },
     {
-      icon:"icon-chip", title:"通訊酬載與射頻晶片", sub:"RF & COMPOUND SEMICONDUCTOR CHIPS",
+      icon:"icon-chip", title:"通訊酬載與射頻晶片", parallelGroup:"leo-satellite-components", sub:"RF & COMPOUND SEMICONDUCTOR CHIPS",
       desc:"衛星通訊酬載仰賴砷化鎵(GaAs)化合物半導體功率放大器與低雜訊放大器，以及支援5G非地面網路(NTN)直連衛星的通訊晶片。台灣在此環節具備國際級代工與IC設計能量，穩懋、全新為全球主要GaAs晶圓代工廠，聯發科則是5G NTN衛星直連晶片的技術先行者。",
       companies:[{n:"穩懋半導體",tw:1,code:"3105"},{n:"全新光電",tw:1,code:"2455"},{n:"聯發科",tw:1,code:"2454"},{n:"昇達科技",tw:1,code:"3491"}],
       stats:[{v:"全球前二大",l:"穩懋、全新GaAs晶圓代工市占地位"}],
@@ -5427,7 +5525,7 @@
       ]
     },
     {
-      icon:"icon-antenna", title:"相控陣天線與衛星用戶終端", sub:"PHASED ARRAY ANTENNA & USER TERMINAL",
+      icon:"icon-antenna", title:"相控陣天線與衛星用戶終端", parallelGroup:"leo-satellite-components", sub:"PHASED ARRAY ANTENNA & USER TERMINAL",
       desc:"相控陣天線是低軌衛星用戶終端（如Starlink小耳朵）的核心技術，可透過電子掃描追蹤快速移動的衛星。台灣廠商在天線模組設計、射頻整合與量測驗證上已建立利基地位，耀登、鐳洋切入相控陣天線與模組開發，川升則提供國際認證等級的衛星天線量測服務。",
       companies:[{n:"耀登科技",tw:1,code:"3138"},{n:"鐳洋科技",tw:1,code:"6980"},{n:"川升",tw:1}],
       stats:[{v:"NTN／低軌衛星",l:"耀登營運重點布局方向"}],
@@ -5448,7 +5546,7 @@
       ]
     },
     {
-      icon:"icon-network", title:"地面閘道站與網通設備", sub:"GROUND GATEWAY & TELECOM EQUIPMENT",
+      icon:"icon-network", title:"地面閘道站與網通設備", parallelGroup:"leo-satellite-components", sub:"GROUND GATEWAY & TELECOM EQUIPMENT",
       desc:"地面閘道站與用戶端網通設備是台灣網通產業最直接受惠低軌衛星商機的環節。台揚科技以VSAT地面收發機同時打入SpaceX、OneWeb、Kymeta三大客戶；啟碁科技將既有CPE與無線通訊技術延伸至衛星寬頻終端；兆赫電子則以LNB降頻器等微波通訊元件受惠寬頻升級與低軌衛星雙浪潮。",
       companies:[{n:"台揚科技",tw:1,code:"2314"},{n:"啟碁科技",tw:1,code:"6285"},{n:"兆赫電子",tw:1,code:"2485"}],
       stats:[{v:"逾9成",l:"台揚VSAT衛星收發機市占率(公司自述，無第三方統計)"}],
@@ -5468,7 +5566,7 @@
       ]
     },
     {
-      icon:"icon-substrate", title:"衛星結構件、電路板與精密機構", sub:"STRUCTURES, HDI PCB & PRECISION PARTS",
+      icon:"icon-substrate", title:"衛星結構件、電路板與精密機構", parallelGroup:"leo-satellite-components", sub:"STRUCTURES, HDI PCB & PRECISION PARTS",
       desc:"衛星本體需要輕量化航太結構件與耐輻射、耐溫差的高密度電路板。華通以太空級高密度互連板(HDI)拿下Starlink近8成太空板訂單，成為全台最純的低軌衛星PCB概念股；漢翔與公準則供應航太等級結構件與精密機構零組件，同欣電投入陶瓷電路板與高頻混合模組。",
       companies:[{n:"華通",tw:1,code:"2313"},{n:"漢翔航空工業",tw:1,code:"2634"},{n:"公準精密",tw:1,code:"3178"},{n:"同欣電",tw:1,code:"6271"}],
       stats:[{v:"近8成",l:"華通在Starlink太空板市占（市場估算）"}],
@@ -5488,7 +5586,7 @@
       ]
     },
     {
-      icon:"icon-battery", title:"太陽能板與衛星電源系統", sub:"SOLAR ARRAYS & POWER SYSTEMS",
+      icon:"icon-battery", title:"太陽能板與衛星電源系統", parallelGroup:"leo-satellite-components", sub:"SOLAR ARRAYS & POWER SYSTEMS",
       desc:"衛星電力仰賴太陽能電池陣列與電源管理系統。元晶太陽能是台灣唯一自2022年起打入SpaceX太陽能供應鏈的廠商，是這個環節少數具體可查證的台灣角色；衛星等級太陽能陣列整合與長壽命鋰電池、電源管理仍以國際航太電源專業廠商為主，台灣廠商尚未有確認切入的公開案例。",
       companies:[{n:"元晶太陽能",tw:1,code:"6443"},{n:"Airbus Defence and Space"},{n:"EnerSys (ABSL Space Products)"}],
       stats:[{v:"2022年起",l:"元晶打入SpaceX太陽能供應鏈時間"}],
@@ -5508,11 +5606,13 @@
       ]
     },
     {
-      icon:"icon-interconnect", title:"光通訊模組與星間鏈路", sub:"OPTICAL MODULES & INTER-SATELLITE LINK",
+      icon:"icon-interconnect", title:"光通訊模組與星間鏈路", parallelGroup:"leo-satellite-components", sub:"OPTICAL MODULES & INTER-SATELLITE LINK",
       tags:["optical-communications"],
       desc:"衛星間雷射通訊(光學ISL)可大幅提升星系內部傳輸速率並降低對地面站依賴，是新一代低軌星系的關鍵技術。台灣既有的光通訊供應鏈——聯鈞、光聖、華星光等公司——正將既有雷射封裝與光收發模組技術，從資料中心應用延伸至低軌衛星光通訊市場，被市場稱為「新護國群山」。",
       companies:[{n:"聯鈞光電",tw:1,code:"3450"},{n:"光聖",tw:1,code:"6442"},{n:"華星光",tw:1,code:"4979"}],
       stats:[],
+      diagram: "DIAGRAM_SAT_LASER_LINK",
+      diagramCaption: "兩枚衛星各自搭載可指向的光學終端機，以調變雷射光束精準對準並傳輸資料，取代傳統無線電星間鏈路；終端機內的TOSA／ROSA收發次組件封裝精度，直接決定鏈路對準能力與傳輸品質。",
       children:[
         { icon:"icon-interconnect", title:"光收發模組與雷射封裝", sub:"OPTICAL TRANSCEIVER PACKAGING",
           desc:"聯鈞光電(3450)以雷射二極體封裝與光收發模組見長，近年切入高毛利發射端封裝與光通訊整合平台，市場將其列為低軌衛星光通訊潛在受惠廠商之一，同時是資料中心與矽光子應用成長的核心供應商。",
@@ -5590,6 +5690,7 @@
     {
       icon: "icon-chip",
       title: "x86架構設計與IDM廠商",
+      parallelGroup: "cpu-design-camps",
       sub: "X86 ARCHITECTURE & IDM VENDORS",
       desc: "x86指令集架構主導PC與伺服器CPU市場逾40年，由Intel與AMD交叉授權雙寡頭把持。Intel採IDM（整合元件製造）模式，自有晶圓廠並近年轉向對外代工雙軌並行；AMD則為Fabless純設計公司，先進製程全數委由台積電代工。2026年第一季Mercury Research數據顯示，AMD伺服器CPU營收市占率已達46.2%的歷史新高，持續侵蝕Intel市占。",
       companies: [
@@ -5625,6 +5726,7 @@
     {
       icon:"icon-ip",
       title:"ARM陣營CPU設計商",
+      parallelGroup:"cpu-design-camps",
       sub:"ARM ECOSYSTEM CPU DESIGNERS",
       desc:"ARM架構憑藉高能效優勢，從行動裝置跨足PC與伺服器市場：ARM Holdings以IP授權模式收取設計費與晶片出貨權利金；高通將Snapdragon手機晶片經驗延伸至PC處理器Snapdragon X系列；原美系新創Ampere Computing專攻雲端伺服器ARM CPU，已於2025年11月由SoftBank以65億美元完成收購私有化。",
       companies:[
@@ -5729,7 +5831,9 @@
           icon:"icon-package", title:"台積電CoWoS", sub:"TSMC CHIP-ON-WAFER-ON-SUBSTRATE",
           desc:"台積電CoWoS先進封裝產能長年供不應求，主要供應Nvidia GPU與AMD高階CPU/GPU平台，是AI伺服器晶片異質整合不可或缺的關鍵製程，也是台積電相較Intel自有封裝技術最大的競爭優勢來源。",
           companies:[{n:"台積電",tw:1,code:"2330"},{n:"AMD",code:"AMD"}],
-          stats:[{v:"CoWoS",l:"台積電主力先進封裝技術平台"}]
+          stats:[{v:"CoWoS",l:"台積電主力先進封裝技術平台"}],
+          diagram: "DIAGRAM_COWOS",
+          diagramCaption: "CoWoS結構示意：運算晶粒與多顆HBM記憶體堆疊共同座落於矽中介層上，中介層內以TSV垂直導通，再經錫球連接至下方封裝基板。"
         },
         {
           icon:"icon-package", title:"日月光與力成", sub:"ASE & POWERTECH OSAT",
@@ -5804,6 +5908,7 @@
     {
       icon:"icon-device",
       title:"下游PC/NB品牌",
+      parallelGroup:"cpu-downstream-channels",
       sub:"DOWNSTREAM PC & NOTEBOOK BRANDS",
       desc:"台灣華碩、宏碁、技嘉為全球主要PC/NB品牌與硬體廠商，橫跨Intel、AMD、Qualcomm三大CPU陣營產品線採購，同時也是Windows on Arm、AI PC等新平台的先行導入者，直接反映CPU廠商新品的終端市場接受度。",
       companies:[{n:"華碩",tw:1,code:"2357"},{n:"宏碁",tw:1,code:"2353"},{n:"技嘉",tw:1,code:"2376"}],
@@ -5832,6 +5937,7 @@
     {
       icon:"icon-server",
       title:"下游伺服器OEM/ODM",
+      parallelGroup:"cpu-downstream-channels",
       sub:"DOWNSTREAM SERVER OEM/ODM",
       desc:"台灣伺服器ODM/OEM廠商掌握全球雲端資料中心伺服器代工絕大部分產能，緯穎、廣達（雲達）、鴻海、緯創、英業達均是Intel Xeon、AMD EPYC與Ampere等ARM伺服器CPU平台的主要系統整合夥伴，直接受惠AI伺服器需求爆發。",
       companies:[{n:"緯穎",tw:1,code:"6669"},{n:"廣達",tw:1,code:"2382"},{n:"鴻海",tw:1,code:"2317"}],
@@ -6055,6 +6161,11 @@
     });
   }
 
+  function descHtml(desc){
+    return (desc||"").split(/\n\n+/).map(function(p){
+      return '<p class="panel-desc">'+p+'</p>';
+    }).join("");
+  }
   function chipsHtmlFor(companies){
     return (companies||[]).map(function(c){
       return '<button type="button" class="chip'+(c.tw?' tw':'')+'" data-company="'+escapeHtml(c.n)+'">' + (c.tw ? '<span class="tw-dot"></span><span class="tw-tag">TW</span>' : '') +
@@ -6141,7 +6252,7 @@
           '<h2 class="panel-title">'+node.title+'</h2>' +
           '<div class="panel-sub">'+(node.sub||"")+'</div>' +
         '</div></div>' +
-        '<p class="panel-desc">'+node.desc+'</p>' +
+        descHtml(node.desc) +
         diagramHtmlFor(node) +
         parallelHtml +
         crossLinkHtml +
@@ -6195,7 +6306,7 @@
           '<h2 class="panel-title">'+child.title+'</h2>' +
           '<div class="panel-sub">'+(child.sub||"")+'</div>' +
         '</div></div>' +
-        '<p class="panel-desc">'+child.desc+'</p>' +
+        descHtml(child.desc) +
         diagramHtmlFor(child) +
         '<div class="chip-label">代表廠商</div>' +
         '<div class="chips">'+chipsHtmlFor(child.companies)+'</div>' +
@@ -6249,6 +6360,59 @@
   var companyIndex = null;
   var topicIndex = null;
 
+  /* 拼音／模糊搜尋輔助：
+     - pinyinOf()：中文轉無聲調拼音（查不到對照表的字元直接跳過，不影響比對），
+       同時回傳「全拼」(full，如"taijidian") 與「首字母」(initials，如"tjd") 兩種形式，
+       讓使用者不論輸入全拼還是縮寫都找得到。非中文字元（英數字）原樣併入 full／initials。
+     - fuzzySubsequenceScore()：模糊比對——只要 query 的每個字元依序（不需連續）出現在
+       目標字串中就算命中，回傳命中範圍的跨距(spread)做為排序依據（跨距愈小代表愈接近
+       精確比對），用於容忍打錯字或漏字的情況；查無則回傳 -1。 */
+  function pinyinOf(str){
+    var full = "", initials = "";
+    for(var i=0;i<str.length;i++){
+      var ch = str[i];
+      var py = PINYIN_MAP[ch];
+      if(py){ full += py; initials += py.charAt(0); }
+      else if(/[a-zA-Z0-9]/.test(ch)){ var lc = ch.toLowerCase(); full += lc; initials += lc; }
+    }
+    return { full: full, initials: initials };
+  }
+
+  function fuzzySubsequenceScore(target, q){
+    if(!q || !target) return -1;
+    var ti = 0, first = -1, last = -1;
+    for(var qi=0; qi<q.length; qi++){
+      var found = target.indexOf(q.charAt(qi), ti);
+      if(found === -1) return -1;
+      if(first === -1) first = found;
+      last = found;
+      ti = found + 1;
+    }
+    return last - first;
+  }
+
+  /* 依序嘗試四種比對層級，回傳 {rank} 或 null（查無）——rank 數字愈小排序愈前面，
+     不同層級用固定的區間隔開（0 / 1000 / 2000 / 3000 起跳），確保「完全比對」永遠贏過
+     「拼音比對」，「拼音比對」永遠贏過「模糊比對」，同層級內再依比對位置/跨距排序。 */
+  function tieredMatchRank(rawText, pinyinFull, pinyinInitials, q, qIsLatin){
+    var textLc = rawText.toLowerCase();
+    var idx = textLc.indexOf(q);
+    if(idx !== -1) return idx;
+    if(qIsLatin){
+      var pfIdx = pinyinFull.indexOf(q);
+      if(pfIdx !== -1) return 1000 + pfIdx;
+      var piIdx = pinyinInitials.indexOf(q);
+      if(piIdx !== -1) return 2000 + piIdx;
+    }
+    var fuzzyRaw = fuzzySubsequenceScore(textLc, q);
+    if(fuzzyRaw !== -1) return 3000 + fuzzyRaw;
+    if(qIsLatin){
+      var fuzzyPy = fuzzySubsequenceScore(pinyinFull, q);
+      if(fuzzyPy !== -1) return 4000 + fuzzyPy;
+    }
+    return null;
+  }
+
   /* 產業／環節關鍵字索引：讓輸入「封測」等主題詞也能直接找到對應產業頁籤
      或節點（例如「委外封測服務商」），與公司名稱搜尋並列顯示。 */
   function buildTopicIndex(){
@@ -6263,17 +6427,23 @@
         });
       });
     });
+    items.forEach(function(item){
+      var py = pinyinOf(item.title);
+      item.pinyinFull = py.full;
+      item.pinyinInitials = py.initials;
+    });
     return items;
   }
 
   function searchTopics(query){
     var q = query.trim().toLowerCase();
     if(!q) return [];
+    var qIsLatin = /^[a-z0-9]+$/.test(q);
     var kindRank = { industry:0, node:1, child:2 };
     var results = [];
     topicIndex.forEach(function(item){
-      var idx = item.title.toLowerCase().indexOf(q);
-      if(idx !== -1) results.push({ item:item, rank:idx, kr:kindRank[item.kind] });
+      var rank = tieredMatchRank(item.title, item.pinyinFull, item.pinyinInitials, q, qIsLatin);
+      if(rank !== null) results.push({ item:item, rank:rank, kr:kindRank[item.kind] });
     });
     results.sort(function(a, b){
       if(a.rank !== b.rank) return a.rank - b.rank;
@@ -6304,7 +6474,10 @@
   function addCompanyHit(map, c, loc){
     var name = c.n;
     if(!name) return;
-    if(!map[name]) map[name] = { name:name, tw: !!c.tw, code: c.code||null, locs: [] };
+    if(!map[name]){
+      var py = pinyinOf(name);
+      map[name] = { name:name, tw: !!c.tw, code: c.code||null, locs: [], pinyinFull:py.full, pinyinInitials:py.initials };
+    }
     if(c.tw) map[name].tw = true;
     if(c.code) map[name].code = c.code;
     var dup = map[name].locs.some(function(l){
@@ -6316,18 +6489,21 @@
   function searchCompanies(query){
     var q = query.trim().toLowerCase();
     if(!q) return [];
+    var qIsLatin = /^[a-z0-9]+$/.test(q);
     var results = [];
     for(var name in companyIndex){
       var entry = companyIndex[name];
-      var nameIdx = name.toLowerCase().indexOf(q);
       var codeIdx = entry.code ? entry.code.toLowerCase().indexOf(q) : -1;
-      // 股票代號完全比對優先（rank -1 排在最前面），其餘依名稱/代號出現位置排序
+      // 股票代號完全比對優先（rank -1 排在最前面）
       if(codeIdx === 0 && entry.code.length === q.length){
         results.push({ entry: entry, rank: -1 });
-      } else if(nameIdx !== -1){
-        results.push({ entry: entry, rank: nameIdx });
+        continue;
+      }
+      var rank = tieredMatchRank(entry.name, entry.pinyinFull, entry.pinyinInitials, q, qIsLatin);
+      if(rank !== null){
+        results.push({ entry: entry, rank: rank });
       } else if(codeIdx !== -1){
-        results.push({ entry: entry, rank: codeIdx + 0.5 });
+        results.push({ entry: entry, rank: 5000 + codeIdx });
       }
     }
     results.sort(function(a, b){
@@ -6544,9 +6720,15 @@
     });
   }
 
+  function initPrintButton(){
+    var btn = document.getElementById("printBtn");
+    if(btn) btn.addEventListener("click", function(){ window.print(); });
+  }
+
   selectIndustry(INDUSTRY_ORDER[0]);
   initCompanySearch();
   initCompanyModal();
+  initPrintButton();
 })();
 </script>
 
