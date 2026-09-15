@@ -1,8 +1,4 @@
-<!doctype html>
-<html lang="zh-Hant">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>產業供應鏈地圖</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=IBM+Plex+Mono:wght@500;600&display=swap">
 <style>
@@ -207,14 +203,32 @@
   .company-page-name{ margin:.2rem 0 0; font-size:1.6rem; font-weight:800; letter-spacing:-.01em; color:var(--ink); }
   .company-page-code{ display:inline-block; margin-top:.35rem; font-size:.85rem; font-weight:700; color:var(--copper-ink); background:var(--copper-soft); border:1px solid var(--copper-soft-line); border-radius:7px; padding:.15rem .55rem; }
   .company-page-count{ margin:1rem 0 0; font-size:.85rem; color:var(--ink-faint); }
-  .company-page-diagram-card{ margin-top:1.2rem; }
-  .company-page-loclist{ display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:.6rem; margin-top:1rem; }
-  .company-page-loc-btn{ text-align:left; padding:.75rem .85rem; border-radius:10px; background:var(--surface); border:1px solid var(--line); cursor:pointer; font-family:inherit; color:var(--ink); transition:border-color .15s ease, background .15s ease; }
+  .company-page-diagram-card{ margin:.7rem 0; }
+  .company-page-loclist{ display:flex; flex-direction:column; gap:.6rem; margin-top:1rem; }
+  .company-page-industry-group{ border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+  .company-page-industry-header{ width:100%; display:flex; align-items:center; gap:.6rem; padding:.85rem 1rem; background:var(--surface); border:none; cursor:pointer; font-family:inherit; color:var(--ink); text-align:left; }
+  .company-page-industry-header:hover{ background:var(--copper-soft); }
+  .company-page-industry-header:focus-visible{ outline:2px solid var(--copper); outline-offset:-2px; }
+  .company-page-industry-name{ font-weight:700; font-size:.9rem; flex:1; }
+  .company-page-industry-count{ font-size:.76rem; color:var(--ink-faint); white-space:nowrap; }
+  .company-page-industry-chevron{ display:inline-block; color:var(--ink-faint); transition:transform .15s ease; }
+  .company-page-industry-header[aria-expanded="true"] .company-page-industry-chevron{ transform:rotate(90deg); }
+  .company-page-industry-header[aria-expanded="true"]{ background:var(--copper-soft); }
+  .company-page-industry-detail{ padding:.7rem 1rem 1rem; background:var(--surface-2); display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:.5rem; }
+  .company-page-loc-btn{ text-align:left; padding:.7rem .85rem; border-radius:10px; background:var(--surface); border:1px solid var(--line); cursor:pointer; font-family:inherit; color:var(--ink); transition:border-color .15s ease, background .15s ease; }
   .company-page-loc-btn:hover{ border-color:var(--copper); background:var(--copper-soft); }
   .company-page-loc-btn:focus-visible{ outline:2px solid var(--copper); outline-offset:2px; }
-  .company-page-loc-industry{ display:block; font-size:.78rem; font-weight:700; color:var(--copper-ink); }
-  .company-page-loc-node{ display:block; margin-top:.2rem; font-size:.8rem; color:var(--ink-soft); line-height:1.4; }
+  .company-page-loc-node{ display:block; font-size:.8rem; color:var(--ink-soft); line-height:1.4; }
   .company-page-empty{ margin-top:1.5rem; font-size:.88rem; color:var(--ink-faint); }
+  .company-page-revenue-title{ margin:0 0 .3rem; font-size:1.05rem; font-weight:800; color:var(--ink); }
+  .company-page-revenue-updated{ margin:0 0 .2rem; font-size:.78rem; color:var(--ink-faint); }
+  .company-page-revenue-caveat{ margin:0 0 .9rem; font-size:.78rem; color:var(--ink-faint); line-height:1.5; }
+  .company-page-revenue-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:.6rem; }
+  .company-page-revenue-item{ background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:.7rem .85rem; }
+  .company-page-revenue-label{ font-size:.76rem; color:var(--ink-soft); line-height:1.35; }
+  .company-page-revenue-value{ margin-top:.25rem; font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:1.1rem; color:var(--signal); }
+  .company-page-revenue-note{ margin-top:.3rem; font-size:.72rem; color:var(--ink-faint); line-height:1.4; }
+  .company-page-revenue-source{ margin:1rem 0 0; font-size:.74rem; color:var(--ink-faint); line-height:1.5; }
   @media (max-width:640px){ .company-page-header{ gap:.7rem; } .company-page-icon{ width:44px; height:44px; } .company-page-name{ font-size:1.3rem; } }
   .stats{ display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:.8rem; margin-top:1.2rem; }
   .stat-tile{ background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:.75rem .9rem; }
@@ -244,9 +258,6 @@
 
   @media (prefers-reduced-motion: reduce){ *{ transition:none !important; } }
 </style>
-</head>
-<body>
-
 
 <div class="page">
 
@@ -3929,8 +3940,8 @@
               companies:[{n:"新普科技",tw:1,code:"6121"},{n:"順達科技",tw:1,code:"3211"},{n:"高達能源",tw:1}],
               stats:[] },
             { icon:"icon-power", title:"電源管理IC", sub:"POWER MANAGEMENT IC",
-              desc:"負責電壓轉換、充放電控制與功率分配的類比IC，直接影響機器人系統能源效率與可靠度。台灣IC設計業者如致新科技、立錡科技在電源管理IC領域具備完整產品線，台達電則在功率半導體與電源系統設計上具深厚基礎。",
-              companies:[{n:"台達電",tw:1,code:"2308"},{n:"致新科技",tw:1,code:"8081"},{n:"立錡科技",tw:1,code:"6286"}],
+              desc:"負責電壓轉換、充放電控制與功率分配的類比IC，直接影響機器人系統能源效率與可靠度。台灣IC設計業者如致新科技、立錡科技（聯發科全資子公司，2016年已下市）在電源管理IC領域具備完整產品線，台達電則在功率半導體與電源系統設計上具深厚基礎。",
+              companies:[{n:"台達電",tw:1,code:"2308"},{n:"致新科技",tw:1,code:"8081"},{n:"立錡科技",tw:1}],
               stats:[] }
           ] },
         { icon:"icon-generic", title:"氣動與傳動零組件", parallelGroup:"robot-components", sub:"PNEUMATIC & TRANSMISSION COMPONENTS",
@@ -4749,7 +4760,7 @@
               stats:[] },
             { icon:"icon-substrate", title:"FOPLP面板級封裝與載板材料", sub:"FAN-OUT PANEL-LEVEL PACKAGING",
               desc:"FOPLP以矩形面板取代圓形晶圓作為封裝載體，可大幅提升單批次可用面積與生產效率，是業界因應先進封裝產能瓶頸的新興技術方向。鑫科材料切入FOPLP特殊合金載板供應鏈，為台灣少數投入此新興材料領域的廠商之一。",
-              companies:[{n:"鑫科材料",tw:1,code:"4967"}],
+              companies:[{n:"鑫科材料",tw:1,code:"3663"}],
               stats:[] }
           ] },
         { icon:"icon-probe", title:"晶圓針測(CP測試)", sub:"WAFER PROBING / CP TEST",
@@ -6208,8 +6219,2098 @@
       ]
     }
   ]
-}
+},
+
+"ev": {
+      name: "電動車",
+      nameEn: "ELECTRIC VEHICLE SUPPLY CHAIN",
+      tags: ["ev","automotive-electronics"],
+      lede: "從電池材料、馬達傳動、電控功率半導體，到車用電子/ADAS、充電基礎設施、連接器與輕量化結構件，再到整車組裝，台廠在電動車供應鏈中多數扮演關鍵零組件與材料供應角色，核心電池芯與整車品牌仍由中、美、日、韓大廠主導。本頁面為新增產業別，與既有半導體／AI硬體主軸並列，未來將持續擴充。",
+      updated: "2026年9月",
+      sources: [
+        "鉅亨網－「電動車電池『高鎳化』趨勢確立，台廠擴充硫酸鎳效益顯」（美琪瑪、康普）",
+        "科技新報－「富田電機成為特斯拉合作最久供應商」、「鴻海MIH推展不如預期」系列報導",
+        "數位時代－「和大工業：特斯拉純電動車減速齒輪箱供應商」（2021年資料，2025年最新法說會已另行更新）",
+        "TechNews科技新報－「MediaTek強化車用電子布局」（Dimensity Auto C-X1／MT2739發表）",
+        "富果直送法說會備忘錄－同致電子(3552)、胡連精密(6279) 2025年法說會摘要",
+        "Nextapple－「巧新科技：再生鋁獲七大車廠認證」",
+        "今周刊－「裕電能源：台灣充電一哥」、「納智捷n7銷量與鴻華先進併購案」",
+        "各公司法說會簡報與公開資訊觀測站公告"
+      ],
+      disclaimer: "本頁面為公開資訊整理彙編，市占率、營收占比與訂單金額等數據會隨市場狀況與廠商公告持續變動，部分資料標註之時間點較早（如2021年）僅供產業脈絡參考，實際最新數字請以廠商公告與法說會為準，不構成任何投資建議。",
+      nodes: [
+        { icon:"icon-device", title:"電池芯與電池材料", parallelGroup:"ev-component-types", sub:"BATTERY CELLS & MATERIALS",
+          desc:"電動車電池核心電芯目前仍由寧德時代(CATL)、LG新能源、松下(Panasonic)、比亞迪等中日韓大廠主導，台廠角色集中在上游正極材料前驅體與電池模組組裝封裝，尚未切入電芯本體量產。",
+          companies:[{n:"美琪瑪",tw:1,code:"4721"},{n:"康普",tw:1,code:"4739"},{n:"新普",tw:1,code:"6121"},{n:"順達",tw:1,code:"3211"}],
+          stats:[],
+          children:[
+            { icon:"icon-ingot", title:"正極材料前驅體(硫酸鎳／硫酸鈷)", sub:"CATHODE PRECURSOR MATERIALS",
+              desc:"美琪瑪、康普供應硫酸鎳、硫酸鈷等正極前驅體原料，隨電池「高鎳化」趨勢受惠，透過材料供應間接打入特斯拉等品牌供應鏈。2021年報導曾傳出西方政府、日韓客戶及國際礦業公司洽詢海外設廠合作，惟雙方僅回應仍在評估中，屬未經證實的傳聞，非確認訂單，最新合作進度請留意公司公告。",
+              companies:[{n:"美琪瑪",tw:1,code:"4721"},{n:"康普",tw:1,code:"4739"}],
+              stats:[] },
+            { icon:"icon-package", title:"電池模組與封裝組裝", sub:"BATTERY MODULE ASSEMBLY & PACKAGING",
+              desc:"新普、順達、加百裕原為NB／消費性電池模組廠，近年切入儲能與電動車電池模組領域，惟目前公開資訊多聚焦其儲能成長題材，個別廠商電動車專案佔營收比重尚待更新的法說會資料進一步驗證。",
+              companies:[{n:"新普",tw:1,code:"6121"},{n:"順達",tw:1,code:"3211"},{n:"加百裕",tw:1,code:"3323"}],
+              stats:[] }
+          ] },
+        { icon:"icon-chip", title:"馬達與傳動系統", parallelGroup:"ev-component-types", sub:"MOTOR & DRIVETRAIN",
+          desc:"電動車以馬達取代傳統引擎、以減速齒輪箱取代變速箱，是動力系統中機械與電磁設計整合度最高的環節，台廠在此領域已建立與國際指標客戶的長期合作關係。",
+          companies:[{n:"富田",tw:1,code:"4590"},{n:"和大",tw:1,code:"1536"}],
+          stats:[],
+          children:[
+            { icon:"icon-chip", title:"車用永磁馬達", sub:"TRACTION MOTOR",
+              desc:"富田電機為特斯拉合作最久的供應商之一，雙方合作已逾15年，特斯拉曾是其最大單一客戶；富田研發之馬達較傳統工業馬達大幅輕量化，公司已於2024年11月11日登錄興櫃(股票代號4590)。須留意此為2021年前後報導之特斯拉合作歷史脈絡，近年富田電機亦積極拓展無人機、軍工及機器人馬達等新應用，電動車客戶結構最新占比請以公司公告為準。",
+              companies:[{n:"富田",tw:1,code:"4590"}],
+              stats:[] },
+            { icon:"icon-package", title:"減速齒輪箱", sub:"REDUCER GEARBOX",
+              desc:"和大工業曾為特斯拉純電動車減速齒輪箱之重要供應商，2021年報導稱其全球市佔約22%、電動車業務占營收約38%；惟公司2025年9月法說會管理層表示特斯拉「銷售數量難掌握」、屬不穩定客戶，且尚未取得新一輪特斯拉大型合約，最新電動車營收占比未見公司揭露最新數字，與2021年資料相比應審慎看待、不宜視為現況。",
+              companies:[{n:"和大",tw:1,code:"1536"}],
+              stats:[] }
+          ] },
+        { icon:"icon-metrology", title:"電控與功率半導體", parallelGroup:"ev-component-types", sub:"POWER ELECTRONICS & SIC",
+          desc:"電動車電控系統涵蓋逆變器(Inverter)、車載充電機(OBC)所需之功率半導體元件，SiC(碳化矽)因高壓、高效率特性成為次世代電動車功率元件的發展重點。",
+          companies:[{n:"朋程",tw:1,code:"8255"},{n:"強茂",tw:1,code:"2481"}],
+          stats:[],
+          children:[
+            { icon:"icon-device", title:"車用二極體與整流器", sub:"AUTOMOTIVE DIODE & RECTIFIER",
+              desc:"朋程科技為全球車用二極體/整流器領導廠商，近年積極布局新能源車功率半導體賽道，惟具體訂單規模與新能源車營收占比尚待更新之法說會資料佐證。",
+              companies:[{n:"朋程",tw:1,code:"8255"}],
+              stats:[] },
+            { icon:"icon-chip", title:"SiC功率元件與高壓MOSFET", sub:"SIC POWER DEVICES & HIGH-VOLTAGE MOSFET",
+              desc:"強茂受惠SiC元件與高壓MOSFET放量，同步搶進AI伺服器高壓電源與車用市場，公司展望2026年為放量元年；惟此為公司展望性說法，具體車用SiC訂單金額尚待原始法說會資料進一步驗證。",
+              companies:[{n:"強茂",tw:1,code:"2481"}],
+              stats:[] }
+          ] },
+        { icon:"icon-network", title:"車用電子與ADAS", parallelGroup:"ev-component-types", sub:"AUTOMOTIVE ELECTRONICS & ADAS",
+          desc:"智慧座艙晶片、感測器與駕駛輔助系統是電動車智慧化的核心，台廠自IC設計跨足感測器與電子模組，逐步切入國際車廠與中國新能源車供應鏈。",
+          companies:[{n:"聯發科",tw:1,code:"2454"},{n:"同致電子",tw:1,code:"3552"},{n:"為升電裝",tw:1,code:"2231"}],
+          stats:[],
+          children:[
+            { icon:"icon-chip", title:"智慧座艙與車用通訊平台", sub:"SMART COCKPIT & TELEMATICS PLATFORM",
+              desc:"聯發科2025年4月發表Dimensity Auto車用平台家族：C-X1智慧座艙平台採3奈米製程、Arm v9.2-A架構，整合輝達Blackwell GPU與雙AI引擎，支援語音助理、即時路線規劃與駕駛專注度監測；MT2739車用通訊平台支援5G-Advanced與衛星通訊(NB-NTN/NR-NTN)。2026年北京車展進一步展示C-X1平台算力達400 TOPS。惟目前尚未揭露具體客戶名單與營收貢獻，須留意此為技術平台發表而非已確認訂單。",
+              companies:[{n:"聯發科",tw:1,code:"2454"}],
+              stats:[{v:"400 TOPS",l:"C-X1平台2026年北京車展展示算力"}] },
+            { icon:"icon-metrology", title:"ADAS感測器與環景系統", sub:"ADAS SENSORS & SURROUND-VIEW SYSTEM",
+              desc:"同致電子為ADAS感測器代表廠商，產品線涵蓋超音波感測器、鏡頭與毫米波雷達，2025年11月法說會揭露感測類產品占營收約66%、控制器類(停車邏輯ECU)占22%，客戶涵蓋印度前五大車廠與歐美主要車廠；前三季中國市場營收占比約79%。",
+              companies:[{n:"同致電子",tw:1,code:"3552"}],
+              stats:[{v:"66%",l:"感測類產品占同致電子營收比重(2025年11月法說會)"}] },
+            { icon:"icon-device", title:"車用雷達與電子元件", sub:"AUTOMOTIVE RADAR & ELECTRONIC COMPONENTS",
+              desc:"為升電裝(WEISTECH)的艙內盲點雷達(CPD)產品已成功打入北美電動車與電動皮卡市場，並將盲點偵測(BSD)拓展至中國、東南亞車廠通路；同時供應電池管理系統用電流感測元件與胎壓偵測器(TPMS)，受惠歐盟商用車強制規範。",
+              companies:[{n:"為升電裝",tw:1,code:"2231"}],
+              stats:[] }
+          ] },
+        { icon:"icon-datacenter", title:"充電基礎設施", parallelGroup:"ev-component-types", sub:"CHARGING INFRASTRUCTURE",
+          desc:"充電樁製造與充電站營運是電動車普及的基礎設施環節，涵蓋交流慢充、直流快充設備製造，以及充電站點布建與能源管理系統。",
+          companies:[{n:"台達電",tw:1,code:"2308"},{n:"飛宏科技",tw:1,code:"2457"},{n:"裕電能源"}],
+          stats:[],
+          children:[
+            { icon:"icon-package", title:"充電樁製造與能源管理", sub:"CHARGER MANUFACTURING & ENERGY MANAGEMENT",
+              desc:"台達電產品線涵蓋車載充電機(OBC)、直流快充樁與DeltaGrid EVM能源管理系統，為公司官網公開之產品線，惟具體訂單金額與市占率尚未見第三方新聞驗證。飛宏科技為直流快充設備業者，曾有報導提及其快充樁可於15分鐘為電動巴士充飽電力。",
+              companies:[{n:"台達電",tw:1,code:"2308"},{n:"飛宏科技",tw:1,code:"2457"}],
+              stats:[] },
+            { icon:"icon-datacenter", title:"充電站營運", sub:"CHARGING STATION OPERATION",
+              desc:"裕電能源(未上市)為台灣充電站營運業者，2020年報導稱其電動汽車充電市占約30%(單一新聞來源、未經獨立驗證)；2023年報導另指出其在電動機車／速可達充電站市場市占逾95%(與汽車充電屬不同市場，不可混用)，並取得新加坡約1.2萬個充電樁合約。市占數字時間點較早，最新市占情形請留意公司後續公告。",
+              companies:[{n:"裕電能源"}],
+              stats:[] }
+          ] },
+        { icon:"icon-interconnect", title:"車用連接器與結構輕量化材料", parallelGroup:"ev-component-types", sub:"CONNECTORS & LIGHTWEIGHT STRUCTURAL MATERIALS",
+          desc:"高壓/低壓連接器與線束是電動車電力傳輸與訊號連結的關鍵零組件，車身輕量化材料(如再生鋁)則是提升電動車續航效率的結構性解方，台廠在兩個領域均已切入國際車廠供應鏈。",
+          companies:[{n:"胡連精密",tw:1,code:"6279"},{n:"貿聯-KY",tw:1,code:"3665"},{n:"巧新科技",tw:1,code:"1563"}],
+          stats:[],
+          children:[
+            { icon:"icon-interconnect", title:"車用連接器", sub:"AUTOMOTIVE CONNECTORS",
+              desc:"胡連精密2025年11月法說會揭露電動車客戶結構：吉利約占營收15%為最大單一客戶、比亞迪約9%、長安約7~8%，中國自主品牌合計約占其中國區業務8~9成；高壓連接器(600V~1000V)目前僅占營收約1%，低壓連接器仍是電動車應用主力但因多數出貨予線束廠、難以精確拆分營收貢獻。印尼、越南新廠預計2026年下半年起供應比亞迪新產能。",
+              companies:[{n:"胡連精密",tw:1,code:"6279"}],
+              stats:[{v:"15%",l:"吉利占胡連精密營收比重(2025年11月法說會)"}] },
+            { icon:"icon-interconnect", title:"高壓線束與連接器", sub:"HIGH-VOLTAGE WIRE HARNESS",
+              desc:"貿聯-KY(Bizlink)為國際線束與連接器集團，產品線涵蓋電動車與儲能系統高壓線束組件，多篇產業報導將其列為電動車連接器概念股，惟具體電動車營收占比與訂單金額尚待公司法說會資料進一步驗證。",
+              companies:[{n:"貿聯-KY",tw:1,code:"3665"}],
+              stats:[] },
+            { icon:"icon-ingot", title:"輕量化鋁合金與再生鋁材料", sub:"LIGHTWEIGHT ALUMINUM & RECYCLED ALUMINUM",
+              desc:"巧新科技以鋁圈與再生鋁雙引擎為策略主軸，2025年10月報導揭露已有7家國際車廠通過其再生鋁材料認證，目標3年內非乘用車鋁圈營收占比提升至4成以上，第二煉鋁廠預計2026年完工，半導體用鍛造鋁合金零件亦規劃自2026年起出貨。是目前公開資訊中，車身結構輕量化材料領域少數具體可驗證的台廠案例，其餘同類廠商多缺乏可驗證的近期公開報導，暫未收錄。",
+              companies:[{n:"巧新科技",tw:1,code:"1563"}],
+              stats:[{v:"7家",l:"巧新科技再生鋁通過認證之國際車廠數(2025年10月)"}] }
+          ] },
+        { icon:"icon-foundry", title:"整車組裝與系統整合(鴻海MIH平台)", sub:"VEHICLE ASSEMBLY & SYSTEM INTEGRATION (FOXCONN MIH)",
+          desc:"鴻海透過MIH開放電動車平台聯盟切入整車委託設計製造，與裕隆合資成立鴻華先進，是台灣廠商從零組件供應跨足整車系統整合的代表案例，惟平台推展進度與國際客戶開發仍面臨挑戰。",
+          companies:[{n:"鴻華先進",tw:1,code:"2258"},{n:"鴻海",tw:1,code:"2317"}],
+          stats:[],
+          children:[
+            { icon:"icon-network", title:"鴻海MIH開放平台", sub:"FOXCONN MIH OPEN EV PLATFORM",
+              desc:"鴻海2022年科技日宣示MIH聯盟會員可供應旗下Model B、C、V三款電動車逾5~6成關鍵零組件，當時聯盟會員數達2,479家；惟2025年初報導指出，MIH合作的美國夥伴Fisker、Lordstown相繼破產，俄亥俄廠陷入無訂單窘境，平台推展不如預期，目前具體零組件供應商名單缺乏官方最新公開資料可逐一驗證，暫未列出個別供應商。",
+              companies:[{n:"鴻海",tw:1,code:"2317"}],
+              stats:[] },
+            { icon:"icon-package", title:"鴻華先進與納智捷n7", sub:"FOXTRON & LUXGEN N7",
+              desc:"鴻華先進由鴻海(持股約46%)與裕隆(約44%)合資成立，旗下Model B技術貼牌予三菱銷售、Model C技術授權裕隆納智捷品牌推出n7。納智捷n7於2024年全年銷售逾7,000輛(僅次於特斯拉Model Y)，惟2025年1~10月銷量降至約3,000輛，受市場降溫與同價位競品夾擊；2025年11月報導指出鴻華先進傳擬併購納智捷品牌以推動垂直整合，惟三方協作進度與條件仍在協商中。",
+              companies:[{n:"鴻華先進",tw:1,code:"2258"},{n:"鴻海",tw:1,code:"2317"}],
+              stats:[{v:"逾7,000輛",l:"納智捷n7 2024年全年銷量"}] }
+          ] }
+      ]
+    },
+
+"tesla": {
+      name: "特斯拉(Tesla)",
+      nameEn: "TESLA SUPPLY CHAIN",
+      tags: ["tesla","ev","automotive-electronics","automotive-robotics"],
+      lede: "從自研FSD自駕晶片、純視覺方案鏡頭模組，到4680電池、馬達傳動、車用電子連接器，再到超級充電網路、儲能事業與Optimus人形機器人，特斯拉是少數同時自研晶片、電池與軟體的整車品牌。台廠角色以零組件與晶圓代工為主，多數供應關係屬市場推估或媒體報導，僅少數已獲公司法說會或財報等級證實，本頁面特別標註各項資訊之查證等級。",
+      updated: "2026年9月",
+      sources: [
+        "理財周刊－「特斯拉概念股總覽」系列報導（2026年6月16日、2026年7月23日）",
+        "科技新報－「特斯拉AI5/HW5晶片交由台積電代工」系列報導",
+        "工商時報－「富田電機登錄興櫃，特斯拉合作最久供應商」",
+        "各公司法人說明會、股東會年報及公開資訊觀測站公告",
+        "[[ev]] 電動車頁籤、[[robot]] 機器人頁籤既有相關內容"
+      ],
+      disclaimer: "本頁面為公開資訊整理彙編，多數台廠與特斯拉之供應關係僅見於財經媒體「特斯拉概念股」報導，屬市場推估，特斯拉官方從未逐一證實個別供應商名單；本頁已盡力標註「已獲法說會/公司公告證實」與「市場推估/媒體報導」兩種查證等級，市占率、產能與產品規格等數據會隨市場狀況與廠商公告持續變動，僅供產業脈絡參考，不構成任何投資建議。",
+      nodes: [
+        { icon:"icon-chip", title:"自駕晶片與運算平台", sub:"FSD CHIP & AI COMPUTE",
+          desc:"特斯拉自研FSD(Full Self-Driving)自駕晶片與HW(Hardware)硬體平台，採純視覺(vision-only)方案，不依賴光達(LiDAR)。最新世代AI5/HW5晶片傳出交由台積電先進製程代工，同時特斯拉已於2025年宣布終止自研Dojo超級電腦專案，轉向採購輝達與AMD等外部AI晶片擴充訓練算力。",
+          companies:[{n:"特斯拉 Tesla"},{n:"台積電",tw:1,code:"2330"}],
+          stats:[{v:"純視覺",l:"特斯拉自駕方案不使用光達，僅靠攝影機+AI"}],
+          tags:["tesla-fsd"],
+          children:[
+            { icon:"icon-ip", title:"FSD/HW自駕平台世代演進", sub:"FSD/HW PLATFORM ROADMAP",
+              desc:"特斯拉自HW3演進至HW4，最新一代命名為AI5/HW5，晶片架構與軟體演算法均由特斯拉內部團隊自主設計，是其自駕技術護城河的核心，也是與多數採購第三方自駕晶片(如Mobileye、輝達)車廠最大的差異之一。",
+              companies:[{n:"特斯拉 Tesla"}], stats:[] },
+            { icon:"icon-foundry", title:"AI5/HW5晶片委由台積電代工", sub:"AI5/HW5 FOUNDRY PARTNER",
+              desc:"科技新報等財經媒體報導，特斯拉新一代AI5/HW5自駕晶片傳出採台積電N3P等先進製程代工，惟特斯拉與台積電均未正式公告合作細節與產能配置，屬市場推估等級資訊，實際製程節點與代工比重請以雙方官方公告為準。",
+              companies:[{n:"台積電",tw:1,code:"2330"}], stats:[] },
+            { icon:"icon-datacenter", title:"Dojo超算專案終止", sub:"DOJO SUPERCOMPUTER SHUTDOWN",
+              desc:"特斯拉於2025年宣布終止自研Dojo超級電腦專案，原負責團隊部分成員另立新公司，特斯拉轉向擴大採購輝達GPU與AMD晶片建構AI訓練算力，此舉為特斯拉自研晶片策略的重大轉折，台廠原先圍繞Dojo專案的相關猜測目前已無實際依據。",
+              companies:[{n:"特斯拉 Tesla"},{n:"輝達 NVIDIA"}], stats:[] }
+          ]
+        },
+        { icon:"icon-lens", title:"純視覺方案鏡頭模組", sub:"VISION-ONLY CAMERA MODULES",
+          desc:"特斯拉自2021年起全面轉向純視覺自駕方案，車身環周配置多顆攝影機取代雷達與超音波感測器，鏡頭模組供應鏈與智慧型手機鏡頭供應鏈高度重疊，多家台廠光學廠被財經媒體列為特斯拉概念股，惟相關供應關係多未經特斯拉官方證實，屬市場推估等級。",
+          companies:[{n:"大立光",tw:1,code:"3008"},{n:"玉晶光",tw:1,code:"3406"},{n:"先進光電",tw:1,code:"3362"},{n:"佳凌",tw:1,code:"4976"}],
+          stats:[],
+          tags:["tesla-vision"],
+          children:[
+            { icon:"icon-lens", title:"車用鏡頭光學鏡片", sub:"AUTOMOTIVE CAMERA LENS",
+              desc:"大立光、玉晶光為全球手機與車用鏡頭光學設計大廠，財經媒體「特斯拉概念股」報導將其列為車用鏡頭潛在供應商，惟兩家公司均未在法說會中具體證實對特斯拉的出貨比重，屬市場推估等級資訊。",
+              companies:[{n:"大立光",tw:1,code:"3008"},{n:"玉晶光",tw:1,code:"3406"}], stats:[] },
+            { icon:"icon-lens", title:"車用鏡頭模組組裝", sub:"CAMERA MODULE ASSEMBLY",
+              desc:"先進光電、佳凌為車用鏡頭模組廠，財經媒體報導其產品應用於車用環景與自駕輔助攝影鏡頭領域，與特斯拉之直接供應關係同屬市場推估等級，未經特斯拉官方證實。",
+              companies:[{n:"先進光電",tw:1,code:"3362"},{n:"佳凌",tw:1,code:"4976"}], stats:[] },
+            { icon:"icon-chip", title:"影像感測晶片", sub:"IMAGE SENSOR",
+              desc:"純視覺自駕方案高度依賴車用影像感測器(CIS)畫質與動態範圍，特斯拉目前主要影像感測器供應商為國際大廠，台廠在此環節暫無具體、可查證之直接供應紀錄。",
+              companies:[{n:"特斯拉 Tesla"}], stats:[] }
+          ]
+        },
+        { icon:"icon-battery", title:"4680電池與乾電極製程", sub:"4680 CELL & DRY ELECTRODE",
+          desc:"特斯拉自建Giga Texas、內華達等電池廠自製4680圓柱電池，採用自研乾電極(dry electrode)塗佈製程，號稱可大幅提升能量密度並降低生產成本，此為特斯拉電池技術自主化程度最高的環節，目前尚無公開可查證之台灣設備或材料供應商直接參與4680產線。",
+          companies:[{n:"特斯拉 Tesla"}],
+          stats:[{v:"4680",l:"電池型號代表直徑46mm、長度80mm"}],
+          tags:["tesla-battery"],
+          children:[
+            { icon:"icon-battery", title:"4680圓柱電池自製產線", sub:"IN-HOUSE 4680 CELL LINE",
+              desc:"特斯拉於Giga Texas(德州)、內華達等廠自建4680電池產線，是少數整車廠自主投入電池芯量產的案例，目的在於降低對松下、LG新能源、寧德時代等外部電池供應商的依賴程度。",
+              companies:[{n:"特斯拉 Tesla"}], stats:[] },
+            { icon:"icon-deposit", title:"乾電極塗佈製程", sub:"DRY ELECTRODE COATING",
+              desc:"乾電極製程省去傳統濕式塗佈所需的溶劑與烘乾步驟，可縮短產線佔地並降低能耗，惟量產良率提升進度多次落後原訂目標，目前尚無公開資訊顯示有台灣設備商直接參與此製程之設備供應，相關報導多屬未經證實之市場傳聞。",
+              companies:[{n:"特斯拉 Tesla"}], stats:[] },
+            { icon:"icon-battery", title:"外部電池芯供應夥伴", sub:"EXTERNAL CELL PARTNERS",
+              desc:"除自製4680電池外，特斯拉部分車型與市場仍採購松下、LG新能源、寧德時代等外部電池廠之圓柱或方形電池芯，形成自製與外購並行的雙軌策略，藉此分散單一供應來源風險。",
+              companies:[{n:"特斯拉 Tesla"}], stats:[] }
+          ]
+        },
+        { icon:"icon-motor", title:"馬達與傳動系統", sub:"MOTOR & DRIVETRAIN",
+          desc:"特斯拉馬達與減速齒輪箱之台廠供應關係，與[[ev]]電動車頁籤「馬達與傳動系統」節點重疊，富田電機、和大工業為現階段查證等級最高（具公司自述或法說會佐證）的兩家台廠，詳細供應歷程與最新財報數字請參考電動車頁籤對應節點。",
+          companies:[{n:"富田",tw:1,code:"4590"},{n:"和大",tw:1,code:"1536"}],
+          stats:[],
+          tags:["ev"],
+          children:[
+            { icon:"icon-motor", title:"永磁馬達：富田電機", sub:"FUKUTA TRACTION MOTOR",
+              desc:"富田電機為特斯拉合作最久的供應商之一，雙方合作已逾15年，特斯拉曾是其最大單一客戶，公司已於2024年11月11日登錄興櫃(股票代號4590)。近年富田電機積極拓展無人機、軍工及機器人馬達等新應用，對特斯拉之最新營收占比請以公司公告為準。",
+              companies:[{n:"富田",tw:1,code:"4590"}], stats:[] },
+            { icon:"icon-gear", title:"減速齒輪箱：和大工業", sub:"HOTA REDUCTION GEARBOX",
+              desc:"和大工業曾為特斯拉純電動車減速齒輪箱供應商，惟此為2021年前後之市場框架；公司於2025年9月法說會表示特斯拉屬「比較不穩定、銷售數量難掌握」之客戶，並未證實已取得新一輪大型訂單，最新合作狀態請以公司法說會公告為準。",
+              companies:[{n:"和大",tw:1,code:"1536"}], stats:[] },
+            { icon:"icon-power", title:"車用電力電子(逆變器/OBC)", sub:"INVERTER & ON-BOARD CHARGER",
+              desc:"馬達逆變器與車載充電器(OBC)屬電控功率半導體應用環節，與[[ev]]電動車頁籤「電控功率半導體」節點重疊，特斯拉此環節多數由自研IGBT/SiC模組與內部團隊主導，台廠目前暫無具體、可查證之直接供應紀錄。",
+              companies:[{n:"特斯拉 Tesla"}], stats:[] }
+          ]
+        },
+        { icon:"icon-interconnect", title:"車用電子、連接器與結構件", sub:"AUTOMOTIVE ELECTRONICS & CONNECTORS",
+          desc:"財經媒體「特斯拉概念股」報導列出多家台廠涉及連接器、印刷電路板、LED車燈與精密結構件供應，多數屬市場推估等級，其中貿聯-KY、胡連精密、同致電子等連接器/車用電子廠與電動車供應鏈重疊度較高，可與[[ev]]電動車頁籤對照參考。",
+          companies:[{n:"貿聯-KY",tw:1,code:"3665"},{n:"胡連精密",tw:1,code:"6279"},{n:"同致電子",tw:1,code:"3552"}],
+          stats:[],
+          tags:["ev","automotive-electronics"],
+          children:[
+            { icon:"icon-interconnect", title:"高壓線束與連接器", sub:"HIGH-VOLTAGE HARNESS & CONNECTORS",
+              desc:"貿聯-KY為全球線束與連接器大廠，胡連精密為車用連接器廠，兩者財經媒體均列為特斯拉概念股；胡連精密於2025年11月25日法說會揭露主要客戶占比(吉利約15%、比亞迪約9%、長安約7-8%)，惟其中未具體區分特斯拉個別占比，與特斯拉之直接供應比重仍屬市場推估等級。",
+              companies:[{n:"貿聯-KY",tw:1,code:"3665"},{n:"胡連精密",tw:1,code:"6279"}], stats:[] },
+            { icon:"icon-device", title:"倒車雷達/車用感測套件", sub:"PARKING SENSOR & ADAS MODULES",
+              desc:"同致電子為國際車廠倒車雷達與ADAS感測套件供應商，於[[ev]]電動車頁籤「車用電子/ADAS」節點已有詳細介紹，與特斯拉之直接供應關係屬財經媒體推估等級，尚未見公司公開證實。",
+              companies:[{n:"同致電子",tw:1,code:"3552"}], stats:[] },
+            { icon:"icon-substrate", title:"PCB、LED車燈與精密結構件", sub:"PCB, LED LIGHTING & PRECISION PARTS",
+              desc:"定穎投控(印刷電路板)、聯嘉投控(LED車燈)、健和興(連接器)、乙盛-KY(精密連接器/結構件)、華孚(精密機殼)、智伸科(精密結構件)等多家台廠被財經媒體「特斯拉概念股」報導列名，惟均屬市場推估等級，尚無個別公司法說會或公告具體證實對特斯拉之供應比重，實際合作情形請以各公司公開資訊觀測站公告為準。",
+              companies:[{n:"定穎投控",tw:1,code:"3715"},{n:"聯嘉投控",tw:1,code:"3717"},{n:"健和興",tw:1,code:"3003"},{n:"乙盛-KY",tw:1,code:"5243"},{n:"華孚",tw:1,code:"6235"},{n:"智伸科",tw:1,code:"4551"}], stats:[] }
+          ]
+        },
+        { icon:"icon-network", title:"超級充電站與NACS標準", sub:"SUPERCHARGER & NACS STANDARD",
+          desc:"特斯拉自建全球最大規模的超級充電站(Supercharger)網路，其專屬充電接口NACS(North American Charging Standard)已獲美、日、韓等主要車廠陸續採用，逐步成為北美市場事實標準，充電模組與電力轉換元件供應鏈與[[ev]]電動車頁籤「充電基礎設施」節點重疊。",
+          companies:[{n:"特斯拉 Tesla"}],
+          stats:[{v:"NACS",l:"特斯拉充電標準已獲多家車廠採用為北美規格"}],
+          tags:["ev"],
+          children:[
+            { icon:"icon-network", title:"Supercharger超充網路布局", sub:"SUPERCHARGER NETWORK",
+              desc:"特斯拉自2012年起自建超級充電站網路，是全球車廠中自有快充基礎設施覆蓋率最高者之一，充電速度與可靠度為其品牌重要競爭優勢，近年並逐步開放部分站點供其他品牌電動車使用。",
+              companies:[{n:"特斯拉 Tesla"}], stats:[] },
+            { icon:"icon-power", title:"NACS標準普及化", sub:"NACS ADOPTION",
+              desc:"福特、通用、現代、本田等主要車廠陸續宣布採用特斯拉NACS充電接口規格，使其從單一品牌專屬標準演變為北美市場實質統一規格，帶動充電樁與車用充電模組供應鏈重新洗牌。",
+              companies:[{n:"特斯拉 Tesla"}], stats:[] },
+            { icon:"icon-power", title:"充電模組與電力轉換元件", sub:"CHARGING MODULE & POWER CONVERSION",
+              desc:"超充站核心電力轉換模組與充電樁供應鏈，與[[ev]]電動車頁籤「充電基礎設施」節點內容重疊，台廠在此環節之直接供應紀錄請參考電動車頁籤對應節點說明。",
+              companies:[{n:"特斯拉 Tesla"}], stats:[] }
+          ]
+        },
+        { icon:"icon-grid", title:"儲能事業：Megapack與Powerwall", sub:"ENERGY STORAGE: MEGAPACK & POWERWALL",
+          desc:"特斯拉能源事業涵蓋公用事業級儲能系統Megapack與家用儲能Powerwall，近年成長速度已超越部分車輛業務，惟目前公開資訊尚無法確認台灣供應商直接參與Megapack或Powerwall電芯、電控系統之生產，此環節與台廠關聯性目前查證等級最低。",
+          companies:[{n:"特斯拉 Tesla"}],
+          stats:[],
+          tags:["tesla-energy"],
+          children:[
+            { icon:"icon-grid", title:"Megapack公用級儲能系統", sub:"MEGAPACK UTILITY STORAGE",
+              desc:"Megapack為特斯拉針對電網級與大型商業用戶推出的貨櫃式儲能系統，近年在美國、澳洲等市場出貨快速成長，是特斯拉能源事業營收主要成長動能，與[[power-grid]]電力頁籤之電網儲能需求趨勢相呼應。",
+              companies:[{n:"特斯拉 Tesla"}], stats:[] },
+            { icon:"icon-battery", title:"Powerwall家用儲能", sub:"POWERWALL HOME BATTERY",
+              desc:"Powerwall為特斯拉家用儲能電池，結合太陽能屋頂使用可提供停電備援與電價高峰時段用電調節功能，是特斯拉能源事業另一項主力產品。",
+              companies:[{n:"特斯拉 Tesla"}], stats:[] },
+            { icon:"icon-generic", title:"台廠供應紀錄尚待證實", sub:"UNVERIFIED TAIWAN SUPPLY LINKS",
+              desc:"目前公開資訊尚無法查證有台灣廠商直接供應Megapack或Powerwall之電芯、電控系統或關鍵材料，此環節與台灣供應鏈的關聯性目前查證等級最低，須留意市場流傳之相關傳聞多缺乏具體佐證。",
+              companies:[{n:"特斯拉 Tesla"}], stats:[] }
+          ]
+        },
+        { icon:"icon-turnkey", title:"Optimus人形機器人", sub:"OPTIMUS HUMANOID ROBOT",
+          desc:"特斯拉人形機器人Optimus專案是現階段全球規模最大的人形機器人量產計畫，相關零組件供應鏈細節（含行星減速機、整機組裝代工等）已於[[robot]]機器人頁籤「特斯拉Optimus供應鏈」節點詳細介紹，此處僅作重點摘要與跨頁籤指引。",
+          companies:[{n:"特斯拉 Tesla"},{n:"和大",tw:1,code:"1536"},{n:"鴻海",tw:1,code:"2317"}],
+          stats:[],
+          tags:["robotics","automotive-robotics"],
+          children:[
+            { icon:"icon-gear", title:"行星減速機送樣：和大工業", sub:"PLANETARY GEAR SAMPLING",
+              desc:"和大工業於2025年3月自述已向特斯拉Optimus人形機器人送樣，每台約需40組行星減速機，惟特斯拉官方從未證實此供應關係，詳細內容可參考[[robot]]機器人頁籤對應節點。",
+              companies:[{n:"和大",tw:1,code:"1536"}],
+              stats:[{v:"40組",l:"單台Optimus約需行星減速機組數"}] },
+            { icon:"icon-turnkey", title:"整機組裝代工傳聞：鴻海", sub:"ASSEMBLY RUMOR: FOXCONN",
+              desc:"市場傳鴻海與特斯拉Optimus專案合作組裝代工，惟雙方迄未公開證實此合作關係，鴻海並同步展示自研人形機器人原型，詳細內容可參考[[robot]]機器人頁籤對應節點。",
+              companies:[{n:"鴻海",tw:1,code:"2317"}], stats:[] },
+            { icon:"icon-generic", title:"量產時程與應用展望", sub:"PRODUCTION TIMELINE & OUTLOOK",
+              desc:"特斯拉多次調整Optimus量產與出貨時程，管理層目標具高度不確定性，長期應用展望涵蓋工廠自動化、居家照護與零售服務等場景，是台廠切入人形機器人市場最受矚目的觀察指標之一。",
+              companies:[{n:"特斯拉 Tesla"}], stats:[] }
+          ]
+        }
+      ]
+    }
 };
+
+    /* ============================================================
+     公司營收結構／產品占比資料 COMPANY REVENUE BREAKDOWN
+     ============================================================
+     用途：公司頁面(companyPage)下方的「營收結構／產品占比」卡片
+     資料來源，第一批涵蓋0050(元大台灣50)成分股中，已存在於本站
+     供應鏈資料的公司(2026年9月建立)。
+
+     ★ 維護方式 ★
+     以公司名稱字串為key，必須與 data/data_<key>.js 內 companies
+     陣列使用的 n: 字串完全一致(全站搜尋索引才能正確合併顯示)。
+     每筆資料務必附上明確資料時間(updated)與可查證來源(source)；
+     若某項目只找到不完整或無法拆分的數字，用 caveat 欄位如實註明，
+     不要用推測數字填補。查無足夠具體/足夠新資料的公司(如本輪的
+     大立光、貿聯-KY)暫不建立條目，日後補齊法說會簡報後再新增。
+     ============================================================ */
+  var COMPANY_REVENUE = {
+    "台積電": {
+      updated: "2026年Q2法說會（2026年7月）",
+      items: [
+        { label:"先進製程(7奈米以下)合計", value:"77%", note:"占晶圓代工營收；3奈米30%、5奈米33%、7奈米11%、2奈米3%" },
+        { label:"HPC高效能運算平台", value:"66%", note:"季增20%，最大應用平台" },
+        { label:"智慧型手機平台", value:"22%", note:"季減4%" },
+        { label:"車用電子平台", value:"4%", note:"季增15%，成長最快平台之一" },
+        { label:"IoT物聯網平台", value:"5%", note:"季增4%" }
+      ],
+      source: "台積電2026年Q2法說會CFO黃仁昭逐字稿（財報狗整理）；製程別數字另見數位時代BusinessNext報導"
+    },
+    "聯發科": {
+      updated: "2026年Q2法說會（2026年7月31日）",
+      items: [
+        { label:"智慧邊緣平台(連網/運算/車用SoC等)", value:"53%", note:"季增19%、年增26%，最大成長動能" },
+        { label:"智慧型手機事業", value:"41%", note:"季減14%、年減20%" },
+        { label:"其他事業", value:"約6%", note:"由前兩項推算之約略值，公司未單獨公布精確數字" }
+      ],
+      source: "科技新報TechNews報導聯發科2026年Q2法說會內容"
+    },
+    "聯電": {
+      updated: "2026年Q2財報／官方新聞稿（2026年7月29日）",
+      caveat: "官方新聞稿僅揭露製程別占比，未公布應用別(通訊/車用等)具體百分比。",
+      items: [
+        { label:"40奈米以下製程合計", value:"52%", note:"占晶圓代工營收" },
+        { label:"22/28奈米製程合計", value:"37%", note:"其中22奈米單獨占17.5%，創新高" },
+        { label:"40奈米製程", value:"15%" }
+      ],
+      source: "UMC官方2026年Q2財報新聞稿（2026年7月29日）"
+    },
+    "創意電子": {
+      updated: "2026年Q2法說會（2026年7月31日）",
+      caveat: "公司法說會未完整揭露應用別／服務別占比拆分表，以上為目前可查最具體數字。",
+      items: [
+        { label:"雲端相關應用(雲端運算/AI訓練/連網)", value:"約79-80%", note:"占出貨營收" },
+        { label:"Turnkey量產營收", value:"NT$115.86億元", note:"年增188%，公司未附占總營收百分比" }
+      ],
+      source: "Vocus方格子整理創意電子2026年Q2法說會內容"
+    },
+    "世芯-KY": {
+      updated: "2026年Q1法說會（2026年5月8日）",
+      caveat: "最新一季(Q2)法說會未取得同等細節之量化拆分表，以下採用Q1官方簡報數字。",
+      items: [
+        { label:"HPC應用平台", value:"70%" },
+        { label:"Networking網通應用", value:"17%" },
+        { label:"28奈米以上成熟製程", value:"63%" },
+        { label:"7奈米/5奈米製程", value:"21%" }
+      ],
+      source: "世芯-KY(Alchip)官方2026年5月8日投資人說明會簡報"
+    },
+    "國巨": {
+      updated: "2026年Q1法說會（2026年4月30日）",
+      caveat: "最新一季(Q2，2026/8/19召開)法說會同等細節拆分表未能取得，以下採用Q1數字。",
+      items: [
+        { label:"磁性元件", value:"25.2%" },
+        { label:"鉭質電容", value:"24.3%" },
+        { label:"MLCC積層陶瓷電容", value:"19.0%" },
+        { label:"工業應用領域", value:"29.0%", note:"依應用別另含：運算/企業系統24.9%、車用17.1%" },
+        { label:"高階市場(AI/車用/工規/醫療航太國防)合計", value:"約75%" }
+      ],
+      source: "富果直送整理國巨2026年Q1法說會內容"
+    },
+    "國巨（KEMET）": {
+      updated: "2026年Q1法說會（2026年4月30日）",
+      caveat: "最新一季(Q2，2026/8/19召開)法說會同等細節拆分表未能取得，以下採用Q1數字。",
+      items: [
+        { label:"磁性元件", value:"25.2%" },
+        { label:"鉭質電容", value:"24.3%" },
+        { label:"MLCC積層陶瓷電容", value:"19.0%" },
+        { label:"工業應用領域", value:"29.0%", note:"依應用別另含：運算/企業系統24.9%、車用17.1%" },
+        { label:"高階市場(AI/車用/工規/醫療航太國防)合計", value:"約75%" }
+      ],
+      source: "富果直送整理國巨2026年Q1法說會內容"
+    },
+    "南亞科": {
+      updated: "2026年Q2法說會（2026年7月10日）",
+      caveat: "查無更細顆粒度(伺服器/行動裝置/PC)結構化占比，原始簡報未公開取得完整版本。",
+      items: [
+        { label:"廣義消費性應用(含車用/工控/通訊)", value:"逾60%" },
+        { label:"AI基礎設施相關應用", value:"突破20%" }
+      ],
+      source: "Vocus方格子整理南亞科2026年Q2法說會內容"
+    },
+    "華邦電": {
+      updated: "2026年Q2法說會（2026年8月6日）",
+      items: [
+        { label:"CMS客製化記憶體方案(含DRAM)", value:"35%" },
+        { label:"Flash快閃記憶體", value:"33%" },
+        { label:"Logic IC邏輯產品", value:"21%" },
+        { label:"記憶體事業-通訊應用", value:"29%", note:"應用別另含：消費性28%、車用及工業28%、電腦15%" }
+      ],
+      source: "華邦電子官方2026年Q2投資人說明會簡報（2Q26 Investor Conference）"
+    },
+    "鴻海": {
+      updated: "2026年Q2法說會（2026年8月12日）",
+      caveat: "公司未揭露消費智能產品／電腦終端產品／元件及其他等類別的具體占比。",
+      items: [
+        { label:"雲端網路產品(以AI伺服器為主力)", value:"51%", note:"首度突破五成，成為集團最大營收來源，超越消費智能產品" }
+      ],
+      source: "鴻海2026年Q2法說會，轉引自鉅亨網/BigGo財經報導"
+    },
+    "廣達": {
+      updated: "2026年Q2法說會（2026年8月13日）",
+      items: [
+        { label:"伺服器(含雲端資料中心)業務", value:"80%以上", note:"自2026Q1起穩定突破八成" },
+        { label:"筆記型電腦業務", value:"低雙位數百分比" },
+        { label:"AI伺服器占伺服器業務營收(全年目標)", value:"約80%" }
+      ],
+      source: "富果直送整理廣達2026年Q2法說會內容"
+    },
+    "緯創": {
+      updated: "2026年Q2法說會（2026年8月4日）",
+      items: [
+        { label:"AI相關營收占上半年營收", value:"78%" },
+        { label:"AI伺服器占伺服器業務(不含緯穎)", value:"超過95%" }
+      ],
+      source: "Vocus方格子整理緯創2026年Q2法說會內容"
+    },
+    "緯穎": {
+      updated: "2025年全年法說會（2026年2月26日）",
+      caveat: "查無2026年最新一季ASIC與GPU平台細部占比數字，媒體報導僅為質性描述。",
+      items: [
+        { label:"AI產品營收占比", value:"超過50%", note:"2025年正式突破" }
+      ],
+      source: "Vocus方格子／聯合新聞網整理緯穎2026年2月法說會內容"
+    },
+    "華碩": {
+      updated: "2026年Q2法說會（2026年8月12日）",
+      items: [
+        { label:"系統事業群(System)", value:"45%" },
+        { label:"基礎方案事業群ISBG(含AI伺服器)", value:"36%" },
+        { label:"開放平台事業群(Open Platform)", value:"19%" },
+        { label:"AI伺服器占伺服器營收", value:"約90%", note:"HGX約60-65%＋NVL72/GB300整櫃式約30-35%" }
+      ],
+      source: "鉅亨網整理華碩2026年Q2法說會內容摘要"
+    },
+    "台達電": {
+      updated: "2026年Q2法說會（2026年7月30日）",
+      caveat: "三大事業群(電源及零組件/自動化/雲端及基礎設施)各自占總營收百分比未於公開報導揭露，僅有年增率；AI營收占比在不同報導中出現單季40%與全年預估逾25%兩種口徑。",
+      items: [
+        { label:"AI相關營收占比(單季)", value:"約40%" },
+        { label:"全年AI營收占比預估", value:"逾25%" },
+        { label:"液冷產品占今年營收預估", value:"超過12%" }
+      ],
+      source: "CMoney／Sinotrade豐雲學堂整理台達電2026年Q2法說會內容"
+    },
+    "光寶科": {
+      updated: "2026年Q2法說會（2026年7月31日）",
+      caveat: "光電部門、資訊及消費性電子部門未揭露具體占比。",
+      items: [
+        { label:"雲端及物聯網部門", value:"55%", note:"較2024年同期32%大幅提升，為最大且成長最快事業群" },
+        { label:"AI產品營收占比(全年展望)", value:"上看三成" }
+      ],
+      source: "富果直送／CMoney整理光寶科2026年Q2法說會及股東會內容"
+    },
+    "研華": {
+      updated: "2026年Q1法說會(Edge AI占比)＋2026年Q2財報公告(2026年7月31日)",
+      caveat: "查無最新一季各事業群占總營收完整百分比結構表。",
+      items: [
+        { label:"Edge AI營收占總營收", value:"20.5%", note:"2026Q1；Edge AI Product年增67%、Component年增58%" },
+        { label:"智能系統事業群(iSystems)營收年增", value:"34%" },
+        { label:"物聯網自動化事業群(iAutomation)營收年增", value:"19%" }
+      ],
+      source: "CMoney股市爆料同學會／研華官方新聞稿整理"
+    },
+    "日月光": {
+      updated: "2026年Q2法說會（2026年7月30日）",
+      caveat: "公司未公開拆分CoWoS／LEAP先進封裝／傳統封裝各自占ATM之具體占比。",
+      items: [
+        { label:"ATM半導體封裝測試業務", value:"65.9%", note:"占合併營收，1,261億元" },
+        { label:"EMS電子代工服務", value:"34.1%", note:"占合併營收，658億元" }
+      ],
+      source: "日月光投控2026年Q2法說會，轉引自Vocus方格子整理"
+    },
+    "京元電子": {
+      updated: "2025年Q3法說會（2025年11月28日）",
+      caveat: "2026年Q2法說會簡報存在但未能取得同等細節之量化拆分表，以下採用可查證到明確數字的2025Q3資料。",
+      items: [
+        { label:"成品測試(FT)", value:"58.2%" },
+        { label:"晶圓測試(CP)", value:"30.4%" },
+        { label:"資料處理(含AI相關)應用", value:"32.8%" },
+        { label:"消費性應用", value:"36.7%" }
+      ],
+      source: "富果直送整理京元電子2025年Q3法說會內容"
+    },
+    "鴻勁精密": {
+      updated: "2026年上半年法說會（2026年7月30日）",
+      caveat: "公司未揭露測試機／分選機／Burn-in設備等具體產品類別的營收占比，僅有應用別(終端市場)占比。",
+      items: [
+        { label:"AI/HPC/ASIC應用", value:"77%", note:"較2025年72%提升5個百分點" },
+        { label:"車用電子應用", value:"9%" },
+        { label:"手機AP應用", value:"8%" }
+      ],
+      source: "富果直送整理鴻勁精密2026年7月法說會內容"
+    },
+    "奇鋐": {
+      updated: "2026年Q2法說會（2026年8月12日）",
+      caveat: "公司明確表示不對外拆分水冷(液冷)與氣冷之營收比重。",
+      items: [
+        { label:"熱管理＋機殼合計", value:"83.42%", note:"熱管理年增96.3%、機殼年增133.6%" },
+        { label:"伺服器應用領域", value:"66.1%", note:"年增153.4%" }
+      ],
+      source: "Vocus方格子整理奇鋐2026年Q2法說會內容"
+    },
+    "健策": {
+      updated: "2025年Q3法說會（2025年11月28日）",
+      caveat: "2026年最新法說會未取得同等細緻的產品別拆分數字，以下為2025年資料。",
+      items: [
+        { label:"散熱產品(含均熱片/水冷散熱模組)", value:"73%", note:"年增77%；均熱片年增82%、水冷散熱模組年增48%" },
+        { label:"導線架", value:"9%" },
+        { label:"電子零件", value:"7%" }
+      ],
+      source: "健策2025年Q3法說會，整理自poorstock法說會資訊頁"
+    },
+    "欣興": {
+      updated: "2026年Q2法說會（2026年7月29日）",
+      items: [
+        { label:"ABF載板", value:"52%", note:"上季49%" },
+        { label:"HDI", value:"27%" },
+        { label:"AI Data Center應用", value:"61%", note:"上季59%" },
+        { label:"傳統PCB", value:"9%" }
+      ],
+      source: "BigGo財經整理欣興電子2026年Q2法說會內容"
+    },
+    "南電": {
+      updated: "2026年3月法說會（2026年3月17日，內容涵蓋2025全年）",
+      caveat: "查詢2026年後續法說會未取得同等細項的百分比拆分，以下為2025年資料。",
+      items: [
+        { label:"IC載板類合計(ABF+BT)", value:"約85%", note:"ABF載板占50-55%、BT載板占30%" },
+        { label:"網通終端應用", value:"49%" },
+        { label:"高階AI伺服器與交換器相關應用", value:"約15-18.8%", note:"持續擴張中" }
+      ],
+      source: "Vocus方格子整理南電2026年3月法說會內容"
+    },
+    "金像電": {
+      updated: "2025年Q3法說會",
+      caveat: "2026年Q2法說會簡報存在但未能擷取到內文具體百分比，以下為2025年資料。",
+      items: [
+        { label:"伺服器(含一般型與AI伺服器)", value:"80%", note:"去年同期68%，明顯提升" },
+        { label:"網通", value:"10%" },
+        { label:"筆記型電腦", value:"7%", note:"去年同期10%，下滑" }
+      ],
+      source: "富果直送整理金像電2025年Q3法說會內容"
+    },
+    "台光電": {
+      updated: "2025年Q4法說會（2026年3月12日）",
+      items: [
+        { label:"基礎設施應用(AI伺服器/交換器/LEO衛星等)", value:"約65-70%", note:"其中AI伺服器與交換器相關約占此類90%" },
+        { label:"行動裝置", value:"約20-25%" },
+        { label:"AI相關產品(伺服器+交換器)合計", value:"約60-63%", note:"法說會預期2026年再提升約10個百分點" }
+      ],
+      source: "富果直送整理台光電2026年3月法說會內容"
+    },
+    "南亞塑膠": {
+      updated: "2026年Q1法說會（2026年5月26日）",
+      caveat: "塑膠加工／化工／聚酯等事業群僅揭露營益率，未附營收占比。",
+      items: [
+        { label:"電子材料事業", value:"52.8%", note:"首度突破五成，成為主要獲利核心，營益率13.1%" }
+      ],
+      source: "Vocus方格子整理南亞2026年Q1法說會內容"
+    },
+    "致茂電子": {
+      updated: "2026年Q1(FY2026 Q1)法說會（2026年4月30日）",
+      caveat: "公司刻意不提供更細產品別占比預測，理由是裝置出貨具跳躍式特性。",
+      items: [
+        { label:"半導體測試部門", value:"約29%", note:"約34億元" }
+      ],
+      source: "BigGo財經整理致茂電子FY2026 Q1法說會內容"
+    },
+    "臻鼎-KY": {
+      updated: "2026年Q1法說會（2026年6月11日）",
+      caveat: "未提供手機板、車用板等傳統產品別的具體營收占比。",
+      items: [
+        { label:"AI相關業務(伺服器/光模塊/IC載板合計)", value:"19.7%", note:"去年同期11.2%，截至5月已達21%" },
+        { label:"2030年AI相關業務占比目標", value:"上修至45-50%" }
+      ],
+      source: "富果直送整理臻鼎-KY2026年6月法說會內容"
+    },
+    "中華電信": {
+      updated: "2026年Q2官方新聞稿（2026年8月5日）",
+      items: [
+        { label:"個人家庭事業群", value:"58.2%", note:"357.3億元" },
+        { label:"企業客戶事業群", value:"32.1%", note:"196.8億元" },
+        { label:"國際事業群", value:"6.4%", note:"39.3億元" }
+      ],
+      source: "中華電信「2026年第二季營運成果」官方新聞稿（2026年8月5日）"
+    },
+    "遠傳電信": {
+      updated: "2026年Q1法說會（2026年5月8日前後）",
+      caveat: "寬頻/固網、資通訊(ICT)業務未揭露具體金額或占比。",
+      items: [
+        { label:"行動服務營收占比", value:"約56.5%", note:"157億元，年增3%" }
+      ],
+      source: "Newtalk新聞整理遠傳2026年Q1法說會內容"
+    },
+    "台灣大哥大": {
+      updated: "2026年Q1官方新聞稿（2026年5月14日）",
+      caveat: "查無官方揭露之各事業群占集團總營收百分比，以下多為年增率與部分子指標。",
+      items: [
+        { label:"5G占行動服務營收", value:"68%", note:"5G用戶滲透率44.3%" },
+        { label:"企業服務(Telco+)營收年增", value:"26%" },
+        { label:"新科技事業(Telco+Tech)營收年增", value:"32%" }
+      ],
+      source: "台灣大哥大官方新聞稿（2026年5月14日）"
+    },
+
+    /* ============================================================
+       第二批：0050以外之全站公司(依industry data檔逐一補齊)
+       2026年9月建立，第一輪(companies 1-80/206)
+       ============================================================ */
+    "台泥": {
+      updated: "2025年全年法說會（2026年3月23日）",
+      caveat: "化工、環保事業部未見具體單獨占比揭露。",
+      items: [
+        { label:"水泥本業", value:"約80%" },
+        { label:"能源與綠能業務(NHOA儲能系統)", value:"約10%" },
+        { label:"和平電廠售電", value:"約10%" }
+      ],
+      source: "台泥2026年3月法說會，Vocus方格子整理"
+    },
+    "士林電機": {
+      updated: "2025年上半年法說會（2025年8月27日）",
+      items: [
+        { label:"電力配電部門(重電+開關)", value:"約72%", note:"2024年為70%" },
+        { label:"電裝事業群", value:"約17%" },
+        { label:"自動化事業群", value:"約10%" }
+      ],
+      source: "富果直送整理士林電機2025年8月法說會內容"
+    },
+    "東元": {
+      updated: "2026年Q1法說會（2026年5月14日）",
+      items: [
+        { label:"機電系統", value:"約44%", note:"約63億元" },
+        { label:"電力能源", value:"24.5%", note:"去年同期19%，約35億元" },
+        { label:"空調科技", value:"約11%", note:"約15億元" }
+      ],
+      source: "富果直送整理東元2026年Q1法說會內容"
+    },
+    "亞力": {
+      updated: "2026年Q1法說會（2026年5月28日）",
+      items: [
+        { label:"電力電子/通訊電源", value:"33.71%" },
+        { label:"機電工程", value:"18.77%", note:"去年同期13.22%" },
+        { label:"配電盤", value:"15.57%" },
+        { label:"變壓器", value:"14.76%" }
+      ],
+      source: "富果直送整理亞力2026年Q1法說會內容"
+    },
+    "華城": {
+      updated: "2025年1-11月法說會（2025年12月12日）",
+      items: [
+        { label:"變壓器", value:"73.53%" },
+        { label:"工程統包", value:"5.10%" },
+        { label:"配電盤與其他設備合計", value:"約12%" },
+        { label:"外銷占比", value:"超過55%", note:"主要美國市場" }
+      ],
+      source: "富果直送整理華城2025年12月法說會內容"
+    },
+    "中宇環保": {
+      updated: "2025年全年法說會（2026年4月24日）",
+      items: [
+        { label:"機電工程(EPC統包)", value:"41%" },
+        { label:"代營運及操作維護", value:"28%", note:"淨水廠代操作等" },
+        { label:"綠能及環保工程", value:"17%", note:"太陽能、儲能、廢水處理等" },
+        { label:"耐火材料工程", value:"12%" }
+      ],
+      source: "富果直送整理中宇環保2026年4月法說會內容"
+    },
+    "中砂": {
+      updated: "2025年全年法說會（2026年3月10日）",
+      items: [
+        { label:"晶圓事業部(SBU，測試晶圓/再生晶圓)", value:"46%" },
+        { label:"鑽石事業部(DBU，CMP鑽石碟)", value:"31%" },
+        { label:"砂輪事業部(ABU)", value:"23%", note:"前年19%，含日本MKS及泰國MGT子公司自2025/4起合併" }
+      ],
+      source: "富果直送整理中砂2026年3月法說會內容"
+    },
+    "華新": {
+      updated: "2026年Q1法說會（2026年5月8日）",
+      items: [
+        { label:"不鏽鋼", value:"54%" },
+        { label:"電線電纜(銅材+線纜)", value:"26%" },
+        { label:"資源事業", value:"18%" }
+      ],
+      source: "華新麗華官方2026年Q1法說會簡報"
+    },
+    "大亞電線電纜": {
+      updated: "2026年Q1法說會（2026年4月1日）",
+      items: [
+        { label:"電力電纜", value:"約70%", note:"主力產品" },
+        { label:"漆包線", value:"約10%" }
+      ],
+      source: "科技新報TechNews整理大亞電線電纜2026年4月法說會內容"
+    },
+    "宏泰": {
+      updated: "2026年Q1法說會（2026年5月22日）",
+      caveat: "未細分電力事業／開發事業／投資事業三大事業別的具體占比，僅有電力事業內部產品線占比。",
+      items: [
+        { label:"交連PE電纜(XLPE)", value:"67%", note:"核心產品，主要應用於高壓輸配電系統" },
+        { label:"PVC電纜", value:"18%" },
+        { label:"其他(無鹵耐熱耐燃電纜、銅導線等)", value:"約15%" }
+      ],
+      source: "富果直送整理宏泰2026年5月法說會內容"
+    },
+    "永光化學": {
+      updated: "2025年上半年法說會（2025年8月26日）",
+      caveat: "查無2026年更新場次之具體占比數字，以下為可查證之最新一次結構化揭露。",
+      items: [
+        { label:"色料事業", value:"39%", note:"15.39億元，年增3%" },
+        { label:"特用化學品", value:"25%", note:"9.75億元，年減13%" },
+        { label:"電子化學品", value:"22%", note:"8.74億元，年增13%，含光阻劑、SiC基板研磨液等" },
+        { label:"碳粉事業", value:"13%", note:"4.92億元，年減10%" }
+      ],
+      source: "Vocus方格子整理永光化學2025年8月法說會內容"
+    },
+    "長興材料": {
+      updated: "2025年全年法說會（2026年3月19日）",
+      items: [
+        { label:"合成樹脂", value:"48.22%", note:"醇酸樹脂、壓克力塗料樹脂、聚酯多元醇樹脂等" },
+        { label:"電子材料", value:"25.75%", note:"乾膜光阻、液態聚醯亞胺材料等" },
+        { label:"特用材料", value:"25.43%", note:"單體、寡聚體、壓敏膠、矽材料等" }
+      ],
+      source: "富果直送／finmoconf整理長興材料2026年3月法說會內容"
+    },
+    "台玻": {
+      updated: "114年度(2025年)年報",
+      items: [
+        { label:"平板玻璃", value:"56.8%", note:"235.65億元" },
+        { label:"玻璃纖維(含玻纖布)", value:"31.4%", note:"130.28億元，年增34.4%，高階玻纖布打入AI供應鏈" },
+        { label:"容器與餐廚玻璃", value:"8.8%", note:"36.52億元" },
+        { label:"汽車玻璃", value:"3.0%", note:"12.45億元" }
+      ],
+      source: "台灣玻璃工業114年度年報產品別營收分布表"
+    },
+    "富喬工業": {
+      updated: "2025年第三季法說會（2025年11月）",
+      items: [
+        { label:"電子級產品", value:"70%", note:"2025年前三季，較2024年同期50%提升" },
+        { label:"工業級產品", value:"30%", note:"由50%下降" },
+        { label:"先進製程產能比重", value:"2025年底45%", note:"2026年目標提高至60%" }
+      ],
+      source: "自由財經／CMoney整理富喬工業2025年11月法說會內容"
+    },
+    "上銀": {
+      updated: "2026年Q1法說會（2026年5月8日）",
+      items: [
+        { label:"線性滑軌", value:"60%", note:"約38.2億元，主力產品" },
+        { label:"滾珠螺桿", value:"23%", note:"約12.6億元" },
+        { label:"機器人產品", value:"12%", note:"約7.47億元，去年同期約10%" }
+      ],
+      source: "BigGo財經整理上銀2026年Q1法說會內容"
+    },
+    "台船": {
+      updated: "2025年1月6日（董事長媒體茶敘，最近一次有具體百分比之揭露）",
+      caveat: "2026年多場法說會僅有「三大產線滿載」等定性描述，未再揭露具體事業別營收百分比，以下為查得最近一次結構化數字，非2026年最新。",
+      items: [
+        { label:"商船(訂單生效後預估)", value:"60%" },
+        { label:"國艦國造(訂單生效後預估)", value:"30%" },
+        { label:"石化(訂單生效後預估)", value:"10%" }
+      ],
+      source: "鉅亨網整理台船董事長2025年1月談話"
+    },
+    "為升電裝": {
+      updated: "2025年上半年法說會（2025年8月17日）",
+      caveat: "公司僅揭露「本業/子公司」兩大類占比及各產品線毛利率區間，未提供更細的個別產品營收百分比；2026年尚無更新版法說簡報可查證。",
+      items: [
+        { label:"本業產品(車用開關/感測器/TPMS/毫米波雷達等)", value:"約70%" },
+        { label:"子公司產品(立承影像熱像儀、至鴻系統整合等)", value:"約30%" }
+      ],
+      source: "Vocus方格子整理為升電裝2025年8月法說會內容"
+    },
+    "華通": {
+      updated: "2026年Q1法說會（2026年5月29日）",
+      caveat: "法說會提供的是年增率與2028年遠期目標占比，並非2026Q1當期各產品線占營收的實際百分比。",
+      items: [
+        { label:"資料中心業務年增", value:"225%", note:"2026Q1 vs 去年同期" },
+        { label:"低軌衛星業務2026年預估年增", value:"25-30%" },
+        { label:"2028年目標：光模塊占營收", value:"20-30%" },
+        { label:"2028年目標：消費性電子占比降至", value:"50%以下" }
+      ],
+      source: "富果直送整理華通2026年Q1法說會內容"
+    },
+    "仁寶": {
+      updated: "2026年Q2法說會（2026年8月13日）",
+      caveat: "部分數字為法說會口頭揭露區間，且含未來目標(2027年)而非當期實際占比。",
+      items: [
+        { label:"非PC業務", value:"34%" },
+        { label:"Q2伺服器營收中AI伺服器占比", value:"70-80%" },
+        { label:"2027年目標：伺服器營收占比", value:"30-40%" }
+      ],
+      source: "中時新聞網整理仁寶2026年Q2法說會內容"
+    },
+    "旺宏電子": {
+      updated: "2025年Q4法說會（2026年1月27日）",
+      items: [
+        { label:"NOR Flash", value:"61%" },
+        { label:"NAND Flash／eMMC", value:"21%", note:"由前期16%提升，Q4季增25%、年增213%" },
+        { label:"12吋廠未來規劃：NOR與NAND", value:"各半(50%:50%)" }
+      ],
+      source: "Vocus方格子整理旺宏電子2026年1月法說會內容"
+    },
+    "台灣光罩": {
+      updated: "2025年法說會（2025年12月29日）",
+      items: [
+        { label:"PMIC應用", value:"38%", note:"2024年為46%，占比下滑" },
+        { label:"MCU應用", value:"21%", note:"2024年19%" },
+        { label:"Driver IC應用", value:"13%" },
+        { label:"CIS應用", value:"13%" },
+        { label:"GaAs應用", value:"6%" }
+      ],
+      source: "台灣光罩官方2025年12月法人說明會簡報（公開資訊觀測站）"
+    },
+    "鴻準": {
+      updated: "2026年Q1法說會",
+      items: [
+        { label:"遊戲機(Game console)", value:"78%", note:"2025Q1為87%，占比下滑" },
+        { label:"散熱模組(含氣冷、液冷)", value:"14%", note:"2025Q1為8%，年增逾40%，受惠AI伺服器需求" },
+        { label:"機殼", value:"6%", note:"年增逾30%" }
+      ],
+      source: "富果直送整理鴻準2026年Q1法說會內容"
+    },
+    "英業達": {
+      updated: "2026年Q1法說會（2026年5月12日）",
+      items: [
+        { label:"伺服器相關", value:"46-50%", note:"2025Q4為41-45%，占比上升" },
+        { label:"電腦(PC)相關", value:"46-50%", note:"2025Q4為51-55%，占比下滑" },
+        { label:"智能裝置", value:"1-5%" }
+      ],
+      source: "富果直送／經濟日報整理英業達2026年Q1法說會內容"
+    },
+    "所羅門": {
+      updated: "2025年全年法說會（2026年4月8日）",
+      items: [
+        { label:"機電事業群(含發電機)", value:"40%" },
+        { label:"智動化事業群", value:"29%" },
+        { label:"光電製造業", value:"21%" },
+        { label:"電子通路業", value:"8%" }
+      ],
+      source: "Vocus方格子整理所羅門2026年4月法說會內容"
+    },
+    "菱生精密": {
+      updated: "2025年Q3法說會",
+      caveat: "查無2026年更新的產品別占比數字，沿用並註明年度。",
+      items: [
+        { label:"NOR/NAND Flash(記憶體)", value:"37%", note:"因AI應用擴展躍居第一" },
+        { label:"Sensor IC", value:"32%" },
+        { label:"Power IC", value:"20%" }
+      ],
+      source: "富果直送整理菱生精密2025年Q3法說會內容"
+    },
+    "凱美": {
+      updated: "114年度(2025年)年報",
+      items: [
+        { label:"電阻", value:"50.31%", note:"2,789,149.5千元" },
+        { label:"電解電容器", value:"39.31%", note:"2,179,359.5千元" },
+        { label:"馬達風扇", value:"10.29%", note:"570,570.5千元" }
+      ],
+      source: "凱美114年度年報產品別占比表"
+    },
+    "技嘉": {
+      updated: "2026年Q1法說會（2026年5月15日）",
+      items: [
+        { label:"伺服器產品", value:"71.5%" },
+        { label:"顯示卡", value:"19%" },
+        { label:"主機板", value:"6.5%" },
+        { label:"AI伺服器占整體伺服器業務", value:"超過八成", note:"年增達110%" }
+      ],
+      source: "富果直送整理技嘉2026年Q1法說會內容"
+    },
+    "微星": {
+      updated: "2024年度資料（2025年3月14日法說會，官方簡報）",
+      caveat: "此為公司官方最新一份含具體產品類別占比的法說簡報，但非2026年最新更新；後續法說會未再公布明確百分比。",
+      items: [
+        { label:"Component(元件，主機板/顯示卡等)", value:"48%" },
+        { label:"System(系統，桌機/筆電/AIO等)", value:"45%" },
+        { label:"Others(週邊/伺服器/IPC/車用等)", value:"7%" }
+      ],
+      source: "微星科技官方2025年3月投資人說明會簡報PDF"
+    },
+    "建準": {
+      updated: "2026年Q1法說會（2026年5月8日）",
+      items: [
+        { label:"網通及伺服器應用", value:"60.6%", note:"年增24.5%" },
+        { label:"IT筆電及辦公設備", value:"15.6%" },
+        { label:"整體伺服器營收占比", value:"47.3%" },
+        { label:"AI伺服器占總營收", value:"22.6%", note:"GPU方案37%、ASIC方案63%" }
+      ],
+      source: "富果直送整理建準2026年Q1法說會內容"
+    },
+    "創見": {
+      updated: "2026年Q1法說會（2026年4月8日）",
+      items: [
+        { label:"工控(嵌入式解決方案)產品", value:"62.8%", note:"2024年為58.3%，逐年提升" },
+        { label:"Flash結構：TLC", value:"約90%" },
+        { label:"Flash結構：MLC", value:"約10%" }
+      ],
+      source: "富果直送整理創見2026年Q1法說會內容"
+    },
+    "盟立自動化": {
+      updated: "2025年11月法說會（2025年12月22日）",
+      items: [
+        { label:"半導體自動化系統", value:"57%", note:"核心事業" },
+        { label:"智慧自動化物流系統", value:"16%" }
+      ],
+      source: "BigGo財經整理盟立自動化2025年12月法說會內容"
+    },
+    "志聖": {
+      updated: "2025年度法說會（2026年3月3日）",
+      items: [
+        { label:"半導體設備", value:"40%", note:"自2023年17%擴大" },
+        { label:"先進PCB設備", value:"27%" },
+        { label:"傳統PCB設備", value:"24%", note:"占比下降中" },
+        { label:"AI供應鏈相關產品應用合計", value:"近70%" }
+      ],
+      source: "Vocus方格子整理志聖2026年3月法說會內容"
+    },
+    "立隆電": {
+      updated: "114年度(2025年)年報",
+      items: [
+        { label:"鋁電解電容器", value:"66.8%", note:"約75.4億元" },
+        { label:"鋁箔", value:"33.2%", note:"約37.5億元" }
+      ],
+      source: "立隆電114年度年報營收分布資料"
+    },
+    "大毅": {
+      updated: "2026年上半年法說會（2026年8月13日）",
+      caveat: "查無電阻/電容/感測元件各自獨立占比的細項數字，僅有「高毛利產品群」的合併占比。",
+      items: [
+        { label:"高毛利產品群(薄膜、保護與感測元件)", value:"54%" },
+        { label:"AI相關應用營收(上半年)", value:"12%", note:"全年預估上看15%" }
+      ],
+      source: "Vocus方格子整理大毅2026年8月法說會內容"
+    },
+    "強茂": {
+      updated: "2026年Q1法說會（2026年5月15日）",
+      items: [
+        { label:"MOSFET", value:"32%" },
+        { label:"Schottky", value:"23%" },
+        { label:"車用電子應用", value:"35%", note:"2025年Q1為32%，出貨量年增43%" },
+        { label:"AI相關應用(伺服器電源、工業運算等)", value:"11%", note:"首度突破一成" }
+      ],
+      source: "BigGo財經整理強茂2026年Q1法說會內容"
+    },
+    "兆赫電子": {
+      updated: "2025年底法說會",
+      caveat: "來源為財經社群平台整理稿，非公司或主流財經媒體一手報導，建議上線前另行核對。",
+      items: [
+        { label:"數位視訊轉換器(STB系列)", value:"約46%", note:"過去曾近70%，因捨棄低毛利訂單而下降" },
+        { label:"數位有線寬頻傳輸系統", value:"約36%", note:"受惠北美MSO 1.8GHz網路升級" }
+      ],
+      source: "股市爆料同學會整理兆赫電子2025年底法說會內容"
+    },
+    "一詮精密": {
+      updated: "2026年1月月營收公告（約2026年2月）",
+      caveat: "來源為財經社群平台整理稿而非公司一手簡報，建議上線前另行核對。",
+      items: [
+        { label:"散熱元件", value:"44.18%", note:"2.47億元，占比由2025年初26.38%快速提升" },
+        { label:"導線架", value:"29.19%", note:"1.63億元" }
+      ],
+      source: "股市爆料同學會整理一詮精密月營收資訊"
+    },
+    "華新科": {
+      updated: "2026年Q1法說會（2026年5月27日）",
+      items: [
+        { label:"MLCC積層陶瓷電容", value:"46.4%", note:"較2025年同期42.4%上升" },
+        { label:"電阻", value:"22.2%" },
+        { label:"射頻元件(含LTCC)", value:"14.2%" }
+      ],
+      source: "BigGo財經整理華新科2026年Q1法說會內容"
+    },
+    "揚博科技": {
+      updated: "2025年上半年法說會（2025年9月24日）",
+      caveat: "自製設備/代理業務為區間估計而非精確占比，各細分應用領域無百分比數據，且資料時間點非2026年最新。",
+      items: [
+        { label:"自製設備業務", value:"約55-65%" },
+        { label:"代理業務", value:"約35-45%" }
+      ],
+      source: "富果直送整理揚博科技2025年9月法說會內容"
+    },
+    "漢翔航空工業": {
+      updated: "2026年Q1法說會（2026年4月20日）",
+      items: [
+        { label:"民用業務", value:"59%", note:"公司預期2026年將超越國防業務成為最大營收來源" },
+        { label:"國防業務", value:"40%" },
+        { label:"科技服務", value:"2%" }
+      ],
+      source: "富果直送整理漢翔航空工業2026年Q1法說會內容"
+    },
+    "健和興": {
+      updated: "114年度(2025年)年報",
+      items: [
+        { label:"連接器及配線器材", value:"95.84%", note:"約42.13億元" },
+        { label:"其他產品", value:"4.16%", note:"約1.83億元" }
+      ],
+      source: "健和興114年度年報產品別營收表"
+    },
+    "嘉晶": {
+      updated: "2026年Q1法說會（2026年4月29日）",
+      items: [
+        { label:"矽磊晶(Silicon Epi)", value:"約90%", note:"其中8吋產品占比達70%，去年同期55%" },
+        { label:"化合物半導體(GaN、SiC)", value:"約10%" }
+      ],
+      source: "富果直送整理嘉晶2026年Q1法說會內容"
+    },
+    "禾伸堂": {
+      updated: "2025年Q3法說會（2025年11月25日）",
+      items: [
+        { label:"被動元件", value:"40%", note:"其中MLCC約占被動元件營收8成" },
+        { label:"主動元件", value:"26%", note:"主要為代理產品" },
+        { label:"系統模組", value:"15%", note:"主要為Microchip相關產品" }
+      ],
+      source: "富果直送整理禾伸堂2025年Q3法說會內容"
+    },
+    "德律": {
+      updated: "2025年前11月累計（2025年12月19日法說會）",
+      items: [
+        { label:"網通/伺服器應用", value:"36%", note:"最大宗且成長最快" },
+        { label:"車用電子應用", value:"19%" },
+        { label:"手機應用", value:"13%" },
+        { label:"藍海市場(高階/新興檢測應用)", value:"81%", note:"62.97億元" }
+      ],
+      source: "富果直送整理德律2025年12月法說會內容"
+    },
+    "聯詠科技": {
+      updated: "2026年Q2法說會（2026年8月6日）",
+      items: [
+        { label:"SoC(系統單晶片)", value:"51%", note:"較2026Q1的44%大幅提升，受惠HAI影像視覺晶片出貨" },
+        { label:"中小尺寸驅動IC", value:"28%" },
+        { label:"大尺寸驅動IC", value:"20%" }
+      ],
+      source: "富果直送整理聯詠科技2026年Q2法說會內容"
+    },
+    "智原": {
+      updated: "2025年Q4暨全年財報（2026年公布）",
+      items: [
+        { label:"量產業務(Q4)", value:"52.2%", note:"14.7億元，季減37%" },
+        { label:"NRE委託設計服務(Q4)", value:"33.1%", note:"9.3億元，季增89%、年增183%創單季新高" },
+        { label:"IP矽智財(Q4)", value:"14.7%", note:"4.1億元" }
+      ],
+      source: "智原科技(Faraday)官方2025年Q4財務報告PDF"
+    },
+    "文晔科技": {
+      updated: "2025年Q2法說會（2025年8月6日）",
+      caveat: "資料時間點非2026年最新，未查到更新的應用別占比揭露。",
+      items: [
+        { label:"資料中心與伺服器應用", value:"36.6%", note:"季增16%，AI需求驅動，最大成長動能" },
+        { label:"工業與儀器應用", value:"17.0%" },
+        { label:"個人電腦與周邊應用", value:"14.2%" }
+      ],
+      source: "富果直送整理文晔科技2025年8月法說會內容"
+    },
+    "文曄": {
+      updated: "2025年Q2法說會（2025年8月6日）",
+      caveat: "資料時間點非2026年最新，未查到更新的應用別占比揭露。",
+      items: [
+        { label:"資料中心與伺服器應用", value:"36.6%", note:"季增16%，AI需求驅動，最大成長動能" },
+        { label:"工業與儀器應用", value:"17.0%" },
+        { label:"個人電腦與周邊應用", value:"14.2%" }
+      ],
+      source: "富果直送整理文晔科技2025年8月法說會內容"
+    },
+    "晶技": {
+      updated: "2025年應用別占比（第三方分析報告發布於2026年6月6日）",
+      caveat: "此數字為第三方分析報告整理公司IR資料，建議上線前以官方法說會簡報複核精確度。",
+      items: [
+        { label:"手機通訊應用", value:"29%", note:"占比逐年下降" },
+        { label:"車用電子應用", value:"26%" },
+        { label:"AI應用", value:"10%", note:"公司展望2026年提升至15%以上" }
+      ],
+      source: "領趨投資觀點整理晶技2025年度資料"
+    },
+    "聯亞光電": {
+      updated: "2026年Q1法說會（2026年1月28日）",
+      items: [
+        { label:"Datacom應用(主要為矽光/Silicon Photonics產品)", value:"75-80%" },
+        { label:"Telecom電信應用", value:"10-15%" }
+      ],
+      source: "財經自媒體整理聯亞光電2026年1月法說會內容"
+    },
+    "日電貿": {
+      updated: "2026年Q2法說會（2026年8月11日）",
+      items: [
+        { label:"陶瓷電容MLCC", value:"46%" },
+        { label:"固態電容", value:"31%" },
+        { label:"資訊運算應用", value:"31%" },
+        { label:"通訊應用", value:"21%" }
+      ],
+      source: "富果直送整理日電貿2026年Q2法說會內容"
+    },
+    "穩懋半導體": {
+      updated: "2026年Q1法說會（2026年5月5日）",
+      caveat: "2026Q2法說會(7/24)僅定性表示四大產品線同步成長，未見具體百分比更新，故採用Q1最後一次有明確數字的揭露。",
+      items: [
+        { label:"Cellular PA", value:"30-35%" },
+        { label:"Infrastructure", value:"30-35%" },
+        { label:"Wi-Fi", value:"15-20%" },
+        { label:"Optical", value:"5-10%", note:"首度獨立列出" }
+      ],
+      source: "股感StockFeel／鉅亨網整理穩懋2026年Q1法說會內容"
+    },
+    "弘塑": {
+      updated: "2026年Q1法說會（2026年5月26日）",
+      items: [
+        { label:"弘塑本體設備", value:"約65%" },
+        { label:"添鴻化學品", value:"約20%" },
+        { label:"代理業務", value:"約15%" }
+      ],
+      source: "財經自媒體整理弘塑2026年5月法說會內容"
+    },
+    "波若威": {
+      updated: "114年度(2025年)法說會（2026年3月10日）",
+      items: [
+        { label:"OIN(光接點)", value:"33%" },
+        { label:"Branch", value:"28%" },
+        { label:"WDM", value:"27%" },
+        { label:"AMP", value:"12%" }
+      ],
+      source: "財經自媒體整理波若威2026年3月法說會內容"
+    },
+    "景碩": {
+      updated: "2025Q4基準法說會（2026年3月10日）",
+      caveat: "「隱形眼鏡」係因子公司晶碩光學(6491)併入合併營收所致，非景碩本業載板產品，屬集團合併口徑。",
+      items: [
+        { label:"手機應用", value:"35%" },
+        { label:"ABF/HPC應用", value:"24%" },
+        { label:"ABF載板", value:"約46%" },
+        { label:"BT載板", value:"約36%" }
+      ],
+      source: "財經自媒體整理景碩2026年3月法說會內容"
+    },
+    "順達": {
+      updated: "2026年3月法說會相關報導（2025年度數據，展望2026）",
+      caveat: "非IT(BBU)與IT占比為區間估計，未取得儲能、消費性電子等更細項占比數字。",
+      items: [
+        { label:"非IT產品(主要為BBU不斷電備援電池模組)", value:"30-40%", note:"2025年；2026年展望估將突破50%" },
+        { label:"IT產品", value:"約60-70%" }
+      ],
+      source: "CMoney股市爆料同學會整理順達2026年3月法說會相關報導"
+    },
+
+    /* ============================================================
+       第三批：0050以外之全站公司(依股票代號排序)，2026年9月15日建立
+       涵蓋代號3227–6862區段中可查得結構化占比者；本輪查無完整占比
+       而略過(不建立條目)：漢科、力致、山太士、玖鼎電力、富田、新盛力、
+       和碩、眾達-KY、界霖工業、信昌電、萬潤、台郡、元晶太陽能、
+       環球晶圓、均華、群翊工業、AES-KY、和淞科技、睿生光電；僅有單一
+       粗略數字而略過：堡達、高明鐵、美琪瑪、佳凌、鑫科材料、新普、
+       昇達科技；僅有地區別或在手訂單／年度不明而略過：凌華科技、
+       廣運、德宏、中美晶。立錡科技已於2016年由聯發科全資收購下市，
+       不適用。富果直送以外的AI整理來源(poorstock)單一來源數字，
+       均於caveat註明。
+       ============================================================ */
+    "原相科技": {
+      updated: "2026年第二季（2026年8月11日法說會）",
+      caveat: "僅AI整理來源（poorstock）整理最新一季數字，非公司簡報原檔；2025Q4數字另見富果直送、趨勢一致。公司只揭露三大類，安防、車用、機器人相關感測併入「其他」，無細項占比。",
+      items: [
+        { label:"滑鼠", value:"約62%", note:"長期維持在62-64%" },
+        { label:"遊戲機", value:"約9%", note:"近幾季在7-11%之間" },
+        { label:"其他（含安防、車用、AI感測等新應用）", value:"約29%", note:"高於過去的24-27%" }
+      ],
+      source: "散戶鬥嘴鼓整理原相2026年8月法說會內容；富果直送整理2026年2月法說會（2025Q4：滑鼠63%、遊戲機7%、其他30%）"
+    },
+    "威剛": {
+      updated: "2026年第二季（2026年8月6日法說會）",
+      caveat: "數字取自富果直送整理的法說會重點，非公司簡報原檔。",
+      items: [
+        { label:"DRAM", value:"約61%" },
+        { label:"SSD", value:"約32%" },
+        { label:"記憶卡與隨身碟", value:"約5%" },
+        { label:"其他", value:"約2%" },
+        { label:"地區別：亞洲／美洲／其他", value:"52%／40%／8%" }
+      ],
+      source: "富果直送整理威剛2026年8月6日法說會內容"
+    },
+    "欣銓科技": {
+      updated: "2026年第二季（2026年7月24日法說會）",
+      caveat: "非公司簡報原檔；整理文僅列出5個應用類別（合計約71%），其餘類別未揭露，故加總不足100%。公司表示未來才會單獨揭露AI ASIC營收。",
+      items: [
+        { label:"通訊連結", value:"約33.4%", note:"受AI帶動與國內通訊客戶訂單外溢，為最大宗" },
+        { label:"儲存", value:"約11%" },
+        { label:"消費性", value:"約10%" },
+        { label:"微控制器（MCU）", value:"約8.5%" },
+        { label:"車用", value:"約8.2%", note:"需求回升" }
+      ],
+      source: "方格子（vocus）整理欣銓2026年7月24日法說會內容"
+    },
+    "宜特": {
+      updated: "2026年上半年（2026年8月13日法說會）",
+      caveat: "公司只揭露兩大業務群粗分類，無光通訊相關細項，也無客戶或地區別占比；來源為第三方法說會整理。",
+      items: [
+        { label:"故障分析（FA）＋材料分析（MA）及其他", value:"約51%", note:"2025年全年為48%" },
+        { label:"可靠度驗證（RA）", value:"約49%", note:"2025年全年為52%" }
+      ],
+      source: "散戶鬥嘴鼓、BigGo財經整理宜特2026年8月13日法說會內容（兩者數字一致）"
+    },
+    "加百裕": {
+      updated: "2025年前三季（2025年12月30日法說會）",
+      caveat: "僅AI整理來源（poorstock）、未能逐項交叉核對：BigGo財經同場整理僅有筆電62%一項（且標示為2025年全年預估），其餘細項無第二來源。儲能／BBU、電動載具的較高數字屬公司2026-2027年目標，未列入。",
+      items: [
+        { label:"筆記型電腦", value:"約62%", note:"2024年約67%，公司持續降低比重" },
+        { label:"電動工具", value:"約19%" },
+        { label:"網通", value:"約8%" },
+        { label:"儲能／BBU／其他", value:"約5%" },
+        { label:"電動移動（E-Bike、輕型電動車）", value:"約4%" },
+        { label:"無人機", value:"約2%" }
+      ],
+      source: "散戶鬥嘴鼓整理加百裕2025年12月法說會內容"
+    },
+    "雙鴻": {
+      updated: "2025年第四季（2026年3月媒體報導）",
+      caveat: "非公司簡報原檔；此來源未列出2025Q4的PC、顯卡占比。不同媒體對早期季度的伺服器占比說法互有出入，故僅採用細項最完整的2025Q4數字。",
+      items: [
+        { label:"伺服器（合計）", value:"約72%", note:"2026Q2據AI整理來源已升至約78%" },
+        { label:"　└ 伺服器水冷", value:"約51%" },
+        { label:"　└ 伺服器氣冷", value:"約21%" }
+      ],
+      source: "財報狗新聞整理雙鴻2025年第四季營收結構（2026年3月）"
+    },
+    "泰碩": {
+      updated: "2026年上半年（2026年7月20日法說會）",
+      caveat: "筆電、伺服器占比僅AI整理來源（poorstock）、未能交叉核對；水冷16%與車用降至個位數兩項有BigGo財經整理佐證。應用別只列出三項，其餘應用未揭露。",
+      items: [
+        { label:"筆記型電腦", value:"約37%" },
+        { label:"伺服器", value:"約36%", note:"台視財經報導公司預期伺服器占比將衝破五成（屬展望）" },
+        { label:"車用", value:"個位數%", note:"2024年約15%" },
+        { label:"水冷散熱模組（產品別，2026Q2）", value:"約16%", note:"2025Q4僅4%；與上列應用別口徑重疊，不可加總" }
+      ],
+      source: "散戶鬥嘴鼓整理泰碩2026年7月法說會內容；水冷占比另見BigGo財經整理"
+    },
+    "先進光電": {
+      updated: "2025年（2025年12月30日法說會）",
+      caveat: "公司只給概略區間，非精確數字；手機、安控、光通訊相關業務未揭露占比。",
+      items: [
+        { label:"筆電鏡頭", value:"75-80%" },
+        { label:"車用鏡頭", value:"約10%", note:"公司目標提高到10%以上" },
+        { label:"物聯網（IoT）", value:"5-10%" },
+        { label:"醫療", value:"極低", note:"公司未給數字" }
+      ],
+      source: "富果直送整理先進光電2025年12月30日法說會內容"
+    },
+    "上詮": {
+      updated: "2025年第三季（2025年11月24日法說會）",
+      caveat: "資料偏舊，未取得2026年法說會的最新占比；非公司簡報原檔。",
+      items: [
+        { label:"跳接線（Patch cord）", value:"約68%" },
+        { label:"其他", value:"約20%" },
+        { label:"光通訊元件（Optical Com）", value:"約8%" },
+        { label:"矽光子／CPO封裝", value:"約4%" },
+        { label:"地區別：美洲／亞洲／歐洲／中國", value:"82%／11%／4%／3%" }
+      ],
+      source: "方格子（vocus）整理上詮2025年11月24日法說會內容"
+    },
+    "明泰科技": {
+      updated: "2025年全年（2026年2月26日法說會）",
+      caveat: "兩個第三方整理來源的主要產品線數字一致，數位多媒體一項有出入；三項合計未達100%，其餘未揭露；低軌衛星、車用、資料中心未單獨揭露。",
+      items: [
+        { label:"無線寬頻網路", value:"約43%", note:"2024年約45%" },
+        { label:"區域／都會網路", value:"約36%", note:"2024年約37%" },
+        { label:"數位多媒體暨行動方案", value:"約5-8%", note:"兩個整理來源數字不同（5%／8%）" },
+        { label:"地區別：美洲／亞洲／歐洲", value:"57%／33%／9%", note:"亞洲成長主要來自印度等新興市場" }
+      ],
+      source: "散戶鬥嘴鼓、BigGo財經整理明泰2026年2月法說會內容"
+    },
+    "玉晶光": {
+      updated: "2025年前三季（2025年11月19日法說會）",
+      caveat: "非公司簡報原檔；公司只揭露鏡頭規格粗分類，無Apple、光通訊、車用等應用或客戶占比。",
+      items: [
+        { label:"10M(含)以上及TOF鏡頭", value:"約50%" },
+        { label:"10M以下鏡頭", value:"約10%" },
+        { label:"其他", value:"約40%", note:"含稜鏡模組、AR/VR產品、光學元件、閃光燈鏡頭等" }
+      ],
+      source: "富果直送整理玉晶光2025年11月19日法說會內容"
+    },
+    "聯鈞光電": {
+      updated: "截至2026年7月（2026年8月18日法說會）",
+      caveat: "兩類合計約95.9%，其餘項目未揭露；原文未說明為累計或單月數字；未單獨揭露低軌衛星占比。",
+      items: [
+        { label:"功率元件（子公司捷敏）", value:"約50.4%", note:"2025年約62.0%" },
+        { label:"AI相關光學產品", value:"約45.5%", note:"2025年約32.7%；COSA中EML與CW laser約各半" }
+      ],
+      source: "富果直送整理聯鈞2026年8月18日法說會內容"
+    },
+    "由田新技": {
+      updated: "2025年前三季（2025年12月30日法說會）",
+      caveat: "半導體只給區間，三項合計不足100%；未單獨揭露PCB或機器人相關占比。",
+      items: [
+        { label:"半導體", value:"45-55%" },
+        { label:"IC載板（ICS）", value:"約20%" },
+        { label:"顯示器（Display）", value:"約20%" }
+      ],
+      source: "方格子（vocus）整理由田2025年12月30日法說會內容"
+    },
+    "力旺": {
+      updated: "2026年第一季（2026年5月8日法說會）",
+      caveat: "非公司簡報原檔；收入別與產品線別為兩種不同拆法；未取得2026年8月法說會占比，也無AI等應用別占比。",
+      items: [
+        { label:"權利金", value:"約65.2%", note:"其中12吋晶圓66.3%、8吋晶圓33.7%" },
+        { label:"授權金", value:"約34.8%" },
+        { label:"產品線：NeoFuse", value:"約59.8%" },
+        { label:"產品線：NeoBit", value:"約20.0%" },
+        { label:"產品線：PUF（安全IP）", value:"約12.2%" },
+        { label:"產品線：MTP", value:"約8.0%" }
+      ],
+      source: "方格子（vocus）整理力旺2026年5月8日法說會內容"
+    },
+    "同致電子": {
+      updated: "2025年前三季（2025年11月19日法說會）",
+      caveat: "資料較舊；產品三項合計約95%；未單獨揭露Tesla或電動車占比。",
+      items: [
+        { label:"感測器（Sensing）", value:"約66%" },
+        { label:"控制器（Control）", value:"約22%" },
+        { label:"座艙內應用", value:"約7%" },
+        { label:"地區別：中國大陸", value:"約79%" },
+        { label:"地區別：歐洲與美洲", value:"約9%" }
+      ],
+      source: "富果直送整理同致2025年11月19日法說會內容"
+    },
+    "辛耘": {
+      updated: "2025年全年（2026年5月12日法說會）",
+      caveat: "只有兩大業務粗分類，未將自製設備與再生晶圓分開，也無先進封裝、客戶或地區別占比。",
+      items: [
+        { label:"代理事業", value:"約58%", note:"約66.47億元" },
+        { label:"自製設備及製造（含再生晶圓）", value:"約42%", note:"約47.23億元" }
+      ],
+      source: "方格子（vocus）整理辛耘2026年5月12日法說會內容"
+    },
+    "辛耘企業": {
+      updated: "2025年全年（2026年5月12日法說會）",
+      caveat: "只有兩大業務粗分類，未將自製設備與再生晶圓分開，也無先進封裝、客戶或地區別占比。",
+      items: [
+        { label:"代理事業", value:"約58%", note:"約66.47億元" },
+        { label:"自製設備及製造（含再生晶圓）", value:"約42%", note:"約47.23億元" }
+      ],
+      source: "方格子（vocus）整理辛耘2026年5月12日法說會內容"
+    },
+    "閎康": {
+      updated: "2025年全年（2026年4月15日法說會）",
+      caveat: "公司未揭露業務別（MA/FA/RA）占比，僅有地區別；另一AI整理來源（2026年9月法說）的日本、美國數字與此不同（18%／10%），尚待官方簡報核對。",
+      items: [
+        { label:"地區別：中國", value:"約39%" },
+        { label:"地區別：台灣", value:"約36%" },
+        { label:"地區別：日本", value:"約13%", note:"2026Q1年增47%" },
+        { label:"地區別：美國", value:"約9%", note:"2026Q1年增41%" },
+        { label:"地區別：其他", value:"約3%" },
+        { label:"前十大矽光子客戶營收", value:"約3.4%", note:"占集團總營收，另計" }
+      ],
+      source: "方格子（vocus）整理閎康2026年4月法說會內容"
+    },
+    "光頡": {
+      updated: "2026年第一季（2026年5月11日法說會）",
+      caveat: "數字取自富果直送整理，非公司簡報原檔。",
+      items: [
+        { label:"車用電子", value:"約48%" },
+        { label:"工業控制", value:"約22%" },
+        { label:"AI相關", value:"約12%", note:"台灣客戶約2/3、美國客戶約1/3" },
+        { label:"代工業務", value:"約11%" },
+        { label:"醫療與航太", value:"約7%" },
+        { label:"產品別：精密電阻／一般電阻／高頻電感", value:"57%／36%／5%", note:"其他約2%" }
+      ],
+      source: "富果直送整理光頡2026年5月法說會內容"
+    },
+    "家登精密": {
+      updated: "2026年1-7月（2026年8月法說會）",
+      caveat: "占本業營收比重；地區別三項合計98%，其餘地區未列出。",
+      items: [
+        { label:"光罩載具（含EUV Pod）", value:"約58%", note:"2024年46%、2025年53%" },
+        { label:"晶圓載具（FOUP等）", value:"約31%" },
+        { label:"其他產品", value:"約11%" },
+        { label:"地區別：台灣／大中華／美國", value:"52%／29%／17%" }
+      ],
+      source: "壹蘋新聞網整理家登2026年8月法說會內容"
+    },
+    "大聯大": {
+      updated: "2026年第二季（2026年8月18日法說會）",
+      caveat: "記憶元件54%另有媒體報導佐證；另一AI整理來源的產品別數字不同，未採用。類比、分離元件等其他產品線及台灣營收未列出。",
+      items: [
+        { label:"記憶元件", value:"約54%", note:"去年同期26%" },
+        { label:"核心元件", value:"約18%", note:"去年同期40%" },
+        { label:"被動元件", value:"約9%", note:"去年同期7%" },
+        { label:"應用：運算（含伺服器）", value:"約45%" },
+        { label:"應用：通訊／消費／工業／車用", value:"15%／9%／9%／8%" },
+        { label:"地區：大陸及香港／東南亞／北美", value:"63%／19%／8%" }
+      ],
+      source: "富果直送整理大聯大2026年8月法說會內容；報新聞Mega News報導記憶體占比"
+    },
+    "大聯大投控": {
+      updated: "2026年第二季（2026年8月18日法說會）",
+      caveat: "記憶元件54%另有媒體報導佐證；另一AI整理來源的產品別數字不同，未採用。類比、分離元件等其他產品線及台灣營收未列出。",
+      items: [
+        { label:"記憶元件", value:"約54%", note:"去年同期26%" },
+        { label:"核心元件", value:"約18%", note:"去年同期40%" },
+        { label:"被動元件", value:"約9%", note:"去年同期7%" },
+        { label:"應用：運算（含伺服器）", value:"約45%" },
+        { label:"應用：通訊／消費／工業／車用", value:"15%／9%／9%／8%" },
+        { label:"地區：大陸及香港／東南亞／北美", value:"63%／19%／8%" }
+      ],
+      source: "富果直送整理大聯大2026年8月法說會內容；報新聞Mega News報導記憶體占比"
+    },
+    "漢磊": {
+      updated: "2025年上半年（2025年9月17日法說會）",
+      caveat: "資料偏舊，未查得2026年法說會占比；SiC與GaN合併揭露。",
+      items: [
+        { label:"化合物功率元件（SiC＋GaN）", value:"約41%" },
+        { label:"TVS／ESD", value:"約25%" },
+        { label:"車用MOSFET", value:"約19%" },
+        { label:"其他（含FRD）", value:"約15%" },
+        { label:"應用：工業／消費／車用／綠能", value:"42%／30%／22%／6%" }
+      ],
+      source: "富果直送整理漢磊2025年9月法說會內容"
+    },
+    "定穎投控": {
+      updated: "2025年第三季（2025年11月14日法說會）",
+      caveat: "2026年的整理僅揭露占比變動、無絕對值，故沿用2025Q3數字；公司2027年AI產品占40%為目標，非實績。",
+      items: [
+        { label:"汽車板", value:"約58%", note:"2026Q2較前季+1個百分點" },
+        { label:"儲存裝置", value:"約12%", note:"2026Q2較前季+2個百分點" },
+        { label:"網路通訊及伺服器", value:"約11%" },
+        { label:"顯示面板", value:"約11%", note:"2026Q2較前季−2個百分點" },
+        { label:"電腦及周邊", value:"約6%" }
+      ],
+      source: "富果直送整理定穎投控2025年11月及2026年8月法說會內容"
+    },
+    "聯嘉投控": {
+      updated: "2026年1-5月（2026年6月30日法說會）",
+      caveat: "最新期數字僅AI整理來源（poorstock）；BigGo財經整理的3月法說會（汽車92%、節能環保4%、其他工業4%；美洲80%、歐洲10%、台灣7%）與之大致相符。無客戶占比。",
+      items: [
+        { label:"車燈應用", value:"約91%", note:"主要客戶為Magna" },
+        { label:"綠能產品", value:"約4%" },
+        { label:"智慧工程", value:"約3%" },
+        { label:"工業應用", value:"約2%" },
+        { label:"地區：美洲／歐洲／台灣／中國", value:"80%／9%／8%／2%" }
+      ],
+      source: "散戶鬥嘴鼓整理聯嘉投控2026年6月法說會內容；BigGo財經整理2026年3月法說會數字相近"
+    },
+    "全球傳動": {
+      updated: "2026年第二季（2026年8月14日法說會）",
+      caveat: "完整數字來自AI整理來源；富果直送可對上滾珠螺桿、線性滑軌、中國占比。無應用別（含機器人）占比。",
+      items: [
+        { label:"滾珠螺桿", value:"約49%" },
+        { label:"線性滑軌", value:"約46%" },
+        { label:"滾珠花鍵", value:"約4%" },
+        { label:"其他產品", value:"約1%" },
+        { label:"地區：中國大陸", value:"約84%" },
+        { label:"地區：台灣／亞洲其他／歐洲／美國", value:"7%／5%／3%／1%" }
+      ],
+      source: "散戶鬥嘴鼓、富果直送整理全球傳動2026年8月法說會內容"
+    },
+    "智伸科": {
+      updated: "2026年第二季（2026年8月12日法說會）",
+      caveat: "四項合計92%，運動器材等未列出個別占比；另一AI整理版本加總超過100%，未採用。無地區別。",
+      items: [
+        { label:"汽車", value:"約54%", note:"與去年同期持平" },
+        { label:"電子（AI／HDD）", value:"約15%" },
+        { label:"半導體＆AI伺服器＆其他", value:"約14%", note:"去年同期8%" },
+        { label:"醫療", value:"約9%" }
+      ],
+      source: "富果直送整理智伸科2026年8月法說會內容"
+    },
+    "大銀微系統": {
+      updated: "2026年第一季（2026年5月8日法說會）",
+      caveat: "僅單季數字；無應用別（半導體、機器人等）占比。",
+      items: [
+        { label:"微米／奈米級定位系統", value:"約51%", note:"年增約90%，主要來自半導體與高階電子設備需求" },
+        { label:"精密運動控制元件", value:"約48%" },
+        { label:"其他", value:"約1%" },
+        { label:"地區：亞洲（含中國大陸）", value:"約64%" },
+        { label:"地區：台灣", value:"約18%" }
+      ],
+      source: "BigGo財經、富果直送整理大銀微系統2026年5月法說會內容"
+    },
+    "達明機器人": {
+      updated: "2025年全年（2026年3月23日法說會）",
+      caveat: "僅揭露通路別與部分地區別；歐美日等地區及產品別、應用產業別未揭露。",
+      items: [
+        { label:"自有通路（直接客戶＋系統整合商）", value:"約41%", note:"2023年約19%" },
+        { label:"策略夥伴OMRON", value:"約23%", note:"逐年下降" },
+        { label:"地區：中國大陸", value:"約29%" },
+        { label:"地區：台灣", value:"約19%" }
+      ],
+      source: "富果直送整理達明2026年3月23日法說會內容"
+    },
+    "康普": {
+      updated: "2026年9月法說會",
+      caveat: "報導未註明為全年或上半年數字；無地區別或客戶別占比。",
+      items: [
+        { label:"動力電池材料", value:"約67%" },
+        { label:"特用化學", value:"約12%" },
+        { label:"氧化觸媒", value:"約10%" },
+        { label:"化肥", value:"約4%" },
+        { label:"其他", value:"約3%" }
+      ],
+      source: "鉅亨網2026年9月9日〈康普法說〉報導"
+    },
+    "三福化工": {
+      updated: "2025年（2025年12月10日法說會）",
+      caveat: "可能為2025年前三季累計而非全年；半導體應用只描述「明顯提升」，未給數字。",
+      items: [
+        { label:"精密化學品", value:"約51%", note:"面板應用由40-45%降至30-35%，半導體相關明顯提升" },
+        { label:"基礎化學品", value:"約26%", note:"以電子級PHBA為高毛利主力" },
+        { label:"新興化學品", value:"約23%" }
+      ],
+      source: "富果直送整理三福化2025年12月10日法說會內容"
+    },
+    "十銓": {
+      updated: "2026年第一季（2026年4月28日法說會）",
+      caveat: "各項口徑不同（DDR5/DDR4為DRAM內占比、B2B為另一種拆法），不可加總；未揭露NAND/SSD占比。",
+      items: [
+        { label:"DRAM", value:"約82.7%", note:"占全公司營收" },
+        { label:"DDR5（DRAM內）", value:"約84%" },
+        { label:"DDR4（DRAM內）", value:"約15%", note:"主要用於工控、網通伺服器" },
+        { label:"B2B業務", value:"約47.5%", note:"去年同期16.8%" }
+      ],
+      source: "富果直送整理十銓2026年4月28日法說會內容"
+    },
+    "英特磊": {
+      updated: "2026年第一季財報（2026年5月）",
+      caveat: "應用別只揭露最大宗的光纖網路。",
+      items: [
+        { label:"磷化銦（InP）磊晶片", value:"約54.5%" },
+        { label:"銻化鎵（GaSb）", value:"約32.3%" },
+        { label:"砷化鎵（GaAs）磊晶片", value:"約12.4%" },
+        { label:"應用：光纖網路", value:"約45.1%", note:"應用別最大宗" }
+      ],
+      source: "科技新報整理英特磊（IET-KY）2026年第一季財報內容"
+    },
+    "華星光": {
+      updated: "2026年上半年（2026年8月28日法說會）",
+      caveat: "公司只揭露兩大類粗分，晶片無個別占比，也無客戶占比。",
+      items: [
+        { label:"高速模組＋光引擎封裝", value:"約85%", note:"DCI模組為單一客戶獨家供應" },
+        { label:"InP晶片（CW Laser/EML/APD等）", value:"約15%" }
+      ],
+      source: "BigGo財經整理華星光2026年8月28日法說會內容；SimpleTechTrend法說精華內容相同"
+    },
+    "乙盛-KY": {
+      updated: "2025年全年（2026年1月媒體報導）",
+      caveat: "原文為「估計」的媒體轉述粗略數字，非法說會簡報；消費性電子、新能源等無個別占比。",
+      items: [
+        { label:"車用機構件", value:"近60%" },
+        { label:"網通機構件等", value:"逾20%" }
+      ],
+      source: "聯合新聞網報導乙盛-KY營運（2026年1月27日）"
+    },
+    "祥碩": {
+      updated: "2026年第一季（2026年5月12日法說會）",
+      caveat: "主控端77%有兩來源互相印證；17%項目的類別名稱存疑，暫列「其他」。PCIe Switch目標占比屬公司目標，未列入。",
+      items: [
+        { label:"主控端（Host）", value:"約77%" },
+        { label:"其他", value:"約17%", note:"部分整理文標示為車用監控，名稱待核對" },
+        { label:"裝置端（Device）", value:"約6%" }
+      ],
+      source: "方格子（vocus）、散戶鬥嘴鼓整理祥碩2026年第一季法說會內容"
+    },
+    "系統電": {
+      updated: "2025年全年（2026年3月10日法說會）",
+      caveat: "公司目標2028年能源系統達45-50%，屬目標非實績。",
+      items: [
+        { label:"TPMS（胎壓偵測）", value:"約57%", note:"2024年約77%" },
+        { label:"工業電腦", value:"約23%", note:"2024年約14%" },
+        { label:"能源系統及其他（含BBU／儲能）", value:"約20%", note:"2024年約10%" }
+      ],
+      source: "富果直送、散戶鬥嘴鼓整理系統電2026年3月10日法說會內容（兩者數字一致）"
+    },
+    "建榮工業": {
+      updated: "2026年第一季（2026年5月15日法說會）",
+      caveat: "產品別只揭露特殊玻纖布一項，T-Glass剛量產、未給數字。",
+      items: [
+        { label:"特殊（高階）玻纖布", value:"約70%" },
+        { label:"地區：台灣", value:"約57%", note:"去年同期41%" },
+        { label:"地區：日本", value:"約29%" },
+        { label:"地區：美國", value:"約9%" },
+        { label:"地區：中國", value:"約3%" }
+      ],
+      source: "方格子（vocus）整理建榮2026年5月15日法說會內容；另參工商時報2025年11月15日報導"
+    },
+    "世界先進": {
+      updated: "2026年第二季（2026年8月4日法說會）",
+      caveat: "媒體轉述，非公司簡報原檔；同篇報導稱AI相關產品上半年占營收仍為個位數。",
+      items: [
+        { label:"電源管理IC", value:"約77%" },
+        { label:"大尺寸面板驅動IC", value:"約12%" },
+        { label:"中小尺寸面板驅動IC", value:"約7%" },
+        { label:"其他產品", value:"約4%" }
+      ],
+      source: "ETtoday財經雲整理世界先進2026年8月4日法說會內容"
+    },
+    "均豪": {
+      updated: "2025年全年（2026年3月3日法說會）",
+      caveat: "只揭露半導體與面板兩類，未細分AOI、CMP、晶圓再生等產品線。",
+      items: [
+        { label:"半導體設備", value:"約79%", note:"2024年約74%" },
+        { label:"面板設備", value:"約21%" }
+      ],
+      source: "方格子（vocus）整理均豪2026年3月法說會內容"
+    },
+    "聖暉工程科技": {
+      updated: "2025年前三季（經濟日報，2026年1月）",
+      caveat: "非全年數字；產業別三項合計91%，其餘未揭露。",
+      items: [
+        { label:"半導體", value:"約75%" },
+        { label:"電子組裝", value:"約11%" },
+        { label:"綠能光電", value:"約5%" },
+        { label:"地區：台灣", value:"約58.2%" },
+        { label:"地區：中國大陸", value:"約33.0%" },
+        { label:"地區：東南亞及其他", value:"約8.8%" }
+      ],
+      source: "經濟日報報導聖暉2025年營收結構"
+    },
+    "亞翔工程": {
+      updated: "2026年上半年（2026年7月24日法說會）",
+      caveat: "產業別只揭露半導體一項；截至2026年6月底在手訂單中，東協占76%、半導體相關工程占81%。",
+      items: [
+        { label:"半導體工程", value:"約82%" },
+        { label:"地區：東協", value:"約64%" },
+        { label:"地區：台灣", value:"約28%" },
+        { label:"地區：中國", value:"約8%" }
+      ],
+      source: "壹蘋新聞網整理亞翔2026年7月24日法說會內容"
+    },
+    "嘉聯益": {
+      updated: "2025年第三季（2025年11月法說會）",
+      caveat: "資料較舊；三項合計83%，穿戴等其餘應用無個別數字；無客戶（Apple）占比。",
+      items: [
+        { label:"通訊電子", value:"約45%" },
+        { label:"電腦類", value:"約32%", note:"2024年同期約45%" },
+        { label:"車用與醫療", value:"約6%", note:"年增46%" }
+      ],
+      source: "工商時報整理嘉聯益2025年第三季法說會內容"
+    },
+    "合晶": {
+      updated: "2026年第一季（2026年8月法說會資料）",
+      caveat: "應用別只揭露重摻／輕摻兩大類；地區別只列前三大。",
+      items: [
+        { label:"重摻矽晶圓", value:"約59%", note:"主要用於功率元件；2025全年約66%" },
+        { label:"輕摻矽晶圓", value:"約41%", note:"2025全年約34%" },
+        { label:"地區：台灣／歐洲／中國大陸", value:"35.0%／25.4%／21.6%" }
+      ],
+      source: "富果直送整理合晶2026年8月6日法說會內容（散戶鬥嘴鼓數字相同）"
+    },
+    "廣明光電": {
+      updated: "2026年第一季（2026年4月30日法說會）",
+      caveat: "「其他5%」僅見於AI整理來源。",
+      items: [
+        { label:"SSD", value:"約32%", note:"去年同期45%，受記憶體缺貨影響" },
+        { label:"機器人（協作型機器人）", value:"約22%", note:"去年同期20%" },
+        { label:"Docking（擴充基座）", value:"約21%", note:"去年同期8%" },
+        { label:"HDD", value:"約20%" },
+        { label:"其他", value:"約5%" }
+      ],
+      source: "富果直送整理廣明2026年4月30日法說會內容（散戶鬥嘴鼓數字相同）"
+    },
+    "帆宣系統科技": {
+      updated: "2025年全年（2026年5月20日法說會）",
+      caveat: "2026年第一季業務別數字在兩個來源間互相矛盾，故採2025全年；產業別其餘分類僅見於AI整理來源，未列入。",
+      items: [
+        { label:"自動化供應系統", value:"約38.9%" },
+        { label:"客製化設備研發製造", value:"約25.3%" },
+        { label:"整合系統", value:"約17.9%" },
+        { label:"高科技設備材料銷售與服務", value:"約17.9%" },
+        { label:"產業別：IC半導體", value:"約81%" }
+      ],
+      source: "富果直送整理帆宣2026年5月20日法說會內容（散戶鬥嘴鼓數字相同）"
+    },
+    "聯茂電子": {
+      updated: "2026年第一季（2026年5月28日法說會）",
+      caveat: "2026年8月法說會整理未列出第二季應用別占比，故沿用第一季。",
+      items: [
+        { label:"基礎建設（資料中心／雲端／AI／5G網通）", value:"約72%", note:"2025全年68%" },
+        { label:"車用電子", value:"約14%", note:"2025全年16%" },
+        { label:"消費性電子", value:"約9%", note:"2025全年11%" },
+        { label:"智慧型手機", value:"約5%" }
+      ],
+      source: "富果直送整理聯茂2026年5月28日法說會內容"
+    },
+    "聯茂": {
+      updated: "2026年第一季（2026年5月28日法說會）",
+      caveat: "2026年8月法說會整理未列出第二季應用別占比，故沿用第一季。",
+      items: [
+        { label:"基礎建設（資料中心／雲端／AI／5G網通）", value:"約72%", note:"2025全年68%" },
+        { label:"車用電子", value:"約14%", note:"2025全年16%" },
+        { label:"消費性電子", value:"約9%", note:"2025全年11%" },
+        { label:"智慧型手機", value:"約5%" }
+      ],
+      source: "富果直送整理聯茂2026年5月28日法說會內容"
+    },
+    "旺矽": {
+      updated: "2026年第二季（2026年8月法說會）",
+      caveat: "只揭露探針卡與設備兩大類，無應用別占比。",
+      items: [
+        { label:"探針卡", value:"約74.7%", note:"2026Q1約71.1%" },
+        { label:"設備", value:"約23.3%", note:"2026Q1約26.9%" }
+      ],
+      source: "壹蘋新聞網報導旺矽2026年第二季法說會內容；第一季數字取自方格子法說整理"
+    },
+    "旺矽科技": {
+      updated: "2026年第二季（2026年8月法說會）",
+      caveat: "只揭露探針卡與設備兩大類，無應用別占比。",
+      items: [
+        { label:"探針卡", value:"約74.7%", note:"2026Q1約71.1%" },
+        { label:"設備", value:"約23.3%", note:"2026Q1約26.9%" }
+      ],
+      source: "壹蘋新聞網報導旺矽2026年第二季法說會內容；第一季數字取自方格子法說整理"
+    },
+    "華孚": {
+      updated: "2025年第三季（2025年12月22日法說會）",
+      caveat: "資料較舊，未查得2026年法說會占比；未揭露個別車廠（如Tesla）比重。",
+      items: [
+        { label:"新能源車零部件", value:"約50%" },
+        { label:"燃油車零部件", value:"約46%" },
+        { label:"3C及工業產品", value:"約4%" },
+        { label:"車廠別：歐系／美系／亞系品牌", value:"60%／19%／17%" }
+      ],
+      source: "富果直送整理華孚2025年12月22日法說會內容（散戶鬥嘴鼓數字相同）"
+    },
+    "力成": {
+      updated: "2026年上半年（2026年7月28日法說會）",
+      caveat: "兩個整理來源分別標為2026上半年與第二季，期間標示不一致。",
+      items: [
+        { label:"邏輯", value:"約41%" },
+        { label:"NAND", value:"約29%" },
+        { label:"DRAM", value:"約19%" },
+        { label:"SiP及模組", value:"約11%" },
+        { label:"服務別：封裝／測試／SiP及模組", value:"66%／23%／11%" }
+      ],
+      source: "富果直送整理力成2026年7月28日法說會內容（散戶鬥嘴鼓數字相同）"
+    },
+    "矽格": {
+      updated: "2026年1-5月累計（2026年6月23日法說會）",
+      items: [
+        { label:"智慧手機", value:"約31%", note:"2025年同期33%" },
+        { label:"AI、ASIC、矽光子及高速運算", value:"約23%", note:"2025年同期19%" },
+        { label:"網通與物聯網", value:"約22%" },
+        { label:"消費電子與智慧家庭", value:"約18%" },
+        { label:"車用及醫療", value:"約6%" },
+        { label:"記憶體產品（另計）", value:"約10%", note:"與上列應用別重疊，不可加總" }
+      ],
+      source: "富果直送整理矽格2026年6月23日法說會內容（散戶鬥嘴鼓數字相同）"
+    },
+    "台燿": {
+      updated: "2026年第二季（2026年7月30日法說會）",
+      caveat: "數字取自富果直送整理，非公司簡報原檔。",
+      items: [
+        { label:"M7/M8（Extreme/Ultra Low Loss）", value:"約39%", note:"2026Q1為38%" },
+        { label:"M4/M6（Low/Very Low Loss）", value:"約31%", note:"2026Q1為32%" },
+        { label:"Non-low loss（標準材料）", value:"約16%", note:"2026Q1為18%" },
+        { label:"Others（特殊應用板）", value:"約14%" }
+      ],
+      source: "富果直送整理台燿2026年7月30日法說會內容"
+    },
+    "康舒": {
+      updated: "2025年第四季（2026年3月12日法說會）",
+      caveat: "資料為2025Q4，未查得2026年法說會拆分。",
+      items: [
+        { label:"企業用電源", value:"約40%", note:"2025年AI相關營收約占合併營收20%，主要來自此部門" },
+        { label:"電信電源", value:"約39%" },
+        { label:"消費性電源", value:"約15%" },
+        { label:"新事業及其他", value:"約5%" }
+      ],
+      source: "富果直送整理康舒2026年3月12日法說會內容；工商時報報導企業用加電信電源合計約79%"
+    },
+    "啟碁科技": {
+      updated: "2026年第一季（2026年5月法說會）",
+      caveat: "未單獨揭露低軌衛星占比，衛星業務主要含在Service Provider內。",
+      items: [
+        { label:"Service Provider（電信商，含衛星）", value:"約41%" },
+        { label:"Enterprise（企業網通）", value:"約31%" },
+        { label:"車用", value:"約27%" },
+        { label:"地區別：美國", value:"約60%", note:"過去高峰約70-72%" }
+      ],
+      source: "工商時報報導啟碁2026年5月法說會內容；地區別取自方格子法說會整理"
+    },
+    "光聖": {
+      updated: "2025年全年（2026年3月12日法說會）",
+      caveat: "只揭露粗分類；6月法說會僅提到光被動元件占比超過80%，無完整拆分。",
+      items: [
+        { label:"光通訊產品", value:"約80%", note:"2024年約65%；以數據中心光被動元件為主" },
+        { label:"RF連接器", value:"約20%", note:"2024年約35%" },
+        { label:"地區別：歐美市場", value:"逾95%", note:"中國市場已降至10%以下" }
+      ],
+      source: "富果直送整理光聖2026年3月12日及6月9日法說會內容"
+    },
+    "同欣電": {
+      updated: "2026年第二季（2026年8月5日法說會）",
+      caveat: "產品別僅AI整理來源（poorstock）、未能交叉核對；車用60%與富果直送一致，但BigGo財經整理寫66%，數字有出入。",
+      items: [
+        { label:"影像感測器（Image）", value:"約51%" },
+        { label:"陶瓷電路板（Ceramic）", value:"約19%" },
+        { label:"混合積體電路模組（Hybrids）", value:"約16%" },
+        { label:"高頻無線通訊模組（RF）", value:"約13%" },
+        { label:"應用別：車用", value:"約60%", note:"另一整理來源寫66%" }
+      ],
+      source: "散戶鬥嘴鼓整理同欣電2026年8月5日法說會內容；車用占比另見富果直送"
+    },
+    "胡連精密": {
+      updated: "2025年前三季（2025年11月25日法說會）",
+      caveat: "資料較舊；部分數字為區間；未揭露電動車專屬產品占比。",
+      items: [
+        { label:"連接器（端子與塑件）", value:"約60%以上" },
+        { label:"保險絲盒", value:"約14%" },
+        { label:"線束", value:"約8-10%" },
+        { label:"高壓與高頻產品", value:"約5%" },
+        { label:"板端件", value:"約5%" },
+        { label:"地區別：中國", value:"約80%" }
+      ],
+      source: "富果直送整理胡連2025年11月25日法說會內容；地區占比取自自由財經報導"
+    },
+    "群電": {
+      updated: "2026年第二季（2026年8月4日法說會）",
+      caveat: "僅AI整理來源（poorstock）、未能交叉核對（自由財經、科技新報等報導無占比數字）。",
+      items: [
+        { label:"雲端及智慧解決方案（含伺服器電源）", value:"約55%" },
+        { label:"PC電源", value:"約36%" },
+        { label:"消費性電子", value:"約9%" }
+      ],
+      source: "散戶鬥嘴鼓整理群電2026年8月4日法說會內容"
+    },
+    "鈺邦": {
+      updated: "2025年上半年（2025年8月27日法說會）",
+      caveat: "2026年法說會公開整理無占比數字，沿用2025上半年，資料較舊。",
+      items: [
+        { label:"主機板及顯示卡", value:"約49.1%" },
+        { label:"筆記型電腦", value:"約26.5%" },
+        { label:"伺服器", value:"約13.3%", note:"2025Q3已升至約16.3%" },
+        { label:"電源供應器", value:"約6.1%" },
+        { label:"產品別：DIP／CAP／Vchip(SMD)", value:"37.2%／30.4%／29.2%" }
+      ],
+      source: "富果直送整理鈺邦2025年8月27日法說會內容（CMoney法說文章數字一致）"
+    },
+    "訊芯-KY": {
+      updated: "2025年前三季（2025年11月法說會）",
+      caveat: "未查得2026年法說會占比，資料較舊。",
+      items: [
+        { label:"高速光纖收發模組", value:"約63%", note:"2024年約55%" },
+        { label:"SiP與感測器", value:"約31%", note:"2024年約43%" },
+        { label:"電源管理模組", value:"約6%", note:"2024年約2%" }
+      ],
+      source: "經濟日報報導訊芯2025年11月法說會內容（散戶鬥嘴鼓數字相同）"
+    },
+    "精測": {
+      updated: "2026年第二季（2026年7月29日法說會）",
+      caveat: "應用別只公開前兩大項。",
+      items: [
+        { label:"晶圓測試卡（探針卡）", value:"約76%" },
+        { label:"IC測試板", value:"約18%" },
+        { label:"技術服務與其他", value:"約6%" },
+        { label:"應用別：HPC", value:"約56.3%", note:"2026Q1約45.1%" },
+        { label:"應用別：AP（手機應用處理器）", value:"約18.9%" }
+      ],
+      source: "富果直送整理精測2026年7月29日法說會內容"
+    },
+    "中華精測": {
+      updated: "2026年第二季（2026年7月29日法說會）",
+      caveat: "應用別只公開前兩大項。",
+      items: [
+        { label:"晶圓測試卡（探針卡）", value:"約76%" },
+        { label:"IC測試板", value:"約18%" },
+        { label:"技術服務與其他", value:"約6%" },
+        { label:"應用別：HPC", value:"約56.3%", note:"2026Q1約45.1%" },
+        { label:"應用別：AP（手機應用處理器）", value:"約18.9%" }
+      ],
+      source: "富果直送整理精測2026年7月29日法說會內容"
+    },
+    "穎崴": {
+      updated: "2026年1-4月（2026年5月26日法說會）",
+      caveat: "統計期間為2026年1-4月，非完整一季。",
+      items: [
+        { label:"同軸測試座（Coaxial Socket）", value:"約46%" },
+        { label:"探針卡（Probe Card）", value:"約27%" },
+        { label:"PoP與塑膠測試座", value:"約15%" },
+        { label:"應用別：HPC與AI", value:"約68%", note:"網通、車用及其他約22%，手機約8%" },
+        { label:"地區別：北美客戶", value:"約81%", note:"台灣約12%、中國約7%" }
+      ],
+      source: "富果直送整理穎崴2026年5月26日法說會內容（散戶鬥嘴鼓數字相同）"
+    },
+    "穎崴科技": {
+      updated: "2026年1-4月（2026年5月26日法說會）",
+      caveat: "統計期間為2026年1-4月，非完整一季。",
+      items: [
+        { label:"同軸測試座（Coaxial Socket）", value:"約46%" },
+        { label:"探針卡（Probe Card）", value:"約27%" },
+        { label:"PoP與塑膠測試座", value:"約15%" },
+        { label:"應用別：HPC與AI", value:"約68%", note:"網通、車用及其他約22%，手機約8%" },
+        { label:"地區別：北美客戶", value:"約81%", note:"台灣約12%、中國約7%" }
+      ],
+      source: "富果直送整理穎崴2026年5月26日法說會內容（散戶鬥嘴鼓數字相同）"
+    },
+    "長華科技": {
+      updated: "2026年第二季（2026年7月29日法說會）",
+      caveat: "車用約24%僅見於AI整理來源。",
+      items: [
+        { label:"蝕刻型導線架", value:"約57%" },
+        { label:"沖壓型導線架", value:"約43%" },
+        { label:"應用別：3C電子", value:"約46%" },
+        { label:"應用別：工控", value:"約28%" },
+        { label:"應用別：車用", value:"約24%" }
+      ],
+      source: "富果直送整理長華2026年7月29日法說會內容（散戶鬥嘴鼓數字相同）"
+    },
+    "興能高": {
+      updated: "2026年第一季（2026年5月法說會）",
+      caveat: "AI整理來源的穿戴裝置數字（2%）與經濟日報不同，採用加總為100%的經濟日報版本。",
+      items: [
+        { label:"電腦手機周邊", value:"約32.3%" },
+        { label:"藍牙及音樂周邊", value:"約31.1%" },
+        { label:"醫療器件", value:"約18.5%" },
+        { label:"物聯網", value:"約6.9%" },
+        { label:"穿戴裝置", value:"約4%" },
+        { label:"其他", value:"約7.2%" }
+      ],
+      source: "經濟日報報導興能高2026年第一季法說會內容（散戶鬥嘴鼓數字大致相同）"
+    },
+    "是方": {
+      updated: "2026年上半年（2026年8月6日法說會）",
+      items: [
+        { label:"IDC機房服務", value:"約44.2%", note:"2021年約29.4%" },
+        { label:"數據網路服務", value:"約37.4%" },
+        { label:"雲端應用服務", value:"約17.3%" },
+        { label:"語音通信服務", value:"約1.1%" }
+      ],
+      source: "富果直送整理是方2026年8月6日法說會內容（散戶鬥嘴鼓數字相同）"
+    },
+    "朋億": {
+      updated: "2026年第一季（2026年6月法說會）",
+      caveat: "僅AI整理來源（poorstock）、未能交叉核對。",
+      items: [
+        { label:"高科技製程設備製造", value:"約51%" },
+        { label:"水氣化系統整合服務（工程）", value:"約46%" },
+        { label:"綠色永續整合等其他", value:"約3%" },
+        { label:"產業別：半導體", value:"約85.8%", note:"面板光電約8.7%" },
+        { label:"地區別：中國大陸／台灣", value:"49.2%／42.1%" }
+      ],
+      source: "散戶鬥嘴鼓整理朋億2026年6月12日法說會內容"
+    },
+    "信紘科": {
+      updated: "2025年前三季（2025年12月2日法說會）",
+      caveat: "僅AI整理來源（poorstock），僅部分由富果直送佐證；期間原文未明確標示；資料較舊。",
+      items: [
+        { label:"高科技製程廠務供應系統整合", value:"約88%" },
+        { label:"綠色製程解決方案", value:"約7%", note:"富果直送同場稱約10%" },
+        { label:"其他", value:"約5%" },
+        { label:"客戶產業：半導體", value:"約79%", note:"2020年為91%，逐年下降" }
+      ],
+      source: "散戶鬥嘴鼓整理信紘科2025年12月法說會內容；富果直送同場備忘錄部分佐證"
+    },
+    "洋基工程": {
+      updated: "2025年全年（2026年3月法說會）",
+      caveat: "半導體、PCB、民生商辦兩來源一致；光電、資料中心各僅見於單一來源；合計未達100%。",
+      items: [
+        { label:"半導體", value:"約58.4%" },
+        { label:"PCB", value:"約14.9%" },
+        { label:"光電", value:"約11.5%" },
+        { label:"資料中心", value:"約6.4%" },
+        { label:"民生商辦", value:"約5.6%" },
+        { label:"地區別：台灣", value:"約88.7%" }
+      ],
+      source: "方格子（vocus）整理洋基工程2026年3月10日法說會；散戶鬥嘴鼓整理產業別表格"
+    },
+    "矽科宏晟": {
+      updated: "2025年上半年（2025年12月9日法說會）",
+      caveat: "資料較舊；2026年6月法說會整理無占比數字。",
+      items: [
+        { label:"製程供應系統設備及相關系統", value:"約77%" },
+        { label:"廠務系統整合工程", value:"約16%" },
+        { label:"維護及保養", value:"約7%" }
+      ],
+      source: "富果直送整理矽科宏晟2025年12月9日法說會內容"
+    },
+    "采鈺": {
+      updated: "2026年第二季（2026年8月6日法說會）",
+      caveat: "2026Q2數字僅AI整理來源（poorstock）、未能交叉核對，與經濟日報2025Q4數字趨勢一致；應用別可能只涵蓋影像感測器部分。",
+      items: [
+        { label:"影像感測器（CIS）", value:"約75%", note:"2025Q4約79%" },
+        { label:"微型光學元件（MOE）", value:"約24%", note:"2025Q4約19%" },
+        { label:"其他（光罩／NRE）", value:"約1%" },
+        { label:"應用：行動裝置／安控／車用", value:"68%／20%／12%" }
+      ],
+      source: "散戶鬥嘴鼓整理采鈺2026年8月6日法說會內容；經濟日報2026年2月12日報導2025Q4結構"
+    },
+    "汎銓": {
+      updated: "2026年第二季（2026年8月26日法說會）",
+      caveat: "只揭露區間值；富果直送稱材料分析逾八成、故障分析約一成，大致相符。",
+      items: [
+        { label:"材料分析（MA）", value:"約85-90%" },
+        { label:"故障分析（FA）", value:"約10-15%" },
+        { label:"地區別：海外", value:"約30-35%", note:"2025Q2為20-25%" }
+      ],
+      source: "散戶鬥嘴鼓整理汎銓2026年8月法說會內容；富果直送2026年3月、6月法說會備忘錄佐證"
+    },
+    "三集瑞": {
+      updated: "2026年1-4月（2026年法說會資料）",
+      caveat: "細項僅AI整理來源（poorstock），僅BBU約6%有經濟日報佐證；媒體所稱AI／伺服器「突破四成」為全年預估，未列入。",
+      items: [
+        { label:"PC類產品", value:"約47.3%", note:"2025全年約60.7%" },
+        { label:"AI／伺服器", value:"約35.6%", note:"2025全年約31.8%" },
+        { label:"BBU", value:"約6.4%" },
+        { label:"車用", value:"約3.8%" },
+        { label:"其他", value:"約7.0%" }
+      ],
+      source: "散戶鬥嘴鼓整理三集瑞法說會內容；經濟日報2026年6月9日報導佐證BBU比重"
+    },
+
+    /* ============================================================
+       第四批：代號6903–8996區段(三批之後剩餘有代號之公司)，
+       2026年9月15日建立。本輪查無結構化占比而略過(不建立條目)：
+       巨漢、天虹、格斯科技、兆聯實業、聯純、鐳洋科技、聚賢研發、
+       銳澤、竑騰、騏億鑫、鈦昇、雷虎科技、致新科技、品安、新漢、
+       高力；僅有單一粗略數字或多為公司預估而略過：昇陽半導體
+       (再生晶圓比重與記憶體／先進封裝細項口徑重疊)、金居(僅HVLP3+4
+       合計區間)、朋程(2025實際值僅兩項，其餘為2026預估)。
+       ============================================================ */
+    "新代科技": {
+      updated: "期間未明示（2026年5月22日法說會問答）",
+      caveat: "法說會問答中的口頭約略數字，非簡報正式揭露，所指期間未明示；兩份第三方整理（方格子、BigGo財經AI整理）說法一致。五金、新能源、風電、水暖等其餘產業各為個位數，未逐項列出，故合計未達100%。2026年8月24日法說會整理未見更新數字。",
+      items: [
+        { label:"汽車製造及零配件", value:"約30%", note:"依客戶終端應用分類" },
+        { label:"通用機械／模具切割", value:"約25%" },
+        { label:"3C產品", value:"約15%" },
+        { label:"五金、新能源、風電、水暖等", value:"各為個位數" },
+        { label:"地區別：中國大陸", value:"約90%", note:"其餘含土耳其、馬來西亞、印度等；僅見於BigGo整理" }
+      ],
+      source: "方格子（vocus）整理新代2026年5月22日法說會內容；BigGo財經同場法說會整理"
+    },
+    "頌勝科技": {
+      updated: "2025年全年（2026年3月法說會）",
+      caveat: "依集團三個事業體劃分，非終端應用別；數字來自第三方法說會整理（verkita），未能直接核對公司簡報原檔；三項合計99.9%為四捨五入差。",
+      items: [
+        { label:"半導體CMP研磨墊與耗材（智勝）", value:"61.7%" },
+        { label:"醫療與運動用品（久陞昌）", value:"30.5%" },
+        { label:"原料（環保黏著劑、PU彈性體等）", value:"7.7%" }
+      ],
+      source: "verkita整理頌勝2026年3月法說會內容（2026年4月發布）"
+    },
+    "尖點科技": {
+      updated: "2026年第一季（2026年5月14日法說會）",
+      caveat: "來自第三方法說會整理（方格子），未直接核對公司簡報；高階鍍膜鑽針53%為「鑽針銷售量」占比，不是營收占比。BigGo財經整理2025全年為鑽針66.5%、鑽孔33.5%，結構相近。",
+      items: [
+        { label:"PCB鑽針", value:"約67.4%", note:"2026Q1約9.03億元" },
+        { label:"鑽孔代工服務", value:"約32.6%", note:"2026Q1約4.36億元" },
+        { label:"高階鍍膜鑽針（占鑽針銷量）", value:"約53%", note:"銷量占比；2025Q4為48%，公司目標年底逾55%" }
+      ],
+      source: "方格子（vocus）整理尖點2026年5月14日法說會內容；BigGo財經整理2026年3月法說會（2025全年結構）"
+    },
+    "金山電": {
+      updated: "2026年第一季（2026年5月12日法說會）",
+      caveat: "取自法說會備忘錄轉述，未直接核對簡報原檔；「其他」為遊戲機約4%、網通5G約4%、醫療／健身、車載等各約1%之合計。產品別另揭露：液態鋁電解電容約80%、固態及固液混合電容約20%。",
+      items: [
+        { label:"雲端／伺服器", value:"35%", note:"2024年17%、2025年22%；其中約一半為AI伺服器" },
+        { label:"電腦／顯示器", value:"24%" },
+        { label:"家用電器", value:"15%" },
+        { label:"工業自動化", value:"9%" },
+        { label:"新能源", value:"6%" },
+        { label:"其他（遊戲機、網通5G、醫療、車載等）", value:"約11%" }
+      ],
+      source: "富果直送《金山電法說會重點內容備忘錄》2026年5月12日；富聯網、Yahoo股市報導「Q1雲端／伺服器比重達35%」佐證"
+    },
+    "南茂科技": {
+      updated: "2026年第二季（2026年8月11日法說會）",
+      caveat: "取自媒體轉述法說會內容（時報資訊、鉅亨網數字一致），未直接核對簡報原檔。",
+      items: [
+        { label:"Flash", value:"29.5%", note:"記憶體合計51.0%，季增" },
+        { label:"DRAM／SRAM", value:"21.5%" },
+        { label:"金凸塊", value:"21.1%" },
+        { label:"面板驅動IC", value:"18.1%", note:"驅動IC＋金凸塊合計39.2%，季減" },
+        { label:"混合訊號晶片", value:"9.8%" }
+      ],
+      source: "時報資訊2026年8月11日報導南茂第二季法說會；鉅亨網同日報導"
+    },
+    "宇瞻": {
+      updated: "2026年上半年（2026年7月24日法說會）",
+      caveat: "取自法說會備忘錄轉述，未直接核對簡報原檔；僅揭露產品別。",
+      items: [
+        { label:"DRAM記憶體模組", value:"64.35%", note:"伺服器應用平均售價上揚帶動比重提高" },
+        { label:"NAND Flash快閃記憶體", value:"35.40%" },
+        { label:"其他（智慧應用、電子紙等）", value:"0.25%" }
+      ],
+      source: "富果直送《宇瞻法說會重點內容備忘錄》2026年7月24日"
+    },
+    "群聯電子": {
+      updated: "2026年第二季（2026年8月13日法說會）",
+      caveat: "細項取自法說會簡報資料庫頁面整理，未逐頁核對簡報PDF；AI生態系解決方案占38%另有CMoney報導佐證。",
+      items: [
+        { label:"AI生態系解決方案模組", value:"38%", note:"季增68%" },
+        { label:"嵌入式ODM模組", value:"33%" },
+        { label:"工控模組", value:"16%" },
+        { label:"控制晶片", value:"6%" },
+        { label:"零售模組", value:"5%" },
+        { label:"其他", value:"2%" }
+      ],
+      source: "群聯2026年8月13日法說會簡報（finmoconf整理）；CMoney 2026年8月報導"
+    }
+  };
 
   var INDUSTRY_ORDER = Object.keys(INDUSTRIES);
 
@@ -6220,7 +8321,7 @@
     { label: "晶圓製造與封測", keys: ["wafer-fab","facility","tsmc","packaging-test","abf-substrate"] },
     { label: "系統廠與雲端客戶", keys: ["ai-hardware","nvidia","apple","google-tpu","aws","cpu"] },
     { label: "關鍵零組件與材料", keys: ["pcb","memory","passive","thermal","photonics"] },
-    { label: "新興應用與基礎設施", keys: ["robot","power-grid","leo-satellite"] }
+    { label: "新興應用與基礎設施", keys: ["robot","power-grid","leo-satellite","ev","tesla"] }
   ];
 
   /* ============================================================
@@ -7049,6 +9150,25 @@
 
   var companyPageLastFocus = null;
 
+  function revenueHtmlFor(name){
+    var d = COMPANY_REVENUE[name];
+    if(!d || !d.items || !d.items.length) return "";
+    var items = d.items.map(function(it){
+      return '<div class="company-page-revenue-item">' +
+        '<div class="company-page-revenue-label">'+escapeHtml(it.label)+'</div>' +
+        '<div class="company-page-revenue-value mono">'+escapeHtml(it.value)+'</div>' +
+        (it.note ? '<div class="company-page-revenue-note">'+escapeHtml(it.note)+'</div>' : '') +
+      '</div>';
+    }).join("");
+    return '<div class="diagram-card">' +
+      '<h3 class="company-page-revenue-title">營收結構／產品占比</h3>' +
+      '<p class="company-page-revenue-updated">資料時間：'+escapeHtml(d.updated)+'</p>' +
+      (d.caveat ? '<p class="company-page-revenue-caveat">'+escapeHtml(d.caveat)+'</p>' : '') +
+      '<div class="company-page-revenue-grid">'+items+'</div>' +
+      '<p class="company-page-revenue-source">資料來源：'+escapeHtml(d.source)+'</p>' +
+    '</div>';
+  }
+
   function openCompanyPage(name){
     var entry = companyIndex[name];
     if(!entry){
@@ -7062,11 +9182,12 @@
     if(entry.code){ codeEl.textContent = entry.code; codeEl.hidden = false; }
     else { codeEl.hidden = true; }
     document.getElementById("companyPageCount").textContent = entry.locs.length
-      ? '出現在全站 '+entry.locs.length+' 個供應鏈位置（點擊下方節點或清單可直接跳轉）'
+      ? '出現在全站 '+entry.locs.length+' 個供應鏈位置（點擊下方產業分類展開查看細項與流程圖）'
       : '目前資料庫中查無此公司的詳細環節資料';
 
     var diagramCard = document.getElementById("companyPageDiagramCard");
     var listEl = document.getElementById("companyPageLocList");
+    diagramCard.hidden = true;
 
     function jump(loc){
       closeCompanyPage();
@@ -7074,29 +9195,80 @@
     }
 
     if(entry.locs.length){
-      diagramCard.hidden = false;
-      buildCompanyLocDiagram(
-        document.getElementById("companyFlowSvg"),
-        document.getElementById("companySegmentsLayer"),
-        document.getElementById("companyNodesLayer"),
-        entry.locs,
-        jump
-      );
-      listEl.innerHTML = entry.locs.map(function(loc, li){
-        return '<button type="button" class="company-page-loc-btn" data-loc="'+li+'">' +
-          '<span class="company-page-loc-industry">'+escapeHtml(loc.industryName)+'</span>' +
-          '<span class="company-page-loc-node">'+escapeHtml(loc.nodeTitle)+(loc.childTitle?' ／ '+escapeHtml(loc.childTitle):'')+'</span>' +
-        '</button>';
+      // 依產業分組，預設全部收合，點擊分類才展開細項清單＋該產業的流程圖
+      // （避免公司在全站位置很多時，頁面一次全展開太長）
+      var groups = [];
+      var groupIndexOf = {};
+      entry.locs.forEach(function(loc){
+        if(!(loc.industryKey in groupIndexOf)){
+          groupIndexOf[loc.industryKey] = groups.length;
+          groups.push({ industryKey:loc.industryKey, industryName:loc.industryName, locs:[] });
+        }
+        groups[groupIndexOf[loc.industryKey]].locs.push(loc);
+      });
+
+      listEl.innerHTML = groups.map(function(grp, gi){
+        return '<div class="company-page-industry-group">' +
+          '<button type="button" class="company-page-industry-header" data-group="'+gi+'" aria-expanded="false">' +
+            '<span class="company-page-industry-name">'+escapeHtml(grp.industryName)+'</span>' +
+            '<span class="company-page-industry-count">'+grp.locs.length+' 個位置</span>' +
+            '<span class="company-page-industry-chevron">›</span>' +
+          '</button>' +
+          '<div class="company-page-industry-detail" id="companyPageGroupDetail'+gi+'" hidden></div>' +
+        '</div>';
       }).join("");
-      Array.prototype.forEach.call(listEl.querySelectorAll(".company-page-loc-btn"), function(btn){
-        btn.addEventListener("click", function(){
-          jump(entry.locs[parseInt(btn.getAttribute("data-loc"), 10)]);
+
+      Array.prototype.forEach.call(listEl.querySelectorAll(".company-page-industry-header"), function(header){
+        header.addEventListener("click", function(){
+          var gi = parseInt(header.getAttribute("data-group"), 10);
+          var grp = groups[gi];
+          var wasOpen = header.getAttribute("aria-expanded") === "true";
+
+          // accordion：先收合所有分類，同一時間只展開一個，頁面才不會太長
+          Array.prototype.forEach.call(listEl.querySelectorAll(".company-page-industry-header"), function(h){
+            h.setAttribute("aria-expanded", "false");
+          });
+          Array.prototype.forEach.call(listEl.querySelectorAll(".company-page-industry-detail"), function(d){
+            d.hidden = true; d.innerHTML = "";
+          });
+          diagramCard.hidden = true;
+
+          if(wasOpen) return; // 再次點擊已展開的分類 = 收合
+
+          header.setAttribute("aria-expanded", "true");
+          var detail = document.getElementById("companyPageGroupDetail"+gi);
+
+          diagramCard.hidden = false;
+          buildCompanyLocDiagram(
+            document.getElementById("companyFlowSvg"),
+            document.getElementById("companySegmentsLayer"),
+            document.getElementById("companyNodesLayer"),
+            grp.locs,
+            jump
+          );
+          header.insertAdjacentElement("afterend", diagramCard);
+
+          detail.innerHTML = grp.locs.map(function(loc, li){
+            return '<button type="button" class="company-page-loc-btn" data-loc="'+li+'">' +
+              '<span class="company-page-loc-node">'+escapeHtml(loc.nodeTitle)+(loc.childTitle?' ／ '+escapeHtml(loc.childTitle):'')+'</span>' +
+            '</button>';
+          }).join("");
+          Array.prototype.forEach.call(detail.querySelectorAll(".company-page-loc-btn"), function(btn){
+            btn.addEventListener("click", function(){
+              jump(grp.locs[parseInt(btn.getAttribute("data-loc"), 10)]);
+            });
+          });
+          detail.hidden = false;
         });
       });
     } else {
-      diagramCard.hidden = true;
       listEl.innerHTML = '<div class="company-page-empty">目前資料庫中查無此公司的詳細環節資料，之後補充相關內容時會自動出現在這裡。</div>';
     }
+
+    var revEl = document.getElementById("companyPageRevenue");
+    var revHtml = revenueHtmlFor(entry.name);
+    if(revHtml){ revEl.innerHTML = revHtml; revEl.hidden = false; }
+    else { revEl.innerHTML = ""; revEl.hidden = true; }
 
     companyPageLastFocus = document.activeElement;
     var page = document.getElementById("companyPage");
@@ -7165,6 +9337,4 @@
 })();
 </script>
 
-<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d301fb5d8988445c86ad436107563389"}'></script><!-- End Cloudflare Web Analytics -->
-</body>
-</html>
+</body></html>
