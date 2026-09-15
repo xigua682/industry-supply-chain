@@ -177,17 +177,21 @@
   .chip:focus-visible{ outline:2px solid var(--copper); outline-offset:2px; }
 
   /* ---------- company hover preview (滑鼠懸浮在公司名稱標籤上時的迷你預覽卡) ---------- */
-  .company-hover-tip{ display:none; position:absolute; z-index:150; max-width:320px; background:var(--surface); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); padding:.85rem .95rem; }
+  .company-hover-tip{ display:none; position:absolute; z-index:110; width:320px; max-width:calc(100vw - 24px); background:var(--surface); border:1px solid var(--line-strong); border-radius:12px; box-shadow:var(--shadow); padding:.85rem .95rem; }
   .hover-tip-header{ display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; }
-  .hover-tip-name{ font-size:1rem; font-weight:800; color:var(--ink); }
+  .hover-tip-name{ font:inherit; font-size:1rem; font-weight:800; color:var(--ink); background:none; border:none; padding:0; cursor:pointer; text-align:left; text-decoration:underline; text-decoration-color:var(--copper-soft-line); text-underline-offset:3px; }
+  .hover-tip-name:hover{ color:var(--copper-ink); text-decoration-color:var(--copper); }
   .hover-tip-code{ font-family:'IBM Plex Mono',monospace; font-size:.72rem; font-weight:700; color:var(--copper-ink); background:var(--copper-soft); border:1px solid var(--copper-soft-line); border-radius:6px; padding:.1rem .45rem; }
   .hover-tip-count{ margin:.3rem 0 0; font-size:.74rem; color:var(--ink-faint); }
-  .hover-tip-list{ margin-top:.55rem; display:flex; flex-direction:column; gap:.35rem; }
-  .hover-tip-loc{ font-size:.76rem; color:var(--ink-soft); line-height:1.4; }
+  .hover-tip-list{ margin-top:.45rem; display:flex; flex-direction:column; gap:.1rem; }
+  .hover-tip-loc{ display:block; width:100%; text-align:left; font:inherit; font-size:.76rem; color:var(--ink-soft); line-height:1.4; background:none; border:none; border-radius:6px; padding:.3rem .4rem; margin:0 -.4rem; cursor:pointer; }
+  .hover-tip-loc:hover{ background:var(--copper-soft); color:var(--ink); }
   .hover-tip-industry{ color:var(--copper-ink); font-weight:700; }
   .hover-tip-arrow{ font-family:'IBM Plex Mono',monospace; color:var(--ink-faint); margin:0 .3em; }
   .hover-tip-more{ margin-top:.4rem; font-size:.7rem; color:var(--ink-faint); }
-  .hover-tip-hint{ margin-top:.55rem; padding-top:.5rem; border-top:1px solid var(--line); font-size:.7rem; color:var(--copper-ink); font-family:'IBM Plex Mono',monospace; }
+  .hover-tip-hint{ display:block; width:100%; margin-top:.55rem; padding:.5rem .6rem; border:1px solid var(--copper-soft-line); border-radius:8px; background:var(--copper-soft); font-size:.74rem; font-weight:700; color:var(--copper-ink); font-family:'IBM Plex Mono',monospace; text-align:center; cursor:pointer; }
+  .hover-tip-hint:hover{ background:var(--copper); border-color:var(--copper); color:#fff; }
+  .company-hover-tip button:focus-visible{ outline:2px solid var(--copper); outline-offset:2px; }
 
   /* ---------- company profile page（點擊公司名稱標籤後導向的個股頁面） ---------- */
   .company-page{ position:fixed; inset:0; z-index:120; background:var(--bg); overflow-y:auto; }
@@ -587,7 +591,7 @@
 
 </div>
 
-<div class="company-hover-tip" id="companyHoverTip" role="tooltip"></div>
+<div class="company-hover-tip" id="companyHoverTip" role="dialog" aria-label="公司預覽"></div>
 
 <div class="company-page" id="companyPage" hidden role="dialog" aria-modal="true" aria-labelledby="companyPageName">
   <div class="company-page-inner">
@@ -9014,74 +9018,108 @@
   function hoverPreviewHtml(entry){
     var codeHtml = entry.code ? '<span class="hover-tip-code mono">'+entry.code+'</span>' : "";
     var countText = entry.locs.length
-      ? '出現在 '+entry.locs.length+' 個供應鏈位置'
+      ? '出現在 '+entry.locs.length+' 個供應鏈位置（點擊可直接前往）'
       : '目前資料庫中查無此公司的詳細環節資料';
     var shown = entry.locs.slice(0, 6);
-    var listHtml = shown.map(function(loc){
-      return '<div class="hover-tip-loc"><span class="hover-tip-industry">'+escapeHtml(loc.industryName)+'</span>' +
+    var listHtml = shown.map(function(loc, li){
+      return '<button type="button" class="hover-tip-loc" data-tip-loc="'+li+'"><span class="hover-tip-industry">'+escapeHtml(loc.industryName)+'</span>' +
         '<span class="hover-tip-arrow">›</span>' + escapeHtml(loc.nodeTitle) +
-        (loc.childTitle ? '<span class="hover-tip-arrow">›</span>' + escapeHtml(loc.childTitle) : "") + '</div>';
+        (loc.childTitle ? '<span class="hover-tip-arrow">›</span>' + escapeHtml(loc.childTitle) : "") + '</button>';
     }).join("");
     var more = entry.locs.length > shown.length
-      ? '<div class="hover-tip-more">還有 '+(entry.locs.length - shown.length)+' 個位置…</div>' : "";
-    return '<div class="hover-tip-header"><span class="hover-tip-name">'+escapeHtml(entry.name)+'</span>'+codeHtml+'</div>' +
+      ? '<div class="hover-tip-more">還有 '+(entry.locs.length - shown.length)+' 個位置，請進入個股頁面查看</div>' : "";
+    return '<div class="hover-tip-header"><button type="button" class="hover-tip-name" data-tip-open="1">'+escapeHtml(entry.name)+'</button>'+codeHtml+'</div>' +
       '<div class="hover-tip-count">'+countText+'</div>' +
       '<div class="hover-tip-list">'+listHtml+'</div>' + more +
-      '<div class="hover-tip-hint">點擊查看完整個股頁面 →</div>';
+      '<button type="button" class="hover-tip-hint" data-tip-open="1">查看完整個股頁面 →</button>';
   }
+
+  /* 懸浮預覽卡控制器：
+     - 只在「有滑鼠、可懸浮」的裝置啟用（手機／平板點一下就直接進個股頁面）
+     - 預覽卡放在整排公司標籤（.chips）的上方（空間不足才放下方），
+       不會蓋住任何公司名稱
+     - 卡片內的公司名稱、各位置、「查看完整個股頁面」都可以點擊
+     - 個股頁面開啟時一律關閉預覽卡並取消尚未觸發的計時器 */
+  var hoverTipCtl = { hide:function(){} };
 
   function initCompanyHoverPreview(){
     var tip = document.getElementById("companyHoverTip");
+    var canHover = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     var showTimer = null, hideTimer = null;
+    var currentEntry = null, currentChip = null;
+
+    function pageOpen(){ return !document.getElementById("companyPage").hidden; }
 
     function positionNear(chip){
+      var row = (chip.closest && chip.closest(".chips")) || chip;
       var r = chip.getBoundingClientRect();
+      var rowRect = row.getBoundingClientRect();
       tip.style.display = "block";
       var tw = tip.offsetWidth, th = tip.offsetHeight;
-      var left = r.left + window.scrollX;
-      var maxLeft = window.scrollX + document.documentElement.clientWidth - tw - 12;
-      if(left > maxLeft) left = Math.max(12, maxLeft);
-      var top = r.bottom + window.scrollY + 8;
-      var maxTop = window.scrollY + document.documentElement.clientHeight - th - 8;
-      if(top > maxTop) top = Math.max(window.scrollY + 8, r.top + window.scrollY - th - 8);
-      tip.style.left = left + "px";
-      tip.style.top = top + "px";
+      var vw = document.documentElement.clientWidth, vh = document.documentElement.clientHeight;
+      var left = r.left;
+      if(left + tw > vw - 12) left = Math.max(12, vw - tw - 12);
+      var top;
+      if(rowRect.top - th - 10 >= 8) top = rowRect.top - th - 10;          // 整排標籤上方
+      else if(rowRect.bottom + th + 10 <= vh - 8) top = rowRect.bottom + 10; // 整排標籤下方
+      else if(r.top - th - 8 >= 8) top = r.top - th - 8;                    // 退而求其次：該標籤上方
+      else top = Math.min(vh - th - 8, r.bottom + 8);
+      tip.style.left = (left + window.scrollX) + "px";
+      tip.style.top = (top + window.scrollY) + "px";
     }
 
     function show(chip){
+      if(pageOpen()) return;
       var name = chip.getAttribute("data-company");
       var entry = companyIndex[name];
       if(!entry) return;
+      currentEntry = entry; currentChip = chip;
       tip.innerHTML = hoverPreviewHtml(entry);
       positionNear(chip);
     }
-    function hide(){ tip.style.display = "none"; }
+    function hide(){
+      clearTimeout(showTimer); clearTimeout(hideTimer);
+      tip.style.display = "none";
+      currentEntry = null; currentChip = null;
+    }
+    hoverTipCtl.hide = hide;
+
+    // 預覽卡內的點擊（名稱／查看完整頁面／各位置）
+    tip.addEventListener("click", function(e){
+      if(!currentEntry) return;
+      var entry = currentEntry;
+      var openBtn = e.target.closest("[data-tip-open]");
+      var locBtn = e.target.closest("[data-tip-loc]");
+      if(openBtn){ hide(); openCompanyPage(entry.name); }
+      else if(locBtn){ var loc = entry.locs[parseInt(locBtn.getAttribute("data-tip-loc"), 10)]; hide(); goToSearchLocation(loc); }
+    });
+
+    if(!canHover) return;
 
     document.addEventListener("mouseover", function(e){
       var chip = e.target.closest && e.target.closest(".chip[data-company]");
       if(!chip) return;
       clearTimeout(hideTimer);
+      if(chip === currentChip && tip.style.display === "block") return;
       clearTimeout(showTimer);
-      showTimer = setTimeout(function(){ show(chip); }, 180);
+      showTimer = setTimeout(function(){ show(chip); }, 250);
     });
     document.addEventListener("mouseout", function(e){
       var chip = e.target.closest && e.target.closest(".chip[data-company]");
       if(!chip) return;
+      if(e.relatedTarget && tip.contains(e.relatedTarget)) return;
       clearTimeout(showTimer);
-      hideTimer = setTimeout(hide, 200);
+      hideTimer = setTimeout(hide, 350);
     });
-    document.addEventListener("focusin", function(e){
-      var chip = e.target.closest && e.target.closest(".chip[data-company]");
-      if(chip) show(chip);
-    });
-    document.addEventListener("focusout", function(e){
-      var chip = e.target.closest && e.target.closest(".chip[data-company]");
-      if(chip) hide();
-    });
-    tip.addEventListener("mouseover", function(){ clearTimeout(hideTimer); });
-    tip.addEventListener("mouseout", function(){ hideTimer = setTimeout(hide, 200); });
-    document.addEventListener("scroll", hide, true);
+    // 點標籤本身＝直接進個股頁面，先把預覽卡與計時器清掉
+    document.addEventListener("mousedown", function(e){
+      if(e.target.closest && e.target.closest(".chip[data-company]")) hide();
+    }, true);
+    tip.addEventListener("mouseenter", function(){ clearTimeout(hideTimer); });
+    tip.addEventListener("mouseleave", function(){ hideTimer = setTimeout(hide, 350); });
+    window.addEventListener("scroll", function(){ if(tip.style.display === "block") hide(); }, true);
     window.addEventListener("resize", hide);
+    document.addEventListener("keydown", function(e){ if(e.key === "Escape") hide(); });
   }
 
   /* 通用公司流程圖：重用首頁的 layout()／el()／splitTitle()／fitSubText() 排版
@@ -9175,7 +9213,7 @@
       // 極少數情況：companies 陣列裡有未被索引到的名稱，仍給基本畫面
       entry = { name:name, tw:false, code:null, locs:[] };
     }
-    document.getElementById("companyHoverTip").style.display = "none";
+    hoverTipCtl.hide();
 
     document.getElementById("companyPageName").textContent = entry.name;
     var codeEl = document.getElementById("companyPageCode");
@@ -9185,8 +9223,11 @@
       ? '出現在全站 '+entry.locs.length+' 個供應鏈位置（點擊下方產業分類展開查看細項與流程圖）'
       : '目前資料庫中查無此公司的詳細環節資料';
 
-    var diagramCard = document.getElementById("companyPageDiagramCard");
+    // 流程圖卡片會在展開分類時被移到該分類底下；重新開啟頁面前先把它
+    // 搬回原位，否則重設清單內容時會連同卡片一起被刪掉，導致之後點分類沒反應
+    var diagramCard = companyPageEls.card;
     var listEl = document.getElementById("companyPageLocList");
+    listEl.parentNode.insertBefore(diagramCard, listEl);
     diagramCard.hidden = true;
 
     function jump(loc){
@@ -9240,9 +9281,9 @@
 
           diagramCard.hidden = false;
           buildCompanyLocDiagram(
-            document.getElementById("companyFlowSvg"),
-            document.getElementById("companySegmentsLayer"),
-            document.getElementById("companyNodesLayer"),
+            companyPageEls.svg,
+            companyPageEls.segs,
+            companyPageEls.nodes,
             grp.locs,
             jump
           );
@@ -9284,7 +9325,14 @@
     }
   }
 
+  var companyPageEls = {};
   function initCompanyPage(){
+    companyPageEls = {
+      card: document.getElementById("companyPageDiagramCard"),
+      svg: document.getElementById("companyFlowSvg"),
+      segs: document.getElementById("companySegmentsLayer"),
+      nodes: document.getElementById("companyNodesLayer")
+    };
     document.getElementById("companyPageBack").addEventListener("click", closeCompanyPage);
     document.addEventListener("keydown", function(e){
       if(e.key === "Escape" && !document.getElementById("companyPage").hidden) closeCompanyPage();
