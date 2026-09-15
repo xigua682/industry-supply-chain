@@ -9126,6 +9126,42 @@
      函式，把「該公司出現的所有位置」畫成同一種卡片＋S型排列的流程圖，只是
      節點內容換成「產業名稱」＋「環節名稱」，彼此用無方向虛線連接（因為這些
      位置之間並非上下游關係，純粹是同一家公司在全站的分布）。 */
+  /* 公司流程圖框內標題換行：最多三行，英數字詞不從中間斷開，
+     放不下時逐步縮小字級（15px→11px），真的太長才以「…」截斷。 */
+  function wrapLocTitle(str, maxWidth){
+    var tokens = str.match(/[A-Za-z0-9.\-+&']+|\s+|./g) || [str];
+    for (var fs = 15; fs >= 11; fs -= 0.5){
+      var lines = [], cur = "";
+      var ok = true;
+      for (var i=0;i<tokens.length;i++){
+        var tk = tokens[i];
+        var trial = cur + tk;
+        if (textWidth(trial, fs) <= maxWidth){ cur = trial; continue; }
+        if (cur.trim()) { lines.push(cur.trim()); cur = tk.trim() ? tk : ""; }
+        else { cur = trial; }
+        if (textWidth(cur, fs) > maxWidth){ ok = false; break; }
+      }
+      if (cur.trim()) lines.push(cur.trim());
+      // 左括號不要單獨留在行尾，移到下一行開頭
+      for (var k=0;k<lines.length-1;k++){
+        var last = lines[k].slice(-1);
+        if ("（(「【".indexOf(last) !== -1 && textWidth(last + lines[k+1], fs) <= maxWidth){
+          lines[k] = lines[k].slice(0,-1).trim(); lines[k+1] = last + lines[k+1];
+        }
+      }
+      if (ok && lines.length <= (fs >= 13 ? 2 : 3)) return { lines:lines, fs:fs };
+    }
+    // 最後手段：11px、三行，第三行截斷
+    var out = [], c = "";
+    for (var j=0;j<str.length;j++){
+      if (textWidth(c + str[j], 11) > maxWidth){ out.push(c); c = ""; if(out.length===3) break; }
+      c += str[j];
+    }
+    if (out.length < 3 && c) out.push(c);
+    if (out.length === 3 && out.join("").length < str.length) out[2] = out[2].slice(0,-1) + "…";
+    return { lines:out, fs:11 };
+  }
+
   function buildCompanyLocDiagram(svgEl, segLayerEl, nodeLayerEl, locs, onSelect){
     segLayerEl.innerHTML = "";
     nodeLayerEl.innerHTML = "";
@@ -9159,21 +9195,25 @@
       use.setAttribute("class","node-icon");
       g.appendChild(use);
 
-      var wrapped = splitTitle(loc.industryName, BOX_W-30);
-      var twoLine = wrapped.lines.length > 1;
-      var titleY = twoLine ? p.y+54 : p.y+66;
+      // 大字：該位置的環節名稱（有細分環節就顯示細分環節）；
+      // 小字：細分環節所屬的主環節（本身就是主環節則標示「主環節」）。
+      // 產業名稱已在分類標題顯示，框內不再重複。
+      var mainText = loc.childTitle || loc.nodeTitle;
+      var wrapped = wrapLocTitle(mainText, BOX_W-28);
+      var lh = wrapped.fs + 4;
+      var blockH = wrapped.lines.length * lh;
+      var titleY = p.y + 50 + (58 - blockH)/2 + wrapped.fs;
       var title = el("text", {class:"node-title", x:p.x+BOX_W/2, y:titleY, "text-anchor":"middle", "font-size":String(wrapped.fs)});
       wrapped.lines.forEach(function(line, li){
-        var tspan = el("tspan", {x:p.x+BOX_W/2, dy: li===0 ? 0 : (wrapped.fs+4)});
+        var tspan = el("tspan", {x:p.x+BOX_W/2, dy: li===0 ? 0 : lh});
         tspan.textContent = line;
         title.appendChild(tspan);
       });
       g.appendChild(title);
 
-      var subText = loc.nodeTitle + (loc.childTitle ? " ／ "+loc.childTitle : "");
-      var subY = twoLine ? (titleY + (wrapped.fs+4) + 26) : p.y+86;
+      var subText = loc.childTitle ? "所屬：" + loc.nodeTitle : "主環節";
       var subFit = fitSubText(subText, BOX_W-24);
-      var sub = el("text", {class:"node-sub", x:p.x+BOX_W/2, y:subY, "text-anchor":"middle", "font-size":String(subFit.fs+2.5)});
+      var sub = el("text", {class:"node-sub", x:p.x+BOX_W/2, y:p.y+BOX_H-14, "text-anchor":"middle", "font-size":String(subFit.fs+1.5)});
       sub.textContent = subFit.text;
       g.appendChild(sub);
 
