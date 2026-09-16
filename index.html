@@ -155,6 +155,9 @@
   .node-diagram-svg{ width:100%; }
   .node-diagram-svg svg{ width:100%; height:auto; display:block; }
   .node-diagram figcaption{ margin-top:.6rem; font-size:.78rem; color:var(--ink-faint); line-height:1.6; }
+  .inline-tab-link{ display:inline; font:inherit; font-weight:700; color:var(--copper-ink); background:var(--copper-soft); border:1px solid var(--copper-soft-line); border-radius:6px; padding:0 .35em; margin:0 .15em; cursor:pointer; line-height:1.6; }
+  .inline-tab-link:hover{ background:var(--copper); border-color:var(--copper); color:#fff; }
+  .inline-tab-link:focus-visible{ outline:2px solid var(--copper); outline-offset:2px; }
   .cross-link-group{ display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1rem; }
   .cross-link{ display:inline-flex; align-items:center; gap:.6rem; padding:.65rem 1rem; border-radius:10px; background:var(--copper-soft); border:1px solid var(--copper-soft-line); color:var(--copper-ink); font-family:'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif; font-weight:700; font-size:.88rem; cursor:pointer; transition:border-color .15s ease, background .15s ease, color .15s ease; }
   .cross-link:hover{ background:var(--copper); border-color:var(--copper); color:#fff; }
@@ -853,7 +856,7 @@
           children:[
             { icon:"icon-ingot", title:"CZ柴可拉斯基法拉晶", sub:"CZOCHRALSKI METHOD",
               desc:"CZ法將多晶矽於石英坩堝中加熱熔化，以晶種浸入熔液並緩慢旋轉拉引成長為單晶矽棒，是目前12吋晶圓的主流生產方式。環球晶圓為全球第三大矽晶圓廠(2022年併購德國Siltronic案因德國監管卡關而破局，兩家至今仍為獨立公司)。",
-              companies:[{n:"環球晶圓",tw:1,code:"6488"},{n:"SUMCO"},{n:"信越化學 Shin-Etsu"}],
+              companies:[{n:"環球晶",tw:1,code:"6488"},{n:"SUMCO"},{n:"信越化學 Shin-Etsu"}],
               stats:[{v:"第3大",l:"環球晶圓全球矽晶圓廠營收排名"}],
               diagram:"DIAGRAM_SILICON_INGOT_WAFER", diagramCaption:"環球晶圓、中美晶、合晶等台廠皆具備矽晶棒拉晶與切片產能，圖為矽晶棒經CZ法拉晶後、再切片成矽晶圓的示意圖。" },
             { icon:"icon-furnace", title:"拉晶爐設備與石英坩堝", sub:"PULLER FURNACE & QUARTZ CRUCIBLE",
@@ -862,7 +865,7 @@
               stats:[] },
             { icon:"icon-metrology", title:"晶棒切頭切尾與品質檢測", sub:"INGOT CROPPING & INSPECTION",
               desc:"晶棒拉製完成後須切除頭尾不良段、進行外徑研磨定型，並以電阻率、含氧量、差排密度等指標檢測品質，合格晶棒才能送入切片程序。環球晶圓、中美晶等台廠皆具備此段完整製程能力。",
-              companies:[{n:"環球晶圓",tw:1,code:"6488"},{n:"中美晶",tw:1,code:"5483"}],
+              companies:[{n:"環球晶",tw:1,code:"6488"},{n:"中美晶",tw:1,code:"5483"}],
               stats:[] }
           ] },
         { icon:"icon-slice", title:"切片", sub:"WAFER SLICING",
@@ -980,7 +983,7 @@
           ] },
         { icon:"icon-chip", title:"電晶體結構演進（FinFET／GAA）", sub:"TRANSISTOR ARCHITECTURE EVOLUTION",
           desc:"微影、蝕刻、沉積與離子佈植等工序反覆組合，最終要「蓋」出來的立體結構就是電晶體本身——閘極（Gate）控制電流開關、源極（Source）與汲極（Drain）則是電流進出的兩端。隨著製程節點微縮，電晶體的立體造型也從平面走向鰭狀、再走向環繞式，是先進製程節點命名（如3奈米、2奈米）背後真正代表的技術意義。",
-          companies:[{n:"台積電",tw:1,code:"2330"},{n:"三星電子"},{n:"英特爾 Intel"}],
+          companies:[{n:"台積電",tw:1,code:"2330"},{n:"三星電子 Samsung Electronics"},{n:"Intel",code:"INTC"}],
           stats:[{v:"N16→N2",l:"台積電FinFET導入至GAA轉換的製程節點區間"}],
           children:[
             { icon:"icon-chip", title:"平面電晶體(Planar MOSFET)", sub:"PLANAR TRANSISTOR",
@@ -989,11 +992,11 @@
               stats:[] },
             { icon:"icon-chip", title:"FinFET鰭式電晶體", sub:"FINFET",
               desc:"將原本平躺的導電通道立起來，形成如魚鰭般的立體鰭狀結構，閘極從三面包覆通道，大幅提升電流控制能力並降低漏電。台積電自N16節點起導入，N7、N5、N3系列皆延續此架構，是過去十餘年先進製程的主流電晶體設計。",
-              companies:[{n:"台積電",tw:1,code:"2330"},{n:"三星電子"},{n:"英特爾 Intel"}],
+              companies:[{n:"台積電",tw:1,code:"2330"},{n:"三星電子 Samsung Electronics"},{n:"Intel",code:"INTC"}],
               stats:[] },
             { icon:"icon-chip", title:"GAAFET環繞閘極電晶體（奈米片）", sub:"GAA NANOSHEET",
               desc:"通道改為水平堆疊的奈米片（Nanosheet），閘極材料完全包覆四面，靜電控制能力優於FinFET的三面包覆，是抑制漏電、持續微縮的next-gen方案。台積電N2（2奈米）製程首度導入GAA架構，2025年量產、2026年進入放量階段；三星SF2製程亦採同類技術路線。",
-              companies:[{n:"台積電",tw:1,code:"2330"},{n:"三星電子"}],
+              companies:[{n:"台積電",tw:1,code:"2330"},{n:"三星電子 Samsung Electronics"}],
               stats:[{v:"2025→2026",l:"台積電N2 GAA製程量產至放量時程"}] },
             { icon:"icon-deposit", title:"高介電常數金屬閘極(HKMG)", sub:"HIGH-K METAL GATE",
               desc:"以高介電常數材料（如氧化鉿）取代傳統二氧化矽作為閘極絕緣層，搭配金屬閘極電極，大幅降低閘極漏電流並提升驅動電流，是FinFET與GAA世代電晶體皆倚賴的關鍵材料與薄膜沉積技術。",
@@ -1351,7 +1354,7 @@
           desc: "台積電1987年由張忠謀創立於新竹科學園區，首創「純晶圓代工」(Pure-play Foundry)商業模式——只接受客戶委託製造，不自行設計銷售終端晶片，藉此與所有IC設計客戶維持非競爭關係。2026年第2季公司合併營收達402.0億美元(約新台幣1兆2,703.8億元)，毛利率67.7%，全球純晶圓代工市占率達73%(Counterpoint Research統計)，法人會後將全年美元營收成長指引上修至「略高於40%」，全年資本支出預算同步上修至600-640億美元。",
           companies: [
             { n: "台積電", tw: 1, code: "2330" },
-            { n: "三星電子" },
+            {n:"三星電子 Samsung Electronics"},
             { n: "Intel", code: "INTC" }
           ],
           stats: [
@@ -1373,7 +1376,7 @@
               title: "全球市占與競爭定位",
               sub: "GLOBAL MARKET SHARE & COMPETITIVE POSITION",
               desc: "2026年第2季台積電全球純晶圓代工市占率達73%，居次的三星電子僅7%，兩者差距擴大至66個百分點；英特爾雖以「Intel Foundry」策略積極對外接單，市占仍尚未擠進全球前十大純晶圓代工廠排名(Counterpoint Research)。",
-              companies: [{ n: "台積電", tw: 1, code: "2330" }, { n: "三星電子" }],
+              companies: [{ n: "台積電", tw: 1, code: "2330" }, {n:"三星電子 Samsung Electronics"}],
               stats: [{ v: "73% vs 7%", l: "台積電vs三星電子全球純晶圓代工市占(2026年Q2)" }]
             },
             {
@@ -1426,7 +1429,7 @@
               companies: [
                 { n: "台積電", tw: 1, code: "2330" },
                 { n: "Intel", code: "INTC" },
-                { n: "三星電子" }
+                {n:"三星電子 Samsung Electronics"}
               ],
               stats: [{ v: "~2.97億顆/mm²", l: "台積電N3量產電晶體密度估算(較N5提升約1.7倍)" }]
             },
@@ -1437,8 +1440,8 @@
               desc: "N3系列自2022年底量產以來持續放量，是2026年台積電營收貢獻最大的製程家族之一；N2於2025年底進入量產，首批客戶包括蘋果、輝達、AMD、聯發科等，2026年第2季N2製程已占晶圓代工營收比重3%，法人預期2026下半年隨N2放量加速，將稀釋公司毛利率約3-4個百分點。",
               companies: [
                 { n: "台積電", tw: 1, code: "2330" },
-                { n: "蘋果 Apple" },
-                { n: "輝達 NVIDIA" },
+                {n:"蘋果 Apple",code:"AAPL"},
+                {n:"輝達 NVIDIA",code:"NVDA"},
                 { n: "AMD", code: "AMD" },
                 { n: "聯發科", tw: 1, code: "2454" }
               ],
@@ -1505,8 +1508,8 @@
           desc: "台積電依終端應用平台分為高效能運算(HPC)、智慧型手機、物聯網(IoT)、車用及數位消費性電子(DCE)五大類。2026年第2季HPC平台占淨營收比重達66%，居各平台之冠且較去年同期(2Q25:60%)持續攀升，主要受惠輝達、AMD等AI加速器與雲端業者自研ASIC投片動能；智慧型手機平台占22%(2Q25:27%)，比重持續遭AI伺服器排擠；物聯網5%、車用4%、數位消費性電子(DCE)僅1%，其他應用合計2%。本節數字為2026年Q2單季快照，會隨每季客戶投片結構調整。",
           companies: [
             { n: "台積電", tw: 1, code: "2330" },
-            { n: "輝達 NVIDIA" },
-            { n: "蘋果 Apple" }
+            {n:"輝達 NVIDIA",code:"NVDA"},
+            {n:"蘋果 Apple",code:"AAPL"}
           ],
           stats: [
             { v: "66%", l: "HPC平台占淨營收比重(2026年Q2)" },
@@ -1521,7 +1524,7 @@
               desc: "HPC平台涵蓋AI加速器、資料中心CPU／GPU／ASIC等應用，2026年第2季占淨營收比重達66%，較去年同期(2Q25:60%)再擴大6個百分點，是台積電目前最大且成長最快的應用平台，主要動能來自輝達、AMD及Google、Amazon、Microsoft等雲端業者自研AI晶片投片需求。",
               companies: [
                 { n: "台積電", tw: 1, code: "2330" },
-                { n: "輝達 NVIDIA" },
+                {n:"輝達 NVIDIA",code:"NVDA"},
                 { n: "AMD", code: "AMD" }
               ],
               stats: [{ v: "60%→66%", l: "HPC平台占淨營收比重變化(2Q25→2Q26)" }]
@@ -1533,9 +1536,9 @@
               desc: "智慧型手機平台2026年第2季占淨營收比重22%，較去年同期(2Q25:27%)下滑5個百分點，主因HPC平台成長速度遠高於手機晶片，排擠了手機平台在營收結構中的相對占比；蘋果、聯發科、高通旗艦SoC仍是帶動N3、N2先進製程放量的重要客戶。",
               companies: [
                 { n: "台積電", tw: 1, code: "2330" },
-                { n: "蘋果 Apple" },
+                {n:"蘋果 Apple",code:"AAPL"},
                 { n: "聯發科", tw: 1, code: "2454" },
-                { n: "Qualcomm", code: "QCOM" }
+                {n:"高通 Qualcomm",code:"QCOM"}
               ],
               stats: [{ v: "27%→22%", l: "智慧型手機平台占淨營收比重變化(2Q25→2Q26)" }]
             },
@@ -1558,8 +1561,8 @@
           companies: [
             { n: "台積電", tw: 1, code: "2330" },
             { n: "日月光", tw: 1, code: "3711" },
-            { n: "輝達 NVIDIA" },
-            { n: "蘋果 Apple" }
+            {n:"輝達 NVIDIA",code:"NVDA"},
+            {n:"蘋果 Apple",code:"AAPL"}
           ],
           tags: ["advanced-packaging"],
           stats: [
@@ -1577,7 +1580,7 @@
               companies: [
                 { n: "台積電", tw: 1, code: "2330" },
                 { n: "日月光", tw: 1, code: "3711" },
-                { n: "輝達 NVIDIA" }
+                {n:"輝達 NVIDIA",code:"NVDA"}
               ],
               stats: [{ v: "12-14萬片/月", l: "台積電CoWoS自有月產能規劃(2026年底)" }]
             },
@@ -1590,7 +1593,7 @@
               desc: "InFO_PoP(整合扇出型封裝再疊記憶體)自2016年A10晶片起長期為蘋果iPhone用A系列處理器主力封裝方案，取代先前的覆晶PoP封裝(FC-PoP)並大幅縮小晶片堆疊厚度，是台積電先進封裝業務中歷史最久、與單一大客戶綁定最深的產品線之一。",
               companies: [
                 { n: "台積電", tw: 1, code: "2330" },
-                { n: "蘋果 Apple" }
+                {n:"蘋果 Apple",code:"AAPL"}
               ],
               stats: []
             },
@@ -1603,7 +1606,7 @@
               desc: "SoIC(System on Integrated Chips)採晶圓對晶圓／晶片對晶圓混合接合技術，實現無凸塊(bump-less)3D堆疊，應用於輝達、AMD等高階HPC產品的運算晶粒堆疊；台積電並開發面板級封裝新平台CoPoS(Chip-on-Panel-on-Substrate)，市場預期將搭配輝達下世代Feynman平台於2028-2029年導入，用以突破現有基板尺寸與良率限制。",
               companies: [
                 { n: "台積電", tw: 1, code: "2330" },
-                { n: "輝達 NVIDIA" },
+                {n:"輝達 NVIDIA",code:"NVDA"},
                 { n: "AMD", code: "AMD" }
               ],
               stats: []
@@ -1689,12 +1692,12 @@
           desc: "2026年以來，輝達已取代蘋果成為台積電最大單一客戶，反映AI伺服器晶片投片金額首度超越智慧型手機。以客戶所在地區觀察，北美客戶(輝達、蘋果、AMD、高通、Google、Amazon等美系IC設計與雲端業者為主)2026年第2季合計貢獻台積電淨營收約78%，是最大宗營收來源；亞太(含台灣聯發科等IC設計業者)占8%，中國、日本、歐洲合計約14%。競爭格局上，台積電以73%全球純晶圓代工市占(2026年Q2)遠遙領先居次的三星電子(7%)，兩者差距擴大至66個百分點；英特爾雖以「Intel Foundry」策略推動18A製程對外接單，市占仍尚未擠進全球前十大純晶圓代工廠排名。",
           companies: [
             { n: "台積電", tw: 1, code: "2330" },
-            { n: "輝達 NVIDIA" },
-            { n: "蘋果 Apple" },
+            {n:"輝達 NVIDIA",code:"NVDA"},
+            {n:"蘋果 Apple",code:"AAPL"},
             { n: "AMD", code: "AMD" },
             { n: "聯發科", tw: 1, code: "2454" },
-            { n: "Qualcomm", code: "QCOM" },
-            { n: "三星電子" },
+            {n:"高通 Qualcomm",code:"QCOM"},
+            {n:"三星電子 Samsung Electronics"},
             { n: "Intel", code: "INTC" }
           ],
           tags: ["nvidia","apple-supply-chain"],
@@ -1710,7 +1713,7 @@
               desc: "若將三大晶圓代工龍頭的獲利能力並列比較，差距極為懸殊：台積電2026年第2季營業利益率達60.3%、毛利率67.7%(公司法說會揭露)；Intel Foundry同季營收58億美元、營業虧損21億美元，虧損率約-36%，雖較去年同期(2025年Q2營收44億美元、虧損32億美元、虧損率約-73%)大幅收斂，仍處深度虧損(Intel 2026年Q2財報，The Motley Fool 2026年8月11日報導)；三星電子晶圓代工事業未單獨揭露營業利益率，但晶圓代工事業負責人韓鎮萬(Han Jin-man)於2026年6月公開表示，2027年轉盈「看來困難」，全年獲利目標訂在2028年才可望達成(Tech Times，2026年6月14日)，凸顯其晶圓代工長期處於虧損或接近損平狀態。技術面，台積電N2(2025年底量產)、三星SF2、Intel 18A(2025年10月於Fab 52進入量產，2026年1月隨Panther Lake正式上市)皆已採用環繞閘極電晶體(GAAFET)架構，惟命名各異——台積電稱「奈米片(nanosheet)」、三星稱「MBCFET」、Intel稱「RibbonFET」(並搭配PowerVia背面供電)；值得注意的是，三星才是全球最早量產GAA架構的廠商，其3奈米SF3製程已於2022年6月投產(三星官方新聞稿)，較台積電、Intel早了2-3年才切入GAA，但市占與良率表現並未同步轉化為競爭優勢。電晶體密度上，業界彙整資料顯示台積電N2約每平方毫米3.13億顆、三星SF2約2.31億顆、Intel 18A約2.38億顆(均為業界估算彙整，非官方揭露數字——台積電官方僅揭露相對前代密度提升倍數，未公布絕對值，且不同廠牌節點密度不能直接類比實際效能，詳見「製程節點命名≠實際電晶體尺寸」)。良率方面，三家均未完整揭露官方量產良率數字：三星2奈米(SF2)良率據報導自2025年底約20%快速爬升至2026年第1季逾60%，正逼近業界普遍認為可健康量產的70%門檻(Tech Times／FinancialContent報導，屬產業消息估算，非三星官方數字)；Intel 18A良率外界估計於2026年5月來到約50%(Morgan Stanley估計，SemiWiki引述)，Intel自身則以「月增約7%」的良率改善速度佐證進度(Intel副總裁John Pitzer於RBC資本市場科技論壇談話，TrendForce 2025年11月報導)；台積電N2雖同樣無官方良率數字，但法人預期其放量僅稀釋公司毛利率約3-4個百分點，相對其他兩家良率爬升期普遍伴隨鉅額虧損，隱含其量產良率體質相對健康(業界推論，非官方數字)。市占率上，台積電以73%全球純晶圓代工市占(2026年Q2，Counterpoint Research)遙遙領先三星電子(7%)，差距達66個百分點；Intel Foundry雖已啟動18A對外量產，但2026年Q2對外部(非Intel自用)客戶營收僅2.93億美元，占其晶圓代工事業單季營收(58億美元)約5%(Windows Forum引述Intel 10-Q申報資料，2026年8月)——惟須留意Intel屬IDM廠、本即不參與「純晶圓代工」排名統計，此處僅作為其對外接單規模的參考指標，而非市占率比較。整體而言，台積電在獲利能力、良率穩定性與外部客戶信賴度上仍保有壓倒性優勢，三星與Intel雖持續加碼先進製程投資並陸續取得包括Tesla、輝達等潛在訂單，但短期內市占與獲利結構要追上台積電仍有相當距離。",
               companies: [
                 { n: "台積電", tw: 1, code: "2330" },
-                { n: "三星電子" },
+                {n:"三星電子 Samsung Electronics"},
                 { n: "Intel", code: "INTC" }
               ],
               stats: [
@@ -1728,8 +1731,8 @@
               desc: "根據媒體於2026年1月引述供應鏈與法人資料，輝達已取代蘋果成為台積電最大單一客戶，主因AI GPU與相關ASIC的晶圓投片與先進封裝支出金額，已超越蘋果iPhone／Mac用A、M系列晶片，象徵AI伺服器需求正式成為台積電營收結構中最關鍵的成長引擎。",
               companies: [
                 { n: "台積電", tw: 1, code: "2330" },
-                { n: "輝達 NVIDIA" },
-                { n: "蘋果 Apple" }
+                {n:"輝達 NVIDIA",code:"NVDA"},
+                {n:"蘋果 Apple",code:"AAPL"}
               ],
               stats: []
             },
@@ -1738,7 +1741,7 @@
               title: "三星電子晶圓代工：市占差距擴大",
               sub: "SAMSUNG FOUNDRY — WIDENING GAP",
               desc: "三星電子晶圓代工事業2026年第2季全球市占約7%，與台積電的差距擴大至66個百分點；三星同步推進自有2奈米GAA製程量產與外部客戶爭取，但整體規模與良率表現與台積電仍有明顯落差。",
-              companies: [{ n: "台積電", tw: 1, code: "2330" }, { n: "三星電子" }],
+              companies: [{ n: "台積電", tw: 1, code: "2330" }, {n:"三星電子 Samsung Electronics"}],
               stats: [{ v: "7%", l: "三星電子全球純晶圓代工市占(2026年Q2)" }]
             },
             {
@@ -1874,7 +1877,7 @@
           ] },
         { icon:"icon-chip", title:"IC設計", sub:"CHIP DESIGN / FABLESS",
           desc:"雲端巨頭與晶片大廠在此決定運算架構——從輝達、超微、博通等商用GPU／ASIC設計商，到Google、Amazon、Meta等雲端業者近年積極投入自研晶片。台灣的IC設計服務業者（世芯-KY、創意電子、智原）則是雲端巨頭自研ASIC背後最關鍵的矽智財與設計代工夥伴，隨著「去輝達化」浪潮承接大量訂單。",
-          companies:[{n:"聯發科",tw:1,code:"2454"},{n:"世芯-KY",tw:1,code:"3661"},{n:"創意電子",tw:1,code:"3443"},{n:"智原",tw:1,code:"3035"},{n:"輝達 NVIDIA"},{n:"超微 AMD"},{n:"博通 Broadcom"},{n:"雲端自研 Google／Amazon"}],
+          companies:[{n:"聯發科",tw:1,code:"2454"},{n:"世芯-KY",tw:1,code:"3661"},{n:"創意電子",tw:1,code:"3443"},{n:"智原",tw:1,code:"3035"},{n:"輝達 NVIDIA",code:"NVDA"},{n:"AMD",code:"AMD"},{n:"博通 Broadcom",code:"AVGO"},{n:"雲端自研 Google／Amazon"}],
           stats:[{v:"~86%",l:"Nvidia資料中心GPU市占(各機構估值介於80%~90%以上，此數字無單一明確出處，僅供參考)"},{v:"~US$20億",l:"聯發科2026年資料中心營收目標"}],
           tags:["ic-design","nvidia"],
           children:[
@@ -1909,13 +1912,13 @@
           ] },
         { icon:"icon-foundry", title:"晶圓代工", sub:"FOUNDRY",
           desc:"將IC設計圖轉換為實體晶片的核心產線。先進製程（N3／N2）幾乎所有商用GPU與自研ASIC最終都在此投片，是全球AI晶片產能最大的瓶頸環節之一。",
-          companies:[{n:"台積電",tw:1,code:"2330"},{n:"聯電",tw:1,code:"2303"},{n:"三星電子"},{n:"英特爾"}],
+          companies:[{n:"台積電",tw:1,code:"2330"},{n:"聯電",tw:1,code:"2303"},{n:"三星電子 Samsung Electronics"},{n:"Intel",code:"INTC"}],
           stats:[{v:"~72%",l:"台積電整體晶圓代工市占(TrendForce 2026Q1)"},{v:"至2027-28",l:"N3／N2訂單能見度"}],
           tags:["wafer-fabrication","nvidia"],
           children:[
             { icon:"icon-foundry", title:"先進製程產能分配(AI晶片 vs 消費性IC)", sub:"ADVANCED NODE CAPACITY ALLOCATION",
               desc:"AI晶片與智慧型手機、PC等消費性IC同步競逐同一批先進製程產能，晶圓代工廠須在產能有限的情況下權衡不同客戶訂單優先順序，是近年先進製程產能規劃的核心課題。",
-              companies:[{n:"台積電",tw:1,code:"2330"},{n:"三星電子"}],
+              companies:[{n:"台積電",tw:1,code:"2330"},{n:"三星電子 Samsung Electronics"}],
               stats:[] },
             { icon:"icon-package", title:"Chiplet與先進封裝製程整合", sub:"CHIPLET & PACKAGING PROCESS INTEGRATION",
               desc:"隨AI晶片朝多晶粒(Chiplet)架構發展，晶圓代工廠需將前段製程與後段先進封裝流程更緊密整合，例如提供晶圓級中介層與客製化基礎晶粒設計，以支援異質整合需求。",
@@ -1927,28 +1930,28 @@
               stats:[] },
             { icon:"icon-metrology", title:"先進製程節點命名：從實體尺寸到「等效」規格", sub:"PROCESS NODE NAMING: FROM PHYSICAL SIZE TO EQUIVALENT SCALING",
               desc:"台積電N3、N2、A16，英特爾18A、14A，三星SF2等製程代號中的數字，自2012年前後FinFET世代起就已與電晶體閘極長度、線寬等實體奈米尺寸脫鉤——例如台積電N7的實際閘極長度反而比部分廠商標榜「14奈米」的製程更長，「奈米」已從可實測的物理單位，變成各家自訂的世代命名與行銷／路線圖溝通符號，沒有統一的量測標準。業界真正用來比較製程優劣的指標，是電晶體密度（每平方毫米可容納的電晶體數，單位MTr/mm²）、閘極間距（Gate Pitch）、鰭距或環繞式閘極（GAA）奈米片寬度，以及同功耗下的效能表現（Performance-per-Watt）。以2025年起量產的2奈米世代為例，第三方拆解分析顯示台積電N2高密度單元電晶體密度約313 MTr/mm²，明顯高於英特爾18A約238 MTr/mm²——同樣掛著「2奈米」名號的兩種製程，電晶體實際尺寸與密度並不相同，節點名稱本身無法直接比較先進程度。半導體業界標準制定組織IEEE IRDS（國際元件與系統技術路線圖，ITRS的後繼者）也已放棄追蹤「實際奈米數」，轉而以邏輯電晶體密度、記憶體密度與互連密度等具體指標描述技術世代演進。對投資人而言，評估台積電、英特爾、三星等晶圓廠的先進製程競爭力時，應優先參考電晶體密度、良率與效能功耗等實測數據，而非單純比較節點名稱數字大小，才能正確判斷各廠實際技術落差與對客戶的議價能力。",
-              companies:[{n:"台積電",tw:1,code:"2330"},{n:"英特爾 Intel"},{n:"三星電子"}],
+              companies:[{n:"台積電",tw:1,code:"2330"},{n:"Intel",code:"INTC"},{n:"三星電子 Samsung Electronics"}],
               stats:[{v:"313 vs 238",l:"N2 vs 18A電晶體密度(MTr/mm²，HD單元)"},{v:"~2012年起",l:"FinFET世代起「奈米」名稱與實體尺寸脫鉤"},{v:"15-20%",l:"英特爾14A較18A效能功耗比提升幅度"}] }
           ] },
         { icon:"icon-hbm", title:"高頻寬記憶體", sub:"HBM MEMORY",
           diagram:"DIAGRAM_HBM",
           diagramCaption:"HBM結構示意：多層DRAM晶粒以矽穿孔(TSV)垂直堆疊，底部為負責訊號中繼的邏輯基底晶片(Base/Logic Die)，再透過微凸塊連接至下方基板或中介層。",
           desc:"專為AI運算堆疊設計的高速記憶體，以矽穿孔（TSV）技術垂直堆疊多層DRAM，直接影響AI晶片的運算頻寬上限。目前產能集中於三大原廠，且全數處於售罄狀態。",
-          companies:[{n:"SK海力士"},{n:"美光 Micron"},{n:"三星電子"}],
+          companies:[{n:"SK海力士 SK hynix"},{n:"美光 Micron"},{n:"三星電子 Samsung Electronics"}],
           stats:[{v:"~62%",l:"SK海力士HBM市占(Counterpoint，2025年Q2；2026年三星取得認證後份額已回升、SK海力士略有下滑)"},{v:"全數售罄",l:"三強2026年全年產能"}],
           tags:["memory-supply-chain","nvidia"],
           children:[
             { icon:"icon-chip", title:"DRAM顆粒製造", sub:"DRAM DIE MANUFACTURING",
               desc:"以奈米等級製程生產標準DRAM裸晶，是HBM堆疊的基礎單元。由於HBM需求排擠標準DRAM產能，生產同容量的HBM約需消耗數倍於標準DRAM的產能，是近年DRAM現貨價格大漲的主因之一。",
-              companies:[{n:"SK海力士"},{n:"美光 Micron"},{n:"三星電子"}],
+              companies:[{n:"SK海力士 SK hynix"},{n:"美光 Micron"},{n:"三星電子 Samsung Electronics"}],
               stats:[] },
             { icon:"icon-interconnect", title:"TSV矽穿孔與晶圓堆疊", sub:"TSV & WAFER STACKING",
               desc:"以矽穿孔技術在DRAM晶圓上鑽出數千個微米級孔洞並填入銅導線，再將多層薄化DRAM裸晶精密對準堆疊。目前HBM3E/HBM4量產主流仍採熱壓接合(TC Bonding)搭配MR-MUF或NCF材料，混合接合(Hybrid Bonding)技術預期最快於HBM4E的16層堆疊世代才會導入量產，是HBM製程中良率與產能的最大瓶頸環節。",
-              companies:[{n:"SK海力士"},{n:"美光 Micron"},{n:"三星電子"}],
+              companies:[{n:"SK海力士 SK hynix"},{n:"美光 Micron"},{n:"三星電子 Samsung Electronics"}],
               stats:[] },
             { icon:"icon-foundry", title:"Base Die／邏輯基底晶片", sub:"BASE DIE / LOGIC DIE",
               desc:"堆疊於DRAM最底層、負責資料存取控制與訊號中繼的邏輯晶片。自HBM4世代起，原廠開始委由晶圓代工廠以先進邏輯製程生產base die，台積電已成為此環節的重要合作夥伴。",
-              companies:[{n:"台積電",tw:1,code:"2330"},{n:"SK海力士"},{n:"美光 Micron"}],
+              companies:[{n:"台積電",tw:1,code:"2330"},{n:"SK海力士 SK hynix"},{n:"美光 Micron"}],
               stats:[] },
             { icon:"icon-probe", title:"封裝測試委外", sub:"OSAT PACKAGING & TEST",
               desc:"原廠將部分HBM後段封裝與晶片測試委外給專業封測廠，紓解自身產能壓力。台灣封測業者憑藉先進封裝與高階測試介面技術，已切入國際記憶體大廠的委外供應鏈。",
@@ -2029,17 +2032,17 @@
           ] },
         { icon:"icon-network", title:"網通與高速互連", parallelGroup:"ai-hw-board-integration", sub:"NETWORKING & INTERCONNECT",
           desc:"讓數萬顆晶片能協同運算的高速傳輸技術，涵蓋晶片內部SerDes連結、機櫃內NVLink，到跨機櫃的乙太網路交換器、光模組與矽光子(CPO)，是AI叢集能否持續擴大規模的關鍵瓶頸。台灣廠商在光模組與矽光子環節已從代工角色，逐漸切入技術含量更高的CPO關鍵零組件供應。高盛(Goldman Sachs)2026年4月報告《Optical Networking: The Next Mega Trend in AI Infrastructure》估算，從GB300世代到Rubin Ultra世代，光通訊相關總潛在市場(TAM)有機會成長近9倍，其中CPO在scale-up/scale-out互連市場的占比估計可達約59%。",
-          companies:[{n:"聯發科",tw:1,code:"2454"},{n:"聯亞光電",tw:1,code:"3081"},{n:"波若威",tw:1,code:"3163"},{n:"上詮",tw:1,code:"3363"},{n:"華星光",tw:1,code:"4979"},{n:"博通 Broadcom"},{n:"Marvell"}],
+          companies:[{n:"聯發科",tw:1,code:"2454"},{n:"聯亞光電",tw:1,code:"3081"},{n:"波若威",tw:1,code:"3163"},{n:"上詮",tw:1,code:"3363"},{n:"華星光",tw:1,code:"4979"},{n:"博通 Broadcom",code:"AVGO"},{n:"Marvell",code:"MRVL"}],
           stats:[{v:"336G SerDes(傳)",l:"聯發科藉此切入Google TPU 8t/8i(市場傳聞，各方版本不一)"},{v:"~9倍",l:"高盛估算GB300→Rubin Ultra世代光通訊TAM成長倍數"},{v:"~59%",l:"高盛估算CPO於scale-up/scale-out互連市場占比"}],
           tags:["networking-interconnect","nvidia","optical-communications"],
           children:[
             { icon:"icon-interconnect", title:"晶片內高速訊號傳輸(SerDes)", sub:"SERDES INTERCONNECT",
               desc:"晶片與晶片、機櫃內裝置之間的高速序列傳輸介面，是決定AI叢集能否有效同步運算的底層技術。台廠IC設計服務業者已藉自研SerDes IP切入雲端巨頭自研晶片專案。",
-              companies:[{n:"聯發科",tw:1,code:"2454"},{n:"世芯-KY",tw:1,code:"3661"},{n:"博通 Broadcom"},{n:"Marvell"}],
+              companies:[{n:"聯發科",tw:1,code:"2454"},{n:"世芯-KY",tw:1,code:"3661"},{n:"博通 Broadcom",code:"AVGO"},{n:"Marvell",code:"MRVL"}],
               stats:[{v:"336G SerDes(傳)",l:"聯發科藉此切入Google TPU 8t/8i(市場傳聞，各方版本不一)"}] },
             { icon:"icon-network", title:"矽光子與CPO共同封裝光學", sub:"SILICON PHOTONICS & CPO",
               desc:"將光學引擎直接與交換器ASIC共同封裝，取代傳統可插拔光模組，大幅降低訊號損耗與功耗，是2026年起加速商轉的next-gen互連技術，台積電COUPE平台為此技術核心製程平台。",
-              companies:[{n:"台積電",tw:1,code:"2330"},{n:"日月光",tw:1,code:"3711"},{n:"博通 Broadcom"}],
+              companies:[{n:"台積電",tw:1,code:"2330"},{n:"日月光",tw:1,code:"3711"},{n:"博通 Broadcom",code:"AVGO"}],
               stats:[] },
             { icon:"icon-network", title:"光收發模組", sub:"OPTICAL TRANSCEIVERS",
               desc:"將電訊號轉換為光訊號進行長距離傳輸的關鍵零組件，是現行AI叢集機櫃間連結的主流方案，台廠在光學元件領域已從代工角色逐漸切入關鍵零組件供應。",
@@ -2098,13 +2101,13 @@
           ] },
         { icon:"icon-datacenter", title:"資料中心與雲端應用", sub:"DATA CENTER & CLOUD",
           desc:"供應鏈最末端的實際應用場域。雲端業者將整合完成的AI伺服器部署於資料中心，提供模型訓練與推論算力，電力與土地取得已成為此階段最大的成長瓶頸。",
-          companies:[{n:"微軟 Microsoft"},{n:"Google"},{n:"AWS"},{n:"Meta"},{n:"甲骨文 Oracle"}],
+          companies:[{n:"微軟 Microsoft",code:"MSFT"},{n:"Google",code:"GOOGL"},{n:"AWS"},{n:"Meta"},{n:"甲骨文 Oracle",code:"ORCL"}],
           stats:[{v:"36-48個月",l:"美國高壓變壓器交期，部分達5年"}],
           tags:["datacenter-cloud"],
           children:[
             { icon:"icon-datacenter", title:"雲端服務供應商資本支出", sub:"CSP CAPEX",
               desc:"微軟、Google、AWS、Meta等雲端巨頭以驚人速度擴建資料中心，資本支出規模逐年創新高，是驅動整條AI硬體供應鏈需求的最終源頭，也是判斷供應鏈景氣最重要的先行指標。",
-              companies:[{n:"微軟 Microsoft"},{n:"Google"},{n:"AWS"},{n:"Meta"},{n:"甲骨文 Oracle"}],
+              companies:[{n:"微軟 Microsoft",code:"MSFT"},{n:"Google",code:"GOOGL"},{n:"AWS"},{n:"Meta"},{n:"甲骨文 Oracle",code:"ORCL"}],
               stats:[] },
             { icon:"icon-power", title:"資料中心土建與電力基礎設施", sub:"CONSTRUCTION & POWER INFRA",
               desc:"資料中心從選址、土建到變壓器、開關設備等電力基礎設施建置，工期動輒需時數年，電力與土地取得已成為資料中心擴建速度的最大瓶頸，高壓變壓器交期甚至長達數年。",
@@ -2112,7 +2115,7 @@
               stats:[{v:"36-48個月",l:"美國高壓變壓器交期，部分達5年"}] },
             { icon:"icon-power", title:"再生能源與電力採購(PPA)", sub:"RENEWABLE & POWER PPA",
               desc:"雲端業者為滿足資料中心龐大用電需求並兌現淨零承諾，大量簽署長期購電協議（PPA），近年更進一步投資核能、天然氣等穩定電源，以突破再生能源間歇性供電的限制。",
-              companies:[{n:"微軟 Microsoft"},{n:"Google"},{n:"亞馬遜 Amazon"}],
+              companies:[{n:"微軟 Microsoft",code:"MSFT"},{n:"Google",code:"GOOGL"},{n:"Amazon",code:"AMZN"}],
               stats:[] },
             { icon:"icon-network", title:"台灣在地資料中心布局", sub:"TAIWAN LOCAL DATA CENTERS",
               desc:"國際雲端業者陸續在台設立資料中心區域，帶動本地電信業者同步擴建機房與網路基礎設施，是台灣在這波AI浪潮中除硬體製造外，另一個逐漸成形的在地需求。",
@@ -2138,21 +2141,21 @@
       nodes: [
         { icon:"icon-chip", title:"GPU架構設計與IP", sub:"IN-HOUSE GPU ARCHITECTURE & IP",
           desc:"輝達自主設計GPU微架構（如Blackwell、Rubin），並整合Arm CPU核心（Grace）、CUDA運算平台與軟體生態系進行軟硬體協同設計，是輝達技術護城河最核心的環節，也是毛利率遠高於同業的主要原因。",
-          companies:[{n:"輝達 NVIDIA"},{n:"Arm"}],
+          companies:[{n:"輝達 NVIDIA",code:"NVDA"},{n:"Arm"}],
           stats:[{v:"CUDA生態系",l:"軟體平台鎖定效應為輝達最深的護城河"}],
           tags:["gpu-architecture"],
           children:[
             { icon:"icon-chip", title:"GPU微架構世代演進", sub:"GPU MICROARCHITECTURE ROADMAP",
               desc:"從Hopper、Blackwell到Rubin，輝達每一至兩年推出新一代GPU微架構，透過運算核心、記憶體頻寬與互連介面的同步升級，維持在AI訓練與推論效能上的領先幅度。",
-              companies:[{n:"輝達 NVIDIA"}],
+              companies:[{n:"輝達 NVIDIA",code:"NVDA"}],
               stats:[] },
             { icon:"icon-ip", title:"Grace CPU與Arm架構整合", sub:"GRACE CPU & ARM INTEGRATION",
               desc:"採用Arm架構自研Grace CPU，透過NVLink-C2C高速介面與GPU緊密耦合，組成Grace Hopper／Grace Blackwell超級晶片，強化CPU與GPU間的記憶體一致性與資料傳輸效率。",
-              companies:[{n:"輝達 NVIDIA"},{n:"Arm"}],
+              companies:[{n:"輝達 NVIDIA",code:"NVDA"},{n:"Arm"}],
               stats:[] },
             { icon:"icon-generic", title:"CUDA軟體生態系與開發者鎖定", sub:"CUDA SOFTWARE ECOSYSTEM",
               desc:"CUDA平台歷經近二十年累積龐大開發者社群與函式庫資產，形成競爭對手難以複製的軟體護城河，也是輝達客戶轉換成本最高、黏著度最強的關鍵環節。",
-              companies:[{n:"輝達 NVIDIA"}],
+              companies:[{n:"輝達 NVIDIA",code:"NVDA"}],
               stats:[] }
           ] },
         { icon:"icon-eda", title:"EDA設計工具與IP授權", sub:"EDA & IP LICENSING",
@@ -2190,28 +2193,28 @@
               stats:[] },
             { icon:"icon-generic", title:"長約與資本支出承諾", sub:"LONG-TERM CAPACITY COMMITMENT",
               desc:"輝達與台積電簽訂跨年度產能保留協議，並隨新平台世代同步調整資本支出規劃，反映在台積電先進製程與封裝產能的長期擴產步調。",
-              companies:[{n:"台積電",tw:1,code:"2330"},{n:"輝達 NVIDIA"}],
+              companies:[{n:"台積電",tw:1,code:"2330"},{n:"輝達 NVIDIA",code:"NVDA"}],
               stats:[] }
           ] },
         { icon:"icon-hbm", title:"HBM高頻寬記憶體", sub:"HBM MEMORY",
           diagram:"DIAGRAM_HBM",
           diagramCaption:"HBM結構示意：多層DRAM晶粒以矽穿孔(TSV)垂直堆疊，底部為負責訊號中繼的邏輯基底晶片，再透過微凸塊連接至下方基板或中介層。",
           desc:"每張GPU模組搭載多顆HBM堆疊記憶體，Rubin平台起導入HBM4規格。SK海力士、三星、美光皆為輝達認證供應商，目前產能全數綁定AI客戶、處於供不應求狀態；台灣廠商目前並未參與HBM本體製造。",
-          companies:[{n:"SK海力士"},{n:"三星電子"},{n:"美光 Micron"}],
+          companies:[{n:"SK海力士 SK hynix"},{n:"三星電子 Samsung Electronics"},{n:"美光 Micron"}],
           stats:[{v:"HBM4",l:"Rubin平台起導入的新一代記憶體規格"}],
           tags:["memory-supply-chain"],
           children:[
             { icon:"icon-metrology", title:"HBM認證與良率驗證", sub:"HBM QUALIFICATION & YIELD",
               desc:"輝達對每家記憶體供應商的HBM顆粒都需經過嚴格的頻寬、良率與可靠度認證流程，認證進度直接影響該供應商能否進入下一世代GPU模組的採購名單。",
-              companies:[{n:"SK海力士"},{n:"三星電子"},{n:"美光 Micron"}],
+              companies:[{n:"SK海力士 SK hynix"},{n:"三星電子 Samsung Electronics"},{n:"美光 Micron"}],
               stats:[] },
             { icon:"icon-generic", title:"供應商配比與採購合約", sub:"SUPPLY ALLOCATION & CONTRACTS",
               desc:"輝達透過與三大原廠簽訂多年期採購合約分散供應風險，各家供應商在輝達HBM訂單中的占比會隨良率表現與產能擴充進度動態調整。",
-              companies:[{n:"SK海力士"},{n:"三星電子"},{n:"美光 Micron"}],
+              companies:[{n:"SK海力士 SK hynix"},{n:"三星電子 Samsung Electronics"},{n:"美光 Micron"}],
               stats:[] },
             { icon:"icon-hbm", title:"HBM4規格演進與客製化基礎晶粒", sub:"HBM4 CUSTOM BASE DIE",
               desc:"HBM4世代開始導入客製化邏輯基礎晶粒（Base Die），SK海力士已與台積電合作以邏輯製程生產部分基礎晶粒，讓輝達得以依自身運算架構需求微調記憶體介面設計。",
-              companies:[{n:"台積電",tw:1,code:"2330"},{n:"SK海力士"}],
+              companies:[{n:"台積電",tw:1,code:"2330"},{n:"SK海力士 SK hynix"}],
               stats:[] }
           ] },
         { icon:"icon-package", title:"CoWoS先進封裝", sub:"CoWoS ADVANCED PACKAGING",
@@ -2265,7 +2268,7 @@
           children:[
             { icon:"icon-server", title:"NVL72機櫃級參考設計", sub:"NVL72 RACK-SCALE REFERENCE DESIGN",
               desc:"輝達提供涵蓋主機板、電源、散熱與互連的完整機櫃級參考設計，夥伴廠商依此規格生產客製化伺服器主機板，大幅縮短系統整合的開發時程。",
-              companies:[{n:"輝達 NVIDIA"},{n:"緯創",tw:1,code:"3231"}],
+              companies:[{n:"輝達 NVIDIA",code:"NVDA"},{n:"緯創",tw:1,code:"3231"}],
               stats:[] },
             { icon:"icon-substrate", title:"GPU Baseboard高速訊號設計", sub:"GPU BASEBOARD SIGNAL DESIGN",
               desc:"承載多顆GPU模組的高速主機板需處理高頻高速訊號完整性與多層板疊構設計，技術門檻遠高於一般伺服器主機板，是這一環節附加價值最高的部分。",
@@ -2316,17 +2319,17 @@
           ] },
         { icon:"icon-network", title:"網通與機櫃內互連", parallelGroup:"nvidia-rack-integration", sub:"NETWORKING & INTERCONNECT",
           desc:"以自研NVLink串連機櫃內GPU，搭配Quantum InfiniBand與Spectrum-X乙太網路交換器串連機櫃間流量。2026年起導入Spectrum-X Photonics共同封裝光學（CPO）技術，目標將AI叢集規模擴展至數百萬顆GPU等級。",
-          companies:[{n:"輝達 NVIDIA"},{n:"博通 Broadcom"}],
+          companies:[{n:"輝達 NVIDIA",code:"NVDA"},{n:"博通 Broadcom",code:"AVGO"}],
           stats:[],
           tags:["networking-interconnect","optical-communications"],
           children:[
             { icon:"icon-interconnect", title:"NVLink機櫃內高速互連", sub:"NVLINK SCALE-UP INTERCONNECT",
               desc:"NVLink提供機櫃內GPU之間點對點高頻寬直連，是Blackwell與Rubin平台將多顆GPU整合為單一超級運算單元的核心互連技術，頻寬遠高於傳統PCIe介面。",
-              companies:[{n:"輝達 NVIDIA"}],
+              companies:[{n:"輝達 NVIDIA",code:"NVDA"}],
               stats:[] },
             { icon:"icon-network", title:"InfiniBand與Spectrum-X交換器", sub:"INFINIBAND & SPECTRUM-X SWITCHING",
               desc:"Quantum InfiniBand與Spectrum-X乙太網路交換器負責串連機櫃與機櫃之間的AI叢集流量，是擴展至數萬顆GPU等級叢集規模不可或缺的骨幹網路設備。",
-              companies:[{n:"輝達 NVIDIA"},{n:"博通 Broadcom"}],
+              companies:[{n:"輝達 NVIDIA",code:"NVDA"},{n:"博通 Broadcom",code:"AVGO"}],
               stats:[] },
             { icon:"icon-interconnect", title:"高速銅纜與主動電纜組件", sub:"COPPER & ACTIVE ELECTRICAL CABLING",
               desc:"機櫃內短距離高速訊號傳輸多採銅纜與主動電纜（AEC）組件，兼顧成本與訊號完整性，是機櫃內部連接不可或缺的被動與主動元件供應鏈。",
@@ -2354,21 +2357,21 @@
           ] },
         { icon:"icon-datacenter", title:"下游：雲端服務供應商", parallelGroup:"nvidia-downstream-segments", sub:"CSP CUSTOMERS",
           desc:"微軟、Google、AWS、Meta、Oracle等雲端巨頭是輝達資料中心GPU最大宗買家，資本支出規模與輝達營收成長高度連動，是觀察輝達業績最重要的先行指標。",
-          companies:[{n:"微軟 Microsoft"},{n:"Google"},{n:"AWS"},{n:"Meta"},{n:"甲骨文 Oracle"}],
+          companies:[{n:"微軟 Microsoft",code:"MSFT"},{n:"Google",code:"GOOGL"},{n:"AWS"},{n:"Meta"},{n:"甲骨文 Oracle",code:"ORCL"}],
           stats:[],
           tags:["datacenter-cloud","ai-hardware"],
           children:[
             { icon:"icon-datacenter", title:"超大型雲端業者資本支出循環", sub:"HYPERSCALER CAPEX CYCLE",
               desc:"微軟、Google、AWS、Meta等雲端巨頭每季資本支出指引，是市場預測輝達資料中心GPU出貨動能最重要的先行指標，資本支出循環的加速或放緩直接牽動輝達營收成長曲線。",
-              companies:[{n:"微軟 Microsoft"},{n:"Google"},{n:"AWS"},{n:"Meta"}],
+              companies:[{n:"微軟 Microsoft",code:"MSFT"},{n:"Google",code:"GOOGL"},{n:"AWS"},{n:"Meta"}],
               stats:[] },
             { icon:"icon-chip", title:"自研ASIC與GPU採購並行策略", sub:"IN-HOUSE ASIC VS GPU PROCUREMENT",
               desc:"部分雲端業者同步投入自研AI加速晶片（如Google TPU、AWS Trainium），與採購輝達GPU並行部署，反映客戶端分散供應商集中度風險的長期趨勢。",
-              companies:[{n:"Google"},{n:"AWS"}],
+              companies:[{n:"Google",code:"GOOGL"},{n:"AWS"}],
               stats:[] },
             { icon:"icon-server", title:"GPU雲端服務與Neocloud業者", sub:"GPU CLOUD / NEOCLOUD PROVIDERS",
               desc:"CoreWeave等新興GPU雲端服務商專注出租輝達GPU算力，成為傳統雲端巨頭以外快速崛起的新客群，也是輝達客戶結構多元化的重要來源。",
-              companies:[{n:"CoreWeave"}],
+              companies:[{n:"CoreWeave",code:"CRWV"}],
               stats:[] }
           ] },
         { icon:"icon-generic", title:"下游：企業與主權AI", parallelGroup:"nvidia-downstream-segments", sub:"ENTERPRISE & SOVEREIGN AI",
@@ -2398,15 +2401,15 @@
           children:[
             { icon:"icon-chip", title:"DRIVE自動駕駛運算平台", sub:"DRIVE AUTONOMOUS DRIVING PLATFORM",
               desc:"提供車廠自動駕駛所需的運算晶片與軟體堆疊，涵蓋感知、決策與控制全流程，是輝達切入汽車產業的核心運算平台。",
-              companies:[{n:"輝達 NVIDIA"},{n:"賓士 Mercedes-Benz"},{n:"比亞迪"}],
+              companies:[{n:"輝達 NVIDIA",code:"NVDA"},{n:"賓士 Mercedes-Benz"},{n:"比亞迪"}],
               stats:[] },
             { icon:"icon-device", title:"Jetson邊緣運算與機器人平台", sub:"JETSON EDGE & ROBOTICS PLATFORM",
               desc:"Jetson系列嵌入式運算模組鎖定機器人與邊緣AI應用，提供開發者在終端裝置上執行AI推論運算的硬體基礎，是輝達布局「物理AI」生態系的關鍵入口。",
-              companies:[{n:"輝達 NVIDIA"}],
+              companies:[{n:"輝達 NVIDIA",code:"NVDA"}],
               stats:[] },
             { icon:"icon-datacenter", title:"Omniverse數位分身模擬平台", sub:"OMNIVERSE DIGITAL TWIN SIMULATION",
               desc:"Omniverse提供工廠、機器人與自動駕駛場景的3D模擬與數位分身環境，讓車廠與機器人開發者在虛擬環境中訓練與驗證AI模型，縮短實體測試所需時間與成本。",
-              companies:[{n:"輝達 NVIDIA"},{n:"鴻海",tw:1,code:"2317"}],
+              companies:[{n:"輝達 NVIDIA",code:"NVDA"},{n:"鴻海",tw:1,code:"2317"}],
               stats:[] }
           ] }
       ]
@@ -2427,13 +2430,13 @@
       nodes: [
         { icon:"icon-chip", title:"晶片設計與代工(A／M系列)", sub:"CHIP DESIGN & FOUNDRY",
           desc:"蘋果自主設計iPhone用A系列與Mac用M系列處理器，交由台積電以最先進製程代工生產。台積電在蘋果晶片供應鏈中的地位幾乎無可取代，是蘋果每年最先導入新製程節點的旗艦客戶之一。值得留意的是，台積電N3／N2、英特爾18A／14A、三星SF2等製程代號中的數字，自FinFET世代起已與實體奈米尺寸脫鉤，本質上是行銷與世代命名符號而非可比的物理量測值，同一數字在不同廠商間的電晶體密度與良率可能有明顯落差。詳見「AI硬體」分頁中「先進製程節點命名」單元的完整說明。",
-          companies:[{n:"台積電",tw:1,code:"2330"},{n:"蘋果 Apple"}],
+          companies:[{n:"台積電",tw:1,code:"2330"},{n:"蘋果 Apple",code:"AAPL"}],
           stats:[],
           tags:["wafer-fabrication"],
           children:[
             { icon:"icon-chip", title:"A系列／M系列晶片架構世代演進", sub:"CHIP ARCHITECTURE ROADMAP",
               desc:"蘋果自2010年A4晶片起持續自研處理器，iPhone用A系列與Mac／iPad用M系列共用同源微架構，每年隨新製程節點迭代CPU／GPU／神經網路引擎設計，是蘋果產品效能與續航差異化的核心。",
-              companies:[{n:"蘋果 Apple"}],
+              companies:[{n:"蘋果 Apple",code:"AAPL"}],
               stats:[] },
             { icon:"icon-package", title:"台積電先進封裝InFO_PoP應用", sub:"TSMC InFO_PoP PACKAGING",
               diagram:"DIAGRAM_INFO",
@@ -2461,7 +2464,7 @@
               stats:[] },
             { icon:"icon-substrate", title:"毫米波天線封裝(AiP)", sub:"ANTENNA-IN-PACKAGE (mmWave)",
               desc:"美規iPhone支援5G毫米波頻段，須將天線陣列與射頻模組整合封裝於同一載板中(AiP)，以縮小天線體積並維持訊號強度，目前核心射頻模組多由高通等國際大廠供應。",
-              companies:[{n:"高通 Qualcomm"},{n:"博通 Broadcom"}],
+              companies:[{n:"高通 Qualcomm",code:"QCOM"},{n:"博通 Broadcom",code:"AVGO"}],
               stats:[] },
             { icon:"icon-generic", title:"載板產能與蘋果議價地位", sub:"SUBSTRATE CAPACITY & PRICING",
               desc:"高階ABF載板產能長期供不應求，蘋果作為終端品牌大客戶對供應商具備較強議價與產能分配影響力，載板廠是否能穩定供貨新機種備貨旺季，是觀察營運表現的重要指標。",
@@ -2470,17 +2473,17 @@
           ] },
         { icon:"icon-hbm", title:"記憶體與儲存", parallelGroup:"apple-components", sub:"MEMORY & STORAGE",
           desc:"提供iPhone與Mac所需的行動式DRAM與NAND Flash儲存晶片，蘋果供應商以南韓與美系原廠為主，台廠則在利基型記憶體與控制晶片領域維持部分參與。",
-          companies:[{n:"華邦電",tw:1,code:"2344"},{n:"SK海力士"},{n:"美光 Micron"},{n:"三星電子"}],
+          companies:[{n:"華邦電",tw:1,code:"2344"},{n:"SK海力士 SK hynix"},{n:"美光 Micron"},{n:"三星電子 Samsung Electronics"}],
           stats:[],
           tags:["memory-supply-chain"],
           children:[
             { icon:"icon-hbm", title:"NAND／DRAM供應商配比與長約", sub:"SUPPLIER ALLOCATION & CONTRACTS",
               desc:"蘋果每年依產品線與議價結果，在SK海力士、美光、三星電子等原廠之間分配行動式DRAM與NAND訂單比重，透過多供應商策略分散單一原廠斷貨或漲價風險。",
-              companies:[{n:"SK海力士"},{n:"美光 Micron"},{n:"三星電子"}],
+              companies:[{n:"SK海力士 SK hynix"},{n:"美光 Micron"},{n:"三星電子 Samsung Electronics"}],
               stats:[] },
             { icon:"icon-chip", title:"客製化記憶體規格", sub:"CUSTOM MEMORY SPECIFICATION",
               desc:"蘋果自M系列晶片起將記憶體以封裝內整合(SoC封裝)方式與處理器共同設計，對頻寬、功耗與封裝厚度均有客製化規格要求，須原廠依蘋果規格獨立備料生產。",
-              companies:[{n:"蘋果 Apple"}],
+              companies:[{n:"蘋果 Apple",code:"AAPL"}],
               stats:[] },
             { icon:"icon-chip", title:"台廠利基型記憶體與控制晶片", sub:"NICHE MEMORY & CONTROLLERS",
               desc:"華邦電等台廠雖非蘋果主力DRAM／NAND供應商，但在小容量利基型記憶體與周邊控制晶片領域維持部分間接供應角色，訂單規模遠小於南韓與美系原廠。",
@@ -2502,7 +2505,7 @@
               stats:[] },
             { icon:"icon-chip", title:"影像感測器(CIS)", sub:"IMAGE SENSOR",
               desc:"感光元件負責將光訊號轉換為數位影像，蘋果主要感測器供應商以日韓大廠為主，此環節台廠尚無直接打入蘋果供應鏈的代表廠商。",
-              companies:[{n:"索尼 Sony"},{n:"三星電子"}],
+              companies:[{n:"索尼 Sony"},{n:"三星電子 Samsung Electronics"}],
               stats:[] }
           ] },
         { icon:"icon-generic", title:"被動元件", parallelGroup:"apple-components", sub:"PASSIVE COMPONENTS",
@@ -2678,7 +2681,7 @@
       sub: "CHIP ARCHITECTURE & CO-DESIGN",
       desc: "Google TPU從2015年v1到2025年第七代Ironwood，運算架構皆由Google自主定義，其中運算核心(Compute Die)與HBM記憶體採購由Google親自主導，博通(Broadcom)擔任逾十年的核心設計服務夥伴，協助SerDes IP、晶片間互連PHY與後段實體設計，雙方供應TPU晶片與網通元件至2031年的合約已於2026年4月透過Google母公司Alphabet的美國證管會8-K文件揭露。市場傳聯發科自2026年起首度切入TPU 8t/8i世代I/O Die設計，成為Google TPU設計圈出現的「第二供應商」，惟具體切入世代與規格各方報導版本不一，尚未經Google官方證實。",
       companies: [
-        { n: "Alphabet(Google)", code: "GOOGL" },
+        { n: "Google", code: "GOOGL" },
         { n: "博通 Broadcom", code: "AVGO" },
         { n: "聯發科", tw: 1, code: "2454" }
       ],
@@ -2692,7 +2695,7 @@
           title: "Google自研運算核心",
           sub: "COMPUTE DIE (GOOGLE-LED)",
           desc: "Google內部TPU團隊主導Compute Die微架構與HBM記憶體規格決策。以第七代Ironwood為例，單晶片峰值算力達4,614 TFLOPs、搭載192GB HBM(較前代Trillium提升6倍)、頻寬7.37TB/s，是雲端巨頭自研ASIC中架構掌握度最高的代表案例，與輝達對外銷售通用GPU的商業模式截然不同。",
-          companies: [{ n: "Alphabet(Google)", code: "GOOGL" }],
+          companies: [{ n: "Google", code: "GOOGL" }],
           stats: [
             { v: "4,614 TFLOPs", l: "Ironwood單晶片峰值算力" },
             { v: "192GB", l: "Ironwood單晶片HBM容量" }
@@ -3007,7 +3010,7 @@
       sub: "GOOGLE CLOUD / GEMINI & EXTERNAL CUSTOMERS",
       desc: "Google TPU不再只供自家使用，2025至2026年起大量對外出售運算容量。Anthropic已簽署最高約100萬顆TPU、逾1GW運算容量上線的多年期協議，總金額估達數十億美元規模；Meta傳出洽談數十億美元TPU租賃合作，Apple亦被曝出以TPU訓練部分AI模型。Google Cloud 2026年第二季營收年增82%達248億美元，Gemini模型API每分鐘處理量達220億token，是TPU外部需求成長最直接的證明。",
       companies: [
-        { n: "Alphabet(Google)", code: "GOOGL" },
+        { n: "Google", code: "GOOGL" },
         { n: "Anthropic" },
         { n: "Meta", code: "META" }
       ],
@@ -3021,7 +3024,7 @@
           title: "Google Cloud／Gemini內部使用",
           sub: "INTERNAL WORKLOADS",
           desc: "TPU最大宗需求仍來自Google自家Search、Gemini與Cloud AI服務。2026年Q2 Google Cloud營收年增82%達248億美元，Gemini第一方模型API每分鐘處理約220億token，較上季160億token明顯加速，全季資本支出達449億美元，其中約六成投向伺服器。",
-          companies: [{ n: "Alphabet(Google)", code: "GOOGL" }],
+          companies: [{ n: "Google", code: "GOOGL" }],
           stats: [
             { v: "220億token/分", l: "Gemini API處理量(2026 Q2)" },
             { v: "449億美元", l: "Google Cloud單季資本支出(2026 Q2)" }
@@ -3033,7 +3036,7 @@
           sub: "ANTHROPIC MULTI-GW DEAL",
           desc: "2025年10月23日，Anthropic宣布擴大採用Google Cloud與TPU，簽署最高約100萬顆TPU、逾1GW運算容量於2026年上線的多年期協議；2026年4月Google再宣布追加一筆自2027年起上線、規模達3.5GW的獨立擴大合作，是Google TPU目前對外揭露規模最大的外售案，也是輝達GPU以外AI晶片能夠取得頂級大型語言模型公司採用的重要指標。",
           companies: [
-            { n: "Alphabet(Google)", code: "GOOGL" },
+            { n: "Google", code: "GOOGL" },
             { n: "Anthropic" }
           ],
           stats: [
@@ -3048,7 +3051,7 @@
           desc: "Meta傳於2026年3月已簽署數十億美元TPU租賃協議，規劃2026年起租用、2027年起自行採購TPU，以分散對輝達GPU的高度依賴；Apple也被曝出運用TPU訓練部分自研AI模型。若相關合作陸續落地，將使Google TPU從「Google自用工具」進一步轉型為對外提供算力的商用平台。",
           companies: [
             { n: "Meta", code: "META" },
-            { n: "Apple", code: "AAPL" }
+            {n:"蘋果 Apple",code:"AAPL"}
           ],
           stats: []
         }
@@ -3167,7 +3170,7 @@
           diagram: "DIAGRAM_HBM",
           diagramCaption: "HBM結構示意：多層DRAM晶粒以矽穿孔(TSV)垂直堆疊，底部為負責訊號中繼的邏輯基底晶片，再透過微凸塊連接至下方基板或中介層。",
           desc: "Trainium系列採用HBM高頻寬記憶體強化AI運算頻寬。2023年底已有報導證實Trainium2的HBM3訂單由三星電子與SK海力士共同供應；最新Trainium3單晶片改採12層堆疊HBM3e、容量達144GB，記憶體頻寬提升至4.9TB/s（AWS官方公布數據），個別廠商供應占比目前尚未由AWS官方逐一證實，市場預期南韓兩大原廠與美光將持續角逐訂單。",
-          companies: [{ n: "三星電子" }, { n: "SK海力士" }, { n: "美光 Micron" }],
+          companies: [{n:"三星電子 Samsung Electronics"}, {n:"SK海力士 SK hynix"}, { n: "美光 Micron" }],
           stats: [
             { v: "144GB", l: "Trainium3單晶片HBM3e容量(12層堆疊)" },
             { v: "4.9TB/s", l: "Trainium3記憶體頻寬" }
@@ -3178,7 +3181,7 @@
               title: "Trainium2：三星電子與SK海力士並列供應",
               sub: "SAMSUNG & SK HYNIX — TRAINIUM2 HBM3",
               desc: "2023年底已有報導證實三星電子與SK海力士同步取得Trainium2的HBM3訂單，是AWS自研AI晶片HBM供應鏈首度浮上檯面的具體案例，個別供應占比並未對外揭露。",
-              companies: [{ n: "三星電子" }, { n: "SK海力士" }],
+              companies: [{n:"三星電子 Samsung Electronics"}, {n:"SK海力士 SK hynix"}],
               stats: []
             },
             {
@@ -3186,7 +3189,7 @@
               title: "Trainium3：HBM3e升級",
               sub: "HBM3E — TRAINIUM3 12-HI STACK",
               desc: "Trainium3改採12層堆疊HBM3e，單晶片容量達144GB、記憶體頻寬提升至4.9TB/s；HBM3e目前全球產能仍集中在SK海力士、三星電子與美光三大原廠，供貨吃緊帶動2026年報價續揚。",
-              companies: [{ n: "SK海力士" }, { n: "三星電子" }, { n: "美光 Micron" }],
+              companies: [{n:"SK海力士 SK hynix"}, {n:"三星電子 Samsung Electronics"}, { n: "美光 Micron" }],
               stats: [{ v: "144GB", l: "Trainium3 HBM3e容量" }]
             },
             {
@@ -3194,7 +3197,7 @@
               title: "HBM4次世代布局",
               sub: "NEXT-GEN HBM4 QUALIFICATION",
               desc: "隨Trainium4規劃記憶體容量倍增、頻寬提升至現有4倍，市場預期AWS下一代自研晶片將導入HBM4規格，三大記憶體原廠均已展開對雲端業者的送樣認證。",
-              companies: [{ n: "SK海力士" }, { n: "三星電子" }, { n: "美光 Micron" }],
+              companies: [{n:"SK海力士 SK hynix"}, {n:"三星電子 Samsung Electronics"}, { n: "美光 Micron" }],
               stats: []
             }
           ]
@@ -3646,12 +3649,12 @@
       nodes: [
         { icon:"icon-chip", title:"記憶體IC設計", sub:"MEMORY IC DESIGN",
           desc:"標準型DRAM／NAND由三大原廠自主設計，利基型記憶體（如低功耗、車用、工規型號）則由專業IC設計公司規劃電路架構，決定容量、速度與功耗規格。",
-          companies:[{n:"晶豪科",tw:1,code:"3006"},{n:"SK海力士"},{n:"美光 Micron"},{n:"三星電子"}],
+          companies:[{n:"晶豪科",tw:1,code:"3006"},{n:"SK海力士 SK hynix"},{n:"美光 Micron"},{n:"三星電子 Samsung Electronics"}],
           stats:[],
           children:[
             { icon:"icon-chip", title:"標準型DRAM／NAND設計", sub:"STANDARD DRAM/NAND DESIGN",
               desc:"標準型DRAM與NAND Flash的電路架構、製程節點規劃與良率優化，完全由三大原廠內部IDM團隊自主設計與掌握，並未對外授權或委外，是記憶體產業中技術與資本門檻最高的核心環節。台灣廠商目前未參與此一標準型記憶體的自主設計環節。",
-              companies:[{n:"三星電子"},{n:"SK海力士"},{n:"美光 Micron"}],
+              companies:[{n:"三星電子 Samsung Electronics"},{n:"SK海力士 SK hynix"},{n:"美光 Micron"}],
               stats:[] },
             { icon:"icon-chip", title:"利基型記憶體IC設計", sub:"NICHE & SPECIALTY MEMORY DESIGN",
               desc:"鎖定標準型大廠較少投入的低功耗、車用、工規與消費性利基市場，以Fabless模式設計DRAM、SRAM與Pseudo SRAM等特殊規格產品，並委由晶圓代工廠生產。晶豪科為台灣利基型DRAM設計指標廠商，華邦電則同時具備自主設計與晶圓製造能量，在工規、車用與消費性利基記憶體領域深耕多年。",
@@ -3663,21 +3666,21 @@
               stats:[{v:"全球前二大",l:"旺宏電子NOR Flash市占排名(IC Insights)"}] },
             { icon:"icon-ip", title:"SSD／儲存控制器IC設計", sub:"STORAGE CONTROLLER IC DESIGN",
               desc:"控制器IC負責NAND Flash的錯誤更正、耗損平均與資料調度演算法，是決定SSD速度與壽命的關鍵晶片。群聯電子為全球NAND控制IC出貨龍頭，慧榮科技(美國掛牌ADR、營運總部位於台灣新竹)則專攻高階企業級與行動裝置控制IC，兩者合計是台灣在記憶體周邊IC設計最具全球話語權的環節。",
-              companies:[{n:"群聯電子",tw:1,code:"8299"},{n:"慧榮科技",tw:1}],
+              companies:[{n:"群聯電子",tw:1,code:"8299"},{n:"慧榮科技",tw:1,code:"SIMO"}],
               stats:[] }
           ] },
         { icon:"icon-foundry", title:"晶圓製造", sub:"MEMORY WAFER FABRICATION",
           desc:"以成熟至先進製程量產記憶體晶圓，DRAM需精密的電容結構製程，NAND Flash則需堆疊數百層的3D電荷捕捉結構，是記憶體供應鏈中資本支出最龐大的環節。",
-          companies:[{n:"南亞科",tw:1,code:"2408"},{n:"華邦電",tw:1,code:"2344"},{n:"SK海力士"},{n:"美光 Micron"},{n:"三星電子"}],
+          companies:[{n:"南亞科",tw:1,code:"2408"},{n:"華邦電",tw:1,code:"2344"},{n:"SK海力士 SK hynix"},{n:"美光 Micron"},{n:"三星電子 Samsung Electronics"}],
           stats:[],
           children:[
             { icon:"icon-foundry", title:"DRAM晶圓製造", sub:"DRAM WAFER FABRICATION",
               desc:"DRAM需在電容結構與電晶體間反覆進行深孔蝕刻與高深寬比填充，製程複雜度高於同世代邏輯晶片。南亞科為台灣主要具備DRAM自主設計與量產能力的IDM廠，華邦電亦具備自主設計與自有晶圓廠產能；力積電則以晶圓代工模式承接DRAM委外訂單。全球主流DRAM產能仍集中於南韓三星、SK海力士與美系美光三大原廠（美光在台灣亦設有大量產能）手中。",
-              companies:[{n:"南亞科",tw:1,code:"2408"},{n:"SK海力士"},{n:"美光 Micron"},{n:"三星電子"}],
+              companies:[{n:"南亞科",tw:1,code:"2408"},{n:"SK海力士 SK hynix"},{n:"美光 Micron"},{n:"三星電子 Samsung Electronics"}],
               stats:[] },
             { icon:"icon-foundry", title:"3D NAND Flash晶圓製造", sub:"3D NAND WAFER FABRICATION",
               desc:"3D NAND以垂直堆疊數百層電荷捕捉結構提升單位面積容量，堆疊層數與良率是決定成本競爭力的關鍵。此環節資本支出與技術門檻極高，主流大宗容量產品目前由三星、SK海力士、美光與鎧俠(Kioxia)等國際大廠掌握；台灣旺宏(Macronix)則於利基型應用量產48層(2021年)與96層(2023年)3D NAND，規模與最先進層數上仍與國際大廠有明顯差距。",
-              companies:[{n:"三星電子"},{n:"SK海力士"},{n:"美光 Micron"},{n:"鎧俠 Kioxia"}],
+              companies:[{n:"三星電子 Samsung Electronics"},{n:"SK海力士 SK hynix"},{n:"美光 Micron"},{n:"鎧俠 Kioxia"}],
               stats:[] },
             { icon:"icon-foundry", title:"特殊型記憶體晶圓製造", sub:"SPECIALTY MEMORY WAFER FAB",
               desc:"涵蓋低功耗DRAM、Pseudo SRAM與NOR Flash等利基型記憶體的自主晶圓製造，客製化製程彈性高於標準型記憶體，但單位產能經濟規模較小。華邦電與南亞科皆同時擁有台灣本土晶圓廠，為台灣少數具備記憶體晶圓自主生產能力的廠商。",
@@ -3913,7 +3916,7 @@
           ] },
         { icon:"icon-chip", title:"運算控制平台", parallelGroup:"robot-components", sub:"COMPUTE & CONTROL PLATFORM",
           desc:"執行機器人動作規劃、感測融合與AI推論運算的嵌入式運算平台，決定機器人反應速度與自主決策能力，多數平台採輝達Jetson系列運算模組為核心。",
-          companies:[{n:"凌華科技",tw:1,code:"6166"},{n:"研華",tw:1,code:"2395"},{n:"輝達 NVIDIA"}],
+          companies:[{n:"凌華科技",tw:1,code:"6166"},{n:"研華",tw:1,code:"2395"},{n:"輝達 NVIDIA",code:"NVDA"}],
           stats:[],
           tags:["nvidia"],
           children:[
@@ -3927,7 +3930,7 @@
               stats:[] },
             { icon:"icon-network", title:"感測器融合處理單元", sub:"SENSOR FUSION PROCESSING UNIT",
               desc:"整合IMU、視覺與力覺等多模態訊號進行即時姿態估測與環境建圖，是機器人自主移動與避障能力的運算核心。高階方案多直接整合於輝達Jetson Orin或高通機器人平台內，台廠以系統整合與模組代工角色切入。",
-              companies:[{n:"研華",tw:1,code:"2395"},{n:"輝達 NVIDIA"}],
+              companies:[{n:"研華",tw:1,code:"2395"},{n:"輝達 NVIDIA",code:"NVDA"}],
               stats:[] }
           ] },
         { icon:"icon-battery", title:"電池與能源管理", parallelGroup:"robot-components", sub:"BATTERY & POWER MANAGEMENT",
@@ -4087,7 +4090,7 @@
               stats:[{v:"51.8%",l:"2026年上半年光通訊產品占英特磊營收比重"}] },
             { icon:"icon-device", title:"崩潰型光電二極體(APD)", sub:"AVALANCHE PHOTODIODE",
               desc:"APD利用雪崩倍增效應提升接收靈敏度，適用於長距離、高損耗的電信骨幹網路鏈路。全新、英特磊具備APD磊晶與晶粒設計能力，鼎元同步供應APD系列產品，國際大廠則以Lumentum、Broadcom等為主。",
-              companies:[{n:"全新光電",tw:1,code:"2455"},{n:"英特磊",tw:1,code:"4971"},{n:"鼎元",tw:1,code:"2426"},{n:"Lumentum"},{n:"博通 Broadcom"}],
+              companies:[{n:"全新光電",tw:1,code:"2455"},{n:"英特磊",tw:1,code:"4971"},{n:"鼎元",tw:1,code:"2426"},{n:"Lumentum"},{n:"博通 Broadcom",code:"AVGO"}],
               stats:[] },
             { icon:"icon-device", title:"高速光偵測器(資料中心Scale-up應用)", sub:"HIGH-SPEED PHOTODETECTOR",
               desc:"因應AI伺服器Scale-up架構對短距、高頻寬互連需求提升，英特磊200G高速PIN偵測器已成主力產品線，帶動InP磊晶與晶粒產能同步吃緊。鼎元推出覆晶光電二極體(Flip Photo Diode)封裝產品，已成功應用於800G及1.6T高速光模組，滿足更高頻寬需求下的先進封裝路線。",
@@ -4128,7 +4131,7 @@
               stats:[] },
             { icon:"icon-interconnect", title:"高速光電轉換介面", sub:"HIGH-SPEED OPTOELECTRONIC INTERFACE",
               desc:"隨傳輸速率邁向100G/200G Lane，TOSA/ROSA需搭配更高頻寬的驅動IC與跨阻放大器。波若威已列名輝達Spectrum-X Photonics交換器官方合作夥伴，供應200Gb/s SerDes等級的高速光電轉換次組件。",
-              companies:[{n:"波若威",tw:1,code:"3163"},{n:"輝達 NVIDIA"}],
+              companies:[{n:"波若威",tw:1,code:"3163"},{n:"輝達 NVIDIA",code:"NVDA"}],
               stats:[{v:"200Gb/s",l:"輝達Spectrum-X Photonics SerDes規格"}] }
           ] },
         { icon:"icon-generic", title:"光被動元件(耦合器／濾波器／隔離器)", parallelGroup:"photonic-component-types", sub:"PASSIVE OPTICAL COMPONENTS",
@@ -4171,12 +4174,12 @@
         { icon:"icon-network", title:"CPO共同封裝光學", parallelGroup:"photonic-interconnect-approaches", sub:"CO-PACKAGED OPTICS (CPO)",
           tags:["networking-interconnect"],
           desc:"將光學引擎直接與交換器ASIC共同封裝於同一基板，取代傳統可插拔模組，大幅降低訊號損耗與功耗，是2026年起加速商轉的next-gen互連技術，日月光已切入CPO先進封裝環節。趨勢背後的原理：當單通道傳輸速率推進到112G、224G等級，銅線纜的訊號衰減與功耗會隨傳輸距離與速率同步惡化，機櫃間互連距離一旦超過1~2公尺，銅線就必須仰賴耗電的訊號重收發晶片(retimer)才能維持訊號完整性；光訊號則幾乎不受傳輸距離影響、單位頻寬功耗遠低於銅，是AI叢集規模持續擴大（單一叢集要串連數萬至數十萬顆GPU/ASIC）下，網路互連從「銅」走向「光」的根本原因，機櫃內部短距離仍以銅纜/主動電纜為主、機櫃間與跨機房則加速轉向光模組與CPO。可參考「AI硬體」「輝達(NVIDIA)」頁籤的網通節點了解GPU叢集端的對應布局。",
-          companies:[{n:"台積電",tw:1,code:"2330"},{n:"日月光",tw:1,code:"3711"},{n:"博通 Broadcom"},{n:"訊芯-KY",tw:1,code:"6451"},{n:"眾達-KY",tw:1,code:"4977"}],
+          companies:[{n:"台積電",tw:1,code:"2330"},{n:"日月光",tw:1,code:"3711"},{n:"博通 Broadcom",code:"AVGO"},{n:"訊芯-KY",tw:1,code:"6451"},{n:"眾達-KY",tw:1,code:"4977"}],
           stats:[],
           children:[
             { icon:"icon-datacenter", title:"光引擎(Optical Engine)", sub:"CO-PACKAGED OPTICAL ENGINE",
               desc:"光引擎將雷射光源、調變器與光偵測器整合封裝於交換器晶片旁，取代傳統可插拔模組以降低功耗與延遲。博通Tomahawk 6-Davisson CPO交換器已於2025年10月發表、交換容量達102.4 Tb/s並向早期客戶供樣；台積電COUPE平台則被市場點名可能供應超微、輝達Vera Rubin等潛在客戶光子引擎方案，惟台積電官方未證實具體客戶名單。高盛報告並指出，Marvell於2026年宣布收購CPO新創Celestial AI，強化其CPO for XPU(客製化AI晶片)布局；輝達CPO布局分兩層推進——機櫃間交換器互連(Quantum-X／Spectrum-X Photonics)已隨Blackwell Ultra至Rubin世代量產爬坡，機櫃內GPU對GPU的NVLink互連則據輝達2026年3月GTC公布的路線圖，將延後至下一世代Feynman(規劃2028年)才導入光學NVLink，Rubin Ultra世代的NVLink互連仍以銅纜為主，此一時程隨路線圖持續調整，實際導入世代請以輝達官方公告為準。總頻寬等於「通道數×單通道速率」，而單通道速率存在物理上限，下一階段頻寬提升須仰賴增加堆疊層數：大立光已於Computex展示4排×8入口、合計約6.4T的多層堆疊光纖陣列示範；台積電COUPE平台路線圖則規劃先以單層(single-layer)方案於2026年量產，2030年前後才會邁向多層(multi-layer)堆疊世代，現階段客戶需求仍以單層方案為主。眾達-KY定位於光電整合封裝，專攻CPO中奈米級對位、高散熱設計與高頻封裝等最關鍵環節，將光學引擎與交換器ASIC共同封裝以縮短訊號路徑、降低功耗，同步布局矽光子平台，法人估CPO與矽光子市場未來5年複合成長率可望超過50%，2026～2027年為其營運成長關鍵期。",
-              companies:[{n:"台積電",tw:1,code:"2330"},{n:"博通 Broadcom"},{n:"輝達 NVIDIA"},{n:"Marvell"},{n:"Celestial AI"},{n:"大立光",tw:1,code:"3008"},{n:"眾達-KY",tw:1,code:"4977"}],
+              companies:[{n:"台積電",tw:1,code:"2330"},{n:"博通 Broadcom",code:"AVGO"},{n:"輝達 NVIDIA",code:"NVDA"},{n:"Marvell",code:"MRVL"},{n:"Celestial AI"},{n:"大立光",tw:1,code:"3008"},{n:"眾達-KY",tw:1,code:"4977"}],
               stats:[{v:"102.4 Tb/s",l:"博通Tomahawk 6-Davisson CPO交換容量"},{v:"約6.4T",l:"大立光Computex展示4排×8入口多層堆疊示範頻寬"}] },
             { icon:"icon-package", title:"先進封裝整合(與交換器ASIC共封裝)", sub:"ADVANCED PACKAGING WITH SWITCH ASIC",
               desc:"CPO須將光子晶片(PIC)與電子晶片(EIC)透過先進封裝技術(如台積電SoIC-X鍵合)與交換器ASIC緊密共封裝。日月光投控提供CPO相關先進封裝與測試服務；鴻海集團亦公開表示將矽光子/CPO列為新戰場並評估切入組裝與封裝服務，是台灣封測與系統整合產業切入AI網路基礎設施的新戰場。訊芯-KY為鴻海集團旗下高速光收發模組與CPO封裝廠，51.2T CPO已小量出貨北美與中國客戶，102.4T CPO已完成新產品導入(NPI)並交付終端客戶測試，2025年全年營收75.32億元、年增45.18%，並擴建北越廠預計2026年中試產以強化歐美日客戶供應能力。",
@@ -4194,16 +4197,16 @@
         { icon:"icon-network", title:"光路交換(OCS)", parallelGroup:"photonic-interconnect-approaches", sub:"OPTICAL CIRCUIT SWITCHING (OCS)",
           tags:["networking-interconnect"],
           desc:"OCS利用MEMS微鏡陣列直接在光域上進行路由切換，訊號無需經過光電轉換，可大幅降低資料中心網路的延遲與功耗，是Google等雲端業者用於叢集內拓樸動態重組的關鍵技術。高盛報告將OCS與CPO並列為AI基礎設施光通訊下一波成長動能，惟OCS供應鏈國際化程度高，台廠參與度目前仍低於CPO與傳統光模組環節。",
-          companies:[{n:"Google"},{n:"Lumentum"},{n:"Coherent"}],
+          companies:[{n:"Google",code:"GOOGL"},{n:"Lumentum"},{n:"Coherent"}],
           stats:[],
           children:[
             { icon:"icon-package", title:"MEMS微鏡切換技術", sub:"MEMS MIRROR SWITCHING TECHNOLOGY",
               desc:"OCS核心為數千顆可獨立傾轉角度的微機電(MEMS)反射鏡陣列，透過調整鏡面角度將輸入光纖訊號直接導向指定輸出埠，全程不經光電轉換，藉此達成低延遲、低功耗的動態光路由。Google自研Palomar OCS交換器已大規模部署於自家資料中心多個世代的網路架構中。",
-              companies:[{n:"Google"}],
+              companies:[{n:"Google",code:"GOOGL"}],
               stats:[] },
             { icon:"icon-datacenter", title:"OCS供應鏈與廠商布局進度", sub:"OCS SUPPLY CHAIN & VENDOR PROGRESS",
               desc:"高盛報告指出，Lumentum為OCS相關光學元件在手訂單能見度已提升，Coherent與Innolight等廠商亦被點名同步評估OCS相關零組件供應機會。惟OCS目前仍以Google等雲端業者自研自用為主，商用化普及速度預期慢於CPO，台灣供應鏈目前尚未有廠商公開證實深度參與。",
-              companies:[{n:"Lumentum"},{n:"Coherent"},{n:"Innolight"},{n:"Google"}],
+              companies:[{n:"Lumentum"},{n:"Coherent"},{n:"Innolight"},{n:"Google",code:"GOOGL"}],
               stats:[] }
           ] },
         { icon:"icon-metrology", title:"材料與可靠度分析", sub:"MATERIALS & RELIABILITY ANALYSIS",
@@ -4249,7 +4252,7 @@
           children:[
             { icon:"icon-datacenter", title:"CSP雲端業者自建光通訊網路", sub:"CSP DATA CENTER OPTICAL NETWORKS",
               desc:"輝達、Google等雲端服務供應商為因應AI伺服器機櫃間與資料中心間巨量頻寬需求，積極布建CPO與OCS(光路交換)解決方案。波若威已列名輝達Spectrum-X Photonics交換器官方合作夥伴；市場並傳其同步切入Google OCS供應鏈，惟此部分屬法人與社群推測，未經Google官方證實。上詮則供應相關矽光子FAU構裝件。",
-              companies:[{n:"輝達 NVIDIA"},{n:"Google"},{n:"波若威",tw:1,code:"3163"},{n:"上詮",tw:1,code:"3363"}],
+              companies:[{n:"輝達 NVIDIA",code:"NVDA"},{n:"Google",code:"GOOGL"},{n:"波若威",tw:1,code:"3163"},{n:"上詮",tw:1,code:"3363"}],
               stats:[] },
             { icon:"icon-network", title:"電信業者骨幹網路升級(全光網路)", sub:"TELECOM BACKBONE ALL-OPTICAL NETWORK",
               desc:"中華電信於2026年4月董事會通過投資IOWN AI Fund I, L.P.，金額2,000萬美元(約新台幣6.2億元)，推動IOWN全光化網路落地以達成超高傳輸速度、超低延遲與極低用電量的目標；已與日本NTT完成跨國全光網路串聯測試，規劃2026年下半年啟動骨幹網路建設，並優先採購國產矽光子產品。",
@@ -4591,7 +4594,7 @@
               stats:[] },
             { icon:"icon-datacenter", title:"雲端服務供應商採購", sub:"CLOUD SERVICE PROVIDER PROCUREMENT",
               desc:"Meta、Google、Microsoft、Amazon等雲端服務供應商（CSP）為AI伺服器最終買單者，其資本支出與機櫃功耗規劃直接牽動被動元件的長期需求能見度。",
-              companies:[{n:"Meta"},{n:"Google"},{n:"Microsoft"},{n:"Amazon"}],
+              companies:[{n:"Meta"},{n:"Google",code:"GOOGL"},{n:"微軟 Microsoft",code:"MSFT"},{n:"Amazon",code:"AMZN"}],
               stats:[] }
           ] },
         { icon:"icon-device", title:"下游應用：消費性電子與車用", sub:"DOWNSTREAM: CONSUMER & AUTOMOTIVE",
@@ -5081,7 +5084,7 @@
           desc: "有別於資料中心機櫃內800V直流供電架構，電網層級HVDC以±320kV至±1,100kV長距離傳輸電力，透過換流站將交流轉為直流，損耗較傳統交流線路低約三成，是台灣離岸風電海纜併網、離島送電與強韌電網的關鍵技術。全球換流站設備仍由日立能源、西門子能源、GE Vernova等國際大廠主導，台廠目前以海事工程船隊及周邊變壓器、GIS設備切入供應鏈。趨勢背後的原理：電壓愈高，傳輸相同功率所需的電流愈小，長距離輸電的電阻損耗（與電流平方成正比）與線材成本因此大幅下降，交流電網還需額外克服電抗、相位同步等長距離傳輸限制，直流則沒有這些問題，特別適合離岸風電海纜、跨區與跨國長途輸電；資料中心機櫃內的800V HVDC供電架構（詳見「AI硬體」「輝達(NVIDIA)」頁籤）採用的正是同一套「升壓降流減損耗」原理，只是應用尺度從公里級電網縮小到公尺級機櫃。",
           companies: [
             { n: "日立能源(Hitachi Energy)" },
-            { n: "西門子能源(Siemens Energy)" },
+            {n:"西門子能源 Siemens Energy"},
             { n: "GE Vernova" },
             { n: "台船", tw: 1, code: "2208" }
           ],
@@ -5333,8 +5336,8 @@
           sub: "GLOBAL HYPERSCALERS IN TAIWAN",
           desc: "Google、微軟、AWS、Meta等國際雲端巨頭陸續在台灣新建或擴建資料中心，加劇北部與中南部區域電網用電壓力，促使台電研議專用饋線與電廠直供機制，因應大型負載集中進駐。",
           companies: [
-            { n: "Google" },
-            { n: "Microsoft" },
+            {n:"Google",code:"GOOGL"},
+            {n:"微軟 Microsoft",code:"MSFT"},
             { n: "AWS" },
             { n: "Meta" }
           ]
@@ -5751,7 +5754,7 @@
       children:[
         { icon:"icon-satellite", title:"國際巨型星系運營商", sub:"MEGA-CONSTELLATION OPERATORS",
           desc:"SpaceX Starlink已部署逾1萬顆衛星，2026年Q2連網事業營收達43億美元、年增66%；Amazon Leo(原Kuiper)約394顆、OneWeb（Eutelsat）約654顆仍在建構階段。其中僅SpaceX同時垂直整合衛星本體設計、製造與自有火箭發射；OneWeb衛星委由Airbus合資廠製造、發射外包，Amazon Leo衛星發射則採購自ULA、Arianespace、Blue Origin與SpaceX等多家業者。台灣廠商目前主要扮演零組件與地面設備供應角色。",
-          companies:[{n:"SpaceX"},{n:"Amazon"},{n:"OneWeb/Eutelsat"}],
+          companies:[{n:"SpaceX"},{n:"Amazon",code:"AMZN"},{n:"OneWeb/Eutelsat"}],
           stats:[{v:"43億美元",l:"Starlink 2026年Q2連網營收"},{v:"394顆／654顆",l:"Kuiper／OneWeb在軌衛星數"}] },
         { icon:"icon-generic", title:"台灣國家隊自主衛星計畫", sub:"TASA B5G SATELLITE PROGRAM",
           desc:"國家太空中心(TASA)推動「Beyond 5G」低軌通訊衛星計畫，採「2+4」架構：政府主導研製首2枚建立技術規格，再協助民間廠商研製後續4枚，首發衛星原規劃2026年發射、現已延至2027年；Ka頻段通訊酬載標案預算約新台幣8.8億元，已於2025年4月決標予美商CesiumAstro，工研院負責第二枚衛星通訊酬載研發。",
@@ -5990,7 +5993,7 @@
       desc:"ARM架構憑藉高能效優勢，從行動裝置跨足PC與伺服器市場：ARM Holdings以IP授權模式收取設計費與晶片出貨權利金；高通將Snapdragon手機晶片經驗延伸至PC處理器Snapdragon X系列；原美系新創Ampere Computing專攻雲端伺服器ARM CPU，已於2025年11月由SoftBank以65億美元完成收購私有化。",
       companies:[
         { n:"ARM Holdings", code:"ARM" },
-        { n:"Qualcomm", code:"QCOM" },
+        {n:"高通 Qualcomm",code:"QCOM"},
         { n:"Ampere Computing" }
       ],
       stats:[
@@ -6007,7 +6010,7 @@
         {
           icon:"icon-chip", title:"高通 Snapdragon X", sub:"QUALCOMM ARM PC CPU",
           desc:"高通將行動裝置SoC技術延伸至PC市場，推出Snapdragon X Elite、X2 Elite系列處理器主打Windows on Arm筆電，並向下延伸至300美元入門級Snapdragon C平台。台灣華碩、宏碁等品牌已導入相關機種，搶攻AI PC與長效電池商機。",
-          companies:[{n:"Qualcomm",code:"QCOM"},{n:"華碩",tw:1,code:"2357"},{n:"宏碁",tw:1,code:"2353"}],
+          companies:[{n:"高通 Qualcomm",code:"QCOM"},{n:"華碩",tw:1,code:"2357"},{n:"宏碁",tw:1,code:"2353"}],
           stats:[{v:"5GHz",l:"Snapdragon X2 Elite Extreme宣稱首顆5GHz Arm PC晶片"}]
         },
         {
@@ -6153,13 +6156,13 @@
         {
           icon:"icon-server", title:"Google Axion", sub:"GOOGLE CUSTOM ARM SERVER CPU",
           desc:"Google於2024年發表首款自研ARM資料中心處理器Axion，主打搜尋、YouTube等內部工作負載與雲端客戶服務並用，同樣委由台積電代工，是Google在CPU自主設計上追趕AWS的重要布局。",
-          companies:[{n:"台積電",tw:1,code:"2330"},{n:"Alphabet",code:"GOOGL"}],
+          companies:[{n:"台積電",tw:1,code:"2330"},{n:"Google",code:"GOOGL"}],
           stats:[{v:"Axion",l:"Google首款自研資料中心ARM CPU"}]
         },
         {
           icon:"icon-server", title:"Microsoft Cobalt", sub:"MICROSOFT AZURE CUSTOM ARM CPU",
           desc:"微軟Azure Cobalt系列自研ARM處理器鎖定雲端服務內部工作負載與Azure客戶提供，與AWS Graviton、Google Axion共同構成三大雲端巨頭自研ARM CPU陣容，同步推升台積電先進製程與封測產能需求。",
-          companies:[{n:"台積電",tw:1,code:"2330"},{n:"Microsoft",code:"MSFT"}],
+          companies:[{n:"台積電",tw:1,code:"2330"},{n:"微軟 Microsoft",code:"MSFT"}],
           stats:[{v:"Cobalt",l:"微軟Azure自研ARM資料中心CPU系列"}]
         }
       ]
@@ -6381,7 +6384,7 @@
               companies:[{n:"台積電",tw:1,code:"2330"}], stats:[] },
             { icon:"icon-datacenter", title:"Dojo超算專案終止", sub:"DOJO SUPERCOMPUTER SHUTDOWN",
               desc:"特斯拉於2025年宣布終止自研Dojo超級電腦專案，原負責團隊部分成員另立新公司，特斯拉轉向擴大採購輝達GPU與AMD晶片建構AI訓練算力，此舉為特斯拉自研晶片策略的重大轉折，台廠原先圍繞Dojo專案的相關猜測目前已無實際依據。",
-              companies:[{n:"特斯拉 Tesla"},{n:"輝達 NVIDIA"}], stats:[] }
+              companies:[{n:"特斯拉 Tesla"},{n:"輝達 NVIDIA",code:"NVDA"}], stats:[] }
           ]
         },
         { icon:"icon-lens", title:"純視覺方案鏡頭模組", sub:"VISION-ONLY CAMERA MODULES",
@@ -6504,6 +6507,1502 @@
               companies:[{n:"特斯拉 Tesla"}], stats:[] }
           ]
         }
+      ]
+    },
+
+"server-mech": {
+      name: "伺服器機構件",
+      nameEn: "AI SERVER MECHANICALS",
+      tags: ["ai-hardware", "nvidia", "system-integration", "thermal-cooling", "datacenter-cloud", "server-mech"],
+      lede: "AI 伺服器從單機走向整櫃交付，一座 NVL72 機櫃須承受約 6,000 磅的連接器插拔力，機殼、滑軌與櫃體結構不再是低價值的鐵件，而是決定能否安全上架、維修與散熱的關鍵介面。本頁沿著「機櫃規格→機殼／滑軌／液冷機構→機櫃整合→雲端業者」的脈絡，整理台灣川湖、勤誠、晟銘電、迎廣、營邦、富世達、南俊國際等廠商的公開資訊，散熱模組本身請參考散熱專頁。",
+      updated: "2026年9月",
+      sources: [
+        "NVIDIA Technical Blog－「NVIDIA Contributes NVIDIA GB200 NVL72 Designs to Open Compute Project」 (2024/10/15)",
+        "NVIDIA Blog－「NVIDIA, Partners Drive Next-Gen Efficient Gigawatt AI Factories in Buildup for Vera Rubin」 (2025/10/13)",
+        "AMD－「AMD Showcases \"Helios\" Rack-Scale Platform Built on the Open Compute Project Open Rack for AI, Introduced by Meta」 (2025/10/14)",
+        "勤誠新聞稿－「勤誠於NVIDIA GTC 2026 展示新世代AI基礎架構整合實力」 (2026/3/17)",
+        "經濟日報－「勤誠2026年營運逐季增 拿下北美兩大雲端廠水冷機櫃專案」 (2026/5/9)",
+        "工商時報－「勤誠Q2每股賺11.1元 7月營收再創高」 (2026/8/6)",
+        "鉅亨網－「〈川湖法說〉Q2毛利率太驚豔！副總王俊強：高毛利來自極致管理與IP價值」 (2026/8/7)",
+        "經濟日報－「王俊強：川湖是台股最純的AI股 看下半年需求續強」 (2026/8)",
+        "MoneyDJ－「晟銘電擴產迎水冷機櫃需求，續拚製程自動化」 (2026)"
+      ],
+      disclaimer: "本頁面為公開資訊整理彙編，內容取材自公司法說會、新聞稿及財經媒體報導，標示「法人估計」「媒體報導」者未經公司證實；數據以所註期間為準，僅供產業脈絡參考，不構成任何投資建議。",
+      nodes: [
+        { icon:"icon-datacenter", title:"NVIDIA MGX／NVL72 機櫃架構", parallelGroup:"rack-spec", sub:"NVIDIA RACK ARCHITECTURE",
+          desc:"輝達以 MGX 模組化架構定義托盤、機櫃與配線位置，讓機殼、滑軌與液冷廠商能依同一套尺寸開發。GB200 NVL72 單櫃容納 18 個運算托盤與 9 個交換器托盤，背面以垂直 NVLink 纜線匣串接，整櫃結構強度、承重與盲插精度都遠高於傳統伺服器櫃。GPU 平台本身請見 [[nvidia]]。",
+          companies:[{n:"輝達 NVIDIA",code:"NVDA"}],
+          stats:[{v:"18＋9",l:"GB200 NVL72 單櫃運算／交換器托盤數"},{v:"50+",l:"備戰 Vera Rubin 的 MGX 合作夥伴（NVIDIA，2025/10）"}],
+          tags:["nvidia"],
+          children:[
+            { icon:"icon-gear", title:"GB200 NVL72 機構設計開源", sub:"OCP CONTRIBUTION",
+              desc:"輝達 2024 年 10 月將 NVL72 機構設計貢獻給 OCP：櫃體加裝逾 100 磅鋼構補強，以承受約 6,000 磅的連接器插拔力；背面四組 NVLink 纜線匣內含超過 5,000 條銅纜，液冷歧管則改為浮動式盲插設計。",
+              companies:[{n:"輝達 NVIDIA",code:"NVDA"}],
+              stats:[{v:"6,000 lbs",l:"NVL72 機櫃需承受的插拔力（NVIDIA）"}] },
+            { icon:"icon-server", title:"Vera Rubin 托盤與 Kyber 機櫃", sub:"NEXT-GEN TRAY & KYBER",
+              desc:"輝達表示 Vera Rubin NVL72 運算托盤為 100% 液冷、以中板（midplane）取代內部纜線的模組化設計；下一代 Kyber 機櫃改採直立刀鋒配置，每個機箱可放 18 片運算刀鋒，並搭配 800V 直流供電，機構件設計將再度改版。電力架構見 [[power-grid]]。",
+              companies:[{n:"輝達 NVIDIA",code:"NVDA"}],
+              stats:[] }
+          ] },
+        { icon:"icon-datacenter", title:"OCP 開放機櫃 ORv3／ORW", parallelGroup:"rack-spec", sub:"OPEN RACK STANDARDS",
+          desc:"雲端業者主導的 OCP 開放機櫃是另一條規格主線。ORv3 以機櫃背部匯流排集中供電為特色，輝達的 NVL72 匯流排設計即維持 ORv3 寬度相容；2025 年 Meta 再提出雙倍寬度的 Open Rack Wide（ORW），瞄準更高功率、液冷與維修便利性，AMD Helios 機櫃即以此為基礎。",
+          companies:[{n:"Meta"},{n:"AMD",code:"AMD"},{n:"輝達 NVIDIA",code:"NVDA"}],
+          stats:[{v:"1,400A",l:"NVL72 匯流排承載電流，約為既有標準兩倍（NVIDIA）"}],
+          tags:["datacenter-cloud"],
+          children:[
+            { icon:"icon-power", title:"ORv3 匯流排與電源架", sub:"ORv3 BUSBAR",
+              desc:"ORv3 機櫃後方的垂直匯流排負責把電源架的電力送到各托盤，是機櫃結構的一部分。輝達將 NVL72 匯流排提升到 1,400 安培，但保留 ORv3 寬度，讓既有 OCP 生態系可以沿用；電源供應器本身請見 [[power-grid]]。",
+              companies:[{n:"輝達 NVIDIA",code:"NVDA"},{n:"Meta"}],
+              stats:[] },
+            { icon:"icon-server", title:"ORW 雙寬機櫃與 AMD Helios", sub:"OPEN RACK WIDE",
+              desc:"AMD 於 2025 年 10 月 OCP 大會展示 Helios 機櫃級平台，採 Meta 提出的 ORW 雙寬規格，強調快拆式液冷接頭與較寬的維修空間，並定位為供 OEM、ODM 與雲端業者客製的參考設計。",
+              companies:[{n:"AMD",code:"AMD"},{n:"Meta"}],
+              stats:[] }
+          ] },
+        { icon:"icon-server", title:"伺服器機殼", parallelGroup:"mech-parts", sub:"SERVER CHASSIS",
+          desc:"AI 伺服器機殼需同時兼顧 GPU 散熱風道、液冷管路配置、結構剛性與上架維修動線，並依 MGX、OCP 或雲端業者自有規格客製。台廠勤誠以資料中心客戶為主，迎廣伺服器機殼已成營收主體，營邦則由機殼延伸到儲存伺服器；奇鋐除散熱外也有機殼產品線。",
+          companies:[{n:"勤誠",tw:1,code:"8210"},{n:"迎廣",tw:1,code:"6117"},{n:"營邦",tw:1,code:"3693"},{n:"晟銘電",tw:1,code:"3013"},{n:"奇鋐",tw:1,code:"3017"}],
+          stats:[{v:"99.7%",l:"勤誠 2026 Q2 伺服器機殼營收占比（工商時報）"}],
+          children:[
+            { icon:"icon-server", title:"MGX 托盤與 AI 機殼", sub:"MGX TRAY & AI CHASSIS",
+              desc:"勤誠在 GTC 2026 展出 Vera Rubin NVL72 用 MGX 1U 運算托盤、GB200 NVL4 1U、2U Vera 伺服器與 6U 液冷機殼。2026 Q2 每股盈餘 11.1 元，7 月營收 24.6 億元創單月新高，美國約占營收 69%。",
+              companies:[{n:"勤誠",tw:1,code:"8210"}],
+              stats:[{v:"11.1元",l:"勤誠 2026 Q2 EPS"}] },
+            { icon:"icon-server", title:"通用與 AI 伺服器機殼", sub:"GENERAL & AI CHASSIS",
+              desc:"迎廣 2026 Q1 伺服器機殼營收占比 69.55%，每股盈餘 1.33 元；公司法說會表示投入約 7～8 億元資本支出，將系統組裝產能倍增。晟銘電本業為通用伺服器機殼，2026 年初營收受通用伺服器拉貨帶動創高。",
+              companies:[{n:"迎廣",tw:1,code:"6117"},{n:"晟銘電",tw:1,code:"3013"}],
+              stats:[{v:"69.55%",l:"迎廣 2026 Q1 伺服器機殼營收占比"}] },
+            { icon:"icon-device", title:"AI 儲存伺服器平台", sub:"AI STORAGE PLATFORMS",
+              desc:"營邦在 GTC 2026 展示整合 NVIDIA BlueField DPU 的 NVMe JBOF 與 2U 24 槽儲存系統，主打 AI 推論的 KV cache 共享快閃儲存層，定位為企業級儲存與伺服器方案供應商。",
+              companies:[{n:"營邦",tw:1,code:"3693"},{n:"輝達 NVIDIA",code:"NVDA"}],
+              stats:[] }
+          ] },
+        { icon:"icon-gear", title:"伺服器滑軌", parallelGroup:"mech-parts", sub:"SLIDE RAILS",
+          desc:"滑軌負責讓沉重的 AI 伺服器安全進出機櫃，占整櫃成本比重低，卻承擔承重與安全責任。川湖法說會形容滑軌是機櫃的安全介面，並表示主要雲端業者與 ODM 多指定採用；新世代平台托盤更重、規格更多，也帶動南俊國際、富世達等廠商切入 AI 滑軌。",
+          companies:[{n:"川湖",tw:1,code:"2059"},{n:"南俊國際",tw:1,code:"6584"},{n:"富世達",tw:1,code:"6805"}],
+          stats:[{v:"87.42%",l:"川湖 2026 Q2 毛利率"},{v:"108.3億元",l:"川湖 2026 Q2 營收，季增 98.7%"}],
+          children:[
+            { icon:"icon-gear", title:"川湖：AI 滑軌龍頭", sub:"KING SLIDE",
+              desc:"川湖 2026 Q2 每股盈餘 74.38 元，7 月營收 64.07 億元；公司表示伺服器產品占營收逾九成，毛利率目標維持 70%～80% 區間，並規劃美國休士頓廠於 2026 年第三、四季間投產，就近服務北美客戶。",
+              companies:[{n:"川湖",tw:1,code:"2059"}],
+              stats:[{v:"74.38元",l:"川湖 2026 Q2 EPS"}] },
+            { icon:"icon-gear", title:"AI 滑軌新進供應商", sub:"CHALLENGERS",
+              desc:"南俊國際 2026 Q1 每股盈餘 3.37 元，雲端伺服器滑軌約占營收七成；8 月法說會表示上半年 AI 相關產品約占營收 15%～20%，Vera Rubin 滑軌 8 月起少量出貨、第三季進入量產（富果直送整理）。富世達 2026 Q2 毛利率 34.05% 創新高，法說會確認 AWS 相關滑軌產品第三季出貨（第三方法說整理）。",
+              companies:[{n:"南俊國際",tw:1,code:"6584"},{n:"富世達",tw:1,code:"6805"}],
+              stats:[{v:"15%～20%",l:"南俊國際 2026 H1 AI 相關產品營收占比（法說會）"}] }
+          ] },
+        { icon:"icon-interconnect", title:"液冷機櫃機構件", parallelGroup:"mech-parts", sub:"LIQUID-COOLED RACK HARDWARE",
+          desc:"液冷機櫃需在櫃體內整合歧管（manifold）、快接頭、側掛式冷卻櫃（sidecar）與 CDU，機構與流體設計的界線逐漸模糊，機殼廠也藉此切入整櫃專案。冷板、CDU 等散熱核心元件請見 [[thermal]]，本節聚焦機殼與機構廠的延伸布局。",
+          companies:[{n:"晟銘電",tw:1,code:"3013"},{n:"勤誠",tw:1,code:"8210"},{n:"富世達",tw:1,code:"6805"},{n:"奇鋐",tw:1,code:"3017"}],
+          stats:[],
+          tags:["thermal-cooling"],
+          children:[
+            { icon:"icon-datacenter", title:"Sidecar 水冷機櫃", sub:"SIDECAR RACKS",
+              desc:"晟銘電由機殼延伸到 sidecar 水冷機櫃，MoneyDJ 報導其出貨持續放量並推升本業，公司也擴充產能因應需求。勤誠 2026 年 5 月表示已取得北美兩大雲端業者的水冷機櫃專案，並打進美系雲端客戶的 CDU 專案，預期新業務今年營收占比逾一成。",
+              companies:[{n:"晟銘電",tw:1,code:"3013"},{n:"勤誠",tw:1,code:"8210"}],
+              stats:[{v:">10%",l:"勤誠 2026 年新業務營收占比目標（公司表示）"}] },
+            { icon:"icon-interconnect", title:"快接頭與機櫃歧管", sub:"QD & MANIFOLD",
+              desc:"富世達法說會表示水冷快接頭產能接近滿載，Vera Rubin 快接頭已通過認證（第三方法說整理）。奇鋐 2026 Q2 散熱與機殼產品合計占營收 83.42%，液冷品項涵蓋冷板、歧管與快接頭。",
+              companies:[{n:"富世達",tw:1,code:"6805"},{n:"奇鋐",tw:1,code:"3017"}],
+              stats:[{v:"83.42%",l:"奇鋐 2026 Q2 散熱＋機殼營收占比（法說會）"}] }
+          ] },
+        { icon:"icon-datacenter", title:"機櫃整合與在地化產能", sub:"RACK INTEGRATION & LOCALIZATION",
+          desc:"機構件最終匯入 ODM 的整櫃組裝，由 ODM 完成佈線、液冷與系統測試後交付雲端客戶。鴻海 2026 Q2 雲端網路營收占比首度過半，並表示全年 AI 機櫃出貨將倍數成長；廣達、緯穎等 ODM 的布局請見 [[ai-hardware]]。為貼近北美客戶，機構件廠也同步到美國與東南亞設廠。",
+          companies:[{n:"鴻海",tw:1,code:"2317"},{n:"廣達",tw:1,code:"2382"},{n:"緯穎",tw:1,code:"6669"}],
+          stats:[{v:">50%",l:"鴻海 2026 Q2 雲端網路產品營收占比"}],
+          tags:["system-integration"],
+          children:[
+            { icon:"icon-server", title:"ODM 整櫃交付", sub:"ODM RACK-LEVEL",
+              desc:"鴻海法說會表示 Vera Rubin 平台於 2026 年第三季進入生產、第四季交貨，並強調液冷、電源、連接器等自製零組件比重逾五成，是整櫃交付的競爭門檻。",
+              companies:[{n:"鴻海",tw:1,code:"2317"}],
+              stats:[] },
+            { icon:"icon-generic", title:"北美與東南亞設廠", sub:"LOCAL CAPACITY",
+              desc:"川湖休士頓廠規劃 2026 下半年投產；勤誠馬來西亞廠目標 2026 Q3 啟用，達拉斯廠預計 2027 年底，並布局越南；迎廣馬來西亞廠仍在市場開發期。在地化生產有助縮短大型機櫃運輸與交期。",
+              companies:[{n:"川湖",tw:1,code:"2059"},{n:"勤誠",tw:1,code:"8210"},{n:"迎廣",tw:1,code:"6117"}],
+              stats:[] }
+          ] },
+        { icon:"icon-datacenter", title:"雲端業者與終端需求", sub:"HYPERSCALERS",
+          desc:"北美雲端業者同時採用輝達 GPU 機櫃與自研 ASIC 機櫃，後者常依 OCP 或自有規格重新設計機殼、滑軌與液冷配置，使機構件廠必須多平台同步開發。各家自研晶片請見 [[google-tpu]]、[[aws]]。",
+          companies:[{n:"Amazon",code:"AMZN"},{n:"Google",code:"GOOGL"},{n:"Meta"},{n:"微軟 Microsoft",code:"MSFT"}],
+          stats:[],
+          tags:["datacenter-cloud", "custom-silicon"],
+          children:[
+            { icon:"icon-chip", title:"ASIC 專案帶動機構件", sub:"ASIC RACK PROJECTS",
+              desc:"富世達法說會表示 AWS 相關滑軌產品預計第三季出貨；奇鋐表示 Google、Amazon 的 ASIC／TPU 專案放量，公司為主要供應商之一；南俊國際則規劃 ASIC 專案 9 月投產（富果直送整理）。",
+              companies:[{n:"Amazon",code:"AMZN"},{n:"Google",code:"GOOGL"},{n:"富世達",tw:1,code:"6805"},{n:"奇鋐",tw:1,code:"3017"},{n:"南俊國際",tw:1,code:"6584"}],
+              stats:[] },
+            { icon:"icon-datacenter", title:"雲端客戶集中度", sub:"CUSTOMER MIX",
+              desc:"勤誠 2026 Q2 逾六成營收來自資料中心客戶，美國市場約占 69%；川湖則表示主要雲端業者與 ODM 幾乎都指定其滑軌，顯示機構件營收與北美雲端資本支出高度連動。",
+              companies:[{n:"勤誠",tw:1,code:"8210"},{n:"川湖",tw:1,code:"2059"}],
+              stats:[] }
+          ] }
+      ]
+    },
+
+"connector": {
+      name: "高速連接器與線纜",
+      nameEn: "HIGH-SPEED CONNECTORS & CABLING",
+      tags: ["connector", "ai-hardware", "nvidia", "networking-interconnect", "power-thermal"],
+      lede: "AI伺服器從晶片插座、主機板之間的連接器，到機櫃背面串起72顆GPU的NVLink銅纜，再到機櫃間的DAC／AEC與大電流匯流排，每一段都靠連接器與線纜把訊號和電力送到位。頻寬每升一代、機櫃功耗每拉高一級，連接點的規格與單價就跟著上修。本頁依「晶片→板卡→機櫃→機櫃間→供電」的順序拆解各環節，並說明銅纜與光纖的分工如何演變。",
+      updated: "2026年9月",
+      sources: [
+        "NVIDIA Technical Blog－「NVIDIA Vera Rubin POD: Seven Chips, Five Rack-Scale Systems, One AI Supercomputer」 (2026-03-16)",
+        "NVIDIA Blog－「NVIDIA Blackwell: Born for Extreme-Scale AI Inference」 (2025-09-18)",
+        "富果直送－「嘉澤法說會重點內容備忘錄 20260813」 (2026-08-13)",
+        "富果直送－「佳必琪法說會重點內容備忘錄 20260428」 (2026-04-28)",
+        "鉅亨網－「AI基礎設施從『伺服器時代』轉向『機架時代』 貿聯看好HVDC與光學互連長期需求」 (2026-05-13)",
+        "Amphenol－「Amphenol Reports Record Second Quarter 2026 Results」 (2026-07-29)",
+        "TE Connectivity－「TE Connectivity delivers results above guidance ... third quarter of fiscal 2026」 (2026-07-22)",
+        "Credo－Form 10-K for fiscal year 2026 (2026-06-15)",
+        "Tom's Hardware－「Nvidia's Kyber rack for Rubin Ultra reportedly delayed to 2028」 (2026-07-06)"
+      ],
+      disclaimer: "本頁面為公開資訊整理彙編，營收、市占率與產品規格等數據會隨市場狀況與廠商公告持續變動，媒體與法人推估已另行標註，僅供產業脈絡參考，不構成任何投資建議。",
+      nodes: [
+        { icon:"icon-chip", title:"CPU／GPU插座與記憶體連接器", sub:"CPU SOCKETS & MEMORY CONNECTORS",
+          desc:"處理器與主機板之間靠LGA插座承接數千個接點，新一代伺服器平台腳位更多、單價跟著墊高，是連接器廠最直接受惠AI伺服器的品項。嘉澤2026年8月法說會表示，伺服器已占其營收逾五成，並正與一家雲端業者開發Arm架構CPU插座；GPU相關插座仍在專案階段，公司表示導入時點未定。",
+          companies:[{n:"嘉澤",tw:1,code:"3533"},{n:"鴻騰精密"},{n:"優群",tw:1,code:"3217"}],
+          stats:[{v:"55.36%",l:"嘉澤2026年Q2伺服器營收占比(公司法說會)"}],
+          children:[
+            { icon:"icon-chip", title:"伺服器CPU插座", sub:"LGA CPU SOCKETS",
+              desc:"嘉澤法說會自述為全球第三大CPU插座供應商，Intel平台市占約35–40%、AMD平台約45–50%，並預期Intel Oak Stream與AMD Venice新平台在2026年第四季至2027年初放量後，有助毛利率回升。",
+              companies:[{n:"嘉澤",tw:1,code:"3533"}],
+              stats:[{v:"45–50%",l:"嘉澤AMD平台插座市占(公司法說會自述)"}] },
+            { icon:"icon-hbm", title:"SOCAMM／新型記憶體模組連接器", sub:"SOCAMM & CAMM CONNECTORS",
+              desc:"低功耗記憶體模組改採可插拔的SOCAMM／CAMM設計，帶出新的連接器需求。嘉澤表示SOCAMM連接器2026年下半年進入量產；優群表示SO-CAMM連接器正由兩家台系組裝廠測試，目標成為輝達第四家認證供應商。",
+              companies:[{n:"嘉澤",tw:1,code:"3533"},{n:"優群",tw:1,code:"3217"}],
+              stats:[{v:">8%",l:"優群CAMM類產品2026年營收占比目標(公司法說會)"}] }
+          ] },
+        { icon:"icon-interconnect", title:"板對板與背板連接器", sub:"BOARD-TO-BOARD & BACKPLANE",
+          desc:"主機板與加速卡、交換板之間的高速訊號，靠板對板、正交與背板連接器承接；單通道速率走向224Gbps後，對阻抗控制與串音抑制的要求大幅提高，技術門檻集中在美系大廠。Amphenol與TE Connectivity 2026年最新財報都點名資料中心與AI是訂單成長主因。",
+          companies:[{n:"Amphenol",code:"APH"},{n:"TE Connectivity",code:"TEL"},{n:"Molex"},{n:"鴻騰精密"}],
+          stats:[{v:"US$107億",l:"Amphenol 2026年Q2接單金額(創新高，公司財報)"},{v:"+34%",l:"TE數位資料網路事業FY26 Q3有機成長(公司財報)"}],
+          children:[
+            { icon:"icon-interconnect", title:"224G背板與線纜背板", sub:"224G BACKPLANE & CABLE BACKPLANE",
+              desc:"以線纜取代部分背板走線的「線纜背板」是高密度機櫃的主流做法。Amphenol的Paladin HD2產品支援224Gbps，1RU空間內可容納最多144對差分訊號；Molex也推出224G等級的Inception背板連接器與線纜系統。",
+              companies:[{n:"Amphenol",code:"APH"},{n:"Molex"}],
+              stats:[{v:"224Gbps",l:"新一代背板連接器單通道速率(原廠規格)"}] },
+            { icon:"icon-substrate", title:"PCB中背板與免線纜設計", sub:"PCB MIDPLANE",
+              desc:"輝達Vera Rubin NVL72改用PCB中背板，運算托盤做到不需接線與水管，官方稱組裝時間可從近兩小時縮短到約五分鐘；連接點從線束轉移到板上盲插連接器與高多層板，PCB部分詳見[[pcb]]。",
+              companies:[{n:"輝達 NVIDIA",code:"NVDA"}],
+              stats:[] }
+          ] },
+        { icon:"icon-interconnect", title:"伺服器內部高速線", sub:"INTERNAL HIGH-SPEED CABLES",
+          desc:"PCIe Gen6/Gen7的訊號在主機板上走不遠，伺服器內部改用MCIO等高速線把CPU、GPU、網卡與儲存直接串起來，減少板材損耗。佳必琪法說會表示，其高速產品涵蓋PCIe Gen6/Gen7與MCIO連接器，並預期PCIe Gen6將是2026年下半年成長動能之一。",
+          companies:[{n:"佳必琪",tw:1,code:"6197"},{n:"貿聯-KY",tw:1,code:"3665"},{n:"Astera Labs",code:"ALAB"}],
+          stats:[],
+          children:[
+            { icon:"icon-interconnect", title:"MCIO／PCIe連接器與線材", sub:"MCIO & PCIe CABLE ASSEMBLIES",
+              desc:"被動式高速線靠線材與連接器本身的訊號完整性設計撐住傳輸距離，隨PCIe世代升級需重新驗證。佳必琪將PCIe Gen6/Gen7與MCIO列為高速傳輸主力，貿聯則以銅互連、光互連與供電三線並行布局。",
+              companies:[{n:"佳必琪",tw:1,code:"6197"},{n:"貿聯-KY",tw:1,code:"3665"}],
+              stats:[] },
+            { icon:"icon-chip", title:"PCIe主動線纜模組", sub:"PCIe ACTIVE CABLE MODULES",
+              desc:"距離再拉長時，需要在線端加入retimer晶片補償訊號。Astera Labs推出Aries系列PCIe/CXL智慧線纜模組，把retimer做進線端，讓PCIe連結能跨機箱、甚至跨機櫃延伸。",
+              companies:[{n:"Astera Labs",code:"ALAB"}],
+              stats:[] }
+          ] },
+        { icon:"icon-network", title:"NVLink Spine纜線卡匣", sub:"NVLINK SPINE CABLE CARTRIDGE",
+          desc:"NVL72機櫃背面的NVLink Spine，以銅纜把18個運算托盤與NVLink交換托盤全互連，是整櫃中用線最密集的地方。輝達官方說明，GB200 NVL72的Spine由超過5,000條銅纜組成、總長約兩英哩；Vera Rubin NVL72延續此架構，以4組模組化、預先整合的纜線卡匣裝入約5,000條銅纜。NVLink架構本身詳見[[nvidia]]。",
+          companies:[{n:"輝達 NVIDIA",code:"NVDA"},{n:"Amphenol",code:"APH"}],
+          stats:[{v:"5,000+",l:"GB200 NVL72 NVLink Spine銅纜條數(輝達官方)"},{v:"約2英哩",l:"GB200 NVL72 Spine銅線總長(輝達官方)"}],
+          children:[
+            { icon:"icon-interconnect", title:"模組化纜線卡匣", sub:"MODULAR CABLE CARTRIDGES",
+              desc:"銅纜先在工廠裁切、組裝、測試成卡匣，再整組裝進機櫃，以降低現場接線出錯率。Amphenol被市場視為主要供應商(媒體報導，未經公司證實)；公司財報僅表示IT數據通訊市場成長強勁，未揭露個別客戶。",
+              companies:[{n:"Amphenol",code:"APH"}],
+              stats:[] },
+            { icon:"icon-substrate", title:"下一代：中背板取代線束", sub:"KYBER MIDPLANE",
+              desc:"輝達規劃的Kyber機櫃將單櫃NVLink網域擴大到144顆GPU，並以大型中背板取代部分線束。Tom's Hardware於2026年7月引述SemiAnalysis稱Kyber因多層中背板製程問題延至2028年(分析機構說法)；輝達僅回應「路線圖不變」。",
+              companies:[{n:"輝達 NVIDIA",code:"NVDA"}],
+              stats:[] }
+          ] },
+        { icon:"icon-network", title:"機櫃間銅纜：DAC／ACC／AEC", sub:"DAC / ACC / AEC CABLING",
+          desc:"伺服器到交換器、機櫃到鄰近機櫃的短距連結，依距離由短到長依序採用被動銅纜(DAC)、內含放大晶片的ACC，以及內建DSP重新整理訊號的主動電纜(AEC)；在數公尺內，銅纜的成本與功耗通常低於光模組。Credo 2026財年(截至2026年5月2日)營收約13億美元，較前一年約4.4億美元大幅成長。",
+          companies:[{n:"Credo",code:"CRDO"},{n:"佳必琪",tw:1,code:"6197"},{n:"貿聯-KY",tw:1,code:"3665"}],
+          stats:[{v:"US$13億",l:"Credo 2026財年營收(公司年報)"},{v:"約90%",l:"Credo前十大客戶營收占比(公司年報)"}],
+          children:[
+            { icon:"icon-interconnect", title:"DAC與ACC", sub:"PASSIVE & ACTIVE COPPER",
+              desc:"被動銅纜結構最單純，速率升到800G、1.6T後可用距離縮短，需搭配訊號放大的ACC延伸。佳必琪法說會表示800G ACC已開始放量出貨，1.6T Loopback產品也取得美系客戶認證並接單。",
+              companies:[{n:"佳必琪",tw:1,code:"6197"},{n:"貿聯-KY",tw:1,code:"3665"}],
+              stats:[] },
+            { icon:"icon-chip", title:"主動電纜AEC", sub:"ACTIVE ELECTRICAL CABLE",
+              desc:"AEC在線端加入SerDes／DSP晶片，讓銅纜在更長距離仍維持高速。Credo年報將AEC定位為隨插即用的銅互連線，支援100G到800G並延伸至1.6T；其營收集中於少數大型客戶，有兩家客戶各占10%以上。",
+              companies:[{n:"Credo",code:"CRDO"}],
+              stats:[] }
+          ] },
+        { icon:"icon-power", title:"電源連接器與匯流排", sub:"POWER CONNECTORS & BUSBARS",
+          desc:"單櫃功耗拉高後，電流愈來愈大，機櫃內的匯流排(busbar)、大電流連接器與電源線都必須加粗或改用液冷。輝達說明Vera Rubin NVL72採液冷匯流排、可承載最高5,000安培。貿聯法說會指出，48V／54V架構在大電流下效率受限，長期看好380V高壓直流，並強調大電流連接器、匯流排與Power Whip的重要性。供電架構演進詳見[[ai-hardware]]與[[power-grid]]。",
+          companies:[{n:"貿聯-KY",tw:1,code:"3665"},{n:"佳必琪",tw:1,code:"6197"},{n:"良維",tw:1,code:"6290"},{n:"TE Connectivity",code:"TEL"},{n:"Amphenol",code:"APH"},{n:"Molex"}],
+          stats:[{v:"5,000A",l:"Vera Rubin NVL72液冷匯流排電流上限(輝達官方)"}],
+          children:[
+            { icon:"icon-power", title:"ORv3電源線與匯流排", sub:"OCP ORV3 POWER CABLING",
+              desc:"OCP Open Rack V3規範統一了機櫃匯流排與電源輸出連接器，Amphenol、TE、Molex皆有對應產品。佳必琪表示ORv3電源線已通過各大雲端業者驗證並量產，電流規格涵蓋30A至130A；良維以AI伺服器電源線為主力，媒體報導其為AWS大電力線主要供應商(工商時報2025年報導，未經公司證實)。",
+              companies:[{n:"佳必琪",tw:1,code:"6197"},{n:"良維",tw:1,code:"6290"},{n:"Amphenol",code:"APH"},{n:"TE Connectivity",code:"TEL"},{n:"Molex"}],
+              stats:[{v:"30–130A",l:"佳必琪ORv3電源線電流規格(公司法說會)"}] },
+            { icon:"icon-transformer", title:"高壓直流與機櫃供電整合", sub:"HVDC POWER DELIVERY",
+              desc:"電壓拉高可降低同功率下的電流與線損，連接器廠正把產品從單條線材延伸到機櫃層級的供電整合方案。貿聯表示公司在銅互連、光互連與供電三個層面採取「架構中立」布局，並已在印尼、台灣、馬來西亞與越南擴充產能。",
+              companies:[{n:"貿聯-KY",tw:1,code:"3665"}],
+              stats:[] }
+          ] },
+        { icon:"icon-lens", title:"銅退光進？銅光混合的分工", sub:"COPPER VS. OPTICS",
+          desc:"業者普遍的看法是：數公尺內、要求低延遲低功耗的機櫃內互連仍以銅纜為主，距離拉長或頻寬再翻倍時才交給光纖。貿聯法說會即表示未來將是銅光混合架構，並已完成XFS光學業務併購。輝達2026年3月GTC的路線圖已納入scale-up共同封裝光學(CPO)，光通訊與CPO供應鏈詳見[[photonics]]。",
+          companies:[{n:"貿聯-KY",tw:1,code:"3665"},{n:"輝達 NVIDIA",code:"NVDA"},{n:"Credo",code:"CRDO"}],
+          stats:[],
+          children:[
+            { icon:"icon-interconnect", title:"銅纜的甜蜜點", sub:"COPPER SWEET SPOT",
+              desc:"銅纜不需光電轉換，成本、功耗與可靠度占優，GB200與Vera Rubin NVL72的機櫃內NVLink都採銅纜。速率每升一代，銅纜可用距離就縮短，因此需要ACC、AEC等主動方案或改走中背板來延續。",
+              companies:[{n:"Credo",code:"CRDO"},{n:"佳必琪",tw:1,code:"6197"}],
+              stats:[] },
+            { icon:"icon-lens", title:"光學互連接手的場景", sub:"WHERE OPTICS TAKES OVER",
+              desc:"跨機櫃、跨機房的scale-out網路已大量使用光模組，Vera Rubin世代的Spectrum-6交換器也採200G CPO。貿聯觀察到客戶對高密度光纖與光學整合能力的需求正在浮現，詳細的光模組與CPO環節請見[[photonics]]。",
+              companies:[{n:"貿聯-KY",tw:1,code:"3665"},{n:"輝達 NVIDIA",code:"NVDA"}],
+              stats:[] }
+          ] }
+      ]
+    },
+
+"network-switch": {
+      name: "網通交換器",
+      nameEn: "AI DATA-CENTER SWITCHING SUPPLY CHAIN",
+      tags: ["network-switch", "networking-interconnect", "optical-communications", "datacenter-cloud", "ai-hardware", "pcb-manufacturing"],
+      lede: "AI叢集規模從數千顆擴大到數十萬顆加速器，GPU之間的資料搬運效率決定整體算力能否發揮，交換器因此從配角變成關鍵瓶頸。本頁由交換器ASIC與機櫃內Scale-up互連架構出發，串起高速SerDes、高階PCB／CCL、光模組與CPO等零組件，再到白牌ODM與品牌系統廠，最後看雲端業者的網路架構選擇。台廠在白牌交換器製造、高速銅箔基板與PCB環節具有高度參與度。",
+      updated: "2026年9月",
+      sources: [
+        "Broadcom官方新聞稿－「Broadcom Now Shipping World's First 102.4 Tbps Switch in Production Volume」 (2026/03/12)",
+        "Dell'Oro Group－「Ethernet More Than Doubles Size of InfiniBand as the Leading Fabric for AI Scale-Out Networks in 2025」 (2026/03/10)",
+        "Open Compute Project／Converge Digest－「OCP Releases ESUN 1.0 Spec for Ethernet-Based Scale-Up AI Fabrics」 (2026/03)",
+        "經濟日報－「智邦第2季每股賺19.78元」 (2026/08)",
+        "經濟日報－「明泰法說會／AI資料中心用1.6T交換器年底出貨 成下半年成長動能」 (2026/02/26)",
+        "Arista Networks官方新聞稿－「Arista Networks, Inc. Reports Second Quarter 2026 Financial Results」 (2026/08/04)",
+        "Cisco官方新聞稿－「Cisco Reports Fourth Quarter and Fiscal Year 2026 Earnings」 (2026/08/12)",
+        "Celestica官方新聞稿－「Celestica Announces Second Quarter 2026 Financial Results」 (2026/07/27)",
+        "富果直送－「台光電法說會重點內容備忘錄」 (2026/03/12)"
+      ],
+      disclaimer: "本頁面為公開資訊整理彙編，公司財務數字取自各公司公告與法說會，市場研究機構數據與媒體報導僅代表其觀點，標示為「法人估計」「媒體報導」者未經公司證實；市占率、產品時程與規格會隨市場狀況持續變動，僅供產業脈絡參考，不構成任何投資建議。",
+      nodes: [
+        { icon:"icon-chip", title:"交換器ASIC晶片", sub:"SWITCH SILICON",
+          desc:"交換器的核心是負責封包轉送的交換晶片，大約每兩年頻寬翻倍一次，目前最高規格已達單顆102.4 Tbps、每通道200G SerDes。市場由博通等商用晶片供應商主導，輝達則以自家晶片搭配GPU整套銷售，Marvell與思科也各有產品線。晶片世代決定了下游交換器、光模組與PCB的規格升級節奏；輝達整體平台可參考[[nvidia]]。",
+          companies:[{n:"博通 Broadcom",code:"AVGO"},{n:"輝達 NVIDIA",code:"NVDA"},{n:"Marvell",code:"MRVL"},{n:"思科 Cisco",code:"CSCO"}],
+          stats:[{v:"102.4 Tbps",l:"博通Tomahawk 6單晶片交換容量（2026年3月宣布進入量產出貨）"}],
+          tags:["networking-interconnect", "ic-design"],
+          children:[
+            { icon:"icon-chip", title:"博通Tomahawk／Jericho系列", sub:"BROADCOM TOMAHAWK & JERICHO",
+              desc:"Tomahawk 6於2025年6月開始出貨、2026年3月宣布量產，單顆可提供512個200G或1,024個100G SerDes，官方表示兩層網路即可串起12.8萬顆加速器。2025年另推出主打低延遲的Tomahawk Ultra，以及跨資料中心互連用的Jericho4。",
+              companies:[{n:"博通 Broadcom",code:"AVGO"}],
+              stats:[{v:"12.8萬顆",l:"博通稱Tomahawk 6以兩層架構可連接的XPU數量"}] },
+            { icon:"icon-network", title:"輝達Spectrum-X與Quantum InfiniBand", sub:"NVIDIA SPECTRUM-X & QUANTUM",
+              desc:"輝達同時提供Spectrum-X乙太網路與Quantum InfiniBand兩條交換器產品線。2026年1月發表的Vera Rubin平台包含Spectrum-6乙太網路交換晶片；公司於2026年8月財報新聞稿指出，同時支援可插拔光模組與共同封裝光學的Spectrum-6交換系統已開始進駐大型AI資料中心。",
+              companies:[{n:"輝達 NVIDIA",code:"NVDA"}],
+              stats:[] },
+            { icon:"icon-chip", title:"Marvell與思科Silicon One", sub:"MARVELL TERALYNX & CISCO SILICON ONE",
+              desc:"Marvell的51.2T交換晶片Teralynx 10已進入量產，並宣布收購光學互連新創Celestial AI與PCIe／CXL交換晶片業者XConn，補強Scale-up連接布局。思科於2026年2月發表102.4T的Silicon One G300，與博通Tomahawk 6同屬102.4T世代。",
+              companies:[{n:"Marvell",code:"MRVL"},{n:"思科 Cisco",code:"CSCO"}],
+              stats:[] }
+          ] },
+        { icon:"icon-interconnect", title:"Scale-up機櫃內互連架構", sub:"SCALE-UP FABRICS",
+          desc:"Scale-up是把同一機櫃或同一Pod內的加速器串成一台「大電腦」，對延遲與頻寬的要求遠高於機櫃之間的Scale-out網路。目前分成三條路線：輝達自有的NVLink、由多家業者共推的開放標準UALink，以及以乙太網路為基礎的ESUN等方案，各陣營都需要專用交換晶片與交換托盤。",
+          companies:[{n:"輝達 NVIDIA",code:"NVDA"},{n:"博通 Broadcom",code:"AVGO"},{n:"Astera Labs",code:"ALAB"}],
+          stats:[],
+          tags:["networking-interconnect"],
+          children:[
+            { icon:"icon-interconnect", title:"NVLink交換器", sub:"NVLINK SWITCH",
+              desc:"輝達以NVLink交換晶片串連GB200、GB300等NVL72機櫃內的GPU，Vera Rubin世代再推出NVLink 6 Switch。媒體曾報導鴻海取得GB200機櫃NVLink交換器托盤訂單，惟訂單細節未經公司證實。",
+              companies:[{n:"輝達 NVIDIA",code:"NVDA"},{n:"鴻海",tw:1,code:"2317"}],
+              stats:[] },
+            { icon:"icon-ip", title:"UALink開放標準", sub:"ULTRA ACCELERATOR LINK",
+              desc:"UALink聯盟於2025年4月發布200G 1.0規格，定義加速器之間的低延遲記憶體存取互連，單一Pod最多可連接1,024顆加速器，讓非輝達陣營的GPU與自研ASIC也有共通的Scale-up介面可用。",
+              companies:[{n:"AMD",code:"AMD"}],
+              stats:[{v:"1,024顆",l:"UALink 200G 1.0規格單一Pod可連接加速器上限"}] },
+            { icon:"icon-network", title:"乙太網路Scale-up（ESUN／SUE）", sub:"ETHERNET FOR SCALE-UP",
+              desc:"ESUN於2025年OCP全球高峰會成立，創始成員包括AMD、Arista、Arm、博通、思科、HPE、Marvell、Meta、微軟、輝達、OpenAI與甲骨文；1.0規格於2026年3月發布，參與組織已逾175家。博通另有SUE架構，並以Tomahawk Ultra等晶片支援乙太網路Scale-up。",
+              companies:[{n:"博通 Broadcom",code:"AVGO"},{n:"Arista",code:"ANET"},{n:"思科 Cisco",code:"CSCO"},{n:"Meta"},{n:"微軟 Microsoft",code:"MSFT"}],
+              stats:[{v:"175家以上",l:"ESUN 1.0發布時的參與組織數（創始成員12家）"}] }
+          ] },
+        { icon:"icon-interconnect", title:"高速SerDes、Retimer與銅纜", parallelGroup:"switch-components", sub:"SERDES, RETIMERS & COPPER CABLING",
+          desc:"交換晶片與光模組、伺服器之間靠高速SerDes傳遞訊號，速率推進到每通道200G後，銅線可傳距離大幅縮短，因此需要Retimer晶片重整訊號，或改用內建訊號處理晶片的主動式電纜（AEC）來延長機櫃內與相鄰機櫃間的銅纜連接距離。",
+          companies:[{n:"Astera Labs",code:"ALAB"},{n:"Credo",code:"CRDO"},{n:"貿聯-KY",tw:1,code:"3665"},{n:"Marvell",code:"MRVL"}],
+          stats:[],
+          tags:["networking-interconnect", "ic-design"],
+          children:[
+            { icon:"icon-chip", title:"Retimer與Fabric交換晶片", sub:"RETIMERS & FABRIC SWITCHES",
+              desc:"Astera Labs以PCIe／CXL Retimer起家，近年擴展到Scorpio系列交換晶片。據該公司2026年第二季財報會議報導，營收年增104%至3.92億美元，Scorpio X系列Scale-up交換晶片已進入量產。",
+              companies:[{n:"Astera Labs",code:"ALAB"}],
+              stats:[{v:"3.92億美元",l:"Astera Labs 2026年第二季營收（年增104%）"}] },
+            { icon:"icon-interconnect", title:"主動式電纜（AEC）", sub:"ACTIVE ELECTRICAL CABLES",
+              desc:"AEC在銅纜兩端加入訊號處理晶片，功耗與成本低於光纖，適合數公尺內的交換器與伺服器連線。Credo為AEC代表廠商之一，台廠貿聯-KY亦供應高速線纜組件。",
+              companies:[{n:"Credo",code:"CRDO"},{n:"貿聯-KY",tw:1,code:"3665"}],
+              stats:[] }
+          ] },
+        { icon:"icon-substrate", title:"高層數PCB與高速CCL", parallelGroup:"switch-components", sub:"HIGH-LAYER PCB & LOW-LOSS CCL",
+          desc:"交換器主板需承載大尺寸ASIC與數十個高速埠，層數高、訊號損耗要求嚴格，每升級一代就要換用更低損耗的銅箔基板材料。台光電2026年3月法說會表示，800G交換器採M8等級材料，1.6T則升級到M8+並已於第一季出貨。製程細節請見[[pcb]]。",
+          companies:[{n:"台光電",tw:1,code:"2383"},{n:"台燿",tw:1,code:"6274"},{n:"聯茂",tw:1,code:"6213"},{n:"金像電",tw:1,code:"2368"}],
+          stats:[{v:"M8 → M8+",l:"台光電法說：800G→1.6T交換器材料等級"}],
+          tags:["pcb-manufacturing"],
+          children:[
+            { icon:"icon-substrate", title:"高速銅箔基板（CCL）", sub:"LOW-LOSS COPPER CLAD LAMINATE",
+              desc:"台光電法說會指出，基礎設施類產品約占營收65～70%，其中約九成來自AI伺服器與交換器，並自估2025年在無鹵素高速材料市占逾五成。台燿、聯茂同樣布局交換器用高速材料。",
+              companies:[{n:"台光電",tw:1,code:"2383"},{n:"台燿",tw:1,code:"6274"},{n:"聯茂",tw:1,code:"6213"}],
+              stats:[{v:"60～63%",l:"台光電法說：AI相關產品占總營收比重"}] },
+            { icon:"icon-drill", title:"交換器主板PCB", sub:"SWITCH MAINBOARD PCB",
+              desc:"交換器主板屬高層數、大尺寸的高速板，需背鑽與精密阻抗控制，良率與壓合能力是主要門檻。台灣高階伺服器板廠同時承接網通板需求，詳細製程可參考[[pcb]]。",
+              companies:[{n:"金像電",tw:1,code:"2368"},{n:"華通",tw:1,code:"2313"}],
+              stats:[] }
+          ] },
+        { icon:"icon-network", title:"光模組與CPO", parallelGroup:"switch-components", sub:"OPTICS & CO-PACKAGED OPTICS",
+          desc:"每個交換器埠都要搭配光模組或線纜，交換器從800G升級到1.6T，也帶動光模組同步換代。下一步是把光學引擎直接和交換ASIC封裝在一起的CPO，以降低功耗。完整光通訊供應鏈請見[[photonics]]。",
+          companies:[{n:"中際旭創 Innolight"},{n:"Coherent"},{n:"華星光",tw:1,code:"4979"},{n:"眾達-KY",tw:1,code:"4977"},{n:"博通 Broadcom",code:"AVGO"},{n:"輝達 NVIDIA",code:"NVDA"}],
+          stats:[],
+          tags:["optical-communications"],
+          children:[
+            { icon:"icon-interconnect", title:"可插拔光模組與LPO", sub:"PLUGGABLE & LINEAR PLUGGABLE OPTICS",
+              desc:"可插拔模組仍是出貨主流。線性可插拔光學（LPO）拿掉模組內的DSP以省電，Arista於2026年第二季財報新聞稿表示，其Etherlink平台搭配LPO可讓互連功耗降低約六成。",
+              companies:[{n:"Arista",code:"ANET"},{n:"中際旭創 Innolight"},{n:"Coherent"},{n:"華星光",tw:1,code:"4979"}],
+              stats:[{v:"約60%",l:"Arista稱LPO可降低的互連功耗"}] },
+            { icon:"icon-package", title:"CPO交換器", sub:"CPO SWITCH SYSTEMS",
+              desc:"博通2025年發表102.4T的Tomahawk 6-Davisson CPO交換晶片；輝達的Spectrum-6交換系統同時提供可插拔與CPO版本。智邦2025年11月法說會也提到正進行多項CPO專案，涵蓋交換晶片與GPU搭配光學引擎等方向。",
+              companies:[{n:"博通 Broadcom",code:"AVGO"},{n:"輝達 NVIDIA",code:"NVDA"},{n:"智邦",tw:1,code:"2345"}],
+              stats:[] }
+          ] },
+        { icon:"icon-server", title:"白牌／ODM交換器製造", parallelGroup:"switch-systems", sub:"WHITE-BOX & ODM SWITCHES",
+          desc:"大型雲端業者多半自行定義規格、搭配自家或開源網路作業系統，再交由ODM設計生產白牌交換器，台廠在這個環節具優勢。Dell'Oro統計2025年AI Scale-out乙太網路交換器市場，Celestica與輝達合計占約一半。800G是目前主流，市場預期1.6T在2026年下半年開始放量。",
+          companies:[{n:"智邦",tw:1,code:"2345"},{n:"明泰科技",tw:1,code:"3380"},{n:"Celestica",code:"CLS"},{n:"鴻海",tw:1,code:"2317"},{n:"廣達",tw:1,code:"2382"}],
+          stats:[{v:"約50%",l:"Dell'Oro：Celestica與輝達2025年AI Scale-out乙太網路交換器合計市占"}],
+          tags:["system-integration"],
+          children:[
+            { icon:"icon-server", title:"智邦（Accton）", sub:"ACCTON TECHNOLOGY",
+              desc:"智邦2025年EPS 47.13元，2026年第二季EPS 19.78元創新高。媒體報導800G仍是出貨主力，1.6T與OCS交換器下半年小量出貨或試產；法人估計800G占上半年營收逾一成。2025年11月法說會表示機櫃級整合2026年第二季可量產，並通過台灣、墨西哥、馬來西亞擴產案。",
+              companies:[{n:"智邦",tw:1,code:"2345"}],
+              stats:[{v:"2,483.2億元",l:"智邦2025年營收（年增124.88%）"},{v:"955.38億元",l:"智邦2026年第二季營收（年增57.6%）"}] },
+            { icon:"icon-server", title:"明泰、廣達與鴻海", sub:"ALPHA NETWORKS, QUANTA & FOXCONN",
+              desc:"明泰2025年營收224.6億元、EPS -0.36元；2026年2月法說會表示400G交換器擴大出貨、800G準備量產，1.6T預計年底量產交貨，並投入1,000萬美元在美國設製造據點。廣達旗下雲達（QCT）推出QuantaMesh系列SONiC及裸機交換器；鴻海則以代工輝達網通產品見於媒體報導。",
+              companies:[{n:"明泰科技",tw:1,code:"3380"},{n:"廣達",tw:1,code:"2382"},{n:"鴻海",tw:1,code:"2317"}],
+              stats:[{v:"年底",l:"明泰法說：1.6T交換器預計2026年底量產交貨"}] },
+            { icon:"icon-server", title:"Celestica", sub:"CELESTICA",
+              desc:"加拿大EMS大廠Celestica是雲端業者白牌交換器主要供應商之一。2026年第二季營收47億美元、年增62%，其中連接與雲端解決方案（CCS）部門年增84%、自有設計的硬體平台（HPS）營收約19億美元，並將全年營收展望上調至205億美元，公司提及800G與1.6T網路專案為成長動能。",
+              companies:[{n:"Celestica",code:"CLS"}],
+              stats:[{v:"205億美元",l:"Celestica 2026年全年營收展望（原190億美元）"}] }
+          ] },
+        { icon:"icon-datacenter", title:"品牌網通系統廠", parallelGroup:"switch-systems", sub:"BRANDED SYSTEM VENDORS",
+          desc:"品牌廠自行設計硬體並搭配自家網路作業系統與管理軟體，提供整套解決方案，客戶涵蓋雲端業者、新興AI雲與企業。Dell'Oro統計2025年AI Scale-out乙太網路交換器市場中，Arista排名第三，思科對雲端大廠出貨加速，HPE／Juniper則持續拿下新客戶。",
+          companies:[{n:"Arista",code:"ANET"},{n:"思科 Cisco",code:"CSCO"},{n:"HPE",code:"HPE"}],
+          stats:[{v:"30.36億美元",l:"Arista 2026年第二季營收（年增37.7%）"}],
+          tags:["datacenter-cloud"],
+          children:[
+            { icon:"icon-network", title:"Arista", sub:"ARISTA NETWORKS",
+              desc:"Arista 2026年第二季營收首度突破30億美元、年增37.7%，第三季營收指引約33億美元。同季發表支援1.6T、提供液冷選項的7060XE7系列AI網路平台，也是ESUN創始成員之一。",
+              companies:[{n:"Arista",code:"ANET"}],
+              stats:[{v:"約33億美元",l:"Arista 2026年第三季營收指引"}] },
+            { icon:"icon-network", title:"思科（Cisco）", sub:"CISCO SYSTEMS",
+              desc:"思科2026財年（至2026年7月）來自雲端大廠的AI基礎設施訂單達93億美元，其中第四季約40億美元；公司表示該類營收2026財年約40億美元，2027財年預期達75億美元。2026年2月另發表102.4T交換晶片Silicon One G300。",
+              companies:[{n:"思科 Cisco",code:"CSCO"}],
+              stats:[{v:"93億美元",l:"思科2026財年雲端大廠AI基礎設施訂單"}] },
+            { icon:"icon-network", title:"HPE／Juniper", sub:"HPE NETWORKING",
+              desc:"HPE於2025年7月完成收購Juniper Networks，將Juniper的路由與交換產品線併入HPE網通事業，擴大在資料中心與企業網路市場的布局，並以HPE Networking名義參與ESUN。",
+              companies:[{n:"HPE",code:"HPE"}],
+              stats:[] }
+          ] },
+        { icon:"icon-datacenter", title:"雲端業者網路架構與NOS", sub:"CSP FABRIC CHOICES & NOS",
+          desc:"雲端業者是交換器最大買家，選擇乙太網路或InfiniBand、白牌或品牌、自研或商用作業系統，都直接影響上游訂單分配。Dell'Oro指出，Amazon、微軟、Meta、甲骨文與xAI等業者是AI乙太網路的主要採用者，叢集擴大與供貨限制也讓客戶更傾向分散供應商。",
+          companies:[{n:"Amazon",code:"AMZN"},{n:"微軟 Microsoft",code:"MSFT"},{n:"Meta"},{n:"甲骨文 Oracle",code:"ORCL"},{n:"Google",code:"GOOGL"}],
+          stats:[{v:"逾2倍",l:"Dell'Oro：2025年AI Scale-out乙太網路規模相對InfiniBand"}],
+          tags:["datacenter-cloud"],
+          children:[
+            { icon:"icon-network", title:"乙太網路 vs InfiniBand", sub:"ETHERNET VS INFINIBAND",
+              desc:"InfiniBand過去是AI訓練叢集首選，但Dell'Oro統計2025年AI Scale-out網路中乙太網路規模已達InfiniBand的兩倍以上，2025年第四季更占AI叢集資料中心交換器銷售逾三分之二；800G為2025年主流速率，1.6T交換器預期2026年下半年上市。",
+              companies:[{n:"輝達 NVIDIA",code:"NVDA"},{n:"博通 Broadcom",code:"AVGO"}],
+              stats:[{v:"逾2/3",l:"Dell'Oro：2025年第四季乙太網路占AI叢集交換器銷售比重"}] },
+            { icon:"icon-generic", title:"SONiC與網路作業系統", sub:"SONIC & NETWORK OS",
+              desc:"SONiC是微軟開源的網路作業系統，2022年移交Linux基金會管理，讓白牌交換器能跑同一套軟體，是雲端業者降低對單一品牌依賴的關鍵。ODM多提供預載SONiC的機種，例如雲達QuantaMesh系列；品牌廠則以Arista EOS等自家系統區隔。",
+              companies:[{n:"微軟 Microsoft",code:"MSFT"},{n:"廣達",tw:1,code:"2382"},{n:"Arista",code:"ANET"}],
+              stats:[] }
+          ] }
+      ]
+    },
+
+"server-ic": {
+      name: "伺服器周邊IC與矽智財",
+      nameEn: "SERVER PERIPHERAL ICS & SILICON IP",
+      tags: ["server-ic", "ai-hardware", "ic-design", "eda-ip", "asic", "networking-interconnect", "memory-supply-chain", "power-thermal", "semiconductor-supply-chain"],
+      lede: "一台AI伺服器除了GPU與CPU，還需要大量「配角」晶片：負責遠端管理的BMC、延伸PCIe訊號的retimer與交換器、DDR5模組上的緩衝與電源晶片、主機板上的多相供電元件，以及提供時脈的振盪器。這些晶片單價不高，卻隨伺服器台數、GPU密度與傳輸速率同步放大。本頁由上游矽智財與設計服務出發，整理五大周邊晶片類別中的台灣與國際代表廠商，以及2025–2026年的公開營運數據。",
+      updated: "2026年9月",
+      sources: [
+        "Astera Labs－「Astera Labs Reports Second Quarter 2026 Financial Results」 (2026-08-04)",
+        "Rambus－「Rambus Reports Second Quarter 2026 Financial Results」 (2026-07-27)",
+        "MoneyDJ理財網－「信驊Q3營收季增6%-11%再創高 新品布局推升成長」 (2026-07-22)",
+        "經濟日報－「M31攜手信驊聚焦AI伺服器 年營收展望雙位數增長」 (2026-08-12)",
+        "時報資訊－「《半導體》新唐「小信驊」題材發酵 BMC業績拚年增五成」 (2026-05-05)",
+        "聯合新聞網－「力智法說會／第3季AI伺服器需求續強 消費端承壓、啟動漲價穩毛利」 (2026-08)",
+        "財聯社－「澜起科技2025年营收54.56亿增近五成 AI驱动存储互联类芯片快速放量」 (2026-03-30)",
+        "SiTime－「SiTime Completes Acquisition of Renesas’ Timing Business」 (2026)",
+        "富果直送－「晶心科法說會重點內容備忘錄」 (2026-03-18)"
+      ],
+      disclaimer: "本頁面為公開資訊整理彙編，資料來源包括公司財報、法說會、官方新聞稿與財經媒體報導；標示為法人估計或媒體報導者未經公司證實。內容僅供產業脈絡參考，不構成任何投資建議。",
+      nodes: [
+        { icon:"icon-ip", title:"矽智財 IP", sub:"SILICON IP",
+          desc:"周邊晶片與雲端自研加速器在設計時，多半直接授權現成的介面與處理器核心IP，再依量產出貨收取權利金。AI伺服器帶動PCIe、SerDes等高速介面IP往先進製程移轉，台廠M31、晶心科分別卡位介面IP與RISC-V核心；力旺則以非揮發性記憶體IP為主。",
+          companies:[{n:"M31",tw:1,code:"6643"},{n:"晶心科",tw:1,code:"6533"},{n:"力旺",tw:1,code:"3529"},{n:"新思科技 Synopsys"},{n:"益華電腦 Cadence"},{n:"Arm"}],
+          stats:[],
+          children:[
+            { icon:"icon-interconnect", title:"高速介面IP", sub:"INTERFACE IP",
+              desc:"M31法說會表示，2026上半年先進製程權利金較去年同期成長近四倍，並持續開發PCIe Gen6與112G SerDes IP；信驊於2026年8月以約1.87億元參與其私募，雙方聚焦AI伺服器與高速介面IP合作。國際上Rambus亦推出PCIe 7交換器IP。",
+              companies:[{n:"M31",tw:1,code:"6643"},{n:"新思科技 Synopsys"},{n:"益華電腦 Cadence"},{n:"Rambus",code:"RMBS"}],
+              stats:[{v:"近4倍",l:"M31 2026上半年先進製程權利金年增幅（公司法說）"}] },
+            { icon:"icon-chip", title:"處理器核心IP（RISC-V）", sub:"CPU CORE IP",
+              desc:"晶心科2025年營收約14.78億元，法說會揭露AI應用已占營收約四成、為最大應用別，並提及與Meta MTIA加速器的合作；高階Cuzco平台瞄準AI與資料中心。惟公司2025年仍為虧損，2026年目標為接近損益兩平。",
+              companies:[{n:"晶心科",tw:1,code:"6533"},{n:"Arm"}],
+              stats:[{v:"約40%",l:"晶心科2025年AI應用營收占比（公司法說）"}] }
+          ] },
+        { icon:"icon-turnkey", title:"ASIC 設計服務", sub:"ASIC DESIGN SERVICES",
+          desc:"雲端業者自研加速器與部分周邊晶片，會委託設計服務公司完成實體設計與量產投片。世芯-KY、創意電子、博通、Marvell等在雲端客製晶片的角色，請見[[ai-hardware]]、[[google-tpu]]與[[aws]]頁面，本頁不重複。",
+          companies:[{n:"世芯-KY",tw:1,code:"3661"},{n:"創意電子",tw:1,code:"3443"},{n:"博通 Broadcom",code:"AVGO"},{n:"Marvell",code:"MRVL"}],
+          stats:[],
+          tags:["asic", "custom-silicon"],
+          children:[
+            { icon:"icon-nre", title:"雲端客製加速器", sub:"CUSTOM ACCELERATORS",
+              desc:"Google TPU、AWS自研晶片等雲端客製加速器的設計服務與供應鏈分工，已在[[google-tpu]]、[[aws]]頁面整理，此處僅列出代表業者供對照。",
+              companies:[{n:"世芯-KY",tw:1,code:"3661"},{n:"創意電子",tw:1,code:"3443"},{n:"博通 Broadcom",code:"AVGO"},{n:"Marvell",code:"MRVL"}],
+              stats:[] },
+            { icon:"icon-chip", title:"周邊晶片的客製化", sub:"ASIC-LIKE PROJECTS",
+              desc:"介面晶片廠也開始承接客製專案。譜瑞-KY於2026年4月法說會表示，ASIC-like專案進度順利、投入近百名工程師，公司預期2027年起貢獻明顯營收。",
+              companies:[{n:"譜瑞-KY",tw:1,code:"4966"}],
+              stats:[] }
+          ] },
+        { icon:"icon-server", title:"BMC 伺服器管理晶片", parallelGroup:"server-periph", sub:"BASEBOARD MANAGEMENT CONTROLLER",
+          desc:"BMC是獨立於主處理器之外的管理晶片，負責開機、監控溫度與風扇、遠端維運。信驊為台股代表，2026年第二季營收與獲利均創單季新高；新唐被市場視為追趕者。雲端業者資本支出由GPU伺服器擴及通用與ASIC伺服器，也讓BMC需求面更廣。",
+          companies:[{n:"信驊",tw:1,code:"5274"},{n:"新唐",tw:1,code:"4919"}],
+          stats:[{v:"38.71億元",l:"信驊2026年Q2營收（季增約23%，單季新高）"},{v:"72%",l:"信驊2026年Q2毛利率"}],
+          children:[
+            { icon:"icon-chip", title:"BMC 主晶片", sub:"BMC SOC",
+              desc:"信驊2026年第二季EPS 40.87元，並預估第三季營收41億至43億元、毛利率約67%–68%。新唐法說會表示BMC平台已升級支援DDR5，採12奈米的新一代BMC產品預計2026年第四季推出；媒體報導其BMC業績目標年增約五成。",
+              companies:[{n:"信驊",tw:1,code:"5274"},{n:"新唐",tw:1,code:"4919"}],
+              stats:[{v:"41–43億元",l:"信驊2026年Q3營收財測"}] },
+            { icon:"icon-generic", title:"安全與 I/O 延伸晶片", sub:"SECURITY & I/O EXPANDERS",
+              desc:"信驊將產品線延伸至平台安全（保護、偵測、復原）晶片、I/O擴充晶片，以及支援多卡架構的SMC晶片，並規劃導入開源Caliptra安全架構，使單一伺服器上的信驊晶片數量與價值同步提高。外資估計信驊2027年BMC出貨量可達約4,460萬顆（法人估計）。",
+              companies:[{n:"信驊",tw:1,code:"5274"}],
+              stats:[] }
+          ] },
+        { icon:"icon-interconnect", title:"PCIe / CXL 互連晶片", parallelGroup:"server-periph", sub:"RETIMERS, SWITCHES & CXL",
+          desc:"GPU、網卡與SSD之間靠PCIe連結，速率升到Gen5、Gen6後訊號衰減加劇，需要retimer補強，多GPU系統則需PCIe交換器擴充通道。瀾起指出，一台典型8卡伺服器約需2–4顆交換器與8–16顆retimer。美國Astera Labs為此領域指標，博通與Marvell也陸續推出Gen6方案。光電與網通相關內容見[[photonics]]。",
+          companies:[{n:"Astera Labs",code:"ALAB"},{n:"博通 Broadcom",code:"AVGO"},{n:"Marvell",code:"MRVL"},{n:"瀾起科技 Montage",code:"688008.SS"},{n:"譜瑞-KY",tw:1,code:"4966"}],
+          stats:[{v:"3.92億美元",l:"Astera Labs 2026年Q2營收（年增104%）"}],
+          tags:["networking-interconnect"],
+          children:[
+            { icon:"icon-interconnect", title:"Retimer 與 Redriver", sub:"SIGNAL CONDITIONING",
+              desc:"Astera Labs的Aries retimer在2026年第二季創單季營收新高，Taurus系列延伸至224G乙太網路與UALink。博通、Marvell都有PCIe Gen6 retimer，瀾起也於2025年推出PCIe 6.x retimer。譜瑞-KY法說會強調鎖定AI伺服器的112G/224G乙太網路中繼晶片。",
+              companies:[{n:"Astera Labs",code:"ALAB"},{n:"博通 Broadcom",code:"AVGO"},{n:"Marvell",code:"MRVL"},{n:"瀾起科技 Montage",code:"688008.SS"},{n:"譜瑞-KY",tw:1,code:"4966"}],
+              stats:[] },
+            { icon:"icon-network", title:"PCIe 交換器", sub:"PCIE SWITCHES",
+              desc:"Astera Labs表示，Scorpio X系列320通道交換器量產將是2026年第三季主要成長動能，公司財測Q3營收5.4億至5.6億美元。博通展示144通道的PEX90144 Gen6交換器，Marvell則發表260通道PCIe 6.0交換器，搶攻AI擴充架構。",
+              companies:[{n:"Astera Labs",code:"ALAB"},{n:"博通 Broadcom",code:"AVGO"},{n:"Marvell",code:"MRVL"}],
+              stats:[{v:"5.4–5.6億美元",l:"Astera Labs 2026年Q3營收財測"}] },
+            { icon:"icon-hbm", title:"CXL 記憶體控制器", sub:"CXL MEMORY EXPANSION",
+              desc:"CXL讓伺服器外接記憶體池以擴充容量。Astera Labs的Leo控制器主打記憶體分層應用；瀾起於2025年9月推出基於CXL 3.1的MXC晶片並送樣客戶。",
+              companies:[{n:"Astera Labs",code:"ALAB"},{n:"瀾起科技 Montage",code:"688008.SS"}],
+              stats:[] }
+          ] },
+        { icon:"icon-hbm", title:"DDR5 記憶體介面晶片", parallelGroup:"server-periph", sub:"DDR5 RCD / MRCD / PMIC / SPD",
+          desc:"每條伺服器DDR5 RDIMM都需要RCD（暫存時脈驅動器），再搭配PMIC電源管理、SPD Hub與溫度感測等配套晶片；AI伺服器採用的高速MRDIMM另需MRCD與MDB。此市場由瀾起、瑞薩與Rambus主導。記憶體顆粒本身見[[memory]]。",
+          companies:[{n:"瀾起科技 Montage",code:"688008.SS"},{n:"瑞薩電子 Renesas"},{n:"Rambus",code:"RMBS"},{n:"茂達",tw:1,code:"6138"}],
+          stats:[{v:"54.56億人民幣",l:"瀾起2025年營收（年增49.94%）"}],
+          tags:["memory-supply-chain"],
+          children:[
+            { icon:"icon-chip", title:"RCD / MRCD / MDB", sub:"BUFFER CHIPS",
+              desc:"瀾起2025年互連類晶片營收51.39億人民幣、年增53.4%，第二代MRCD/MDB於2025年第四季明顯放量，並於2026年2月另掛牌香港H股。瑞薩在2026年8月發表支援16,000 MT/s的第三代MRDIMM晶片組。",
+              companies:[{n:"瀾起科技 Montage",code:"688008.SS"},{n:"瑞薩電子 Renesas"},{n:"Rambus",code:"RMBS"}],
+              stats:[] },
+            { icon:"icon-power", title:"PMIC 與配套晶片", sub:"PMIC, SPD HUB & COMPANION",
+              desc:"Rambus 2026年第二季產品營收9,920萬美元、年增22%，並推出支援DDR5 9600伺服器與用戶端模組的完整晶片組。台廠茂達2026年第一季記憶體應用約占營收5%，但未單獨揭露伺服器DDR5 PMIC出貨。",
+              companies:[{n:"Rambus",code:"RMBS"},{n:"瑞薩電子 Renesas"},{n:"茂達",tw:1,code:"6138"}],
+              stats:[{v:"1.10–1.16億美元",l:"Rambus 2026年Q3產品營收財測"}] }
+          ] },
+        { icon:"icon-power", title:"伺服器電源與 VRM 晶片", parallelGroup:"server-periph", sub:"POWER STAGES & VRM",
+          desc:"GPU與CPU耗電動輒數百瓦，主機板需多相電壓調節（VRM），由多相控制器搭配功率級（power stage）與MOSFET完成。MPS與英飛凌為國際主力，台廠力智已有產品導入雲端AI加速器。電源供應器與機櫃供電見[[power-grid]]，散熱見[[thermal]]。",
+          companies:[{n:"Monolithic Power Systems",code:"MPWR"},{n:"英飛凌 Infineon"},{n:"力智",tw:1,code:"6719"},{n:"茂達",tw:1,code:"6138"}],
+          stats:[{v:"9.81億美元",l:"MPS 2026年Q2營收（年增約47.6%）"}],
+          tags:["power-thermal"],
+          children:[
+            { icon:"icon-power", title:"多相控制器與功率級", sub:"MULTIPHASE VCORE",
+              desc:"力智產品涵蓋多相Vcore控制器、功率級、MOSFET與氮化鎵，法說會表示GaN驅動IC已導入大型雲端AI加速器。2026年第二季營收11.22億元、季增15%，並已與客戶協商調價以反映晶圓與封測成本上升。英飛凌、MPS等國際大廠則在高電流伺服器功率級市場具領先地位。",
+              companies:[{n:"力智",tw:1,code:"6719"},{n:"Monolithic Power Systems",code:"MPWR"},{n:"英飛凌 Infineon"}],
+              stats:[{v:"11.22億元",l:"力智2026年Q2營收"}] },
+            { icon:"icon-motor", title:"風扇驅動與周邊電源", sub:"FAN DRIVERS & BOARD POWER",
+              desc:"茂達以風扇馬達驅動IC為最大宗（2026年第一季約占45%），伺服器目前僅占營收約2%–3%。公司表示伺服器散熱IC正在客戶驗證、預計2027年貢獻，主機板與資料中心背板電源方案則規劃2026年第四季送樣。國巨為其支持性股東。",
+              companies:[{n:"茂達",tw:1,code:"6138"}],
+              stats:[] }
+          ] },
+        { icon:"icon-device", title:"時脈與計時元件", parallelGroup:"server-periph", sub:"TIMING & CLOCKS",
+          desc:"所有高速介面都需要精準且低抖動的時脈來源，AI伺服器與光模組的傳輸速率越高，對振盪器與時脈晶片規格要求越嚴。美國SiTime以MEMS矽時脈為主，台灣晶技則是石英元件大廠，法說會將AI列為成長動能並聚焦高頻、小型化產品。",
+          companies:[{n:"SiTime",code:"SITM"},{n:"晶技",tw:1,code:"3042"},{n:"瑞薩電子 Renesas"}],
+          stats:[{v:"約15億美元",l:"SiTime收購瑞薩計時業務金額（2026年7月完成，公司公告）"}],
+          children:[
+            { icon:"icon-chip", title:"MEMS 與時脈晶片", sub:"MEMS TIMING",
+              desc:"SiTime於2026年7月宣布完成收購瑞薩電子的計時業務（交易金額約15億美元），把時脈產生器、緩衝器等產品納入旗下，強化資料中心與AI應用的時脈方案布局。",
+              companies:[{n:"SiTime",code:"SITM"},{n:"瑞薩電子 Renesas"}],
+              stats:[] },
+            { icon:"icon-generic", title:"石英振盪器", sub:"QUARTZ OSCILLATORS",
+              desc:"晶技以石英晶體與振盪器為主力，法說會強調AI、車用與5G三大成長動能，產品朝高頻與小型化發展；媒體報導其已打入光通訊模組供應鏈，未經公司逐一證實客戶。",
+              companies:[{n:"晶技",tw:1,code:"3042"}],
+              stats:[] }
+          ] }
+      ]
+    },
+
+"cowos-equip": {
+      name: "先進封裝設備",
+      nameEn: "ADVANCED PACKAGING EQUIPMENT & CONSUMABLES",
+      tags: ["cowos-equip", "semiconductor-supply-chain", "ai-hardware", "memory-supply-chain"],
+      lede: "AI加速器要把GPU、HBM等多顆晶片疊在同一個封裝裡，CoWoS、SoIC、HBM與面板級封裝因此需要一整套專用機台：濕式清洗、薄化切割、晶片分選、熱壓與混合鍵合、點膠除泡、封模到測試分類，外加載具、廠務與材料供應。本頁依製程先後整理各環節的台灣與國際設備商，並附上2025–2026年法說會與財報數據；封裝製程原理請見封測與台積電分頁。",
+      updated: "2026年9月",
+      sources: [
+        "富果直送－「弘塑法說會重點內容備忘錄」 (2026-05-26)",
+        "富果直送－「均華法說會重點內容備忘錄」 (2026-06-12)",
+        "富果直送－「萬潤法說會重點內容備忘錄」 (2026-08-27)",
+        "富果直送－「帆宣法說會重點內容備忘錄」 (2026-05-20)",
+        "鉅亨網－「印能科技(7734) 營收與獲利雙創高，新一輪成長週期正要開始？」 (2026-03-06)",
+        "Besi－「BE Semiconductor Industries N.V. Announces Q2-26 and H1-26 Results」 (2026-07-23)",
+        "ASMPT－「ASMPT Announces 2026 Interim Results」 (2026-07)",
+        "方格子vocus－「3680 家登 法說會筆記」 (2026-03-12)",
+        "方格子vocus－「(5434) 崇越法說會 2026/08」 (2026-08)"
+      ],
+      disclaimer: "本頁面為公開資訊整理彙編，資料來源包括公司財報、法說會、官方新聞稿與財經媒體報導；標示為法人估計、市場分析或媒體報導者未經公司證實。內容僅供產業脈絡參考，不構成任何投資建議。",
+      nodes: [
+        { icon:"icon-gear", title:"廠務整合與材料供應", parallelGroup:"support", sub:"FACILITY & MATERIALS",
+          desc:"先進封裝廠擴建時，最先動起來的是廠務系統、自動化供應系統與材料通路。台積電CoWoS擴產（見[[tsmc]]）帶動無塵室、化學品供應與機台代理的訂單，帆宣與崇越是這一層的代表台廠；整體廠房工程可另見[[facility]]。",
+          companies:[{n:"帆宣系統科技",tw:1,code:"6196"},{n:"崇越",tw:1,code:"5434"},{n:"信越化學 Shin-Etsu"}],
+          stats:[],
+          children:[
+            { icon:"icon-gear", title:"廠務系統整合", sub:"FACILITY INTEGRATION",
+              desc:"帆宣2026年5月法說會揭露，2025年半導體占營收約81%，主要客戶為晶圓代工與DRAM龍頭；2026年第一季因CoWoS專案認列，設備材料銷售占比升至約30%。公司表示2026–2027年的挑戰在於供給吃緊下如期交付，而非接單。",
+              companies:[{n:"帆宣系統科技",tw:1,code:"6196"}],
+              stats:[{v:"1,880億元",l:"帆宣在手訂單（2026年5月法說會）"},{v:"5.08元",l:"帆宣2026年第一季EPS"}] },
+            { icon:"icon-deposit", title:"半導體材料通路", sub:"MATERIALS DISTRIBUTION",
+              desc:"崇越以代理信越化學等日系半導體材料為主，半導體材料與設備約占營收八成以上。依2026年8月法說會整理，公司表示藍寶石防翹曲基板已放量出貨，並以石英布切入AI平台供應鏈；第二季EPS為7.92元（第三方法說筆記整理）。",
+              companies:[{n:"崇越",tw:1,code:"5434"},{n:"信越化學 Shin-Etsu"}],
+              stats:[{v:"7.92元",l:"崇越2026年第二季EPS（法說筆記整理）"}] }
+          ] },
+        { icon:"icon-wafer", title:"晶圓與光罩載具", parallelGroup:"support", sub:"WAFER & RETICLE CARRIERS",
+          desc:"晶圓、光罩與封裝中的半成品在機台間移動，都需要高潔淨度的專用載具。家登精密從EUV光罩盒與晶圓傳送盒起家，近年把產品延伸到CoWoS等先進封裝載具，受惠於大客戶先進製程與封裝同步擴產。",
+          companies:[{n:"家登精密",tw:1,code:"3680"}],
+          stats:[{v:"73.4億元",l:"家登2025年營收（年增約12%）"}],
+          children:[
+            { icon:"icon-mask", title:"EUV光罩盒與晶圓載具", sub:"EUV POD & FOUP",
+              desc:"家登2026年3月法說會表示，EUV光罩盒全球市占率約85%，附保護膜版本推升平均售價；公司預期大客戶2奈米產能倍增、EUV光罩層數增加，將拉高耗損與替換需求。FOUP、FOSB等晶圓載具則在台灣與中國擴大市占。",
+              companies:[{n:"家登精密",tw:1,code:"3680"}],
+              stats:[{v:"約85%",l:"家登EUV光罩盒全球市占（公司法說）"}] },
+            { icon:"icon-package", title:"先進封裝載具", sub:"PACKAGING CARRIERS",
+              desc:"家登法說會指出，CoWoS相關先進封裝載具的毛利率明顯高於公司平均，並於2026年由試量產進入正式量產階段，是前段光罩盒之外的新成長來源。",
+              companies:[{n:"家登精密",tw:1,code:"3680"},{n:"台積電",tw:1,code:"2330"}],
+              stats:[] }
+          ] },
+        { icon:"icon-clean", title:"濕製程與清洗", sub:"WET PROCESS & CLEANING",
+          desc:"中介層、重布線層與凸塊製作過程中，需要多道清洗、蝕刻、去光阻與電鍍前後處理，濕式設備因此隨CoWoS擴產同步放量。弘塑以濕製程設備為主力，辛耘則兼營代理與自製設備，兩者都被市場列為台積電先進封裝擴產鏈成員；前段清洗原理可見[[wafer-fab]]。",
+          companies:[{n:"弘塑",tw:1,code:"3131"},{n:"辛耘",tw:1,code:"3583"},{n:"台積電",tw:1,code:"2330"}],
+          stats:[],
+          children:[
+            { icon:"icon-clean", title:"弘塑：濕製程設備＋化學品", sub:"GPTC",
+              desc:"弘塑2026年5月法說會揭露，第一季營收15.96億元、年增28.7%，EPS 16.11元；營收約65%來自濕製程設備、約20%來自子公司添鴻化學品、約15%來自佳霖。產能稼動率達100%–120%，員工由約250人增至350人，並看好3D混合鍵合、面板級封裝與HBM。",
+              companies:[{n:"弘塑",tw:1,code:"3131"}],
+              stats:[{v:"16.11元",l:"弘塑2026年第一季EPS"},{v:"45.48元",l:"弘塑2025年全年EPS（歷史新高）"}] },
+            { icon:"icon-clean", title:"辛耘：自製設備＋代理", sub:"SCIENTECH",
+              desc:"辛耘業務橫跨設備代理、晶圓再生與自製先進封裝設備，財經媒體將其列為台積電CoWoS擴產受惠股。公司2026年5月法說會以第一季獲利創新高、AI先進封裝需求發酵與資本支出大幅增加為主軸（依法說會影音標題）。",
+              companies:[{n:"辛耘",tw:1,code:"3583"}],
+              stats:[] }
+          ] },
+        { icon:"icon-slice", title:"薄化、切割與晶片分選", sub:"GRINDING, DICING & SORTING",
+          desc:"晶圓要先研磨到極薄、再切成單顆晶片，經外觀檢測分級後才能進入鍵合；HBM多層堆疊與SoIC對薄化精度要求尤其高。日本DISCO是研磨與切割機的代表廠，台廠均華則以晶片分選機切入CoWoS。",
+          companies:[{n:"DISCO"},{n:"均華",tw:1,code:"6640"}],
+          stats:[],
+          children:[
+            { icon:"icon-polish", title:"研磨、拋光與切割", sub:"GRINDER & DICER",
+              desc:"DISCO（東京證交所6146）產品涵蓋刀片切割機、雷射切割機，以及把矽與化合物半導體晶圓磨到極薄的研磨機，並以拋光機去除背面研磨損傷層、提升晶片強度。",
+              companies:[{n:"DISCO"}],
+              stats:[] },
+            { icon:"icon-metrology", title:"晶片分選", sub:"CHIP SORTER",
+              desc:"均華以晶片分選機與晶粒黏著機為核心並結合AOI檢測，法說會表示設備可用於CoWoS-S、CoWoS-L與CoWoS-R，AI用分選機可檢出1–5微米等級缺陷；公司屬志聖、均豪、東捷組成的G2C+聯盟。",
+              companies:[{n:"均華",tw:1,code:"6640"}],
+              stats:[{v:"8.3億元",l:"均華2026年第一季營收（年增93%）"}] }
+          ] },
+        { icon:"icon-interconnect", title:"黏晶與鍵合", sub:"DIE ATTACH & BONDING",
+          desc:"晶片要與中介層、基板或另一片晶圓精準接合，主流做法由覆晶、熱壓鍵合（TCB）往無凸塊的混合鍵合演進，後者是SoIC與下一代HBM的關鍵。國際由Besi、ASMPT主導，台廠均華、萬潤則提供黏晶與貼合設備。",
+          companies:[{n:"Besi"},{n:"ASMPT"},{n:"均華",tw:1,code:"6640"},{n:"萬潤",tw:1,code:"6187"}],
+          stats:[],
+          children:[
+            { icon:"icon-interconnect", title:"晶粒黏著與熱壓鍵合", sub:"DIE BONDER & TCB",
+              desc:"ASMPT 2026年中報顯示，先進封裝營收3.39億美元、占集團約三成；2026年7月取得逾50台晶片對基板TCB批量訂單，晶片對晶圓TCB亦獲領先IDM先進CPU訂單，HBM則持續有重複訂單、待HBM4時程明朗。均華法說會預期2026年第二至第四季逐季轉好。",
+              companies:[{n:"ASMPT"},{n:"均華",tw:1,code:"6640"}],
+              stats:[{v:"1.43",l:"ASMPT 2026上半年訂單出貨比"},{v:"5.19元",l:"均華2026年第一季EPS"}] },
+            { icon:"icon-interconnect", title:"混合鍵合", sub:"HYBRID BONDING",
+              desc:"Besi 2026年第二季營收2.499億歐元、年增68.7%，新接訂單2.929億歐元、年增128.8%，公司說明成長主要來自混合鍵合、光通訊與資料中心應用，並預估第三季營收再季增10%–15%。ASMPT第二代混合鍵合平台則處於邏輯與記憶體客戶送樣階段。",
+              companies:[{n:"Besi"},{n:"ASMPT"}],
+              stats:[{v:"+128.8%",l:"Besi 2026年第二季新接訂單年增率"}] }
+          ] },
+        { icon:"icon-package", title:"點膠、除泡與封模", sub:"DISPENSING, VOID REMOVAL & MOLDING",
+          desc:"晶片接合後要填入底部填充膠、以壓力烤箱去除氣泡並控制翹曲，最後以樹脂封模保護。封裝面積愈大、堆疊層數愈多，氣泡與翹曲控制愈困難，萬潤、印能與日本TOWA分別在點膠、除泡與封模環節具代表性。",
+          companies:[{n:"萬潤",tw:1,code:"6187"},{n:"印能科技",tw:1,code:"7734"},{n:"TOWA"}],
+          stats:[],
+          children:[
+            { icon:"icon-deposit", title:"精密點膠與貼合", sub:"DISPENSING & ATTACH",
+              desc:"萬潤2026年8月法說會表示，先進封裝設備涵蓋點膠、貼合、黏晶、熱壓與檢測，並自有點膠閥設計；上半年營收37.66億元、年增35.9%，EPS 11.9元，訂單能見度已看到2027年第二季，另以CPO設備開拓新市場（見[[photonics]]）。",
+              companies:[{n:"萬潤",tw:1,code:"6187"}],
+              stats:[{v:"2027年Q2",l:"萬潤訂單能見度（2026年8月法說會）"},{v:"11.9元",l:"萬潤2026上半年EPS"}] },
+            { icon:"icon-furnace", title:"壓力除泡與翹曲控制", sub:"VOID REMOVAL",
+              desc:"印能科技專注先進封裝的除泡、翹曲抑制與助焊劑殘留處理，2025年營收23.02億元、年增約28%，EPS 33.5元，2026年1月營收3.04億元創單月新高；媒體報導其除泡設備市占約八成，並布局面板級封裝與AI伺服器微通道散熱。法人估計2026年營收年增約四成。",
+              companies:[{n:"印能科技",tw:1,code:"7734"}],
+              stats:[{v:"23.02億元",l:"印能2025年營收"},{v:"約80%",l:"印能先進封裝除泡設備市占（媒體報導）"}] },
+            { icon:"icon-package", title:"壓縮成型封模", sub:"COMPRESSION MOLDING",
+              desc:"TOWA（東京證交所6315）以壓縮成型技術聞名，市場分析文章指出其設備用於HBM的MR-MUF製程，主要客戶為SK海力士，並於2025年3月推出因應HBM4窄間隙的模封填充方案；上述客戶關係為市場分析，未經公司證實。",
+              companies:[{n:"TOWA"},{n:"SK海力士 SK hynix"}],
+              stats:[] }
+          ] },
+        { icon:"icon-probe", title:"測試分類與溫控", sub:"TEST HANDLER & THERMAL",
+          desc:"封裝完成的AI晶片功耗高、單價高，測試時需要能穩定控溫的分類機搬運與分級。鴻勁精密是這一環節的台灣代表，2026年營收年增近倍；測試代工廠與流程請見[[packaging-test]]。",
+          companies:[{n:"鴻勁精密",tw:1,code:"7769"}],
+          stats:[],
+          children:[
+            { icon:"icon-probe", title:"IC測試分類機", sub:"TEST HANDLER",
+              desc:"鴻勁精密官網顯示，公司提供IC測試分類機、溫度控制解決方案及eMMC/SSD測試分類設備，客戶涵蓋全球封測廠與IDM；2024年11月於證交所上市。2026年1–8月累計營收約349.84億元、年增約93%，第二季EPS 30.44元。",
+              companies:[{n:"鴻勁精密",tw:1,code:"7769"}],
+              stats:[{v:"+92.9%",l:"鴻勁2026年1–8月累計營收年增率"},{v:"56.14元",l:"鴻勁2026上半年EPS"}] },
+            { icon:"icon-metrology", title:"光學檢測", sub:"AOI",
+              desc:"封裝各段需要光學檢測把關缺陷：萬潤將光學檢測列為五大核心技術之一，均華則把AOI整合進分選與黏晶機台，讓檢測與搬運在同一站完成。",
+              companies:[{n:"萬潤",tw:1,code:"6187"},{n:"均華",tw:1,code:"6640"}],
+              stats:[] }
+          ] }
+      ]
+    },
+
+"dc-energy": {
+      name: "資料中心能源",
+      nameEn: "AI DATA CENTER ENERGY",
+      tags: ["dc-energy", "power-thermal", "datacenter-cloud"],
+      lede: "AI資料中心用電規模動輒上百MW甚至GW級，電網併網等待時間長，業者因此在電網之外另尋電源：現場自建燃氣渦輪與往復式引擎、導入固態氧化物燃料電池，或與核電廠簽20年長約、預購小型模組化反應爐。本頁依現場發電、核能、供電模式到雲端需求端的順序，整理2024–2026年已公開的國際大廠訂單與協議，並納入SOFC熱盒供應鏈中的台廠高力；變壓器、開關設備與儲能等電網設備請見[[power-grid]]。",
+      updated: "2026年9月",
+      sources: [
+        "GE Vernova－「GE Vernova reports second quarter 2026 financial results and raises 2026 financial guidance」 (2026-07)",
+        "Bloom Energy－「Bloom Energy Reports Record Second Quarter 2026 Financial Results and Raises Full Year 2026 Guidance」 (2026-07-28)",
+        "Meta－「Meta Announces Nuclear Energy Projects, Unlocking Up to 6.6 GW to Power American Leadership in AI Innovation」 (2026-01-09)",
+        "X-energy－「X-energy Announces Pricing of Upsized Initial Public Offering」 (2026-04-23)",
+        "POWER Magazine－「Engine Power Plants Surge as Data Centers Drive Unprecedented Demand」 (2026-03-02)",
+        "科技新報－「AI 太耗電！高力 SOFC 業務爆發，助攻 Bloom Energy 超強訂單」 (2026-05-11)",
+        "優分析－「高力(8996) 9月營收創新高，憑液冷散熱與燃料電池布局AI資料中心商機」 (2025-10-13)",
+        "Wikipedia－「Three Mile Island Nuclear Generating Station」、「Susquehanna Steam Electric Station」、「Bloom Energy」 (2026-09查閱)"
+      ],
+      disclaimer: "本頁面為公開資訊整理彙編，資料來源包括公司財報、官方新聞稿、產業媒體與百科整理；標示為媒體報導者未經公司證實，核能與SMR專案時程亦可能因審照與建設進度變動。內容僅供產業脈絡參考，不構成任何投資建議。",
+      nodes: [
+        { icon:"icon-gear", title:"燃氣渦輪機", parallelGroup:"onsite-generation", sub:"GAS TURBINES",
+          desc:"大型資料中心若等不到電網併網，常見方案之一是在園區旁自建天然氣電廠，核心設備即燃氣渦輪機。GE Vernova 2026年第二季財報顯示，燃氣發電設備在手訂單加上產能預留協議已由100 GW增至116 GW，公司預估年底至少達125 GW；西門子能源、三菱重工為同業主要大廠。",
+          companies:[{n:"GE Vernova",code:"GEV"},{n:"西門子能源 Siemens Energy"},{n:"三菱重工 Mitsubishi Heavy"}],
+          stats:[{v:"116 GW",l:"GE Vernova燃機在手訂單＋產能預留協議（2026年Q2，公司財報）"}],
+          children:[
+            { icon:"icon-gear", title:"訂單與資料中心需求", sub:"BACKLOG & DATA CENTER ORDERS",
+              desc:"GE Vernova第二季新接訂單242億美元、有機成長88%，總在手訂單達1,760億美元；公司並表示今年以來來自資料中心的訂單已逾50億美元，超過2025全年的兩倍。",
+              companies:[{n:"GE Vernova",code:"GEV"}],
+              stats:[{v:"逾50億美元",l:"GE Vernova 2026年上半年資料中心訂單（公司財報）"}] },
+            { icon:"icon-furnace", title:"燃機產能擴充", sub:"CAPACITY RAMP",
+              desc:"燃機交期拉長使產能成為關鍵。GE Vernova執行長表示，2026年第三季燃機年產出可達20 GW，2028年提升至24 GW，並著手規劃2030年達30 GW的產能。",
+              companies:[{n:"GE Vernova",code:"GEV"}],
+              stats:[{v:"20→30 GW",l:"GE Vernova燃機年產能目標（2026Q3→2030，公司）"}] }
+          ] },
+        { icon:"icon-motor", title:"往復式燃氣引擎", parallelGroup:"onsite-generation", sub:"RECIPROCATING GAS ENGINES",
+          desc:"往復式引擎把多台數MW級燃氣發電機組並聯成電廠，可模組化分批交貨、起動快，部分負載效率也較渦輪機佳，適合負載波動大的AI運算。POWER雜誌2026年3月報導，開拓重工、瓦錫蘭、INNIO等引擎廠相繼拿下GW級資料中心案。",
+          companies:[{n:"開拓重工 Caterpillar",code:"CAT"},{n:"瓦錫蘭 Wärtsilä"},{n:"INNIO Jenbacher"}],
+          stats:[{v:"約7秒",l:"開拓重工G3516由零到滿載時間（POWER報導）"}],
+          children:[
+            { icon:"icon-motor", title:"開拓重工燃氣機組", sub:"CATERPILLAR GENSETS",
+              desc:"據POWER報導，開拓重工為猶他州Joule資料中心園區供應總計4 GW的G3520K機組並搭配1.1 GWh電池儲能；另有西維吉尼亞州Monarch園區2 GW，以及與Hunt Energy在北美最高1 GW的合作。",
+              companies:[{n:"開拓重工 Caterpillar",code:"CAT"}],
+              stats:[{v:"4 GW",l:"開拓重工供應Joule園區機組規模（媒體報導）"}] },
+            { icon:"icon-gear", title:"歐系引擎廠", sub:"EUROPEAN ENGINE OEMS",
+              desc:"瓦錫蘭在德州Odessa完成123 MW引擎電廠，並投資1.4億歐元把芬蘭Vaasa產能提高35%（2028年Q1前）；INNIO旗下Jenbacher與VoltaGrid合作提供2.3 GW、共92套25 MW電力模組。以上皆據POWER雜誌報導。",
+              companies:[{n:"瓦錫蘭 Wärtsilä"},{n:"INNIO Jenbacher"}],
+              stats:[] }
+          ] },
+        { icon:"icon-battery", title:"固態氧化物燃料電池", parallelGroup:"onsite-generation", sub:"SOLID OXIDE FUEL CELLS",
+          desc:"SOFC以天然氣或氫氣在高溫下直接進行電化學反應發電，不經燃燒，成為資料中心現場供電的另一條路。龍頭Bloom Energy（NYSE：BE）2026年第二季營收10.65億美元、年增165.5%，並將全年營收財測上修至39億至42億美元。",
+          companies:[{n:"Bloom Energy",code:"BE"},{n:"高力",tw:1,code:"8996"}],
+          stats:[{v:"10.65億美元",l:"Bloom Energy 2026年Q2營收（公司財報）"},{v:"39–42億美元",l:"Bloom 2026全年營收財測（公司，7月上修）"}],
+          children:[
+            { icon:"icon-power", title:"Bloom系統與資料中心客戶", sub:"BLOOM & DATA CENTER DEALS",
+              desc:"Bloom財報稱美國各大雲端業者及十多家新興雲端、AI實驗室與代管業者均已核准採用其方案，並與Brookfield成立合資。已公開案例包括2024年11月AEP的1 GW、Equinix逾100 MW，以及2026年4月與甲骨文的2.8 GW合作。",
+              companies:[{n:"Bloom Energy",code:"BE"},{n:"甲骨文 Oracle",code:"ORCL"},{n:"廣達",tw:1,code:"2382"}],
+              stats:[{v:"2.8 GW",l:"Bloom與甲骨文燃料電池合作規模（2026年4月）"}] },
+            { icon:"icon-furnace", title:"台灣供應鏈：SOFC熱盒", sub:"TAIWAN: SOFC HOT BOX",
+              desc:"熱盒（Hot Box）是容納SOFC電堆、需長期耐受600°C以上高溫的熱管理模組。媒體報導高力為Bloom的熱盒供應商之一（未經公司證實），並規劃2027下半年將熱盒產能擴至3倍；另據Bloom公開資訊，廣達曾將既有SOFC裝置擴大150%。",
+              companies:[{n:"高力",tw:1,code:"8996"},{n:"Bloom Energy",code:"BE"},{n:"廣達",tw:1,code:"2382"}],
+              stats:[{v:"34.2億元",l:"高力2026年Q1營收，年增238.6%（媒體報導）"}] }
+          ] },
+        { icon:"icon-power", title:"既有核電：購電、重啟與增容", parallelGroup:"nuclear", sub:"EXISTING NUCLEAR PPAS",
+          desc:"核電可24小時穩定供應零碳電力，科技巨頭因此與既有核電業者簽訂20年期長約，藉此支撐電廠重啟、延役或增加發電容量。核電業者Constellation Energy已與微軟、Meta簽約，並於2026年1月完成收購燃氣發電商Calpine；Vistra則是Meta的另一家核電供應商。",
+          companies:[{n:"Constellation Energy",code:"CEG"},{n:"Vistra",code:"VST"},{n:"微軟 Microsoft",code:"MSFT"},{n:"Meta",code:"META"}],
+          stats:[{v:"819 MW",l:"Crane（原三哩島1號機）淨裝置容量"}],
+          children:[
+            { icon:"icon-power", title:"Constellation：重啟與延役", sub:"RESTART & LIFE EXTENSION",
+              desc:"2024年9月微軟與Constellation簽20年購電約，重啟三哩島1號機並更名Crane清潔能源中心，預計2027年恢復運轉，美國能源部2025年11月核定10億美元貸款；2025年6月Meta簽約支持伊利諾州Clinton電廠再延役20年。",
+              companies:[{n:"Constellation Energy",code:"CEG"},{n:"微軟 Microsoft",code:"MSFT"},{n:"Meta",code:"META"}],
+              stats:[] },
+            { icon:"icon-grid", title:"Vistra：增容供電", sub:"UPRATES",
+              desc:"Meta於2026年1月宣布向Vistra旗下俄亥俄州Perry、Davis-Besse及賓州Beaver Valley三座核電廠購買逾2.1 GW電力，合約為20年；其中含433 MW增容，預計2030年代初期陸續併入PJM電網。",
+              companies:[{n:"Vistra",code:"VST"},{n:"Meta",code:"META"}],
+              stats:[{v:"逾2.1 GW",l:"Meta向Vistra購電規模（20年期，Meta公告）"}] }
+          ] },
+        { icon:"icon-furnace", title:"小型模組化反應爐與先進核能", parallelGroup:"nuclear", sub:"SMR & ADVANCED NUCLEAR",
+          desc:"小型模組化反應爐（SMR）單機功率小、可工廠預製，科技業者以預購或投資提前卡位，但多數要到2030年代前後才能供電，下列業者目前皆尚無商轉機組。上市標的包括Oklo、NuScale，以及2026年4月掛牌那斯達克的X-energy；Kairos Power則為未上市公司。",
+          companies:[{n:"Oklo",code:"OKLO"},{n:"NuScale",code:"SMR"},{n:"X-energy",code:"XE"},{n:"TerraPower"},{n:"Kairos Power"}],
+          stats:[{v:"約10.2億美元",l:"X-energy 2026年4月IPO募資（公司公告）"}],
+          children:[
+            { icon:"icon-furnace", title:"上市SMR開發商", sub:"LISTED SMR DEVELOPERS",
+              desc:"Oklo的Aurora反應爐單機75 MWe，首座機組於愛達荷國家實驗室推進；NuScale的77 MWe模組於2025年5月取得美國核管會設計核准；X-energy的Xe-100單模組約80 MWe，2026年4月以每股23美元上市。",
+              companies:[{n:"Oklo",code:"OKLO"},{n:"NuScale",code:"SMR"},{n:"X-energy",code:"XE"}],
+              stats:[] },
+            { icon:"icon-datacenter", title:"科技巨頭先進核能協議", sub:"BIG TECH SMR DEALS",
+              desc:"Google於2024年10月與Kairos Power簽約，首座反應爐目標2030年；Amazon同月宣布與X-energy合作，目標2030年代中期前建置最多5 GW；Meta於2026年1月與TerraPower簽下最多8座Natrium機組，並支持Oklo在俄亥俄州建置最高1.2 GW園區。",
+              companies:[{n:"Google",code:"GOOGL"},{n:"Kairos Power"},{n:"Amazon",code:"AMZN"},{n:"X-energy",code:"XE"},{n:"Meta",code:"META"},{n:"TerraPower"},{n:"Oklo",code:"OKLO"}],
+              stats:[] }
+          ] },
+        { icon:"icon-grid", title:"表後供電與電廠共址", sub:"BEHIND-THE-METER & CO-LOCATION",
+          desc:"「表後」指發電設施直接供電給資料中心、不經公用電網輸送，常見做法是把機房蓋在電廠旁共址，或在園區自建燃機、引擎與燃料電池（見本頁前三節）。搭配的儲能、UPS與備援電力則詳見[[power-grid]]。",
+          companies:[{n:"Talen Energy",code:"TLN"},{n:"Amazon",code:"AMZN"},{n:"開拓重工 Caterpillar",code:"CAT"}],
+          stats:[{v:"1,920 MW",l:"Talen對Amazon供電上限（2032年起至2042年）"}],
+          children:[
+            { icon:"icon-power", title:"核電廠共址：Talen與Amazon", sub:"NUCLEAR CO-LOCATION",
+              desc:"AWS於2024年3月以6.5億美元買下緊鄰賓州Susquehanna核電廠、直連300 MW的Cumulus資料中心園區；2025年6月雙方改簽約值約180億美元的購電約，2029年起供電840至1,200 MW，2032年增至1,680至1,920 MW。",
+              companies:[{n:"Talen Energy",code:"TLN"},{n:"Amazon",code:"AMZN"}],
+              stats:[] },
+            { icon:"icon-battery", title:"現場發電搭配儲能", sub:"ON-SITE GENERATION + STORAGE",
+              desc:"現場電廠常搭配儲能以平滑AI負載波動：Joule園區的開拓重工機組搭配1.1 GWh電池，Meta公告的TerraPower Natrium方案則是2.8 GW基載另加1.2 GW內建儲能。電池儲能供應鏈詳見[[power-grid]]。",
+              companies:[{n:"開拓重工 Caterpillar",code:"CAT"},{n:"TerraPower"}],
+              stats:[] }
+          ] },
+        { icon:"icon-datacenter", title:"需求端：雲端巨頭能源採購", sub:"HYPERSCALER ENERGY PROCUREMENT",
+          desc:"微軟、Google、Amazon、Meta與甲骨文同時押注核電長約、SMR與現場燃氣或燃料電池，組合依地點與上線時程而異。以Meta為例，2026年1月宣布的核能協議至2035年最高可達6.6 GW；GPU雲端業者的建置動態詳見[[gpu-cloud]]。",
+          companies:[{n:"微軟 Microsoft",code:"MSFT"},{n:"Google",code:"GOOGL"},{n:"Amazon",code:"AMZN"},{n:"Meta",code:"META"},{n:"甲骨文 Oracle",code:"ORCL"}],
+          stats:[{v:"6.6 GW",l:"Meta 2026年1月核能協議上限（至2035年）"}],
+          children:[
+            { icon:"icon-datacenter", title:"長期零碳基載", sub:"FIRM CLEAN BASELOAD",
+              desc:"核能協議多為20年期，微軟對應Crane重啟、Meta對應Clinton與Vistra電廠，Amazon則鎖定Susquehanna；新建SMR部分，Google、Amazon、Meta分別押注Kairos、X-energy與TerraPower／Oklo。",
+              companies:[{n:"微軟 Microsoft",code:"MSFT"},{n:"Meta",code:"META"},{n:"Amazon",code:"AMZN"},{n:"Google",code:"GOOGL"}],
+              stats:[] },
+            { icon:"icon-power", title:"快速上線的現場電力", sub:"SPEED-TO-POWER",
+              desc:"核能多需等到2030年代，短期缺口改由燃料電池與燃氣發電補上：甲骨文與Bloom合作2.8 GW，其中包括新墨西哥州2.45 GW的Project Jupiter資料中心；GE Vernova上半年資料中心訂單已逾50億美元。",
+              companies:[{n:"甲骨文 Oracle",code:"ORCL"},{n:"Bloom Energy",code:"BE"},{n:"GE Vernova",code:"GEV"}],
+              stats:[] }
+          ] }
+      ]
+    },
+
+"storage": {
+      name: "企業級儲存",
+      nameEn: "AI DATA-CENTER STORAGE",
+      tags: ["storage", "ai-hardware", "nvidia", "datacenter-cloud", "memory-supply-chain", "semiconductor-supply-chain", "ic-design", "system-integration"],
+      lede: "AI訓練需要龐大資料湖，推論時代更要把大量對話情境（KV cache）暫存在GPU之外，讓儲存從後勤設備變成影響每秒產出token數的關鍵環節。本頁由近線硬碟與NAND快閃兩大儲存媒介出發，往下整理SSD控制晶片與模組、JBOF儲存伺服器、企業級儲存系統，一路到輝達BlueField-4 STX推動的推論情境記憶體層，並標示台灣廠商的切入位置與2025–2026年公開營運數據。",
+      updated: "2026年9月",
+      sources: [
+        "Seagate－「Seagate Technology Reports Fiscal Fourth Quarter and Fiscal Year 2026 Financial Results」 (2026-07-28)",
+        "WD－「WD Reports Fiscal Fourth Quarter and Fiscal Year 2026 Financial Results」 (2026-08)",
+        "Everpure－「Everpure Announces Second Quarter Fiscal 2027 Financial Results」 (2026-08-26)",
+        "NVIDIA Newsroom－「NVIDIA BlueField-4 Powers New Class of AI-Native Storage Infrastructure for the Next Frontier of AI」 (2026-01-05)",
+        "NVIDIA Newsroom－「NVIDIA Launches BlueField-4 STX Storage Architecture With Broad Industry Adoption」 (2026-03-16)",
+        "Blocks & Files－「Nvidia and its partners' KV Cache extenders」 (2026-03-30)",
+        "富果直送－「【群聯法說會重點內容備忘錄】未來展望趨勢 20260508」 (2026-05-08)",
+        "科技新報－「NVIDIA CES 2026 點名合作夥伴，AIC 營邦推出支援 BlueField-4 JBOF」 (2026-01-10)",
+        "Wikipedia－Kioxia、Sandisk、Nidec、Micron Technology 條目 (2026-09查閱)"
+      ],
+      disclaimer: "本頁面為公開資訊整理彙編，內容取自公司新聞稿、法說會紀要與媒體報導，數據以所標示期間為準，僅供產業脈絡參考，不構成任何投資建議。",
+      nodes: [
+        { icon:"icon-device", title:"近線硬碟（HDD）", parallelGroup:"media", sub:"NEARLINE HDD",
+          desc:"雲端資料中心的冷、溫資料仍以大容量近線硬碟為主，每TB成本遠低於快閃。全球內接式硬碟製造商只剩希捷、威騰與東芝三家，產業高度集中。2026年兩大廠財報皆由雲端資料中心需求帶動，營收與毛利率同步走高，希捷表示將以Mozaic平台與HAMR技術藍圖因應EB級容量需求。",
+          companies:[{n:"希捷 Seagate",code:"STX"},{n:"威騰電子 Western Digital",code:"WDC"},{n:"東芝 Toshiba"}],
+          stats:[{v:"122億美元",l:"希捷FY2026營收（年增34%）"},{v:"37.5億美元",l:"WD FY2026第四季營收（年增44%）"}],
+          children:[
+            { icon:"icon-device", title:"HAMR與大容量平台", sub:"HAMR / MOZAIC",
+              desc:"熱輔助磁記錄（HAMR）以雷射瞬間加熱碟片以寫入更小的磁區，是提升單碟容量的主要路線；希捷以Mozaic平台搭配HAMR技術藍圖布局大容量產品。希捷FY2026第四季非GAAP毛利率達52.7%，並預估FY2027第一季營收約41億美元（±1億）。",
+              companies:[{n:"希捷 Seagate",code:"STX"}],
+              stats:[{v:"52.7%",l:"希捷FY26 Q4非GAAP毛利率"}] },
+            { icon:"icon-motor", title:"HDD關鍵零組件", sub:"SPINDLE MOTORS & COMPONENTS",
+              desc:"硬碟由碟片、讀寫頭與主軸馬達等精密零件組成。日本電產集團（尼得科 Nidec）是全球HDD主軸馬達的領導廠商，1979年即開始量產硬碟用主軸馬達。WD則公告FY2026第四季非GAAP毛利率54.4%，並預估下一季營收約41億美元。",
+              companies:[{n:"尼得科 Nidec"},{n:"威騰電子 Western Digital",code:"WDC"}],
+              stats:[{v:"54.4%",l:"WD FY26 Q4非GAAP毛利率"}] }
+          ] },
+        { icon:"icon-wafer", title:"NAND快閃原廠", parallelGroup:"media", sub:"NAND FLASH SUPPLIERS",
+          desc:"企業級SSD的核心是NAND快閃晶片，供給集中在少數原廠；3D NAND堆疊與DRAM基礎知識請見[[memory]]。2026年起原廠明顯把產能與產品線向資料中心與AI傾斜，而據產業統計，鎧俠2026年第一季以13.9%營收市占位居NAND第三。",
+          companies:[{n:"三星電子 Samsung Electronics"},{n:"SK海力士 SK hynix"},{n:"鎧俠 Kioxia"},{n:"美光 Micron",code:"MU"},{n:"Sandisk",code:"SNDK"}],
+          stats:[{v:"13.9%",l:"鎧俠2026年Q1 NAND營收市占（第三）"}],
+          children:[
+            { icon:"icon-wafer", title:"鎧俠與Sandisk合資產線", sub:"KIOXIA–SANDISK JV",
+              desc:"Sandisk於2025年2月24日自WD分拆並在Nasdaq重新掛牌；與鎧俠在四日市、北上共享晶圓廠，2026年1月雙方將四日市合資協議延長至2034年底。鎧俠北上Fab2於2025年9月投產，2026年7月送樣332層第十代BiCS FLASH。",
+              companies:[{n:"鎧俠 Kioxia"},{n:"Sandisk",code:"SNDK"}],
+              stats:[] },
+            { icon:"icon-hbm", title:"原廠聚焦資料中心", sub:"PIVOT TO DATA CENTER",
+              desc:"美光於2025年12月宣布2026年2月停止Crucial消費性品牌，資源轉向資料中心與AI；SK海力士則在2021年以90億美元收購英特爾NAND業務並成立Solidigm，主攻大容量企業級SSD。",
+              companies:[{n:"美光 Micron",code:"MU"},{n:"SK海力士 SK hynix"},{n:"Solidigm"}],
+              stats:[] }
+          ] },
+        { icon:"icon-chip", title:"SSD控制晶片與企業級SSD", sub:"SSD CONTROLLERS & ENTERPRISE SSD",
+          desc:"控制晶片負責快閃記憶體的錯誤更正、磨損平均與PCIe介面，決定SSD的效能與壽命，台灣廠商在此具全球地位。群聯把業務重整為以AI生態系模組為首的五大類，2026年第一季營收與毛利率大幅躍升；慧榮科技則為總部位於台灣竹北、在Nasdaq掛牌的控制晶片大廠。",
+          companies:[{n:"群聯電子",tw:1,code:"8299"},{n:"慧榮科技",tw:1,code:"SIMO"}],
+          stats:[{v:"409.67億元",l:"群聯2026年Q1營收（年增196%）"},{v:"61.3%",l:"群聯2026年Q1毛利率"}],
+          children:[
+            { icon:"icon-chip", title:"群聯：企業級SSD與AI模組", sub:"PHISON PASCARI / aiDAPTIV",
+              desc:"群聯2026年5月法說會表示，AI生態系模組已占營收38%並為最大類別；企業級SSD品牌Pascari已以PB等級出貨兩家超大型資料中心客戶，首顆PCIe Gen6控制晶片完成開發，並稱目前訂單滿足率僅約三成出頭，供給相當吃緊。",
+              companies:[{n:"群聯電子",tw:1,code:"8299"}],
+              stats:[{v:"38%",l:"群聯AI生態系模組營收占比（2026年Q1）"}] },
+            { icon:"icon-ip", title:"慧榮：獨立控制晶片供應商", sub:"SILICON MOTION",
+              desc:"慧榮科技設計SSD、eMMC與隨身碟用NAND控制晶片，並以Shannon品牌經營企業級SSD；2023年MaxLinear終止對其收購案後維持獨立營運。公司為Nasdaq上市（SIMO），營運總部設於台灣竹北。",
+              companies:[{n:"慧榮科技",tw:1,code:"SIMO"}],
+              stats:[] }
+          ] },
+        { icon:"icon-server", title:"JBOF與儲存伺服器硬體", sub:"JBOF & STORAGE SERVERS",
+          desc:"把數十顆NVMe SSD集中在一台機箱、透過高速網路供GPU叢集存取的JBOF（Just a Bunch of Flash），是AI儲存的硬體底座。輝達BlueField-4 DPU把儲存處理搬到網卡上，台灣的營邦與廣達（雲達科技QCT）都名列輝達公布的BlueField-4 STX硬體夥伴。機殼與滑軌等結構件可參考[[server-mech]]。",
+          companies:[{n:"營邦",tw:1,code:"3693"},{n:"廣達",tw:1,code:"2382"},{n:"輝達 NVIDIA",code:"NVDA"}],
+          stats:[],
+          children:[
+            { icon:"icon-server", title:"營邦BlueField-4 JBOF", sub:"AIC F2032-G6",
+              desc:"營邦於CES 2026期間推出F2032-G6 2U JBOF，可搭載兩組或四組BlueField-4 DPU、支援ConnectX-9 SuperNIC，最多容納32顆E3.S/L NVMe SSD，原始容量上看8PB，鎖定輝達推論情境記憶體儲存平台。",
+              companies:[{n:"營邦",tw:1,code:"3693"}],
+              stats:[{v:"8PB",l:"F2032-G6單機原始容量上限"}] },
+            { icon:"icon-network", title:"DPU與ODM儲存節點", sub:"BLUEFIELD-4 NODES",
+              desc:"輝達2026年3月GTC發表BlueField-4 STX模組化參考架構，ODM夥伴包括AIC、Supermicro與廣達旗下雲達科技；媒體報導廣達推出S26F-2U高密度NVMe CMX伺服器。網卡與交換器細節見[[network-switch]]。",
+              companies:[{n:"輝達 NVIDIA",code:"NVDA"},{n:"廣達",tw:1,code:"2382"}],
+              stats:[] }
+          ] },
+        { icon:"icon-datacenter", title:"企業級儲存系統與資料平台", sub:"STORAGE SYSTEMS & DATA PLATFORMS",
+          desc:"儲存系統廠把SSD與HDD整合成可擴充的檔案、物件或區塊儲存，再加上資料管理軟體，供企業與雲端AI使用。傳統全快閃陣列廠正受惠超大型雲端客戶採用，而VAST Data、DDN、WEKA等AI原生平台則主打大規模平行存取；多數業者都已宣布支援輝達STX架構。",
+          companies:[{n:"Everpure（原Pure Storage）",code:"P"},{n:"NetApp",code:"NTAP"},{n:"HPE",code:"HPE"},{n:"VAST Data"},{n:"DDN"},{n:"WEKA"}],
+          stats:[{v:"12億美元",l:"Everpure FY27 Q2營收（年增38%）"}],
+          children:[
+            { icon:"icon-datacenter", title:"全快閃陣列上市公司", sub:"ALL-FLASH ARRAYS",
+              desc:"Everpure（原Pure Storage，紐約證交所代號P）8月宣布拿下第二家前五大超大型雲端業者的DirectFlash設計案，並將FY2027營收財測上調至50.3–50.7億美元。NetApp（NTAP）與HPE也分別推出AIDE資料引擎與Alletra MP X10000支援推論KV快取。",
+              companies:[{n:"Everpure（原Pure Storage）",code:"P"},{n:"NetApp",code:"NTAP"},{n:"HPE",code:"HPE"}],
+              stats:[{v:"50.3–50.7億美元",l:"Everpure FY2027營收財測（上調後）"}] },
+            { icon:"icon-generic", title:"AI原生資料平台", sub:"AI-NATIVE DATA PLATFORMS",
+              desc:"VAST Data、DDN、WEKA與MinIO以軟體定義架構服務GPU叢集，並各自推出KV快取方案，例如DDN Infinia、WEKA NeuralMesh與Augmented Memory Grid、MinIO AIStor可直接在BlueField-4上執行；多數產品預計2026下半年出貨。",
+              companies:[{n:"VAST Data"},{n:"DDN"},{n:"WEKA"},{n:"MinIO"}],
+              stats:[] }
+          ] },
+        { icon:"icon-hbm", title:"推論情境記憶體層", sub:"KV-CACHE CONTEXT MEMORY",
+          desc:"長上下文與多輪代理式AI會產生大量KV快取，GPU上的HBM放不下，便需要往外層儲存延伸。輝達在CES 2026提出推論情境記憶體儲存平台（後稱CMX），3月再推BlueField-4 STX參考架構，宣稱每秒token數最高可提升5倍，合作夥伴平台預計2026下半年上市。GPU與HBM背景見[[nvidia]]。",
+          companies:[{n:"輝達 NVIDIA",code:"NVDA"},{n:"CoreWeave",code:"CRWV"},{n:"甲骨文 Oracle",code:"ORCL"}],
+          stats:[{v:"最高5倍",l:"CMX每秒token數提升（輝達官方宣稱）"}],
+          tags:["nvidia"],
+          children:[
+            { icon:"icon-hbm", title:"G1–G4記憶體分層", sub:"MEMORY TIERING",
+              desc:"依輝達說明，KV快取依序落在G1（GPU HBM）、G2（伺服器CPU DRAM）、新設的G3.5（乙太網路連接NVMe快閃）與G4（外部網路儲存）。G3.5作為暫存層，被淘汰的資料再移往G4長期保存，由Dynamo框架與NIXL傳輸庫調度。",
+              companies:[{n:"輝達 NVIDIA",code:"NVDA"}],
+              stats:[] },
+            { icon:"icon-datacenter", title:"STX生態系與早期採用者", sub:"STX ECOSYSTEM",
+              desc:"輝達點名的STX儲存夥伴涵蓋Cloudian、DDN、Dell、Everpure、HPE、IBM、NetApp、VAST Data、WEKA等；早期採用的雲端與AI業者包括CoreWeave、Lambda、Nebius與甲骨文雲端（OCI）。GPU雲端業者動態見[[gpu-cloud]]。",
+              companies:[{n:"CoreWeave",code:"CRWV"},{n:"甲骨文 Oracle",code:"ORCL"},{n:"Everpure（原Pure Storage）",code:"P"},{n:"NetApp",code:"NTAP"}],
+              stats:[] }
+          ] }
+      ]
+    },
+
+"cloud-asic": {
+      name: "Meta／微軟／OpenAI自研晶片",
+      nameEn: "CUSTOM AI SILICON: META, MICROSOFT & OPENAI",
+      tags: ["cloud-asic", "custom-silicon", "asic", "ai-hardware", "ic-design", "eda-ip", "datacenter-cloud", "memory-supply-chain", "networking-interconnect", "semiconductor-supply-chain"],
+      lede: "除了Google與AWS，Meta、微軟與OpenAI也各自推進AI加速器自研計畫：Meta的MTIA已量產數十萬顆，微軟Maia 200於2026年初上線，OpenAI則與博通合作、預計2026年底前開始部署首款推論晶片。這些晶片由業者自行定義架構，再交由ASIC夥伴實作、台積電代工，並搭配HBM、乙太網路與液冷機櫃。本頁整理三大業者的產品路線與共用供應鏈；多數設計服務分工僅為媒體或法人說法，文中另行標註。",
+      updated: "2026年9月",
+      sources: [
+        "Meta－「Four MTIA Chips in Two Years: Scaling AI Experiences for Billions」 (2026-03-11)",
+        "Broadcom－「Broadcom Announces Extended Partnership with Meta to Deploy Technology to Support Multi-Gigawatts of Meta’s Custom Silicon, MTIA」 (2026-04-14)",
+        "Microsoft－「Maia 200: The AI accelerator built for inference」 (2026-01-26)",
+        "OpenAI－「OpenAI and Broadcom announce strategic collaboration to deploy 10 gigawatts of OpenAI-designed AI accelerators」 (2025-10-13)",
+        "OpenAI－「OpenAI and Broadcom unveil LLM-optimized inference chip」 (2026-06-24)",
+        "Broadcom－「Broadcom Inc. Announces Third Quarter Fiscal Year 2026 Financial Results and Quarterly Dividend」 (2026-09-02)",
+        "ServeTheHome－「Meta’s MTIA Custom AI Silicon at Hot Chips 2026」 (2026-08)",
+        "TrendForce－「Microsoft Unveils Maia 200 AI Chip on TSMC 3nm; SK hynix Reportedly Sole HBM3E Supplier」 (2026-01-27)",
+        "鉅亨網－「微軟Maia 300首波逾30萬顆、劍指100萬顆 台積電、創意ASIC供應鏈迎上修機會」 (2026-08-10)"
+      ],
+      disclaimer: "本頁面為公開資訊整理彙編，資料來源包括公司官方部落格、新聞稿、財報、法說會與財經媒體報導；標示為媒體報導、法人估計或市場傳聞者未經公司證實。內容僅供產業脈絡參考，不構成任何投資建議。",
+      nodes: [
+        { icon:"icon-chip", title:"Meta MTIA", parallelGroup:"asic-owners", sub:"META TRAINING & INFERENCE ACCELERATOR",
+          desc:"Meta官方部落格（2026年3月）表示，旗下已有數十萬顆MTIA晶片在線上處理內容與廣告的推論工作，並建立約每六個月推出一代新晶片的節奏，MTIA系列與博通密切合作開發。2026年4月博通宣布雙方延長合作至2029年，首波承諾逾1GW，首款部署為業界首顆2奈米AI運算加速器；博通執行長陳福陽同時卸任Meta董事、改任顧問。",
+          companies:[{n:"Meta",code:"META"},{n:"博通 Broadcom",code:"AVGO"},{n:"台積電",tw:1,code:"2330"},{n:"晶心科",tw:1,code:"6533"}],
+          stats:[{v:"數十萬顆",l:"MTIA在線量產部署規模（Meta官方，2026年3月）"},{v:">1GW",l:"Meta對博通首波MTIA部署承諾（博通新聞稿，2026年4月）"}],
+          tags:["custom-silicon", "asic"],
+          children:[
+            { icon:"icon-chip", title:"MTIA 100／200／300", sub:"PRODUCTION GENERATIONS",
+              desc:"MTIA 100、200已量產並用於排序與推薦推論；MTIA 300則投入推薦模型訓練，內建網路晶片小晶片。依2026年8月Hot Chips簡報報導，MTIA 300運算晶粒採3奈米、I/O晶粒採5奈米，搭配216GB HBM3e。",
+              companies:[{n:"Meta",code:"META"},{n:"博通 Broadcom",code:"AVGO"},{n:"台積電",tw:1,code:"2330"}],
+              stats:[{v:"約6個月",l:"Meta自述新一代MTIA推出節奏"}] },
+            { icon:"icon-server", title:"MTIA 400／450／500", sub:"GENAI INFERENCE ROADMAP",
+              desc:"後三代以生成式AI推論為主：MTIA 400在實驗室測試中，以72顆組成單一scale-up域；450與500分別排定2027年初與2027年，Meta稱三代共用同一機箱、機櫃與網路架構，從300到500運算量提升25倍。晶心科法說會提及其RISC-V核心用於Meta MTIA，細節可見[[server-ic]]。",
+              companies:[{n:"Meta",code:"META"},{n:"博通 Broadcom",code:"AVGO"},{n:"晶心科",tw:1,code:"6533"}],
+              stats:[{v:"25倍",l:"MTIA 300→500運算FLOPS提升（Meta官方）"}] }
+          ] },
+        { icon:"icon-chip", title:"微軟 Maia／Cobalt", parallelGroup:"asic-owners", sub:"MICROSOFT MAIA & COBALT",
+          desc:"微軟於2026年1月發表Maia 200推論加速器，採台積電3奈米、超過1,400億個電晶體，已在美國中部（愛荷華州）資料中心上線，用於OpenAI GPT-5.2模型與Microsoft 365 Copilot，官方稱每美元效能較現行硬體高30%。另有Arm架構的Cobalt系列伺服器CPU。Maia世代時程曾有延宕，詳見子項。",
+          companies:[{n:"微軟 Microsoft",code:"MSFT"},{n:"台積電",tw:1,code:"2330"},{n:"創意電子",tw:1,code:"3443"},{n:"世芯-KY",tw:1,code:"3661"},{n:"Marvell",code:"MRVL"}],
+          stats:[{v:"30%",l:"Maia 200每美元效能優於現行硬體（微軟官方）"}],
+          tags:["custom-silicon", "asic", "cpu"],
+          children:[
+            { icon:"icon-chip", title:"Maia 200／300 加速器", sub:"MAIA AI ACCELERATOR",
+              desc:"Maia 200每個托盤配置4顆晶片並採第二代閉迴路液冷，下一站為美西（鳳凰城）區域。媒體報導，Maia 200曾因設計變更延後約半年，前代Maia 100未達大規模量產。據The Information報導，後續Maia 300首波向台積電洽談逾30萬顆、2027年交貨，微軟主管回應報導數字未反映計畫全貌。",
+              companies:[{n:"微軟 Microsoft",code:"MSFT"},{n:"台積電",tw:1,code:"2330"}],
+              stats:[{v:"逾30萬顆",l:"Maia 300首波投片規模（媒體報導，未經公司證實）"}] },
+            { icon:"icon-chip", title:"Cobalt 伺服器CPU", sub:"COBALT ARM CPU",
+              desc:"Cobalt為微軟Arm架構自研CPU。媒體報導Cobalt 200於2025年Ignite發表，採台積電3奈米、132個Neoverse V3核心，已在Azure上線。設計服務分工說法不一：鉅亨網稱創意參與Cobalt與Maia專案，大摩報告則指世芯-KY負責Maia 200與Cobalt 200，兩家公司均未證實。",
+              companies:[{n:"微軟 Microsoft",code:"MSFT"},{n:"創意電子",tw:1,code:"3443"},{n:"世芯-KY",tw:1,code:"3661"}],
+              stats:[] }
+          ] },
+        { icon:"icon-chip", title:"OpenAI 自研加速器", parallelGroup:"asic-owners", sub:"OPENAI CUSTOM ACCELERATOR",
+          desc:"OpenAI與博通於2025年10月宣布合作，由OpenAI設計加速器與系統，博通負責開發部署並提供乙太網路、PCIe與光連接方案，目標部署10GW，2026下半年開始、2029年底前完成。2026年6月雙方發表首款推論晶片Jalapeño，預計2026年底前開始部署，微軟為資料中心合作夥伴之一。",
+          companies:[{n:"OpenAI"},{n:"博通 Broadcom",code:"AVGO"},{n:"Celestica",code:"CLS"},{n:"微軟 Microsoft",code:"MSFT"}],
+          stats:[{v:"10GW",l:"OpenAI與博通合作部署目標（2026下半年至2029年底）"}],
+          tags:["custom-silicon", "asic"],
+          children:[
+            { icon:"icon-chip", title:"Jalapeño 推論晶片", sub:"FIRST INTELLIGENCE PROCESSOR",
+              desc:"OpenAI稱Jalapeño專為大型語言模型推論設計，從設計到投片僅約九個月；博通負責晶片實作與Tomahawk網通晶片，Celestica負責板卡、機櫃與系統整合。官方稱工程樣品已執行正式工作負載，但未公開製程與記憶體規格。",
+              companies:[{n:"OpenAI"},{n:"博通 Broadcom",code:"AVGO"},{n:"Celestica",code:"CLS"}],
+              stats:[{v:"約9個月",l:"Jalapeño設計至投片週期（OpenAI官方）"}] },
+            { icon:"icon-foundry", title:"製程與後續世代", sub:"PROCESS ROADMAP (REPORTED)",
+              desc:"TrendForce引述工商時報報導，OpenAI首款晶片（代號Titan）採台積電N3製程，第二代規劃導入A16；報導並指出在其他大客戶已先預訂產能下，OpenAI的放量規模可能受限。以上均為媒體報導，未經公司證實。",
+              companies:[{n:"OpenAI"},{n:"台積電",tw:1,code:"2330"}],
+              stats:[] }
+          ] },
+        { icon:"icon-nre", title:"ASIC設計夥伴與IP", sub:"ASIC DESIGN PARTNERS & IP",
+          desc:"雲端業者通常自行定義晶片架構，再委由ASIC夥伴完成實體設計、IP整合與量產管理。國際上以博通、Marvell為主，台灣則有創意電子、世芯-KY等設計服務廠，以及提供RISC-V核心的晶心科；聯發科則被報導參與Google TPU，見[[google-tpu]]。IP與周邊晶片細節可參考[[server-ic]]。",
+          companies:[{n:"博通 Broadcom",code:"AVGO"},{n:"Marvell",code:"MRVL"},{n:"創意電子",tw:1,code:"3443"},{n:"世芯-KY",tw:1,code:"3661"},{n:"晶心科",tw:1,code:"6533"},{n:"聯發科",tw:1,code:"2454"}],
+          stats:[{v:"167億美元",l:"博通FY2026第三季AI半導體營收，年增221%（公司財報）"}],
+          tags:["ic-design", "eda-ip", "asic"],
+          children:[
+            { icon:"icon-turnkey", title:"美系ASIC大廠", sub:"BROADCOM & MARVELL",
+              desc:"博通FY2026第三季（至2026年8月2日）營收296億美元，並預估第四季AI半導體營收217億美元，公司稱客製化AI加速器與網通需求強勁，但未點名客戶；Meta與OpenAI則由雙方公開合作。Marvell參與微軟Maia系列為媒體報導。",
+              companies:[{n:"博通 Broadcom",code:"AVGO"},{n:"Marvell",code:"MRVL"}],
+              stats:[{v:"217億美元",l:"博通FY2026第四季AI半導體營收財測（公司財報）"}] },
+            { icon:"icon-nre", title:"台灣設計服務與IP", sub:"TAIWAN DESIGN SERVICES",
+              desc:"創意電子與世芯-KY主要承接先進製程ASIC的委託設計與量產（turnkey），市場多將兩家與微軟自研晶片連結，但分工說法不一且未經公司證實。晶心科法說會則表示，AI應用約占其營收四成，RISC-V核心已用於Meta MTIA，並稱合作產品已進展到第五代。",
+              companies:[{n:"創意電子",tw:1,code:"3443"},{n:"世芯-KY",tw:1,code:"3661"},{n:"晶心科",tw:1,code:"6533"}],
+              stats:[{v:"約40%",l:"晶心科2025年AI應用營收占比（公司法說）"}] }
+          ] },
+        { icon:"icon-foundry", title:"晶圓代工與先進封裝", sub:"FOUNDRY & ADVANCED PACKAGING",
+          desc:"三家業者的新一代加速器均集中在3奈米以下節點：微軟官方證實Maia 200由台積電3奈米生產，Meta MTIA 300據Hot Chips報導採3奈米運算晶粒，博通則表示Meta首款部署為2奈米加速器。先進製程與CoWoS產能分配是放量關鍵，詳見[[tsmc]]、[[cowos-equip]]與[[packaging-test]]。",
+          companies:[{n:"台積電",tw:1,code:"2330"}],
+          stats:[],
+          tags:["semiconductor-supply-chain"],
+          children:[
+            { icon:"icon-litho", title:"3奈米／2奈米投片", sub:"LEADING-EDGE NODES",
+              desc:"目前已公開或報導的節點包括：Maia 200採台積電3奈米（微軟官方）、MTIA 300採3奈米運算晶粒搭配5奈米I/O晶粒（Hot Chips報導），以及OpenAI首款晶片採台積電N3、次世代A16（媒體報導）。多數業者採小晶片（chiplet）設計，將運算與I/O拆分。",
+              companies:[{n:"台積電",tw:1,code:"2330"},{n:"Meta",code:"META"},{n:"微軟 Microsoft",code:"MSFT"},{n:"OpenAI"}],
+              stats:[] },
+            { icon:"icon-package", title:"產能爭奪", sub:"CAPACITY ALLOCATION",
+              desc:"據The Information報導，微軟正與台積電洽談Maia 300逾30萬顆產能，長期目標逾百萬顆；TrendForce引述報導亦指OpenAI在大客戶已先卡位下，放量可能受限。上述均為媒體報導，實際配置以公司公告為準。",
+              companies:[{n:"台積電",tw:1,code:"2330"},{n:"微軟 Microsoft",code:"MSFT"},{n:"OpenAI"}],
+              stats:[{v:"逾100萬顆",l:"微軟Maia長期產能目標（媒體報導，未經公司證實）"}] }
+          ] },
+        { icon:"icon-hbm", title:"HBM高頻寬記憶體", sub:"HIGH BANDWIDTH MEMORY",
+          desc:"推論晶片的效能瓶頸常在記憶體頻寬，各業者持續加大HBM容量。Maia 200搭載216GB HBM3E（微軟官方），MTIA 300同樣配置216GB HBM3e（Hot Chips報導）。韓國每日經濟新聞報導SK海力士為Maia 200唯一HBM3E供應商，未經微軟證實。HBM產業全貌見[[memory]]。",
+          companies:[{n:"SK海力士 SK hynix"}],
+          stats:[{v:"216GB",l:"Maia 200 HBM3E容量（微軟官方）"}],
+          tags:["memory-supply-chain"],
+          children:[
+            { icon:"icon-hbm", title:"微軟 Maia 記憶體配置", sub:"MAIA MEMORY",
+              desc:"Maia 200除216GB HBM3E外，另有272MB晶片內SRAM；TrendForce指出前代Maia 100僅配置64GB HBM2E，容量躍升顯示推論工作對記憶體的需求。HBM供應商身分僅見媒體報導。",
+              companies:[{n:"微軟 Microsoft",code:"MSFT"},{n:"SK海力士 SK hynix"}],
+              stats:[] },
+            { icon:"icon-hbm", title:"Meta MTIA 記憶體路線", sub:"MTIA MEMORY ROADMAP",
+              desc:"Meta官方表示，MTIA 450的HBM頻寬較400倍增，MTIA 500頻寬再提升50%、容量提升80%；從300到500，HBM頻寬合計提升4.5倍。Hot Chips報導MTIA 400配置8組HBM3e。Meta未公開HBM供應商。",
+              companies:[{n:"Meta",code:"META"}],
+              stats:[{v:"4.5倍",l:"MTIA 300→500 HBM頻寬提升（Meta官方）"}] }
+          ] },
+        { icon:"icon-server", title:"網通互連與機櫃整合", sub:"NETWORKING & RACK INTEGRATION",
+          desc:"自研晶片最終以整櫃形式部署。博通在Meta與OpenAI合作中同時提供交換器、光連接、PCIe交換器與SerDes；OpenAI的Jalapeño由Celestica負責機櫃整合。台系伺服器ODM與機櫃供應鏈請見[[ai-hardware]]，交換器與散熱分別見[[network-switch]]、[[thermal]]。",
+          companies:[{n:"博通 Broadcom",code:"AVGO"},{n:"Celestica",code:"CLS"}],
+          stats:[],
+          tags:["networking-interconnect", "system-integration", "thermal-cooling"],
+          children:[
+            { icon:"icon-network", title:"Scale-up／Scale-out 網路", sub:"ETHERNET FABRIC",
+              desc:"MTIA 400以交換式背板將72顆晶片組成單一scale-up域，Hot Chips報導其主機端採PCIe Gen6；微軟則表示Maia 200托盤內晶片以專屬scale-up頻寬直接互連。OpenAI則採用博通Tomahawk網通晶片。",
+              companies:[{n:"博通 Broadcom",code:"AVGO"},{n:"Meta",code:"META"},{n:"微軟 Microsoft",code:"MSFT"}],
+              stats:[{v:"72顆",l:"MTIA 400單一scale-up域晶片數（Meta官方）"}] },
+            { icon:"icon-datacenter", title:"機櫃與液冷", sub:"RACK & LIQUID COOLING",
+              desc:"Meta表示MTIA機櫃採氣冷輔助液冷（AALC），也支援機房液冷，並與OCP標準接軌；微軟Maia 200則採第二代閉迴路液冷熱交換單元。OpenAI公告指Celestica負責Jalapeño的板卡、機櫃與系統整合。",
+              companies:[{n:"Meta",code:"META"},{n:"微軟 Microsoft",code:"MSFT"},{n:"Celestica",code:"CLS"}],
+              stats:[] }
+          ] }
+      ]
+    },
+
+"amd": {
+      name: "AMD",
+      nameEn: "AMD AI & DATA CENTER SUPPLY CHAIN",
+      tags: ["amd", "ai-hardware", "cpu", "semiconductor-supply-chain", "memory-supply-chain", "networking-interconnect", "system-integration", "thermal-cooling", "datacenter-cloud"],
+      lede: "AMD正從「賣CPU與GPU晶片」轉向「交付整座AI機櫃」：以Instinct MI400系列GPU、第六代EPYC「Venice」處理器、Pensando網路晶片與ROCm軟體組成Helios機櫃，公司表示2026年下半年開始出貨。2026年第二季資料中心營收年增107%，並陸續與OpenAI、Meta、Anthropic、微軟、甲骨文簽下大型部署協議。本頁由晶片、代工、記憶體、封裝載板、機櫃製造、網路一路到客戶，整理AMD公開的供應鏈夥伴。",
+      updated: "2026年9月",
+      sources: [
+        "AMD－「AMD Announces More Than $10 Billion in Taiwan Ecosystem Investments to Accelerate AI Infrastructure」 (2026-05-21)",
+        "AMD－「AMD Reports Second Quarter 2026 Financial Results」 (2026-08-04)",
+        "AMD－「AAI 2026: AMD Delivers Full-Stack Compute for the Agentic AI Era」 (2026-07-23)",
+        "AMD－「AMD and Meta Announce Expanded Strategic Partnership to Deploy 6 Gigawatts of AMD GPUs」 (2026-02-24)",
+        "AMD－「AMD and OpenAI Announce Strategic Partnership to Deploy 6 Gigawatts of AMD GPUs」 (2025-10-06)",
+        "AMD－「AMD and Anthropic Announce Strategic Partnership to Deploy Up to 2 Gigawatts of AMD Instinct MI450 Series GPUs」 (2026-07-22)",
+        "Oracle－「Oracle and AMD Expand Partnership to Help Customers Achieve Next-Generation AI Scale」 (2025-10-14)",
+        "Samsung Semiconductor－「Samsung and AMD Expand Strategic Collaboration on Next-Generation AI Memory Solutions」 (2026-03-18)",
+        "Sanmina－「Sanmina Completes Acquisition of ZT Systems Data Center Infrastructure Manufacturing Business from AMD」 (2025-10-27)"
+      ],
+      disclaimer: "本頁面為公開資訊整理彙編，資料來源包括公司財報、官方新聞稿與財經媒體報導；標示為媒體報導者未經公司證實。內容僅供產業脈絡參考，不構成任何投資建議。",
+      nodes: [
+        { icon:"icon-chip", title:"AI晶片與軟體平台", sub:"INSTINCT GPU · EPYC CPU · ROCm",
+          desc:"AMD資料中心事業以Instinct GPU、EPYC伺服器CPU為核心，再以開源ROCm軟體串起開發者生態。公司2026年第二季財報顯示，資料中心營收達66億美元、年增107%，占總營收58%，成長主要來自AI加速器與伺服器CPU同步放量。",
+          companies:[{n:"AMD",code:"AMD"}],
+          stats:[{v:"66億美元",l:"2026年Q2資料中心營收（年增107%）"}],
+          children:[
+            { icon:"icon-chip", title:"Instinct GPU路線圖", sub:"MI400 / MI500 / MI600",
+              desc:"2026年推出的MI400家族包含Helios機櫃採用的MI455X、主攻高效能運算的MI430X，以及企業用MI350P。公司路線圖揭示MI500系列預計2027年推出、MI600系列排在2028年，維持約一年一代的節奏。",
+              companies:[{n:"AMD",code:"AMD"}],
+              stats:[] },
+            { icon:"icon-chip", title:"EPYC「Venice」伺服器CPU", sub:"6TH GEN EPYC",
+              desc:"第六代EPYC「Venice」最高256核心、支援PCIe Gen 6，每座Helios機櫃搭配18顆，負責GPU的資料調度。CPU架構與x86競爭格局詳見[[cpu]]；後續Verano、Ferrara分別對應Helios 500與Helios 600世代。",
+              companies:[{n:"AMD",code:"AMD"}],
+              stats:[] },
+            { icon:"icon-generic", title:"ROCm開源軟體", sub:"ROCM SOFTWARE STACK",
+              desc:"ROCm是AMD對標CUDA的開源GPU軟體堆疊，公司表示PyTorch、vLLM、SGLang等框架已支援MI455X，2026年並推出ROCm.ai，讓AI程式助理能理解AMD平台。與Anthropic的合作也納入加速ROCm開發的工程協作。",
+              companies:[{n:"AMD",code:"AMD"},{n:"Anthropic"}],
+              stats:[] }
+          ] },
+        { icon:"icon-foundry", title:"晶圓代工", parallelGroup:"amd-inputs", sub:"FOUNDRY",
+          desc:"AMD為無晶圓廠公司，先進製程晶片主要委由台積電生產；2025年4月公司宣布Venice是業界首款在台積電2奈米（N2）完成設計定案並點亮的HPC產品。晶圓代工產業細節見[[tsmc]]與[[wafer-fab]]。",
+          companies:[{n:"台積電",tw:1,code:"2330"},{n:"三星電子 Samsung Electronics",code:"005930.KS"}],
+          stats:[],
+          children:[
+            { icon:"icon-wafer", title:"台積電N2與美國廠", sub:"TSMC N2 & ARIZONA",
+              desc:"除了Venice採用N2製程，AMD同一份公告也表示，第五代EPYC已在台積電亞利桑那新廠完成產品驗證，呼應其在美國在地製造的布局。",
+              companies:[{n:"台積電",tw:1,code:"2330"}],
+              stats:[] },
+            { icon:"icon-foundry", title:"三星晶圓代工洽談", sub:"SAMSUNG FOUNDRY TALKS",
+              desc:"三星2026年3月與AMD簽署合作備忘錄時提到，雙方將探討由三星提供次世代產品代工服務的可能性。韓媒報導三星可能藉HBM供貨爭取部分AI晶片訂單，屬媒體報導，未經公司證實。",
+              companies:[{n:"三星電子 Samsung Electronics",code:"005930.KS"}],
+              stats:[] }
+          ] },
+        { icon:"icon-hbm", title:"HBM與伺服器記憶體", parallelGroup:"amd-inputs", sub:"HBM4 & DDR5",
+          desc:"大模型訓練高度仰賴GPU旁的高頻寬記憶體。依甲骨文2025年10月公告，MI450系列單顆GPU最高配置432GB HBM4、記憶體頻寬每秒20TB。三星已與AMD簽署合作備忘錄，成為次世代AI加速器的主要HBM4供應商。記憶體產業全貌見[[memory]]。",
+          companies:[{n:"三星電子 Samsung Electronics",code:"005930.KS"}],
+          stats:[{v:"432GB",l:"MI450系列單顆GPU HBM4上限"}],
+          children:[
+            { icon:"icon-hbm", title:"HBM4", sub:"HIGH BANDWIDTH MEMORY",
+              desc:"三星2026年3月宣布，雙方就MI455X所用的HBM4主要供應達成共識，該產品傳輸速度最高13Gbps。其他HBM廠商是否供貨AMD，目前未見公司公開證實。",
+              companies:[{n:"三星電子 Samsung Electronics",code:"005930.KS"}],
+              stats:[] },
+            { icon:"icon-hbm", title:"DDR5伺服器記憶體", sub:"DDR5 FOR VENICE",
+              desc:"同一份合作備忘錄也涵蓋三星為第六代EPYC「Venice」優化的高效能DDR5，Venice最高支援16通道MRDIMM，單機記憶體用量隨核心數增加。",
+              companies:[{n:"三星電子 Samsung Electronics",code:"005930.KS"},{n:"AMD",code:"AMD"}],
+              stats:[] }
+          ] },
+        { icon:"icon-package", title:"先進封裝與載板", sub:"ADVANCED PACKAGING & SUBSTRATES",
+          desc:"AMD於2026年5月宣布在台灣生態系投入逾100億美元，重點是擴大先進封裝產能與新型2.5D橋接互連（EFB）技術，並點名多家台灣封測與載板廠。新聞稿未提及CoWoS。封測與ABF載板細節見[[packaging-test]]、[[abf-substrate]]，設備面見[[cowos-equip]]。",
+          companies:[{n:"日月光",tw:1,code:"3711"},{n:"矽品",tw:1},{n:"力成",tw:1,code:"6239"},{n:"欣興",tw:1,code:"3037"},{n:"南電",tw:1,code:"8046"},{n:"景碩",tw:1,code:"3189"}],
+          stats:[{v:"逾100億美元",l:"AMD台灣生態系投資（2026年5月公告）"}],
+          children:[
+            { icon:"icon-package", title:"2.5D橋接互連封裝", sub:"EFB BRIDGE INTERCONNECT",
+              desc:"AMD與日月光、矽品合作開發並驗證晶圓級2.5D橋接技術；力成則完成公司所稱業界首個面板級EFB互連驗證。AMD表示Venice採用EFB 2.5D封裝以提升互連頻寬與能效。",
+              companies:[{n:"日月光",tw:1,code:"3711"},{n:"矽品",tw:1},{n:"力成",tw:1,code:"6239"}],
+              stats:[] },
+            { icon:"icon-substrate", title:"高階載板", sub:"HPC SUBSTRATES",
+              desc:"欣興、南電、景碩三家台灣載板廠列名AMD合作夥伴，提供高效能運算用載板並支援先進封裝放量，是晶片封裝前不可或缺的基礎材料。",
+              companies:[{n:"欣興",tw:1,code:"3037"},{n:"南電",tw:1,code:"8046"},{n:"景碩",tw:1,code:"3189"}],
+              stats:[] }
+          ] },
+        { icon:"icon-server", title:"Helios機櫃與系統製造", sub:"HELIOS RACK-SCALE SYSTEMS",
+          desc:"Helios依Meta在OCP提出的Open Rack Wide（ORW）雙寬機櫃規格設計，每櫃72顆MI455X與18顆Venice，採快拆式液冷；AMD表示2026年下半年開始出貨。系統製造方面，AMD先將ZT Systems製造業務出售給Sanmina，再於2026年5月點名緯穎、緯創、英業達等台廠參與。",
+          companies:[{n:"Sanmina",code:"SANM"},{n:"緯穎",tw:1,code:"6669"},{n:"緯創",tw:1,code:"3231"},{n:"英業達",tw:1,code:"2356"},{n:"營邦",tw:1,code:"3693"},{n:"HPE",code:"HPE"}],
+          stats:[{v:"72顆",l:"每座Helios機櫃GPU數"}],
+          children:[
+            { icon:"icon-turnkey", title:"機櫃製造與ODM", sub:"RACK MANUFACTURING & ODM",
+              desc:"Sanmina於2025年10月完成收購ZT Systems位於美國新澤西、德州的資料中心製造業務，成為AMD在美國的優先新產品導入夥伴。台廠緯穎、緯創、英業達則參與Helios系統組裝與整合；品牌伺服器端有HPE等OEM。",
+              companies:[{n:"Sanmina",code:"SANM"},{n:"緯穎",tw:1,code:"6669"},{n:"緯創",tw:1,code:"3231"},{n:"英業達",tw:1,code:"2356"},{n:"HPE",code:"HPE"}],
+              stats:[] },
+            { icon:"icon-gear", title:"機構與液冷設計", sub:"MECHANICAL & COOLING",
+              desc:"營邦列名AMD夥伴，協助機櫃層級與運算托盤的機構設計。Helios雙寬布局以供電、散熱與維修便利為考量，並採快拆式液冷；相關零組件見[[server-mech]]與[[thermal]]。",
+              companies:[{n:"營邦",tw:1,code:"3693"}],
+              stats:[] }
+          ] },
+        { icon:"icon-network", title:"網路互連", sub:"PENSANDO · UALINK · ULTRA ETHERNET",
+          desc:"AMD以收購而來的Pensando團隊自研網路晶片，Helios同時支援開放的機櫃內（scale-up）與機櫃間（scale-out）架構，採用UALink與超乙太網路聯盟（UEC）標準。公司路線圖已列出Helios 500、600世代的下一代Pensando晶片。交換器產業見[[network-switch]]。",
+          companies:[{n:"AMD",code:"AMD"},{n:"思科 Cisco",code:"CSCO"}],
+          stats:[],
+          children:[
+            { icon:"icon-network", title:"AI網卡與DPU", sub:"PENSANDO VULCANO & DPU",
+              desc:"依甲骨文公告，每顆MI450 GPU最多搭配三張800Gbps的Pensando「Vulcano」AI網卡。微軟Azure也部署Pensando DPU提供網路服務。沙烏地HUMAIN案則採用思科Silicon One交換器與800G光模組。",
+              companies:[{n:"AMD",code:"AMD"},{n:"思科 Cisco",code:"CSCO"}],
+              stats:[{v:"800Gbps",l:"Vulcano AI網卡單埠速率"}] },
+            { icon:"icon-interconnect", title:"機櫃內擴展互連", sub:"UALINK SCALE-UP",
+              desc:"Helios以UALink協定跑在UALoE（乙太網路承載）架構上，讓同櫃72顆GPU直接互連並共享記憶體，走開放標準路線，與輝達自有NVLink形成對照（見[[nvidia]]）。",
+              companies:[{n:"AMD",code:"AMD"}],
+              stats:[] }
+          ] },
+        { icon:"icon-datacenter", title:"主要客戶與部署協議", sub:"CUSTOMERS & DEALS",
+          desc:"2025年10月以來，AMD陸續宣布多項GW級GPU部署協議，客戶涵蓋AI模型公司、超大規模雲端與主權AI。其中OpenAI與Meta的合約都附帶最多1.6億股AMD股票的績效型認股權證，依出貨規模、股價與技術里程碑分批生效。GPU雲端業者生態見[[gpu-cloud]]。",
+          companies:[{n:"OpenAI"},{n:"Meta",code:"META"},{n:"Anthropic"},{n:"微軟 Microsoft",code:"MSFT"},{n:"甲骨文 Oracle",code:"ORCL"},{n:"HUMAIN"}],
+          stats:[],
+          children:[
+            { icon:"icon-datacenter", title:"GW級AI模型與平台客戶", sub:"GIGAWATT-SCALE AGREEMENTS",
+              desc:"OpenAI合約總量6GW，首批1GW的MI450預計2026下半年部署；Meta同為6GW，採為其工作負載客製的MI450，首批出貨同樣排在2026下半年。Anthropic最多2GW，首個GW自2027上半年起部署，AMD並承諾未來最多投資50億美元入股。",
+              companies:[{n:"OpenAI"},{n:"Meta",code:"META"},{n:"Anthropic"}],
+              stats:[{v:"6GW",l:"OpenAI、Meta協議各自上限"}] },
+            { icon:"icon-datacenter", title:"雲端與主權AI", sub:"CLOUD & SOVEREIGN AI",
+              desc:"甲骨文計畫自2026年第三季起部署5萬顆MI450；微軟將以Helios的MI455X支援推論服務，並推出Venice驅動的新款Azure虛擬機。沙烏地HUMAIN的MI355X已上線，下一階段自2027年起最多250MW，目標2030年達1GW。",
+              companies:[{n:"甲骨文 Oracle",code:"ORCL"},{n:"微軟 Microsoft",code:"MSFT"},{n:"HUMAIN"},{n:"思科 Cisco",code:"CSCO"}],
+              stats:[{v:"5萬顆",l:"甲骨文MI450首波部署規模"}] }
+          ] }
+      ]
+    },
+
+"edge-ai": {
+      name: "邊緣AI",
+      nameEn: "ON-DEVICE & EDGE AI",
+      tags: ["edge-ai", "ai-hardware", "ic-design", "cpu", "nvidia", "system-integration", "memory-supply-chain", "semiconductor-supply-chain"],
+      lede: "生成式AI不只在雲端資料中心運算，也逐步下放到筆電、手機、監控攝影機與機器人等終端裝置，由內建NPU的系統單晶片就地完成推論，兼顧延遲、隱私與電力成本。微軟為Copilot+ PC訂下NPU 40 TOPS以上、16GB記憶體的門檻，輝達則以Jetson Thor與RTX Spark把Blackwell架構帶進機器人與Windows筆電。本頁從終端AI晶片出發，串連台灣IC設計、工業電腦、筆電代工與品牌，整理2025–2026年的公開資訊。",
+      updated: "2026年9月",
+      sources: [
+        "Microsoft－「Windows 11 Specs and System Requirements」（Copilot+ PC硬體需求，2026年查閱）",
+        "NVIDIA Newsroom－「NVIDIA Blackwell-Powered Jetson Thor Now Available, Accelerating the Age of General Robotics」 (2025-08-25)",
+        "NVIDIA Newsroom－「NVIDIA and Microsoft Reinvent Windows PCs for the Age of Personal AI」 (2026-05-31)",
+        "Apple Newsroom－「Apple unleashes M5, the next big leap in AI performance for Apple silicon」 (2025-10-15)",
+        "Gartner－「Gartner Says Artificial Intelligence PCs Will Represent 31% of Worldwide PC Market by the End of 2025」 (2025-08-28)",
+        "方格子vocus－「2026/05/06 研華(2395.TW)法說會：Q1 EPS 3.85元，Edge AI強勁成長帶動營收創高」 (2026-05)",
+        "理財周刊－「Physical AI與邊緣AI雙引擎爆發 凌華(6166)營收創高」 (2026-07-23)",
+        "中國時報－「下半年筆電旺季不旺 仰賴AI撐盤」 (2026-08-14)",
+        "OmniXRI許哲豪（HackMD）－「2026 台灣 AI 晶片發展現況及未來挑戰」 (2026-03-06)"
+      ],
+      disclaimer: "本頁面為公開資訊整理彙編，資料來源包括公司官方新聞稿、法說會內容、研究機構報告與財經媒體報導；標示為研究機構預估、法人估計或媒體報導者未經公司證實，晶片規格亦以廠商公告為準並可能隨產品更新而變動。內容僅供產業脈絡參考，不構成任何投資建議。",
+      nodes: [
+        { icon:"icon-chip", title:"AI PC處理器與NPU", parallelGroup:"edge-silicon", sub:"AI PC SOCS WITH NPU",
+          desc:"AI PC的核心是把CPU、GPU與NPU整合在同一顆系統單晶片上，讓語音、影像與小型語言模型在本機運算。微軟官方規格要求Copilot+ PC的NPU須達每秒40兆次運算（40 TOPS）以上，目前名單涵蓋AMD、Intel與高通三家；蘋果則以自研M系列晶片走自己的路線。x86與Arm陣營的CPU競爭詳見[[cpu]]與[[amd]]分頁。",
+          companies:[{n:"Intel",code:"INTC"},{n:"AMD",code:"AMD"},{n:"高通 Qualcomm",code:"QCOM"},{n:"蘋果 Apple",code:"AAPL"},{n:"微軟 Microsoft",code:"MSFT"}],
+          stats:[{v:"40+ TOPS",l:"Copilot+ PC的NPU算力門檻（微軟官方規格）"}],
+          children:[
+            { icon:"icon-chip", title:"Windows陣營：Copilot+ PC認證平台", sub:"COPILOT+ PC QUALIFIED PROCESSORS",
+              desc:"依微軟Windows 11規格頁，符合Copilot+ PC資格的處理器包括AMD Ryzen AI 300與400系列、Intel Core Ultra 200V與300V系列，以及高通Snapdragon X系列；其中高通為Arm架構，其餘兩家為x86。",
+              companies:[{n:"AMD",code:"AMD"},{n:"Intel",code:"INTC"},{n:"高通 Qualcomm",code:"QCOM"},{n:"微軟 Microsoft",code:"MSFT"}],
+              stats:[] },
+            { icon:"icon-chip", title:"蘋果M5", sub:"APPLE SILICON M5",
+              desc:"蘋果2025年10月發表M5，採第三代3奈米製程，除16核心Neural Engine外，還在10核心GPU的每個核心內加入神經網路加速器；官方稱GPU峰值AI運算效能為M4的4倍以上，統一記憶體頻寬提升至153GB/s，首波搭載於14吋MacBook Pro、iPad Pro與Vision Pro。",
+              companies:[{n:"蘋果 Apple",code:"AAPL"}],
+              stats:[{v:"4倍以上",l:"M5相較M4的GPU峰值AI運算效能（蘋果官方）"}] }
+          ] },
+        { icon:"icon-chip", title:"Arm PC新勢力：RTX Spark", parallelGroup:"edge-silicon", sub:"NVIDIA × MEDIATEK RTX SPARK",
+          desc:"輝達與微軟在2026年5月31日發表RTX Spark超級晶片，以NVLink-C2C連接20核心Grace CPU與Blackwell RTX GPU，最高搭配128GB統一記憶體，官方宣稱可在本機執行1,200億參數的語言模型。CPU部分由聯發科參與共同設計，搭載的筆電與小型桌機預計2026年秋季上市。輝達整體布局見[[nvidia]]。",
+          companies:[{n:"輝達 NVIDIA",code:"NVDA"},{n:"聯發科",tw:1,code:"2454"},{n:"微軟 Microsoft",code:"MSFT"}],
+          stats:[{v:"128GB",l:"RTX Spark最高統一記憶體容量（輝達官方）"}],
+          children:[
+            { icon:"icon-ip", title:"聯發科：客製化CPU協同設計", sub:"CUSTOM CPU CO-DESIGN",
+              desc:"輝達新聞稿指出，聯發科協助RTX Spark的客製化CPU設計，貢獻能效、效能與連網能力；聯發科也另發新聞稿說明雙方合作。這延續了兩家公司在DGX Spark所用GB10超級晶片上的合作關係。",
+              companies:[{n:"聯發科",tw:1,code:"2454"},{n:"輝達 NVIDIA",code:"NVDA"}],
+              stats:[] },
+            { icon:"icon-device", title:"首波終端品牌", sub:"LAUNCH OEM PARTNERS",
+              desc:"依輝達公告，華碩、戴爾、惠普、聯想、微軟Surface與微星將在2026年秋季推出RTX Spark筆電與小型桌機，宏碁與技嘉隨後跟進；機種以14至16吋為主。台灣品牌的整體PC布局可參考[[cpu]]分頁。",
+              companies:[{n:"華碩",tw:1,code:"2357"},{n:"微星",tw:1,code:"2377"},{n:"宏碁",tw:1,code:"2353"},{n:"技嘉",tw:1,code:"2376"},{n:"微軟 Microsoft",code:"MSFT"}],
+              stats:[] }
+          ] },
+        { icon:"icon-device", title:"AI手機與行動SoC", parallelGroup:"edge-silicon", sub:"AI SMARTPHONE & MOBILE SOCS",
+          desc:"智慧型手機是出貨量最大的端側AI載具，旗艦SoC的NPU算力與記憶體容量同步升級，聯發科天璣與高通Snapdragon為安卓陣營兩大供應來源。聯發科在Computex 2026強調手機與平板可離線執行生成式AI，並把AI能力延伸到電視、車用座艙與物聯網平台。端側模型推高DRAM搭載量的影響，見[[memory]]分頁。",
+          companies:[{n:"聯發科",tw:1,code:"2454"},{n:"高通 Qualcomm",code:"QCOM"}],
+          stats:[],
+          children:[
+            { icon:"icon-chip", title:"旗艦手機晶片", sub:"FLAGSHIP MOBILE SOC",
+              desc:"聯發科天璣9500搭載NPU 990；產業專文整理其NPU算力約100 TOPS（非公司財報揭露數字）。高通Snapdragon則是另一主要旗艦平台供應商。",
+              companies:[{n:"聯發科",tw:1,code:"2454"},{n:"高通 Qualcomm",code:"QCOM"}],
+              stats:[] },
+            { icon:"icon-chip", title:"電視、車用與物聯網", sub:"TV, AUTO & IoT PLATFORMS",
+              desc:"聯發科2026年5月發表的Computex新聞稿列出Pentonic 800 AI電視晶片、整合輝達AI技術的天璣AX C-X1智慧座艙平台，以及Genio物聯網系列；產業專文整理Genio系列NPU算力約0.35至10 TOPS。",
+              companies:[{n:"聯發科",tw:1,code:"2454"},{n:"輝達 NVIDIA",code:"NVDA"}],
+              stats:[] }
+          ] },
+        { icon:"icon-chip", title:"台灣邊緣AI晶片設計", parallelGroup:"edge-silicon", sub:"TAIWAN EDGE AI IC DESIGN",
+          desc:"監控攝影機、門鈴、家電與工業感測器不需要高算力，重點在低功耗與低成本，台灣IC設計業者多從既有的影像處理、Wi-Fi與微控制器產品線加掛NPU切入。以下規格整理自產業專文與公司官網，實際出貨規模多未單獨揭露。",
+          companies:[{n:"聯詠科技",tw:1,code:"3034"},{n:"瑞昱半導體",tw:1,code:"2379"},{n:"奇景光電 Himax",code:"HIMX"},{n:"新唐",tw:1,code:"4919"},{n:"耐能 Kneron"}],
+          stats:[],
+          children:[
+            { icon:"icon-chip", title:"影像監控AI SoC", sub:"AI VISION SOC",
+              desc:"聯詠的NT98692瞄準8K邊緣運算攝影機、NPU約6.4 TOPS，NT98530用於4K監控、約2.0 TOPS；瑞昱AmebaPRO2（RTL8735B）則結合Wi-Fi與約0.4 TOPS的NPU，鎖定影像串流類IoT裝置。以上數字依產業專文整理。",
+              companies:[{n:"聯詠科技",tw:1,code:"3034"},{n:"瑞昱半導體",tw:1,code:"2379"}],
+              stats:[{v:"6.4 TOPS",l:"聯詠NT98692 NPU算力（產業專文整理）"}] },
+            { icon:"icon-chip", title:"超低功耗MCU與獨立NPU", sub:"TINYML MCU & STANDALONE NPU",
+              desc:"奇景WiseEye2（HX6538）與新唐M55M1都採Arm Cortex-M55搭配Ethos-U55微型NPU，適合常時開啟的影像辨識。未上市的耐能主打獨立NPU，CES 2026展出KL730開發板與KneoEdge邊緣伺服器產品線，KL1140則強調可在終端執行Mamba架構模型。",
+              companies:[{n:"奇景光電 Himax",code:"HIMX"},{n:"新唐",tw:1,code:"4919"},{n:"耐能 Kneron"}],
+              stats:[] }
+          ] },
+        { icon:"icon-server", title:"工業邊緣AI電腦與模組", parallelGroup:"edge-systems", sub:"INDUSTRIAL EDGE AI COMPUTERS",
+          desc:"工廠、醫療、物流與機器人現場需要耐環境、可長期供貨的AI運算設備，工業電腦廠把輝達Jetson等模組做成載板、Box PC與開發套件。輝達2025年8月推出Blackwell架構的Jetson Thor，台廠研華、凌華已陸續推出Thor平台產品，並在2026年法說中揭露邊緣AI成長。機器人應用詳見[[robot]]。",
+          companies:[{n:"研華",tw:1,code:"2395"},{n:"凌華科技",tw:1,code:"6166"},{n:"輝達 NVIDIA",code:"NVDA"}],
+          stats:[{v:"20.5%",l:"研華2026Q1 Edge AI營收占比（公司法說）"}],
+          children:[
+            { icon:"icon-chip", title:"輝達Jetson Thor", sub:"JETSON THOR PLATFORM",
+              desc:"輝達2025年8月25日宣布Jetson Thor開始供貨，開發套件起價3,499美元；搭載Blackwell GPU與128GB記憶體，功耗130瓦，官方稱AI算力為Jetson Orin的7.5倍、能效為3.5倍。首波採用者包括Agility Robotics、Boston Dynamics、Figure等機器人公司。",
+              companies:[{n:"輝達 NVIDIA",code:"NVDA"}],
+              stats:[{v:"7.5倍",l:"Jetson Thor相較Orin的AI算力（輝達官方）"},{v:"US$3,499",l:"Jetson AGX Thor開發套件起價"}] },
+            { icon:"icon-server", title:"研華與凌華", sub:"ADVANTECH & ADLINK",
+              desc:"研華2026年第一季營收203.85億元、年增17%，法說揭露Edge AI營收1.32億美元、占比20.5%，目標全年拉高到三成，並已推出Jetson Thor機器人開發套件。凌華已推出搭載Jetson Thor與IGX Thor的邊緣AI平台，2026年第二季營收44.59億元、年增52.3%。",
+              companies:[{n:"研華",tw:1,code:"2395"},{n:"凌華科技",tw:1,code:"6166"}],
+              stats:[{v:"30%",l:"研華2026年Edge AI營收占比目標（公司法說）"}] }
+          ] },
+        { icon:"icon-device", title:"AI PC代工與品牌", parallelGroup:"edge-systems", sub:"NOTEBOOK ODMS & BRANDS",
+          desc:"AI PC的組裝仍集中在台灣筆電代工廠，品牌端則有華碩、宏碁、微星、技嘉等台廠。2026年零組件漲價使品牌客戶在上半年提前備貨，媒體報導下半年筆電旺季不旺，代工廠多以AI伺服器業務彌補；伺服器代工細節見[[ai-hardware]]，PC品牌概況見[[cpu]]。",
+          companies:[{n:"廣達",tw:1,code:"2382"},{n:"仁寶",tw:1,code:"2324"},{n:"英業達",tw:1,code:"2356"},{n:"華碩",tw:1,code:"2357"},{n:"宏碁",tw:1,code:"2353"},{n:"微星",tw:1,code:"2377"},{n:"技嘉",tw:1,code:"2376"}],
+          stats:[],
+          children:[
+            { icon:"icon-device", title:"筆電ODM", sub:"NOTEBOOK ODM",
+              desc:"依媒體報導的法說內容，廣達2026年第二季筆電出貨1,150萬台、季增15%，第三季預期季減逾兩成、全年雙位數衰退；仁寶表示AI PC已占筆電出貨約五成；英業達預估全年筆電出貨持平至小幅衰退，但零組件漲價使營收仍可成長。",
+              companies:[{n:"廣達",tw:1,code:"2382"},{n:"仁寶",tw:1,code:"2324"},{n:"英業達",tw:1,code:"2356"}],
+              stats:[{v:"約50%",l:"仁寶AI PC占筆電出貨比重（媒體報導之公司說法，2026）"}] },
+            { icon:"icon-device", title:"台灣PC品牌", sub:"TAIWAN PC BRANDS",
+              desc:"華碩與微星名列RTX Spark首波上市品牌，宏碁與技嘉隨後跟進；華碩、宏碁也在微軟Copilot+ PC的早期機種名單中。",
+              companies:[{n:"華碩",tw:1,code:"2357"},{n:"宏碁",tw:1,code:"2353"},{n:"微星",tw:1,code:"2377"},{n:"技嘉",tw:1,code:"2376"}],
+              stats:[] }
+          ] },
+        { icon:"icon-generic", title:"終端市場與規格門檻", sub:"END MARKET & SPEC REQUIREMENTS",
+          desc:"AI PC滲透率快速提升，但PC總量在2026年受零組件成本壓抑。規格面上，Copilot+ PC要求16GB DDR5／LPDDR5記憶體與256GB SSD／UFS儲存，RTX Spark更可配到128GB統一記憶體，單機記憶體搭載量明顯上修，相關供應鏈見[[memory]]與[[storage]]。",
+          companies:[{n:"微軟 Microsoft",code:"MSFT"},{n:"廣達",tw:1,code:"2382"},{n:"仁寶",tw:1,code:"2324"}],
+          stats:[{v:"54.7%",l:"2026年AI PC占全球PC比重（Gartner 2025年8月預估）"}],
+          children:[
+            { icon:"icon-generic", title:"AI PC滲透率預估", sub:"AI PC PENETRATION FORECAST",
+              desc:"Gartner於2025年8月預估，AI PC在2025年底將占全球PC市場31%、約7,780萬台，2026年進一步升至54.7%、約1.43億台。此為研究機構預估，非實際出貨統計。",
+              companies:[],
+              stats:[{v:"1.43億台",l:"2026年AI PC出貨量（Gartner預估）"}] },
+            { icon:"icon-hbm", title:"記憶體與儲存門檻", sub:"MEMORY & STORAGE FLOOR",
+              desc:"微軟規格頁列出Copilot+ PC須配備16GB DDR5或LPDDR5記憶體及256GB SSD或UFS。媒體報導仁寶經營層預估2026下半年整體PC市場將年減15%至17%，主因零組件成本上漲抑制需求。",
+              companies:[{n:"微軟 Microsoft",code:"MSFT"},{n:"仁寶",tw:1,code:"2324"}],
+              stats:[{v:"16GB",l:"Copilot+ PC最低記憶體（微軟官方規格）"}] }
+          ] }
+      ]
+    },
+
+"sic-gan": {
+      name: "第三代半導體",
+      nameEn: "SIC & GAN POWER SEMICONDUCTORS",
+      tags: ["sic-gan", "power-thermal", "semiconductor-supply-chain", "ai-hardware", "nvidia", "datacenter-cloud"],
+      lede: "碳化矽（SiC）與氮化鎵（GaN）屬寬能隙材料，能以更小的體積承受更高電壓、切換更快、損耗更低，是電動車高壓平台與AI資料中心800V直流供電的關鍵元件。2025至2026年產業版圖快速重組：Wolfspeed完成破產重整、台積電宣布兩年內退出GaN代工、世界先進取得台積電GaN技術授權、漢磊衝刺8吋SiC量產。本頁由基板、代工、元件一路整理到電源系統，聚焦台廠的位置。",
+      updated: "2026年9月",
+      sources: [
+        "NVIDIA Technical Blog－「NVIDIA 800 VDC Architecture Will Power the Next Generation of AI Factories」 (2025-05-20)",
+        "Navitas（SEC 8-K附件新聞稿）－「Navitas' GaN and SiC technologies have been selected by NVIDIA」 (2025-05-21)",
+        "onsemi－「onsemi Collaborates with NVIDIA to Accelerate Transition to 800 VDC Power Solutions」 (2025-07-29)",
+        "Wolfspeed－「Wolfspeed Successfully Completes Financial Restructuring, Emerges as Financially Stronger Company」 (2025-09-29)",
+        "新浪財經－「天岳先进正式登陆港交所，开盘涨超12%」 (2025-08-20)",
+        "工商時報－「台積電證實 逐步退出氮化鎵市場」 (2025-07-03)",
+        "科技新報－「世界先進與台積電簽署 GaN 技術授權！今年初啟動開發作業、2028 上半年量產」 (2026-01-28)",
+        "自由財經－「漢磊：8吋碳化矽預計下半年量產」 (2026-06-11)",
+        "MoneyDJ理財網－「強茂AI/車用並進，MOSFET營收拚五年內翻逾3倍」 (2026-04-02)"
+      ],
+      disclaimer: "本頁面為公開資訊整理彙編，資料來源包括公司官方新聞稿、股東會與法說會資訊及財經媒體報導；標示為媒體報導或法人估計者未經公司證實。內容僅供產業脈絡參考，不構成任何投資建議。",
+      nodes: [
+        { icon:"icon-power", title:"需求驅動：高壓化浪潮", sub:"WHY WIDE-BANDGAP",
+          desc:"相較傳統矽元件，SiC適合數百伏以上的高壓大電流場合，GaN則擅長高頻、小體積的電源轉換。兩大需求推升用量：電動車800V平台（詳見[[ev]]），以及AI機櫃功率攀升後的800V直流供電（電網與機房配電詳見[[power-grid]]、[[dc-energy]]）。輝達2025年5月技術部落格表示，800 VDC資料中心的全面量產將配合2027年的Kyber機櫃系統。",
+          companies:[{n:"輝達 NVIDIA",code:"NVDA"},{n:"台達電",tw:1,code:"2308"},{n:"光寶科",tw:1,code:"2301"}],
+          stats:[{v:"2027年",l:"輝達800 VDC資料中心全面量產時點（公司技術部落格）"}],
+          children:[
+            { icon:"icon-datacenter", title:"AI資料中心800 VDC", sub:"800 VDC AI FACTORY",
+              desc:"輝達稱改採800 VDC後，端到端電力效率最高可提升5%，銅材用量較415 VAC配電減少45%。其公布的合作名單中，晶片供應商包括英飛凌、英諾賽科、納微、安森美、瑞薩、羅姆、意法、德儀等，電源系統元件則有台達電與光寶科。",
+              companies:[{n:"輝達 NVIDIA",code:"NVDA"},{n:"英飛凌 Infineon"},{n:"安森美 onsemi",code:"ON"},{n:"納微半導體 Navitas",code:"NVTS"},{n:"英諾賽科 Innoscience"},{n:"台達電",tw:1,code:"2308"},{n:"光寶科",tw:1,code:"2301"}],
+              stats:[{v:"45%",l:"800 VDC較415 VAC減少的銅材用量（輝達說法）"}] },
+            { icon:"icon-battery", title:"電動車高壓平台", sub:"EV HIGH-VOLTAGE PLATFORM",
+              desc:"逆變器與車載充電器是SiC最早放量的應用，車用二極體、SiC元件等台廠布局已整理於[[ev]]與[[tesla]]頁籤，本頁不重複；此處僅提示：本頁上游的基板與代工廠，多同時服務車用與資料中心兩類客戶。",
+              companies:[{n:"朋程",tw:1,code:"8255"},{n:"強茂",tw:1,code:"2481"}],
+              stats:[] }
+          ] },
+        { icon:"icon-ingot", title:"SiC晶錠與基板", sub:"SIC CRYSTAL & SUBSTRATES",
+          desc:"SiC晶體成長難度高，基板是元件的起點，業界主流尺寸正由6吋走向8吋。國際上Wolfspeed在2025年完成財務重整，中國天岳先進則於同年赴港二次掛牌；台灣以盛新材料等廠投入晶錠與基板，環球晶等矽晶圓廠的SiC布局可參考[[power-grid]]。",
+          companies:[{n:"Wolfspeed",code:"WOLF"},{n:"天岳先進 SICC"},{n:"盛新材料",tw:1},{n:"環球晶",tw:1,code:"6488"}],
+          stats:[],
+          children:[
+            { icon:"icon-wafer", title:"國際基板大廠", sub:"GLOBAL SUBSTRATE LEADERS",
+              desc:"Wolfspeed公告於2025年9月29日完成重整，總負債降低約七成、到期日延至2030年，重整後新股仍於紐約證交所以WOLF交易，並以美國垂直整合的8吋產線為成長主軸。天岳先進2025年8月於港交所掛牌，招股引用弗若斯特沙利文資料，以2024年營收計為全球前三大SiC基板廠。",
+              companies:[{n:"Wolfspeed",code:"WOLF"},{n:"天岳先進 SICC"}],
+              stats:[{v:"約70%",l:"Wolfspeed重整後總負債降幅（公司公告）"},{v:"16.7%",l:"天岳先進2024年SiC基板營收市占（弗若斯特沙利文）"}] },
+            { icon:"icon-slice", title:"台灣晶錠與基板", sub:"TAIWAN SIC SUBSTRATES",
+              desc:"盛新材料位於桃園中壢，官網列出6吋與8吋導電型（N型）SiC基板與晶錠，以及4至6吋半絕緣型基板，分別對應功率元件與射頻元件。環球晶、合晶等矽晶圓廠亦跨入SiC材料，相關整理見[[power-grid]]。",
+              companies:[{n:"盛新材料",tw:1},{n:"環球晶",tw:1,code:"6488"},{n:"合晶",tw:1,code:"6182"}],
+              stats:[] }
+          ] },
+        { icon:"icon-foundry", title:"SiC磊晶與元件代工", parallelGroup:"foundry-types", sub:"SIC EPITAXY & FOUNDRY",
+          desc:"多數IC設計公司與部分IDM會把SiC磊晶與前段製程外包。台灣以漢磊集團為核心：嘉晶負責磊晶，漢磊負責元件代工，並與世界先進合作建置8吋SiC產線。漢磊2026年股東會表示，8吋產線預計當年下半年進入商業量產，瞄準AI伺服器電源、HPC與車用。",
+          companies:[{n:"漢磊",tw:1,code:"3707"},{n:"嘉晶",tw:1,code:"3016"},{n:"世界先進",tw:1,code:"5347"}],
+          stats:[],
+          children:[
+            { icon:"icon-deposit", title:"SiC／GaN磊晶", sub:"EPITAXY",
+              desc:"嘉晶為漢磊轉投資的磊晶廠，位於元件製造的前一站。漢磊在2026年股東會強調，將結合嘉晶的上游材料優勢，發揮集團整合的服務價值，由磊晶延伸到晶圓代工。",
+              companies:[{n:"嘉晶",tw:1,code:"3016"},{n:"漢磊",tw:1,code:"3707"}],
+              stats:[] },
+            { icon:"icon-furnace", title:"8吋SiC代工產線", sub:"200MM SIC FOUNDRY",
+              desc:"世界先進2024年9月以約24.8億元認購漢磊私募、取得約13%股權，雙方合作8吋SiC晶圓代工。漢磊2026年6月表示新產線仍在試產驗證、下半年商業量產；受消費性與工控需求疲弱、折舊與研發費用偏高影響，公司仍處虧損。",
+              companies:[{n:"漢磊",tw:1,code:"3707"},{n:"世界先進",tw:1,code:"5347"}],
+              stats:[{v:"24.8億元",l:"世界先進認購漢磊私募金額（2024年9月）"}] }
+          ] },
+        { icon:"icon-foundry", title:"GaN代工版圖重組", parallelGroup:"foundry-types", sub:"GAN FOUNDRY RESHUFFLE",
+          desc:"2025年7月台積電證實將在兩年內逐步退出GaN業務，理由是市場狀況與長期策略，並稱不影響財務目標；依大客戶納微向美國證管會的揭露，完全退出時點為2027年7月。原有客戶因此轉單，台灣的力積電與世界先進成為主要承接者，GaN代工重心由6吋移往8吋。",
+          companies:[{n:"台積電",tw:1,code:"2330"},{n:"力積電",tw:1,code:"6770"},{n:"世界先進",tw:1,code:"5347"},{n:"納微半導體 Navitas",code:"NVTS"}],
+          stats:[{v:"2027年7月",l:"台積電完全退出GaN業務時點（納微揭露）"}],
+          children:[
+            { icon:"icon-chip", title:"台積電退場與力積電承接", sub:"TSMC EXIT & PSMC",
+              desc:"媒體報導台積電GaN產線位於晶圓五廠，6吋月產能約3,000至4,000片，業界估計納微投片占一半以上；退出後該廠將轉作先進封裝。納微已轉向與力積電合作8吋矽基GaN，媒體視力積電為最大受惠者，實際訂單規模未經公司證實。",
+              companies:[{n:"台積電",tw:1,code:"2330"},{n:"力積電",tw:1,code:"6770"},{n:"納微半導體 Navitas",code:"NVTS"}],
+              stats:[] },
+            { icon:"icon-ip", title:"世界先進取得GaN授權", sub:"VIS GAN LICENSE",
+              desc:"世界先進2026年1月28日宣布與台積電簽署授權，內容涵蓋650V高壓與80V低壓GaN製程，將在8吋平台上開發，2026年初啟動、2028年上半年量產。公司規劃結合既有GaN-on-QST技術，產品線延伸至1200V，鎖定資料中心、車用、工控與能源管理。",
+              companies:[{n:"世界先進",tw:1,code:"5347"},{n:"台積電",tw:1,code:"2330"}],
+              stats:[{v:"2028上半年",l:"世界先進授權GaN製程量產目標（公司公告）"}] }
+          ] },
+        { icon:"icon-chip", title:"國際功率元件大廠", parallelGroup:"device-makers", sub:"GLOBAL POWER DEVICE MAKERS",
+          desc:"SiC與GaN元件市場由歐美日IDM主導，英飛凌、安森美、意法、羅姆、瑞薩等同時經營矽基與寬能隙產品；GaN則另有納微、英諾賽科等專業廠。這些公司多數已列入輝達800 VDC合作名單，競爭焦點由車用擴大到AI機櫃電源。伺服器主機板上的矽基供電晶片請見[[server-ic]]。",
+          companies:[{n:"英飛凌 Infineon"},{n:"安森美 onsemi",code:"ON"},{n:"意法半導體 STMicroelectronics",code:"STM"},{n:"羅姆 ROHM"},{n:"瑞薩電子 Renesas"},{n:"德州儀器 Texas Instruments",code:"TXN"},{n:"納微半導體 Navitas",code:"NVTS"},{n:"英諾賽科 Innoscience"}],
+          stats:[],
+          children:[
+            { icon:"icon-power", title:"SiC與矽基IDM", sub:"SIC & SILICON IDMS",
+              desc:"安森美2025年7月宣布與輝達合作推動800 VDC，提供矽與SiC元件，應用涵蓋固態變壓器、電源供應器、800 VDC配電與核心供電，並搭配監控方案。英飛凌、意法、羅姆等亦在輝達公布的晶片夥伴之列。",
+              companies:[{n:"安森美 onsemi",code:"ON"},{n:"英飛凌 Infineon"},{n:"意法半導體 STMicroelectronics",code:"STM"},{n:"羅姆 ROHM"},{n:"瑞薩電子 Renesas"}],
+              stats:[] },
+            { icon:"icon-device", title:"GaN專業元件廠", sub:"GAN SPECIALISTS",
+              desc:"納微2025年5月宣布獲輝達選為800 VDC合作夥伴，同時提供GaNFast氮化鎵功率IC與GeneSiC碳化矽元件，並展示效率達98%的8.5kW資料中心電源。英諾賽科總部在蘇州、2024年底於港交所掛牌，採8吋矽基GaN自有產線，也名列輝達晶片合作夥伴。",
+              companies:[{n:"納微半導體 Navitas",code:"NVTS"},{n:"英諾賽科 Innoscience"}],
+              stats:[{v:"98%",l:"納微8.5kW AI資料中心電源效率（公司新聞稿）"}] }
+          ] },
+        { icon:"icon-device", title:"台灣功率元件廠", parallelGroup:"device-makers", sub:"TAIWAN POWER DEVICE MAKERS",
+          desc:"台灣分離式功率元件廠過去以二極體、矽基MOSFET為主，近年陸續布局SiC等第三代半導體產品，爭取AI伺服器電源與車用訂單。車用二極體與強茂SiC的車用進度已見[[ev]]，此處聚焦公司自己揭露的新目標。",
+          companies:[{n:"強茂",tw:1,code:"2481"},{n:"茂矽",tw:1,code:"2342"},{n:"朋程",tw:1,code:"8255"}],
+          stats:[],
+          children:[
+            { icon:"icon-chip", title:"強茂：MOSFET與SiC", sub:"PANJIT",
+              desc:"強茂2026年4月提出「55計畫」，以AI與車用為雙主軸，目標在2026至2030年間把MOSFET營收由約1.5億美元拉高到5億美元，並表示受客戶需求與競爭對手轉單帶動，訂單能見度已看到下半年。",
+              companies:[{n:"強茂",tw:1,code:"2481"}],
+              stats:[{v:"5億美元",l:"強茂2030年MOSFET營收目標（公司55計畫）"}] },
+            { icon:"icon-device", title:"茂矽：轉型第三代半導體", sub:"MOSEL VITELIC",
+              desc:"媒體報導茂矽近四季仍為虧損，公司規劃第三代半導體產品於下半年小量量產，並以AI電源為題材吸引市場關注；股價波動大、當沖比重高，實際營收貢獻仍待觀察。",
+              companies:[{n:"茂矽",tw:1,code:"2342"}],
+              stats:[] }
+          ] },
+        { icon:"icon-transformer", title:"電源系統與應用端", sub:"POWER SYSTEMS & APPLICATIONS",
+          desc:"SiC與GaN元件最終裝進伺服器電源、機櫃配電、固態變壓器與車用電控。輝達800 VDC名單中，台達電與光寶科列為電源系統元件夥伴，伊頓、施耐德、Vertiv則負責機房電力系統；各廠詳細產品與財務請見[[dc-energy]]與[[power-grid]]。",
+          companies:[{n:"台達電",tw:1,code:"2308"},{n:"光寶科",tw:1,code:"2301"},{n:"伊頓 Eaton"},{n:"施耐德電機 Schneider Electric"},{n:"Vertiv"}],
+          stats:[],
+          children:[
+            { icon:"icon-server", title:"AI伺服器電源", sub:"SERVER PSU",
+              desc:"機櫃功率升高後，電源供應器須在有限空間內提高功率密度與效率，GaN與SiC成為提升效率的選項，例如納微即以GaN與SiC元件展示8.5kW伺服器電源。台達電、光寶科均列入輝達800 VDC電源元件合作夥伴。",
+              companies:[{n:"台達電",tw:1,code:"2308"},{n:"光寶科",tw:1,code:"2301"}],
+              stats:[] },
+            { icon:"icon-grid", title:"機房配電與固態變壓器", sub:"DC POWER & SST",
+              desc:"800 VDC架構下，固態變壓器與直流配電都需要高壓功率元件；安森美即將其SiC產品定位於此。伊頓、施耐德、Vertiv為輝達名單中的機房電力系統夥伴，詳見[[dc-energy]]。",
+              companies:[{n:"伊頓 Eaton"},{n:"施耐德電機 Schneider Electric"},{n:"Vertiv"},{n:"安森美 onsemi",code:"ON"}],
+              stats:[] }
+          ] }
+      ]
+    },
+
+"gpu-cloud": {
+      name: "GPU雲端與資料中心營運",
+      nameEn: "GPU CLOUD & AI DATA CENTER OPERATORS",
+      tags: ["gpu-cloud", "datacenter-cloud", "ai-hardware", "nvidia", "system-integration"],
+      lede: "AI伺服器出貨之後，真正把GPU變成可計費算力的是雲端與資料中心營運商：雲端巨頭與甲骨文OCI自建園區，CoreWeave、Nebius等「新雲」以長約出租算力，機房業者提供電力與空間，背後則有以合約與GPU為擔保的龐大融資。本頁由資金與機房出發，整理營運商類型、台灣主權AI專案，以及OpenAI、Meta等需求端已公開的合約，數據以2025–2026年公司揭露為主。",
+      updated: "2026年9月",
+      sources: [
+        "CoreWeave－「CoreWeave Reports Strong Second Quarter 2026 Results」 (2026-08-11)",
+        "Nebius－「Nebius Group Letter to shareholders Q2 2026」 (2026-08-12)",
+        "Oracle－「Oracle Announces Record Q4 and FY 2026 Results Driven by Cloud Infrastructure & Cloud Applications」 (2026-06-10)",
+        "OpenAI－「Stargate advances with 4.5 GW partnership with Oracle」 (2025-07-22)",
+        "Tom's Hardware－「Oracle and OpenAI's Abilene expansion saga detailed」 (2026-03-10)",
+        "Bloomberg（Yahoo Finance轉載）－「AI Cloud Provider Lambda in Talks for $3 Billion Pre-IPO Round」 (2026-08-25)",
+        "中央社－「鴻海明年在台打造27兆瓦GB300資料中心 拚主權AI」 (2025-11-21)",
+        "國網中心－「國網中心最新AI超級電腦「晶創26（Nano4）」正式上線」 (2026-06-01)",
+        "富果直送－「是方法說會重點內容備忘錄 20260806」 (2026-08-06)"
+      ],
+      disclaimer: "本頁面為公開資訊整理彙編，資料來源包括公司財報、法說會、官方新聞稿、百科資料與財經媒體報導；標示為媒體報導或法人估計者未經公司證實。內容僅供產業脈絡參考，不構成任何投資建議。",
+      nodes: [
+        { icon:"icon-generic", title:"GPU融資與租賃", sub:"GPU FINANCING & LEASING",
+          desc:"GPU叢集動輒數十億美元，營運商很少全數以自有資金支應，常見做法是以長期客戶合約或GPU本身為擔保舉債、向晶片供應商或策略投資人引入股權，並要求客戶預付款。這套模式讓新雲能快速擴張，但也使負債規模與客戶集中度成為觀察重點。",
+          companies:[{n:"CoreWeave",code:"CRWV"},{n:"Nebius",code:"NBIS"},{n:"甲骨文 Oracle",code:"ORCL"},{n:"輝達 NVIDIA",code:"NVDA"}],
+          stats:[],
+          children:[
+            { icon:"icon-generic", title:"合約與硬體擔保貸款", sub:"ASSET-BACKED & DDTL",
+              desc:"CoreWeave早在2023年即以H100 GPU為擔保取得23億美元融資；2026年2月再以Meta合約為擔保取得85億美元額度，並於第二季完成31億美元公開聯貸的延遲提款定期貸款。Nebius則於2026年7月取得7.75億美元資產擔保融資，利率為SOFR加2.5%。",
+              companies:[{n:"CoreWeave",code:"CRWV"},{n:"Nebius",code:"NBIS"}],
+              stats:[{v:"約351億美元",l:"CoreWeave 2026年第二季末總負債規模（公開資料整理）"}] },
+            { icon:"icon-generic", title:"供應商入股與客戶預付", sub:"VENDOR EQUITY & PREPAYMENTS",
+              desc:"輝達於2026年1月以每股87.2美元投資CoreWeave 20億美元，3月再宣布投資Nebius 20億美元。Nebius致股東信預期2026年客戶預付款逾90億美元；甲骨文2026財年則合計募集約430億美元債務與50億美元股權，並預期2027財年再募集約400億美元。",
+              companies:[{n:"輝達 NVIDIA",code:"NVDA"},{n:"CoreWeave",code:"CRWV"},{n:"Nebius",code:"NBIS"},{n:"甲骨文 Oracle",code:"ORCL"}],
+              stats:[{v:">90億美元",l:"Nebius預期2026年客戶預付款（公司致股東信）"}] }
+          ] },
+        { icon:"icon-datacenter", title:"機房託管與批發型資料中心", sub:"COLOCATION & WHOLESALE DC",
+          desc:"不少GPU雲並非自蓋機房，而是向託管業者承租電力與空間。AI機櫃功耗與重量遠高於傳統伺服器，機房必須升級水冷、配電與承重能力，電力取得則是擴張的最大瓶頸，詳見[[dc-energy]]與[[thermal]]。",
+          companies:[{n:"Equinix",code:"EQIX"},{n:"Digital Realty",code:"DLR"},{n:"是方",tw:1,code:"6561"}],
+          stats:[],
+          children:[
+            { icon:"icon-datacenter", title:"國際託管業者", sub:"GLOBAL COLOCATION",
+              desc:"Equinix與Digital Realty為美股代表性的資料中心不動產業者，提供零售型託管與整棟批發租賃。以實例來看，Nebius在法國巴黎的GPU叢集即設於Equinix機房之內。",
+              companies:[{n:"Equinix",code:"EQIX"},{n:"Digital Realty",code:"DLR"},{n:"Nebius",code:"NBIS"}],
+              stats:[] },
+            { icon:"icon-datacenter", title:"台灣託管機房", sub:"TAIWAN COLOCATION",
+              desc:"是方法說會表示，2024年6月啟用的聯雲（LY2）機房支援水冷、單櫃最高150kW，以因應輝達等高階AI伺服器需求，銷售率已近九成；第四座中科雲林虎尾機房預計2026年第四季動工、2028年營運。2026上半年營收約20.26億元、EPS 7.57元。",
+              companies:[{n:"是方",tw:1,code:"6561"}],
+              stats:[{v:"150kW",l:"是方LY2機房單櫃最高電力密度（公司法說）"},{v:"7.57元",l:"是方2026上半年EPS（公司法說）"}] }
+          ] },
+        { icon:"icon-server", title:"雲端巨頭", parallelGroup:"operators", sub:"HYPERSCALERS",
+          desc:"微軟、Google、Amazon與Meta是全球AI算力最大的建置者，既自建園區、採購輝達GPU，也推動自研加速器，相關內容請見[[aws]]、[[google-tpu]]與[[cloud-asic]]。當自建速度跟不上需求時，巨頭也會向新雲承租算力，形成「自建＋外購」並行的模式。",
+          companies:[{n:"微軟 Microsoft",code:"MSFT"},{n:"Google",code:"GOOGL"},{n:"Amazon",code:"AMZN"},{n:"Meta",code:"META"},{n:"輝達 NVIDIA",code:"NVDA"}],
+          stats:[],
+          children:[
+            { icon:"icon-chip", title:"自建與自研", sub:"SELF-BUILD & CUSTOM SILICON",
+              desc:"雲端巨頭同時經營GPU執行個體與自研晶片（如Google TPU與AWS自研晶片），自研比重愈高，對單一GPU供應商的依賴愈低。晶片與伺服器供應鏈細節分見[[google-tpu]]、[[aws]]、[[cloud-asic]]與[[ai-hardware]]。",
+              companies:[{n:"Google",code:"GOOGL"},{n:"Amazon",code:"AMZN"},{n:"微軟 Microsoft",code:"MSFT"},{n:"Meta",code:"META"}],
+              stats:[] },
+            { icon:"icon-network", title:"向新雲外購算力", sub:"CAPACITY OFFTAKE",
+              desc:"CoreWeave上市文件揭露，微軟占其2024年營收逾六成；Nebius在2026年第二季致股東信中表示，對微軟與Meta的算力交付持續進行，第二份Meta合約預計2027年初開始交付。",
+              companies:[{n:"微軟 Microsoft",code:"MSFT"},{n:"Meta",code:"META"},{n:"CoreWeave",code:"CRWV"},{n:"Nebius",code:"NBIS"}],
+              stats:[{v:">60%",l:"微軟占CoreWeave 2024年營收比重（上市文件）"}] }
+          ] },
+        { icon:"icon-datacenter", title:"甲骨文OCI與星際之門", parallelGroup:"operators", sub:"ORACLE OCI & STARGATE",
+          desc:"甲骨文以OCI切入大型AI訓練叢集，並成為OpenAI「星際之門」（Stargate）的主要基礎設施夥伴。星際之門於2025年1月宣布，目標四年內在美國投入5,000億美元、建置10GW算力，軟銀為核心夥伴之一。",
+          companies:[{n:"甲骨文 Oracle",code:"ORCL"},{n:"OpenAI"},{n:"軟銀 SoftBank"},{n:"Crusoe"},{n:"輝達 NVIDIA",code:"NVDA"}],
+          stats:[],
+          children:[
+            { icon:"icon-server", title:"OCI營運數據", sub:"OCI FINANCIALS",
+              desc:"甲骨文公告2026財年第四季（截至2026年5月）OCI營收58億美元、年增93%，全年181億美元、年增77%；剩餘履約義務（RPO）達6,380億美元，較前一季增加850億美元，顯示長約需求龐大但仍待逐年認列。",
+              companies:[{n:"甲骨文 Oracle",code:"ORCL"}],
+              stats:[{v:"6,380億美元",l:"甲骨文2026財年Q4末RPO（公司財報）"},{v:"+93%",l:"OCI 2026財年Q4營收年增率（公司財報）"}] },
+            { icon:"icon-datacenter", title:"星際之門園區", sub:"STARGATE SITES",
+              desc:"OpenAI於2025年7月宣布與甲骨文追加4.5GW美國算力；德州Abilene園區由Crusoe開發，規劃1.2GW、八棟建物，2025年起陸續交付GB200機櫃。媒體報導（Tom's Hardware，2026年3月）指出，原規劃的600MW擴建租約已取消，但4.5GW整體協議仍照進度推進。",
+              companies:[{n:"甲骨文 Oracle",code:"ORCL"},{n:"OpenAI"},{n:"Crusoe"},{n:"軟銀 SoftBank"}],
+              stats:[{v:"4.5GW",l:"OpenAI與甲骨文2025年7月追加算力協議（OpenAI公告）"}] }
+          ] },
+        { icon:"icon-server", title:"新雲 Neocloud", parallelGroup:"operators", sub:"NEOCLOUDS",
+          desc:"新雲專注出租GPU算力，以大型長約鎖定客戶後再擴建機房，成長速度遠高於傳統雲端，但資本密集、客戶集中度高。目前美股掛牌的代表為CoreWeave與Nebius，Lambda、Crusoe、Nscale等仍屬未上市公司。",
+          companies:[{n:"CoreWeave",code:"CRWV"},{n:"Nebius",code:"NBIS"},{n:"Lambda"},{n:"Crusoe"},{n:"Nscale"}],
+          stats:[],
+          children:[
+            { icon:"icon-server", title:"已上市新雲", sub:"LISTED NEOCLOUDS",
+              desc:"CoreWeave 2025年3月於那斯達克上市，2026年第二季營收25.75億美元、年增112%，季末在手訂單約1,040億美元，啟用電力1.5GW、簽約電力約3.7GW。Nebius第二季營收5.82億美元、年增454%，年化營收30億美元，2026年簽約電力目標上修至5GW。",
+              companies:[{n:"CoreWeave",code:"CRWV"},{n:"Nebius",code:"NBIS"}],
+              stats:[{v:"約1,040億美元",l:"CoreWeave 2026年6月底營收積壓（公司財報）"},{v:"30億美元",l:"Nebius 2026年6月底ARR（公司致股東信）"}] },
+            { icon:"icon-generic", title:"未上市新雲", sub:"PRIVATE NEOCLOUDS",
+              desc:"據彭博2026年8月報導（未經公司證實），Lambda洽談以120億美元以上估值募資最多30億美元，最快2027年上市；Crusoe同樣洽談募資30億美元；英國Nscale則傳尋求最多30億美元的IPO。三家目前皆未掛牌，時程仍有變數。",
+              companies:[{n:"Lambda"},{n:"Crusoe"},{n:"Nscale"},{n:"輝達 NVIDIA",code:"NVDA"}],
+              stats:[] }
+          ] },
+        { icon:"icon-datacenter", title:"台灣主權AI與AI工廠", parallelGroup:"operators", sub:"TAIWAN SOVEREIGN AI",
+          desc:"台灣的算力建置由國家隊與民間並行：國網中心建置公用超級電腦，鴻海與輝達打造企業級AI工廠，華碩旗下台智雲則承接算力代工與租用。伺服器組裝與零組件供應鏈請見[[ai-hardware]]與[[nvidia]]。",
+          companies:[{n:"鴻海",tw:1,code:"2317"},{n:"台智雲",tw:1,code:"7735"},{n:"華碩",tw:1,code:"2357"},{n:"是方",tw:1,code:"6561"},{n:"輝達 NVIDIA",code:"NVDA"}],
+          stats:[],
+          children:[
+            { icon:"icon-server", title:"鴻海AI工廠", sub:"FOXCONN AI FACTORY",
+              desc:"鴻海2025年科技日宣布與輝達合作，2025年11月已布建4個GB200機櫃，2026年上半年將在台灣部署27MW的GB300資料中心，定位為台灣最大AI超級運算中心；2024年雙方亦宣布在高雄建置先進算力中心，預計2026年完工。",
+              companies:[{n:"鴻海",tw:1,code:"2317"},{n:"輝達 NVIDIA",code:"NVDA"}],
+              stats:[{v:"27MW",l:"鴻海規劃2026上半年在台部署GB300資料中心（公司科技日）"}] },
+            { icon:"icon-server", title:"台智雲與國網中心", sub:"TAIWAN AI CLOUD & NCHC",
+              desc:"國網中心「晶創26」採NVIDIA H200、每台8張GPU，2026年7月起正式收費營運。華碩旗下台智雲2026年5月登錄興櫃，2025年營收25.83億元、轉虧為盈；媒體報導其客戶包括台積電、鴻海、緯創與國網中心，並拓展日本、越南與中東市場。",
+              companies:[{n:"台智雲",tw:1,code:"7735"},{n:"華碩",tw:1,code:"2357"},{n:"台積電",tw:1,code:"2330"},{n:"鴻海",tw:1,code:"2317"},{n:"緯創",tw:1,code:"3231"}],
+              stats:[{v:"25.83億元",l:"台智雲2025年營收（MoneyDJ報導）"}] }
+          ] },
+        { icon:"icon-chip", title:"需求端：AI模型公司", sub:"DEMAND: AI LABS",
+          desc:"算力最終買單者是訓練與推論大型模型的公司。前沿實驗室多同時向多家雲端與新雲簽長約，以分散供應風險；這些合約金額直接反映在營運商的在手訂單與融資能力上。以下僅列公開揭露的合約。",
+          companies:[{n:"OpenAI"},{n:"Anthropic"},{n:"Meta",code:"META"},{n:"微軟 Microsoft",code:"MSFT"}],
+          stats:[],
+          children:[
+            { icon:"icon-chip", title:"OpenAI", sub:"OPENAI",
+              desc:"OpenAI除了主導星際之門、與甲骨文簽下4.5GW協議，並持續使用微軟雲端服務；2025年3月另與CoreWeave簽訂約120億美元、為期五年的算力合約，並在CoreWeave上市時認購3.5億美元股權。",
+              companies:[{n:"OpenAI"},{n:"CoreWeave",code:"CRWV"},{n:"甲骨文 Oracle",code:"ORCL"},{n:"微軟 Microsoft",code:"MSFT"}],
+              stats:[{v:"約120億美元",l:"OpenAI與CoreWeave五年期合約（2025年3月）"}] },
+            { icon:"icon-chip", title:"Meta與Anthropic", sub:"META & ANTHROPIC",
+              desc:"據公開資料整理，Meta於2026年4月與CoreWeave擴大合作約210億美元，CoreWeave並以Meta合約為擔保融資；Meta亦向Nebius採購算力。Anthropic則於2026年4月與CoreWeave簽訂多年期輝達GPU算力協議，用於Claude推論。",
+              companies:[{n:"Meta",code:"META"},{n:"Anthropic"},{n:"CoreWeave",code:"CRWV"},{n:"Nebius",code:"NBIS"}],
+              stats:[{v:"約210億美元",l:"Meta與CoreWeave 2026年4月擴大合作規模（公開資料整理）"}] }
+          ] }
       ]
     }
 };
@@ -8322,10 +9821,10 @@
      不好閱讀。新增分頁時，把 key 加進對應分組即可；沒有被任何分組
      收錄的 key 會自動落入最後的「其他」分組，不會漏掉。 */
   var SWITCHER_GROUPS = [
-    { label: "晶圓製造與封測", keys: ["wafer-fab","facility","tsmc","packaging-test","abf-substrate"] },
-    { label: "系統廠與雲端客戶", keys: ["ai-hardware","nvidia","apple","google-tpu","aws","cpu"] },
-    { label: "關鍵零組件與材料", keys: ["pcb","memory","passive","thermal","photonics"] },
-    { label: "新興應用與基礎設施", keys: ["robot","power-grid","leo-satellite","ev","tesla"] }
+    { label: "晶圓製造與封測", keys: ["wafer-fab","facility","tsmc","packaging-test","cowos-equip","abf-substrate"] },
+    { label: "系統廠與雲端客戶", keys: ["ai-hardware","nvidia","apple","google-tpu","aws","amd","cloud-asic","cpu","server-ic","network-switch"] },
+    { label: "關鍵零組件與材料", keys: ["pcb","memory","passive","thermal","photonics","server-mech","connector","storage","sic-gan"] },
+    { label: "新興應用與基礎設施", keys: ["robot","power-grid","dc-energy","gpu-cloud","edge-ai","leo-satellite","ev","tesla"] }
   ];
 
   /* ============================================================
@@ -8367,6 +9866,8 @@
     for (; fs >= 12; fs -= 1){
       var best = null, bestScore = Infinity;
       for (var i=1;i<str.length;i++){
+        // 不要把英數字單字從中間拆開（例如 CoWoS、DAC）
+        if (/[A-Za-z0-9]/.test(str[i-1]) && /[A-Za-z0-9]/.test(str[i])) continue;
         var left = str.slice(0,i), right = str.slice(i);
         var lw = textWidth(left, fs), rw = textWidth(right, fs);
         if (lw<=maxWidth && rw<=maxWidth){
@@ -8448,9 +9949,9 @@
   }
 
   function renderMeta(ind){
-    ledeEl.textContent = ind.lede;
+    ledeEl.textContent = linkifyTabsPlain(ind.lede);
     metaEl.innerHTML = '<span>資料彙整：'+ind.updated+'</span><span><span class="dot"></span>節點反白＝台灣供應鏈廠商佔重要地位</span>';
-    sourcesEl.innerHTML = ind.sources.map(function(s){ return "<li>"+s+"</li>"; }).join("");
+    sourcesEl.innerHTML = ind.sources.map(function(s){ return "<li>"+linkifyTabsPlain(s)+"</li>"; }).join("");
     disclaimerEl.textContent = ind.disclaimer;
   }
 
@@ -8545,9 +10046,29 @@
     });
   }
 
+  /* 文字內的 [[產業key]] 轉成可點擊的跨頁籤連結（找不到該頁籤則顯示原字串） */
+  function linkifyTabs(text){
+    return String(text||"").replace(/\[\[([a-z0-9-]+)\]\]/g, function(m, key){
+      if(!INDUSTRIES[key]) return m;
+      return '<button type="button" class="inline-tab-link" data-goto-tab="'+key+'">「'+escapeHtml(INDUSTRIES[key].name)+'」頁籤 →</button>';
+    });
+  }
+  function linkifyTabsPlain(text){
+    return String(text||"").replace(/\[\[([a-z0-9-]+)\]\]/g, function(m, key){
+      return INDUSTRIES[key] ? '「'+INDUSTRIES[key].name+'」頁籤' : m;
+    });
+  }
+  document.addEventListener("click", function(e){
+    var btn = e.target.closest && e.target.closest("[data-goto-tab]");
+    if(!btn) return;
+    selectIndustry(btn.getAttribute("data-goto-tab"));
+    setTimeout(function(){
+      document.getElementById("switcher").scrollIntoView({ behavior:"smooth", block:"start" });
+    }, 30);
+  });
   function descHtml(desc){
     return (desc||"").split(/\n\n+/).map(function(p){
-      return '<p class="panel-desc">'+p+'</p>';
+      return '<p class="panel-desc">'+linkifyTabs(p)+'</p>';
     }).join("");
   }
   function chipsHtmlFor(companies){
