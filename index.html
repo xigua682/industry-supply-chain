@@ -355,6 +355,48 @@
   .macro-contrib-exc{ font-size:.77rem; color:var(--copper-ink); line-height:1.7; margin-top:.25rem; }
   .macro-note{ font-size:.72rem; color:var(--ink-faint); line-height:1.7; margin-top:.9rem; }
   @media (max-width:760px){ .macro-card{ padding:1rem; } .macro-drivers{ grid-template-columns:1fr; } }
+  .macro-toggle-row{ display:flex; align-items:center; gap:.45rem; flex-wrap:wrap; margin-top:.5rem; }
+  .macro-toggle-label{ font-size:.68rem; color:var(--ink-faint); }
+  .macro-toggle{ display:inline-flex; border:1px solid var(--line-strong); border-radius:8px; overflow:hidden; }
+  .macro-toggle-btn{ font-family:inherit; font-size:.72rem; padding:.22rem .5rem; border:none; background:var(--surface); color:var(--ink-soft); cursor:pointer; }
+  .macro-toggle-btn + .macro-toggle-btn{ border-left:1px solid var(--line-strong); }
+  .macro-toggle-btn:hover{ color:var(--copper-ink); background:var(--copper-soft); }
+  .macro-toggle-btn.is-on{ background:var(--copper); color:var(--badge-ink); font-weight:700; }
+  .macro-toggle-btn:focus-visible{ outline:2px solid var(--copper); outline-offset:-2px; }
+  .macro-toggle-hint{ font-size:.68rem; color:var(--ink-faint); line-height:1.5; margin-top:.3rem; }
+
+  /* ---------- knowledge cards（知識卡） ---------- */
+  .know-card{ background:var(--surface); border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow); padding:1.2rem 1.3rem 1.1rem; margin-bottom:1.2rem; }
+  .know-card[hidden]{ display:none; }
+  .know-eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:.68rem; letter-spacing:.12em; color:var(--copper); font-weight:600; }
+  .know-title{ margin:.2rem 0 0; font-size:1.15rem; font-weight:800; }
+  .know-caption{ margin:.35rem 0 0; color:var(--ink-soft); font-size:.88rem; line-height:1.65; max-width:74ch; }
+  .kc-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:.55rem; margin-top:.9rem; }
+  .kc-head{ display:flex; flex-direction:column; gap:.2rem; text-align:left; width:100%; height:100%; padding:.7rem .8rem; border:1px solid var(--line); border-radius:12px; background:var(--surface-2); color:var(--ink); font-family:inherit; cursor:pointer; transition:border-color .15s ease, background .15s ease; }
+  .kc-head:hover{ border-color:var(--copper); background:var(--copper-soft); }
+  .kc-head:focus-visible{ outline:2px solid var(--copper); outline-offset:2px; }
+  .kc-head[aria-expanded="true"]{ border-color:var(--copper); background:var(--copper-soft); }
+  .kc-h-title{ font-size:.88rem; font-weight:800; line-height:1.35; }
+  .kc-h-sub{ font-family:'IBM Plex Mono',monospace; font-size:.6rem; letter-spacing:.08em; color:var(--ink-faint); }
+  .kc-h-summary{ font-size:.73rem; color:var(--ink-faint); line-height:1.5; margin-top:.15rem; }
+  .kc-body{ margin-top:.95rem; border-top:1px dashed var(--line-strong); padding-top:.9rem; }
+  .kc-body-title{ font-size:1rem; font-weight:800; margin:0; }
+  .kc-body-sub{ font-family:'IBM Plex Mono',monospace; font-size:.64rem; letter-spacing:.08em; color:var(--ink-faint); margin-top:.1rem; }
+  .kc-sec{ margin-top:.75rem; }
+  .kc-sec-h{ font-size:.86rem; font-weight:800; color:var(--copper-ink); }
+  .kc-sec-t{ font-size:.86rem; color:var(--ink-soft); line-height:1.8; margin:.2rem 0 0; }
+  .kc-table-wrap{ margin-top:.85rem; overflow-x:auto; }
+  .kc-table{ width:100%; border-collapse:collapse; font-size:.8rem; min-width:420px; }
+  .kc-table caption{ text-align:left; font-size:.72rem; color:var(--ink-faint); padding-bottom:.35rem; font-family:'IBM Plex Mono',monospace; letter-spacing:.06em; }
+  .kc-table th, .kc-table td{ border:1px solid var(--line); padding:.45rem .6rem; text-align:left; vertical-align:top; line-height:1.6; }
+  .kc-table th{ background:var(--surface-2); font-weight:700; white-space:nowrap; }
+  .kc-table td:first-child{ font-weight:700; white-space:nowrap; }
+  .kc-terms{ margin:.85rem 0 0; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(255px,1fr)); gap:.5rem; }
+  .kc-term{ background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:.55rem .65rem; }
+  .kc-term dt{ font-size:.82rem; font-weight:800; }
+  .kc-term dd{ margin:.2rem 0 0; font-size:.78rem; color:var(--ink-soft); line-height:1.65; }
+  .kc-source{ margin-top:.8rem; font-size:.72rem; color:var(--ink-faint); line-height:1.6; }
+  @media (max-width:760px){ .know-card{ padding:1rem; } .kc-grid{ grid-template-columns:1fr; } }
 
   footer{ margin-top:2.2rem; padding-top:1.4rem; border-top:1px solid var(--line); }
   .sources-label{ font-family:'IBM Plex Mono',monospace; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:.5rem; }
@@ -388,6 +430,8 @@
   <section class="scene-card" id="sceneCard" hidden aria-label="系統示意圖"></section>
 
   <section class="macro-card" id="macroCard" hidden aria-label="總經傳導模擬"></section>
+
+  <section class="know-card" id="knowCard" hidden aria-label="知識卡"></section>
 
   <div class="diagram-card">
     <div class="diagram-scroll">
@@ -8284,19 +8328,26 @@
       name: "總經傳導",
       nameEn: "MACRO TRANSMISSION MAP",
       tags: ["macro"],
-      lede: "把利率往上拉，債券價格為什麼下跌？美元走強時黃金為什麼通常跟著弱？這一頁把總體經濟裡最常被問到的幾條傳導鏈拆開：上方的拉條可以自己調整政策利率、美元、油價、通膨與就業數據，圖上會即時標出每個環節的方向與強度，點任一個節點或結果，會說明背後的理由，以及這條規則什麼時候會失靈。下方十個主題則是這些傳導背後的完整邏輯。",
+      lede: "把利率往上拉，債券價格為什麼下跌？美元走強時黃金為什麼通常跟著弱？這一頁把總體經濟裡最常被問到的傳導鏈拆開：上方八根拉條可以自己調整政策利率、美元、油價、通膨、就業、風險偏好、財政赤字與Fed資產負債表，圖上會即時標出每個環節的方向與強度，點任一個節點或結果，會說明背後的理由，以及這條規則什麼時候會失靈。下方另有知識卡（數據定義、FOMC結構、曲線四階段、每月數據日曆、名詞速查）與十四個主題，補完這些傳導背後的完整邏輯。",
       updated: "2026年9月",
       sources: [
         "Federal Reserve《Statement on Longer-Run Goals and Monetary Policy Strategy》（2%通膨目標之官方定義）",
-        "Federal Reserve 官網：FOMC 組成與投票權、準備金餘額利率(IORB)與隔夜逆回購(ON RRP)操作說明",
-        "FRED 資料序列：T10Y2Y（10年減2年利差）、DFII10（10年期抗通膨債券殖利率）、T10YIE（10年期損益兩平通膨率）",
+        "Federal Reserve 官網：FOMC 會議行事曆（2026、2027 年各 8 次會議，3／6／9／12 月附經濟預測摘要SEP與點陣圖）、FOMC 組成與投票權、準備金餘額利率(IORB)與隔夜逆回購(ON RRP)操作說明",
+        "Federal Reserve《Policy Normalization》頁面：FOMC 於 2025 年 10 月 29 日宣布結束縮表，2025 年 12 月 1 日起停止資產負債表縮減，公債到期本金全數標購展延、機構債本金再投資於國庫券",
+        "U.S. BLS 發布時程表：Employment Situation（非農）與 CPI、PPI 均為美東時間 8:30 發布；BEA《Personal Income and Outlays》（PCE）於隔月下旬發布（例：2026年5月數據於6月25日8:30 EDT公布）",
+        "FRED 資料序列：T10Y2Y（10年減2年利差）、DFII10（10年期抗通膨債券殖利率）、T10YIE（10年期損益兩平通膨率）、BAMLH0A0HYM2（ICE BofA 美國高收益債選擇權調整利差）、SAHMREALTIME（Sahm 法則衰退指標，定義為U3失業率三個月移動平均較前12個月低點上升0.50個百分點以上）",
+        "Federal Register 2025-14893《Adjusting Imports of Copper Into the United States》：2025年8月1日起對半成品銅與銅密集衍生品課徵50%關稅，精煉銅（陰極銅）當時排除在外，並要求於2026年6月30日前評估是否自2027年起對精煉銅分階段課徵15%、2028年起30%關稅",
+        "The Silver Institute：太陽能占白銀工業需求比重由2014年的11%升至2024年的29%",
+        "U.S. EIA《Short-Term Energy Outlook》2026年1月13日新聞稿：預估美國用電量2026年成長1%、2027年成長3%，為2000年以來最強的四年成長期，主要來自資料中心等大型運算設施；Henry Hub 天然氣2026年均價略低於每百萬英熱單位3.50美元，2027年約4.51美元",
         "CNBC《10-year Treasury yield hits 5% before reversing as traders await Fed meeting》(2026年9月14日)；2023年10月10年期升破5%為2007年以來首見之當時報導",
+        "鉅亨網報導惠譽(Fitch)2025年5月15日評等行動：新台幣於2025年5月初兩個交易日升值約8%後，五家台灣壽險被列入負向評等觀察，主因台幣負債對美元資產的幣別錯配與避險成本上升（媒體轉述，非惠譽原文）",
         "架構啟發自一份在社群流傳、由學生整理的總經傳導學習筆記；本頁重新編排順序、改寫內容，並逐項查核後才收錄"
       ],
-      disclaimer: "本頁整理的是「理論上的典型傳導方向」，用來理解變數之間的因果順序，不是對後市的預測，也不構成任何投資建議。實務上每一條關係都有例外：同一個變數在不同敘事（怕通膨、怕衰退、怕斷供）下可能得到相反結果，多條力量同時作用時也常互相抵銷。拉條模擬的是「其他條件不變」下的單一衝擊，真實市場沒有其他條件不變這回事。",
+      disclaimer: "本頁整理的是「理論上的典型傳導方向」，用來理解變數之間的因果順序，不是對後市的預測，也不構成任何投資建議。實務上每一條關係都有例外：同一個變數在不同敘事（怕通膨、怕衰退、怕斷供、怕信用）下可能得到相反結果，多條力量同時作用時也常互相抵銷。拉條模擬的是「其他條件不變」下的單一衝擊，真實市場沒有其他條件不變這回事。數據發布日期與政策狀態會變動，實際請以官方時程與公告為準。",
+      plainTopics: true,
       macro: true,
       macroTitle: "拉一下，看傳導怎麼跑",
-      macroCaption: "把任一根拉條往上或往下拉（代表該變數上升或下降、數據開得比預期強或弱），圖上受影響的節點會亮起並標出方向，右側列出結果與強度。多根同時拉，方向衝突的節點會標示出來。",
+      macroCaption: "把任一根拉條往上或往下拉（代表該變數上升或下降、數據開得比預期強或弱），圖上受影響的節點會亮起並標出方向，下方列出結果與強度。多根同時拉，方向衝突的節點會標成「方向不一」。油價那一根還可以切換漲跌的原因是供給還是需求——同樣是油價上漲，兩個劇本對股市、實質利率與黃金的結論相反。",
       macroModel: {
         drivers: [
           { id: "fed", label: "政策利率／短端", sub: "FED POLICY PATH", scale: "level",
@@ -8307,12 +8358,18 @@
               { to:"y10", sign:1, tier:"sub", path:["fedpath","y2","y10"], why:"政策預期會部分傳到長端，但幅度通常小於短端。", exception:"若市場認為Fed升過頭、未來被迫降息救經濟，長端反而可能不漲反跌，形成牛市平坦化甚至倒掛。" },
               { to:"curve", sign:-1, tier:"main", path:["y2","curve"], why:"短端漲得比長端快，10年減2年的利差因此收窄，收到負值就是倒掛。" },
               { to:"bond", sign:-1, tier:"main", path:["y2","y10","bond"], why:"殖利率與債券價格是同一件事的兩面：市場要求更高的殖利率，只能靠壓低現有債券的價格達成。" },
-              { to:"dxy", sign:1, tier:"main", path:["y2","dxy"], why:"美元利差擴大，持有美元資產的收益提高，套利與避險資金流入。" , exception:"若升息被解讀成政策落後、或伴隨財政與信用疑慮，美元可能不升反貶。"},
+              { to:"dxy", sign:1, tier:"main", path:["y2","dxy"], why:"美元利差擴大，持有美元資產的收益提高，套利與避險資金流入。", exception:"若升息被解讀成政策落後、或伴隨財政與信用疑慮，美元可能不升反貶。" },
               { to:"real", sign:1, tier:"main", path:["y2","y10","real"], why:"名目殖利率上升、通膨預期沒跟著上升時，實質利率（名目減通膨預期）就會走高。", exception:"若升息的理由正是通膨預期失控，通膨預期漲得比名目更快，實質利率反而會下降。" },
               { to:"gold", sign:-1, tier:"main", path:["real","gold"], why:"黃金不生息，實質利率與美元同時走強時，持有黃金的機會成本上升。", exception:"若市場同時擔心停滯性通膨或系統性風險，避險需求可以壓過機會成本，黃金與殖利率一起漲。" },
+              { to:"silver", sign:-1, tier:"sub", path:["real","silver"], why:"白銀有貴金屬的那一面，同樣怕實質利率走高。", exception:"白銀有一半以上的需求來自工業，若升息的背景是景氣強、太陽能與電子需求旺，工業那一面可以抵銷貴金屬那一面。" },
               { to:"equity", sign:-1, tier:"sub", path:["real","equity"], why:"無風險折現率上升會壓低評價，獲利落在越遠的成長股越敏感。", exception:"若升息的理由是經濟強勁，獲利上修可能抵銷評價壓縮。" },
+              { to:"semis", sign:-1, tier:"main", path:["real","equity","semis"], why:"半導體與AI相關個股的獲利多落在未來幾年，折現率上升時評價壓縮最明顯，這就是為什麼長債殖利率一跳，費半與台股權值股常常先修正。", exception:"若這一輪的AI資本支出照走、獲利持續上修，評價壓縮可能被獲利上修抵銷。" },
+              { to:"twstock", sign:-1, tier:"sub", path:["real","equity","twstock"], why:"台股權值高度集中在半導體，評價壓縮會直接反映在指數上。" },
+              { to:"twd", sign:-1, tier:"main", path:["y2","dxy","twd"], why:"美元利差擴大，資金往美元資產靠，非美貨幣包含新台幣通常同步走弱。", exception:"台灣有龐大的貿易順差與出口商結匯需求，若同時出現外資大舉匯入台股，台幣可以逆勢升值。" },
               { to:"emfx", sign:-1, tier:"sub", path:["dxy","emfx"], why:"資金回流美元，新興市場同時面對外資流出與美元債務負擔加重。" },
               { to:"jpy", sign:-1, tier:"main", path:["dxy","jpy"], why:"日圓長期低利率，美日利差擴大時套利資金賣日圓、買美元資產。" },
+              { to:"copper", sign:-1, tier:"cond", path:["y2","dxy","copper"], why:"利率上升壓抑建築與製造需求，加上銅以美元計價，對非美買家變貴。", exception:"若電網改造與資料中心的用銅需求夠強，結構性需求可以蓋過利率效果。" },
+              { to:"credit", sign:1, tier:"cond", path:["credit"], why:"融資成本與再融資壓力上升，低評級企業的利差通常先反映。", exception:"若升息的背景是景氣強勁、違約率下降，利差反而可能收窄。" },
               { to:"oil", sign:-1, tier:"cond", path:["dxy","oil"], why:"美元計價的商品對非美買家變貴，加上利率上升壓抑需求預期。", exception:"若油價的主導力量來自供給面（減產、制裁、地緣衝突），這條幾乎不成立。" }
             ] },
           { id: "dxy", label: "美元指數 DXY", sub: "US DOLLAR INDEX", scale: "level",
@@ -8320,122 +8377,335 @@
             effects: [
               { to:"dxy", sign:1, tier:"main", path:["dxy"], why:"這根拉條直接代表美元的強弱。" },
               { to:"gold", sign:-1, tier:"main", path:["dxy","gold"], why:"黃金以美元計價，美元走強時非美買家的本幣成本上升，需求轉弱。", exception:"風險趨避時資金同時買美元與黃金，兩者可以一起漲。" },
+              { to:"silver", sign:-1, tier:"main", path:["dxy","silver"], why:"與黃金同樣的計價效果，而且白銀的波動通常比黃金大。" },
+              { to:"copper", sign:-1, tier:"main", path:["dxy","copper"], why:"銅以美元報價，美元走強會壓抑非美地區的實際購買力與補庫意願。" },
               { to:"oil", sign:-1, tier:"sub", path:["dxy","oil"], why:"大宗商品普遍以美元計價，美元強會壓抑非美地區的實際購買力。", exception:"供給面事件主導時，風險溢價的力道會蓋過匯率效果，美元與油價可能同漲。" },
               { to:"emfx", sign:-1, tier:"main", path:["dxy","emfx"], why:"三重打擊：外資撤出換回美元、以美元計價的外債負擔加重、當地央行為守匯率被迫緊縮。" },
               { to:"jpy", sign:-1, tier:"main", path:["dxy","jpy"], why:"日圓是最典型的融資貨幣，美元走強時套利交易更有利可圖。" },
+              { to:"twd", sign:-1, tier:"main", path:["dxy","twd"], why:"新台幣對美元的走勢大體跟隨美元的強弱，但幅度受台灣的貿易順差、外資買賣超與壽險避險操作影響而常有偏離。" },
+              { to:"semis", sign:1, tier:"sub", path:["dxy","twd","semis"], why:"台廠收入多以美元計價、成本多以台幣支付，台幣相對貶值時毛利率通常受惠，這是每季法說會都會被問到的匯率題。", exception:"若台幣貶值的原因是外資大舉撤出，股價的資金面壓力可能蓋過匯兌利益。" },
+              { to:"twstock", sign:0, tier:"cond", path:["dxy","twd","twstock"], why:"方向要看哪一邊主導：台幣貶值有利出口商的帳面獲利，但通常伴隨外資匯出賣超；台幣升值則相反。" },
               { to:"equity", sign:0, tier:"cond", path:["dxy","equity"], why:"方向取決於美元為什麼強：若是美國成長領先帶動，美股可以同漲；若是全球去槓桿、流動性收縮帶動，美股通常受壓。" }
             ] },
           { id: "oil", label: "油價", sub: "CRUDE OIL", scale: "level",
             up: "油價上漲", down: "油價下跌",
-            effects: [
-              { to:"oil", sign:1, tier:"main", path:["oil"], why:"這根拉條直接代表油價。" },
-              { to:"be", sign:1, tier:"main", path:["oil","be"], why:"能源不只影響能源本身，還會透過運輸、原料、製造與服務外溢到整體物價，市場會先上修通膨預期。" },
-              { to:"fedpath", sign:1, tier:"sub", path:["oil","be","fedpath"], why:"通膨預期升高時，市場會上修升息機率或往後推延降息時點。", exception:"若油價同時打擊消費與生產，Fed 可能更擔心成長而非通膨，反而偏鴿。" },
-              { to:"y2", sign:1, tier:"sub", path:["be","fedpath","y2"], why:"短端對政策預期最敏感，會先反映。" },
-              { to:"tp", sign:1, tier:"cond", path:["oil","tp"], why:"通膨的不確定性升高，願意借錢給政府十年、三十年的人會要求更高的補償。" },
-              { to:"y10", sign:1, tier:"sub", path:["tp","y10"], why:"期限溢酬上升會直接推高長端殖利率，這一段和Fed當下升不升息無關。" },
-              { to:"bond", sign:-1, tier:"sub", path:["y10","bond"], why:"長端殖利率上升，債券價格下跌，天期越長跌得越兇。" },
-              { to:"real", sign:0, tier:"cond", path:["y10","real"], why:"名目殖利率與通膨預期同時被推高，實質利率往哪邊走，取決於兩者誰漲得多。" },
-              { to:"gold", sign:0, tier:"cond", path:["real","gold"], why:"黃金同時受到兩股相反力量：抗通膨需求偏多，實質利率若同步走高則偏空，要看實質利率最後往哪邊走。" },
-              { to:"equity", sign:-1, tier:"sub", path:["oil","equity"], why:"能源成本上升侵蝕企業利潤與消費者可支配所得，對成長是阻力。", exception:"能源類股與上游原物料股通常相反受惠。" },
-              { to:"dxy", sign:1, tier:"cond", path:["oil","be","fedpath","y2","dxy"], why:"兩種劇本都指向美元：怕通膨則預期利率更高，怕斷供則資金往避險貨幣靠。", exception:"若供給問題出在美國自身，這條就未必成立。" }
-            ] },
+            toggle: { label: "漲跌的原因",
+              options: [ { v:"supply", label:"供給衝擊" }, { v:"demand", label:"需求拉動" } ],
+              value: "supply",
+              hint: { supply:"減產、制裁、地緣衝突造成的價格變動：通膨往上、成長往下，偏滯脹劇本。",
+                      demand:"景氣冷熱把油價帶動：通膨與成長同向，偏再通膨（或需求轉弱）劇本。" } },
+            effectsBy: {
+              supply: [
+                { to:"oil", sign:1, tier:"main", path:["oil"], why:"這根拉條直接代表油價。" },
+                { to:"be", sign:1, tier:"main", path:["oil","be"], why:"能源不只影響能源本身，還會透過運輸、原料、製造與服務外溢到整體物價，市場會先上修通膨預期。" },
+                { to:"natgas", sign:1, tier:"main", path:["oil","natgas"], why:"油與氣在發電與工業燃料上可互相替代，長約也常與油價連動，供給面衝擊通常一起發作。" },
+                { to:"fedpath", sign:1, tier:"sub", path:["oil","be","fedpath"], why:"通膨預期升高時，市場會上修升息機率或往後推延降息時點。", exception:"供給面造成的漲價同時打擊消費與生產，Fed 可能更擔心成長而偏鴿——這正是滯脹最難處理的地方。" },
+                { to:"y2", sign:1, tier:"sub", path:["be","fedpath","y2"], why:"短端對政策預期最敏感，會先反映。" },
+                { to:"tp", sign:1, tier:"cond", path:["oil","tp"], why:"通膨的不確定性升高，願意借錢給政府十年、三十年的人會要求更高的補償。" },
+                { to:"y10", sign:1, tier:"sub", path:["tp","y10"], why:"期限溢酬上升會直接推高長端殖利率，這一段和Fed當下升不升息無關。" },
+                { to:"bond", sign:-1, tier:"sub", path:["y10","bond"], why:"長端殖利率上升，債券價格下跌，天期越長跌得越兇。" },
+                { to:"real", sign:0, tier:"cond", path:["y10","real"], why:"名目殖利率與通膨預期同時被推高，實質利率往哪邊走，取決於兩者誰漲得多。" },
+                { to:"gold", sign:0, tier:"cond", path:["real","gold"], why:"黃金同時受到兩股相反力量：抗通膨需求偏多，實質利率若同步走高則偏空，要看實質利率最後往哪邊走。" },
+                { to:"equity", sign:-1, tier:"main", path:["oil","equity"], why:"成本推升型的漲價侵蝕企業利潤與消費者可支配所得，而且央行不容易出手救——滯脹劇本對股市的殺傷力大於單純的景氣減速。", exception:"能源類股與上游原物料股通常相反受惠。" },
+                { to:"copper", sign:-1, tier:"sub", path:["copper"], why:"能源成本上升與需求預期轉弱會一起壓抑工業金屬，銅這時比較像景氣的受害者而不是受惠者。" },
+                { to:"credit", sign:1, tier:"sub", path:["credit"], why:"成本上升壓縮現金流，低評級發行人的違約風險溢酬跟著擴大。" },
+                { to:"dxy", sign:1, tier:"cond", path:["oil","be","fedpath","y2","dxy"], why:"兩種劇本都指向美元：怕通膨則預期利率更高，怕斷供則資金往避險貨幣靠。", exception:"若供給問題出在美國自身，這條就未必成立。" }
+              ],
+              demand: [
+                { to:"oil", sign:1, tier:"main", path:["oil"], why:"這根拉條直接代表油價。" },
+                { to:"be", sign:1, tier:"sub", path:["oil","be"], why:"需求帶動的油價上漲同樣會推升通膨預期，但因為背後是景氣好，市場的解讀相對溫和。" },
+                { to:"natgas", sign:1, tier:"sub", path:["oil","natgas"], why:"工業與發電需求轉強時，油氣通常同向。" },
+                { to:"fedpath", sign:1, tier:"sub", path:["oil","be","fedpath"], why:"景氣熱、通膨預期升，市場會上修利率路徑。" },
+                { to:"y2", sign:1, tier:"sub", path:["be","fedpath","y2"], why:"短端跟著政策預期走。" },
+                { to:"y10", sign:1, tier:"sub", path:["tp","y10"], why:"名目成長預期升高，長端殖利率通常同步走高。" },
+                { to:"bond", sign:-1, tier:"sub", path:["y10","bond"], why:"殖利率上升，債券價格下跌。" },
+                { to:"copper", sign:1, tier:"main", path:["copper"], why:"銅和油在需求劇本下是同一件事的兩個讀數：都在反映全球製造與建築活動的溫度。" },
+                { to:"equity", sign:1, tier:"sub", path:["real","equity"], why:"需求拉動代表終端景氣轉強，獲利上修的力量通常大於折現率上升的壓力。", exception:"若油價漲到開始侵蝕消費，這條會翻轉——需求劇本與供給劇本的界線並不總是乾淨。" },
+                { to:"credit", sign:-1, tier:"sub", path:["credit"], why:"景氣轉強、違約預期下降，高收益債利差通常收窄。" },
+                { to:"gold", sign:0, tier:"cond", path:["real","gold"], why:"通膨預期與實質利率同時上升，黃金往哪邊走要看兩者的相對速度。" },
+                { to:"emfx", sign:0, tier:"cond", path:["dxy","emfx"], why:"原物料出口國的貨幣受惠，能源進口國（包含台灣、韓國、印度）則相反，新興市場貨幣不會齊漲齊跌。" }
+              ] } },
           { id: "cpi", label: "通膨數據 CPI／PCE", sub: "INFLATION SURPRISE", scale: "surprise",
             up: "數據開得比預期熱", down: "數據開得比預期冷",
             effects: [
-              { to:"be", sign:1, tier:"main", path:["be"], why:"數據直接改寫市場對未來物價的定價，也就是損益兩平通膨率。" },
-              { to:"fedpath", sign:1, tier:"main", path:["be","fedpath"], why:"通膨高於預期，市場立刻上修升息機率或延後降息時點。" },
-              { to:"y2", sign:1, tier:"main", path:["fedpath","y2"], why:"短端最貼近政策路徑，數據公布後通常第一個跳動。" },
-              { to:"y10", sign:1, tier:"sub", path:["y2","y10"], why:"長端跟著上移，但幅度通常小於短端。" },
+              { to:"be", sign:1, tier:"main", path:["be"], why:"數據意外走高會直接墊高市場對未來通膨的定價。" },
+              { to:"fedpath", sign:1, tier:"main", path:["be","fedpath"], why:"通膨數據是Fed雙重使命裡最沒有模糊空間的一半，超預期就會被解讀成需要更緊。" },
+              { to:"y2", sign:1, tier:"main", path:["fedpath","y2"], why:"短端最敏感，通常在數據公布後的幾分鐘內就反映完。" },
+              { to:"y10", sign:1, tier:"sub", path:["y2","y10"], why:"長端也會跟著走，但幅度取決於市場相信這是短期波動還是趨勢。" },
               { to:"bond", sign:-1, tier:"main", path:["y10","bond"], why:"殖利率上升等於債券價格下跌。" },
-              { to:"real", sign:1, tier:"sub", path:["y10","real"], why:"實務上熱通膨數據帶動的政策重定價，多半讓名目殖利率漲得比通膨預期更多，實質利率因此走高。", exception:"若市場認為Fed會容忍通膨、不願再緊縮（政策落後），通膨預期可能漲得比名目更快，實質利率反而下降，這正是黃金與殖利率同漲的情境。" },
-              { to:"gold", sign:-1, tier:"sub", path:["real","gold"], why:"實質利率與美元同時走高，黃金的機會成本上升。", exception:"停滯性通膨敘事下，抗通膨需求可能壓過機會成本。" },
-              { to:"dxy", sign:1, tier:"main", path:["y2","dxy"], why:"利差擴大，資金流向美元資產。" },
-              { to:"equity", sign:-1, tier:"sub", path:["real","equity"], why:"折現率上升壓抑評價，同時降低降息的希望。" },
-              { to:"curve", sign:-1, tier:"sub", path:["y2","curve"], why:"短端漲得比長端快，利差收窄。" },
+              { to:"real", sign:1, tier:"sub", path:["y10","real"], why:"這是最容易搞錯的一步：通膨數據熱，實質利率通常不降反升，因為市場預期Fed會用更高的名目利率去壓通膨，名目上升的幅度大於通膨預期。", exception:"若市場認為Fed已經落後於情勢、不會或不敢升息，通膨預期會漲得比名目快，實質利率反而下降，黃金這時會跟著通膨一起漲。" },
+              { to:"gold", sign:-1, tier:"sub", path:["real","gold"], why:"承上，實質利率上升時黃金通常是下跌的——「通膨升黃金就漲」是最常見的誤解。", exception:"政策落後的劇本下結論相反，見上一條。" },
+              { to:"silver", sign:-1, tier:"sub", path:["real","silver"], why:"貴金屬的那一面與黃金同向。" },
+              { to:"dxy", sign:1, tier:"main", path:["y2","dxy"], why:"利率預期上修，美元利差擴大。" },
+              { to:"equity", sign:-1, tier:"main", path:["real","equity"], why:"折現率上升＋緊縮預期升溫，風險資產通常同步下跌。" },
+              { to:"semis", sign:-1, tier:"sub", path:["real","equity","semis"], why:"評價敏感的成長股反應最劇烈。" },
+              { to:"curve", sign:-1, tier:"sub", path:["y2","curve"], why:"短端漲得比長端多，曲線趨平。" },
+              { to:"twd", sign:-1, tier:"sub", path:["y2","dxy","twd"], why:"美元走強時新台幣通常同步承壓。" },
+              { to:"credit", sign:1, tier:"cond", path:["credit"], why:"緊縮預期升溫時，低評級發行人的利差通常跟著擴大。" },
               { to:"emfx", sign:-1, tier:"sub", path:["dxy","emfx"], why:"美元走強，新興市場貨幣承壓。" },
-              { to:"jpy", sign:-1, tier:"sub", path:["dxy","jpy"], why:"美日利差擴大，日圓偏弱。" }
+              { to:"jpy", sign:-1, tier:"sub", path:["dxy","jpy"], why:"美日利差擴大，日圓走弱。" }
             ] },
           { id: "jobs", label: "就業數據 非農／失業率", sub: "LABOR MARKET SURPRISE", scale: "surprise",
             up: "非農遠優於預期、失業率下降", down: "非農遠差於預期、失業率上升",
             effects: [
-              { to:"fedpath", sign:1, tier:"main", path:["fedpath"], why:"勞動市場強勁代表經濟撐得住，降息的急迫性下降。" },
-              { to:"y2", sign:1, tier:"main", path:["fedpath","y2"], why:"降息預期被延後，短端率先反映。" },
-              { to:"y10", sign:1, tier:"sub", path:["y2","y10"], why:"成長預期改善會推升長端，但幅度通常較小。" },
-              { to:"bond", sign:-1, tier:"sub", path:["y10","bond"], why:"殖利率上升，債券價格下跌。" },
-              { to:"curve", sign:-1, tier:"sub", path:["y2","curve"], why:"短端漲幅大於長端，利差收窄。" },
-              { to:"dxy", sign:1, tier:"main", path:["y2","dxy"], why:"利差擴大，美元走強。" },
-              { to:"gold", sign:-1, tier:"sub", path:["y2","y10","real","gold"], why:"實質利率與美元同步走高，黃金承壓。" },
-              { to:"equity", sign:0, tier:"cond", path:["equity"], why:"兩種敘事在拉鋸：利率更高、更久不降息，對評價是利空；但景氣有底氣、獲利與消費撐得住，對基本面是利多。哪一邊主導往往盤中才看得出來，也因此強數據當天常出現先殺後拉的深V。" },
-              { to:"emfx", sign:-1, tier:"sub", path:["dxy","emfx"], why:"美元走強，資金撤出新興市場。" },
-              { to:"jpy", sign:-1, tier:"sub", path:["dxy","jpy"], why:"美日利差擴大，日圓偏弱。" }
+              { to:"fedpath", sign:1, tier:"main", path:["fedpath"], why:"就業是雙重使命的另一半：勞動市場越緊，Fed越沒有理由降息。" },
+              { to:"y2", sign:1, tier:"main", path:["fedpath","y2"], why:"短端直接反映政策路徑的修正。" },
+              { to:"y10", sign:1, tier:"sub", path:["y2","y10"], why:"景氣與政策預期同時上修，長端跟著走高。" },
+              { to:"bond", sign:-1, tier:"main", path:["y10","bond"], why:"殖利率上升，債券價格下跌。" },
+              { to:"curve", sign:-1, tier:"sub", path:["y2","curve"], why:"短端反應大於長端時曲線趨平。" },
+              { to:"dxy", sign:1, tier:"main", path:["y2","dxy"], why:"利差預期擴大，美元走強。" },
+              { to:"gold", sign:-1, tier:"sub", path:["y2","y10","real","gold"], why:"實質利率與美元同時走高，黃金承壓。" },
+              { to:"credit", sign:-1, tier:"sub", path:["credit"], why:"就業穩健代表企業違約風險下降，高收益債利差通常收窄。", exception:"若數據強到讓市場相信Fed會再升息，利率風險可能壓過信用風險，利差反而擴大。" },
+              { to:"equity", sign:0, tier:"cond", path:["equity"], why:"經典的兩面刃：好消息是壞消息（景氣好但Fed更鷹），壞消息是好消息（景氣差但可能降息）。當市場的主敘事是通膨時，強數據利空股市；當主敘事轉成衰退時，弱數據才是真利空，這時股市會走出「先跌後彈」的深V。" },
+              { to:"semis", sign:0, tier:"cond", path:["real","equity","semis"], why:"與大盤同樣的兩面刃，只是評價敏感度更高，兩邊的擺幅都更大。" },
+              { to:"copper", sign:0, tier:"cond", path:["copper"], why:"景氣轉強對銅是實體需求利多，但同時帶來更鷹的Fed與更強的美元，兩股力量方向相反。" },
+              { to:"twd", sign:-1, tier:"sub", path:["y2","dxy","twd"], why:"美元走強，新台幣通常同步走弱。" },
+              { to:"emfx", sign:-1, tier:"sub", path:["dxy","emfx"], why:"美元走強，新興市場貨幣承壓。" },
+              { to:"jpy", sign:-1, tier:"sub", path:["dxy","jpy"], why:"美日利差擴大，日圓走弱。" }
+            ] },
+          { id: "risk", label: "風險偏好", sub: "RISK APPETITE (VIX / SPREADS)", scale: "risk",
+            up: "轉向風險偏好：VIX下降、信用利差收窄", down: "轉向避險：VIX跳升、資金去槓桿",
+            effects: [
+              { to:"risk", sign:1, tier:"main", path:["risk"], why:"這根拉條直接代表市場的風險胃納，可以用VIX或高收益債利差當代理指標。" },
+              { to:"credit", sign:-1, tier:"main", path:["risk","credit"], why:"風險偏好上升時，投資人願意用更低的補償去持有低評級債券，利差收窄；避險時相反。信用利差通常比股市更早反映壓力。" },
+              { to:"equity", sign:1, tier:"main", path:["risk","credit","equity"], why:"股票是風險資產的代表，風險胃納是它最直接的資金面驅動。" },
+              { to:"twstock", sign:1, tier:"main", path:["risk","credit","equity","twstock"], why:"台股的外資比重高，是全球風險胃納的高beta市場，漲跌幅通常放大於美股。" },
+              { to:"semis", sign:1, tier:"main", path:["risk","credit","equity","semis"], why:"半導體是這個週期裡的風險資產核心，去槓桿時被賣得最兇。" },
+              { to:"dxy", sign:-1, tier:"main", path:["risk","dxy"], why:"美元有兩條腿，這是避險那一條：風險偏好上升時避險買盤退潮，美元轉弱；避險時全球去槓桿、回收美元流動性，美元急升。", exception:"若這一輪的風險偏好回升來自美國獨強，資金同時流入美股與美元，美元可以不跌反漲。" },
+              { to:"jpy", sign:-1, tier:"main", path:["risk","dxy","jpy"], why:"日圓是最典型的融資貨幣：風險偏好上升時被借出去賣掉，避險時套利交易平倉、資金回補日圓。", exception:"避險情境下美元與日圓會同時走強，這與平常的利差邏輯相反——看到兩者齊漲，通常代表市場在去槓桿。" },
+              { to:"emfx", sign:1, tier:"main", path:["risk","dxy","emfx"], why:"新興市場貨幣是風險資產，資金回流時受惠、去槓桿時最先被賣。" },
+              { to:"twd", sign:1, tier:"sub", path:["risk","dxy","twd"], why:"風險偏好上升時外資回流台股，結匯需求推升新台幣。" },
+              { to:"gold", sign:-1, tier:"sub", path:["risk","dxy","gold"], why:"避險需求退潮時黃金少了一個買盤。", exception:"避險情境下美元與黃金可以一起漲，這是唯一會讓兩者同向的情況——也是為什麼不能只用美元去解釋金價。" },
+              { to:"bond", sign:-1, tier:"sub", path:["bond"], why:"風險偏好上升時資金從公債流向風險資產，公債價格下跌。", exception:"若風險偏好回升的理由是Fed轉鴿，股債可以一起漲。" },
+              { to:"copper", sign:1, tier:"sub", path:["copper"], why:"銅同時被當成景氣代理與金融資產，風險胃納好的時候投機部位也會加碼。" }
+            ] },
+          { id: "fiscal", label: "財政赤字與公債發行", sub: "DEFICIT & TREASURY SUPPLY", scale: "level",
+            up: "赤字擴大、長天期公債發行量增加", down: "赤字收斂、長債發行量減少",
+            effects: [
+              { to:"fiscal", sign:1, tier:"main", path:["fiscal"], why:"這根拉條代表公債的「供給面」，和Fed升不升息是兩回事。" },
+              { to:"tp", sign:1, tier:"main", path:["fiscal","tp"], why:"供給變多、而且是天期長的供給，買方會要求更高的補償才願意接手，這就是期限溢酬上升。" },
+              { to:"y10", sign:1, tier:"main", path:["fiscal","tp","y10"], why:"長端殖利率＝未來平均短率預期＋期限溢酬，期限溢酬這一塊被推高時，就算Fed完全按兵不動，長債殖利率也會自己走高。" },
+              { to:"bond", sign:-1, tier:"main", path:["tp","y10","bond"], why:"長端殖利率上升，長天期債券價格下跌，久期越長跌幅越大。" },
+              { to:"curve", sign:1, tier:"main", path:["y10","curve"], why:"長端漲、短端不動，10年減2年的利差走闊，這種型態叫熊市陡峭化——歷史上常出現在景氣循環的尾聲或財政疑慮升溫時。" },
+              { to:"real", sign:1, tier:"sub", path:["y10","real"], why:"如果推升長端的是供給而不是通膨預期，實質利率會跟著上升。" },
+              { to:"gold", sign:0, tier:"cond", path:["real","gold"], why:"兩股力量拉鋸：實質利率上升壓抑金價，但財政可持續性的疑慮與各國央行的儲備多元化買盤支撐金價，後者近年常常勝出。" },
+              { to:"dxy", sign:0, tier:"cond", path:["dxy"], why:"利差擴大有利美元，但財政信用疑慮不利美元。若出現長債殖利率上升、美元反而走弱的組合，代表市場擔心的是信用而不是利差——這是判斷這一輪長端上行性質的關鍵訊號。" },
+              { to:"equity", sign:-1, tier:"sub", path:["real","equity"], why:"無風險折現率上升壓抑評價。", exception:"若赤字來自減稅或支出擴張，短期對企業獲利與名目成長是有利的。" },
+              { to:"semis", sign:-1, tier:"sub", path:["real","equity","semis"], why:"評價敏感度高的族群對長端利率最敏感。" },
+              { to:"credit", sign:1, tier:"cond", path:["credit"], why:"無風險利率整體上移會抬高企業的再融資成本。" }
+            ] },
+          { id: "qt", label: "Fed 資產負債表", sub: "QE / QT", scale: "balance",
+            up: "擴表（QE、再投資、準備金管理購買）", down: "縮表（QT、到期不再投資）",
+            effects: [
+              { to:"liq", sign:1, tier:"main", path:["liq"], why:"這根拉條代表Fed在債券市場上是買方還是退場，也代表銀行體系準備金的增減。" },
+              { to:"tp", sign:-1, tier:"main", path:["liq","tp"], why:"擴表等於市場上多了一個不問價格的買家，期限溢酬被壓低；縮表則是把這個買家拿掉，長債得靠民間資金自己消化。" },
+              { to:"y10", sign:-1, tier:"main", path:["liq","tp","y10"], why:"透過期限溢酬影響長端，和政策利率是兩條不同的管道。" },
+              { to:"bond", sign:1, tier:"main", path:["tp","y10","bond"], why:"長端殖利率下降，債券價格上漲。" },
+              { to:"y2", sign:-1, tier:"cond", path:["liq","y2"], why:"準備金充裕時，附買回市場的利率不容易上飄；縮表到後期反而會出現資金緊俏、附買回利率跳升，這是判斷「準備金是否還算充裕」的即時訊號。" },
+              { to:"risk", sign:1, tier:"sub", path:["liq","risk"], why:"流動性寬鬆會提高市場的風險胃納，這條的傳導比課本講的更快也更心理面。" },
+              { to:"credit", sign:-1, tier:"sub", path:["risk","credit"], why:"流動性充裕時信用利差通常收窄。" },
+              { to:"equity", sign:1, tier:"sub", path:["risk","credit","equity"], why:"流動性與風險資產的關係在2010年代之後被市場高度內化。", exception:"QE對實體通膨與實體經濟的傳導其實比對資產價格弱得多，別把兩者混為一談。" },
+              { to:"gold", sign:1, tier:"sub", path:["real","gold"], why:"實質利率下降，加上對法定貨幣供給的疑慮，對黃金是雙重利多。" },
+              { to:"dxy", sign:-1, tier:"sub", path:["dxy"], why:"美元流動性變寬鬆通常不利美元。", exception:"全球避險、美元流動性緊縮時，美元會因為搶美元而急升，這時方向相反。" },
+              { to:"be", sign:0, tier:"cond", path:["be"], why:"市場有時把擴表解讀成容忍更高的通膨，但2010年代的經驗顯示QE對實際通膨的推力有限，這條的方向並不穩定。" }
             ] }
         ],
         nodes: [
-          { id:"fedpath", label:"Fed 政策路徑", sub:"POLICY PATH", upWord:"偏鷹（更高更久）", downWord:"偏鴿（更早更低）", x:20, y:70,
+          { id:"fedpath", label:"Fed 政策路徑", sub:"POLICY PATH", upWord:"偏鷹（更高更久）", downWord:"偏鴿（更早更低）", x:20, y:90,
             why:"市場對未來每一次FOMC會議的升降息定價，是所有利率的起點。它不是Fed講了什麼，而是市場「相信」Fed接下來會做什麼。",
             watch:"觀察工具：利率期貨隱含機率、點陣圖（3、6、9、12月會議公布）。" },
-          { id:"oil", label:"原油", sub:"CRUDE OIL", upWord:"上漲", downWord:"下跌", x:20, y:350,
+          { id:"fiscal", label:"赤字與公債發行", sub:"DEFICIT & SUPPLY", upWord:"供給增加", downWord:"供給減少", x:20, y:250,
+            why:"長端殖利率的供給面。財政赤字越大、發債（尤其是長天期）越多，市場就得用更高的殖利率才吃得下這些券，這一段跟Fed升不升息完全是兩回事。",
+            watch:"觀察工具：財政部季度再融資公告（QRA）裡長短天期的發行結構、標售的投標倍數與得標利率是否高於標前市場利率（尾部）。" },
+          { id:"liq", label:"Fed 資產負債表", sub:"BALANCE SHEET", upWord:"擴表", downWord:"縮表", x:20, y:410,
+            why:"Fed 是不是債市裡那個不問價格的買家。擴表壓低期限溢酬、增加銀行體系準備金；縮表則把這個買盤抽走，讓長債回頭由民間資金定價。",
+            watch:"FOMC 於2025年10月29日宣布結束縮表，2025年12月1日起停止資產負債表縮減，公債到期本金全數標購展延、機構債本金再投資於國庫券。每週四的 H.4.1 報表可看總資產與準備金餘額。" },
+          { id:"oil", label:"原油", sub:"CRUDE OIL", upWord:"上漲", downWord:"下跌", x:20, y:570,
             why:"油價同時是通膨的推力與成長的阻力，這個雙重身分讓它的傳導結果最常出現例外。",
-            watch:"要先分清楚漲價原因是需求轉強（偏向景氣好）還是供給受限（偏向滯脹），兩者對股債匯的結論完全不同。" },
-          { id:"y2", label:"短端殖利率 2Y", sub:"2-YEAR YIELD", upWord:"上升", downWord:"下降", x:225, y:70,
+            watch:"要先分清楚漲價原因是需求轉強（偏向景氣好）還是供給受限（偏向滯脹），兩者對股債匯的結論完全不同——上方油價那根拉條可以直接切換這兩個劇本比較看看。" },
+          { id:"y2", label:"短端殖利率 2Y", sub:"2-YEAR YIELD", upWord:"上升", downWord:"下降", x:225, y:60,
             why:"2年期幾乎完全反映未來一到兩年的政策路徑，資訊相對已知，很少有額外的未知風險補償。",
             watch:"外匯市場的套利決策多半看一兩年內的利差，所以2年期利差對美元的解釋力通常比10年期更直接。" },
-          { id:"be", label:"通膨預期", sub:"BREAKEVEN INFLATION", upWord:"升高", downWord:"降低", x:225, y:215,
+          { id:"be", label:"通膨預期", sub:"BREAKEVEN INFLATION", upWord:"升高", downWord:"降低", x:225, y:220,
             why:"名目公債與抗通膨債券（TIPS）的殖利率差，就是市場對未來平均通膨的定價，也叫損益兩平通膨率。",
             watch:"FRED 代碼 T10YIE。通膨預期本身會回頭影響市場對Fed的定價。" },
-          { id:"tp", label:"期限溢酬", sub:"TERM PREMIUM", upWord:"升高", downWord:"降低", x:225, y:350,
-            why:"借錢給政府十年、三十年，要承擔通膨與供需的未知風險，投資人會要求額外補償。這一段和Fed當下升不升息無關，由財政赤字與發債量、通膨不確定性、以及Fed縮表（QT，買盤減少）三個因子推動。",
+          { id:"tp", label:"期限溢酬", sub:"TERM PREMIUM", upWord:"升高", downWord:"降低", x:225, y:380,
+            why:"借錢給政府十年、三十年，要承擔通膨與供需的未知風險，投資人會要求額外補償。這一段和Fed當下升不升息無關，由財政赤字與發債量、通膨不確定性、以及Fed是擴表還是縮表三個因子推動。",
             watch:"這解釋了為什麼Fed按兵不動，長債殖利率還是可以自己噴上去。" },
-          { id:"dxy", label:"美元指數 DXY", sub:"US DOLLAR", upWord:"走強", downWord:"走弱", x:430, y:40,
+          { id:"risk", label:"風險偏好", sub:"RISK APPETITE", upWord:"轉向風險偏好", downWord:"轉向避險", x:225, y:540,
+            why:"市場願意承擔多少風險，是股、債、匯、商品背後共同的資金面驅動。它不是基本面，但常常比基本面更快決定短期價格。",
+            watch:"VIX 與高收益債利差（FRED BAMLH0A0HYM2）是兩個最常用的代理指標。實務上的小技巧：如果美元與日圓同時走強，通常代表市場正在去槓桿，而不是在比誰的利率高。" },
+          { id:"dxy", label:"美元指數 DXY", sub:"US DOLLAR", upWord:"走強", downWord:"走弱", x:430, y:30,
             why:"美元有兩條驅動線：一是利差（美國利率相對其他國家更高，資金往美元資產停靠），二是避險（風險偏好下降時，全球去槓桿、回收美元流動性）。",
             watch:"兩條線可以同時發動，也可能互相抵銷，判斷時先問這次是哪一條在主導。" },
-          { id:"y10", label:"長端殖利率 10Y／30Y", sub:"LONG-END YIELD", upWord:"上升", downWord:"下降", x:430, y:160,
+          { id:"y10", label:"長端殖利率 10Y／30Y", sub:"LONG-END YIELD", upWord:"上升", downWord:"下降", x:430, y:170,
             why:"長端可以拆成兩塊：對未來平均短率的預期，加上期限溢酬。前者看Fed，後者看供需與不確定性。",
             watch:"2023年10月長端曾在Fed已停止升息的情況下，因財政部擴大長債發行與信評調降而升破5%，是期限溢酬主導的典型案例；2026年9月中旬10年期又一度觸及5%，為2023年以來首次。" },
-          { id:"real", label:"實質利率", sub:"REAL YIELD (TIPS)", upWord:"上升", downWord:"下降", x:430, y:280,
-            why:"實質利率等於名目殖利率減去通膨預期，代表扣掉物價後真正多賺到的購買力，是黃金最直接的對手盤。",
+          { id:"real", label:"實質利率", sub:"REAL YIELD (TIPS)", upWord:"上升", downWord:"下降", x:430, y:310,
+            why:"實質利率等於名目殖利率減去通膨預期，代表扣掉物價後真正多賺到的購買力，是黃金最直接的對手盤，也是成長股評價的折現基準。",
             watch:"不必自己相減，TIPS 的報價本身就已扣除通膨，FRED 代碼 DFII10。" },
-          { id:"curve", label:"殖利率曲線 10Y−2Y", sub:"YIELD CURVE SPREAD", upWord:"走闊（陡化）", downWord:"收窄（趨平／倒掛）", x:430, y:410,
-            why:"長端減短端的利差。正常情況下長端較高（正斜率），利差轉負就是倒掛，歷史上常被當作景氣進入尾聲的警訊，但從倒掛到衰退的時間差可以長達一兩年。",
-            watch:"FRED 代碼 T10Y2Y。2022年7月起倒掛、直到2024年9月才轉正，是有紀錄以來最長的一次倒掛。" },
-          { id:"jpy", label:"日圓", sub:"JAPANESE YEN", upWord:"走強", downWord:"走弱", x:635, y:30,
-            why:"日圓長期低利率，是最典型的融資貨幣。美元利差擴大時，借日圓買美元資產的套利交易會讓日圓走弱。",
-            watch:"套利交易平倉時反轉又快又猛，這也是日圓在風險事件中常見急升的原因。" },
-          { id:"emfx", label:"新興市場貨幣", sub:"EM FX", upWord:"走強", downWord:"走弱", x:635, y:110,
-            why:"美元走強或全球恐慌時，新興市場同時面對外資撤出、美元外債負擔加重、以及央行為守匯率被迫升息三重壓力。",
-            watch:"被迫升息這一點最傷，因為那往往不是本國景氣需要的政策。" },
-          { id:"bond", label:"債券價格", sub:"BOND PRICE", upWord:"上漲", downWord:"下跌", x:635, y:200,
-            why:"殖利率與價格是同一件事的兩面。市場要求更高殖利率，只能靠壓低現有債券價格達成，天期越長、對殖利率變動越敏感（存續期效果）。",
-            watch:"同樣升1碼，30年期債券的價格跌幅遠大於2年期。" },
-          { id:"gold", label:"黃金", sub:"GOLD", upWord:"上漲", downWord:"下跌", x:635, y:300,
-            why:"黃金不生利息，最怕的是實質利率走高；同時它以美元計價，美元走強也會壓抑非美買家的需求。",
-            watch:"殖利率漲、黃金不一定跌：關鍵看通膨預期有沒有漲得更快，也就是實質利率往哪邊走。" },
-          { id:"equity", label:"美股／風險資產", sub:"EQUITIES", upWord:"偏多", downWord:"偏空", x:635, y:410,
-            why:"股市同時受兩股力量拉扯：折現率（利率越高、評價越受壓，長天期成長股最敏感）與獲利（景氣強、獲利上修）。",
-            watch:"同一份數據可以有兩種解讀，判斷時先問市場現在最在意的是通膨、還是衰退。" }
+          { id:"curve", label:"殖利率曲線 10Y−2Y", sub:"YIELD CURVE SPREAD", upWord:"走闊（陡化）", downWord:"收窄（趨平／倒掛）", x:430, y:450,
+            why:"長短端的利差。倒掛（負值）代表市場預期未來利率會比現在低，通常伴隨對衰退的預期；但真正的衰退訊號往往出現在倒掛之後由短端帶頭的「牛市陡峭化」。",
+            watch:"FRED 代碼 T10Y2Y。看曲線要同時問「誰在動」：長端帶頭是供給與通膨的故事，短端帶頭是Fed與景氣的故事。" },
+          { id:"credit", label:"信用利差", sub:"HY CREDIT SPREAD", upWord:"擴大", downWord:"收窄", x:430, y:590,
+            why:"高收益債與公債的殖利率差，就是市場對違約風險要求的補償。它同時是風險偏好的溫度計與企業融資條件的實際反映。",
+            watch:"FRED 代碼 BAMLH0A0HYM2（ICE BofA 美國高收益債選擇權調整利差，單位為百分點）。信用利差通常比股市更早反映壓力，股市創高但利差同步擴大，是值得警覺的背離。" },
+          { id:"bond", label:"債券價格", sub:"BOND PRICE", upWord:"上漲", downWord:"下跌", x:635, y:20,
+            why:"債券價格與殖利率是同一枚硬幣的兩面。久期（存續期間）決定同樣的殖利率變動會讓價格波動多少，長天期債券對利率的敏感度遠高於短天期。",
+            watch:"看到「殖利率上升」就要同步想到「手上的債券在跌」，尤其是20年期以上的長債ETF。" },
+          { id:"jpy", label:"日圓", sub:"JAPANESE YEN", upWord:"走強", downWord:"走弱", x:635, y:96,
+            why:"全球最典型的融資貨幣：長期低利率讓投資人借日圓去買高息資產。利差決定套利交易的獲利，風險事件則決定何時平倉。",
+            watch:"套利平倉是自我強化的：日圓一升，虧損部位被迫回補，又推升日圓。2024年8月那一波就是教科書案例。" },
+          { id:"emfx", label:"新興市場貨幣", sub:"EM FX", upWord:"走強", downWord:"走弱", x:635, y:172,
+            why:"對美元最敏感的一群。美元走強時面對三重壓力：外資撤出、美元計價外債負擔加重、央行為守匯率被迫在景氣不好時升息。",
+            watch:"要分清楚原物料出口國與能源進口國——同一個油價衝擊，兩者的貨幣方向相反。" },
+          { id:"twd", label:"新台幣", sub:"TAIWAN DOLLAR", upWord:"走強", downWord:"走弱", x:635, y:248,
+            why:"新台幣大方向跟著美元強弱走，但常有偏離，因為它同時被三股力量拉扯：出口商的貿易順差結匯、外資買賣超台股的資金進出、以及壽險業龐大的美元資產避險操作。",
+            watch:"2025年5月初新台幣在兩個交易日內升值約8%，惠譽隨後（5月15日）將五家台灣壽險列入負向評等觀察，理由是台幣負債對美元資產的幣別錯配與避險成本上升（媒體轉述惠譽行動）。這說明台幣的急升貶對台灣金融業的影響，有時比對出口商更直接。" },
+          { id:"gold", label:"黃金", sub:"GOLD", upWord:"上漲", downWord:"下跌", x:635, y:324,
+            why:"黃金不生息，最怕的是實質利率走高；同時它以美元計價，美元走強也會壓抑非美買家的需求。",
+            watch:"殖利率漲、黃金不一定跌：關鍵看通膨預期有沒有漲得更快，也就是實質利率往哪邊走。另外還有一條不看利率的線——各國央行的儲備多元化買盤。" },
+          { id:"silver", label:"白銀", sub:"SILVER", upWord:"上漲", downWord:"下跌", x:635, y:400,
+            why:"白銀有兩個身分：貴金屬與工業金屬。前者讓它跟著黃金走、怕實質利率；後者讓它跟著景氣與太陽能、電子需求走。兩個身分同向時漲跌幅會比黃金大得多，方向相反時就會出現金銀比的擴大或收斂。",
+            watch:"太陽能占白銀工業需求的比重從2014年的11%升到2024年的29%（Silver Institute），所以看白銀不能只看貴金屬那一面。金銀比（黃金價格除以白銀價格）是最常用的相對強弱指標。" },
+          { id:"copper", label:"銅", sub:"COPPER", upWord:"上漲", downWord:"下跌", x:635, y:476,
+            why:"有「銅博士」之稱的景氣溫度計，因為它同時用在建築、電力設備、家電與汽車。這一輪又多了兩個結構性需求：電網汰換與資料中心的供電建置——本站的電力設備與資料中心能源兩個分頁，講的就是這條需求的實體端。",
+            watch:"看銅價要先問是哪個市場：美國自2025年8月1日起對半成品銅與銅密集衍生品課徵50%關稅（當時精煉陰極銅排除在外，另有分階段課稅的評估時程），COMEX與LME之間可能出現明顯價差，兩邊的報價不能混著看。" },
+          { id:"equity", label:"美股／風險資產", sub:"EQUITIES", upWord:"偏多", downWord:"偏空", x:635, y:552,
+            why:"股價可以拆成獲利與評價兩塊。利率影響評價，景氣影響獲利，同一個消息常常同時推動兩者但方向相反，這就是為什麼「好消息是壞消息」會反覆出現。",
+            watch:"先問這次市場在意的是獲利還是折現率，答案會決定同一個數據該解讀成利多還是利空。" },
+          { id:"natgas", label:"天然氣與電價", sub:"NATURAL GAS & POWER", upWord:"上漲", downWord:"下跌", x:635, y:628,
+            why:"天然氣在美國多數時候是邊際電源，所以電價常常跟著氣價走；電價又直接決定資料中心的營運成本。LNG 出口則把美國的氣價和歐洲、亞洲連了起來，讓原本區域性的價格變成半全球性的。",
+            watch:"EIA 2026年1月預估美國用電量2026年成長1%、2027年成長3%，為2000年以來最強的四年成長期，主因是資料中心等大型運算設施；Henry Hub 天然氣2026年均價預估略低於每百萬英熱單位3.50美元，2027年約4.51美元。" },
+          { id:"twstock", label:"台股加權指數", sub:"TAIEX", upWord:"偏多", downWord:"偏空", x:840, y:330,
+            why:"外資比重高、產業集中在電子與半導體，讓台股成為全球風險胃納的高beta市場：漲的時候比美股多，跌的時候也比美股兇。匯率則是第二條線，外資的進出同時牽動指數與台幣。",
+            watch:"看台股的總經訊號，順序通常是：全球風險偏好 → 外資買賣超與台幣 → 權值股評價。三者同向時趨勢最明確。" },
+          { id:"semis", label:"半導體評價", sub:"SEMIS VALUATION", upWord:"偏多", downWord:"偏空", x:840, y:470,
+            why:"半導體與AI供應鏈的獲利多落在未來幾年，是典型的長久期資產，對折現率（實質利率）特別敏感。另一條線是匯率：台廠收入多以美元計價、成本多以台幣支付。",
+            watch:"這一頁的實質利率、風險偏好、台幣三個節點，對應的就是本站各產業分頁裡那些公司的評價環境；基本面看供應鏈，評價看這一頁。" }
         ],
         edges: [
           { from:"fedpath", to:"y2" },
-          { from:"be", to:"fedpath" },
+          { from:"fiscal", to:"tp" },
+          { from:"liq", to:"tp" },
+          { from:"liq", to:"y2" },
+          { from:"liq", to:"risk" },
           { from:"oil", to:"be" },
           { from:"oil", to:"tp" },
-          { from:"oil", to:"equity", route:"lane" },
+          { from:"be", to:"fedpath" },
           { from:"y2", to:"y10" },
           { from:"y2", to:"dxy" },
           { from:"y2", to:"curve" },
           { from:"tp", to:"y10" },
           { from:"be", to:"real" },
+          { from:"risk", to:"dxy" },
+          { from:"risk", to:"credit" },
           { from:"y10", to:"real" },
           { from:"y10", to:"curve" },
           { from:"y10", to:"bond" },
           { from:"real", to:"gold" },
+          { from:"real", to:"silver" },
           { from:"real", to:"equity" },
           { from:"dxy", to:"gold" },
-          { from:"dxy", to:"oil", route:"lane" },
+          { from:"dxy", to:"silver" },
+          { from:"dxy", to:"copper" },
           { from:"dxy", to:"emfx" },
           { from:"dxy", to:"jpy" },
-          { from:"dxy", to:"equity" }
+          { from:"dxy", to:"twd" },
+          { from:"dxy", to:"equity" },
+          { from:"credit", to:"equity" },
+          { from:"dxy", to:"oil", route:"lane" },
+          { from:"oil", to:"equity", route:"lane" },
+          { from:"oil", to:"natgas", route:"lane" },
+          { from:"twd", to:"twstock" },
+          { from:"twd", to:"semis" },
+          { from:"equity", to:"twstock" },
+          { from:"equity", to:"semis" }
+        ]
+      },
+      knowledge: {
+        title: "知識卡：看數據之前先搞清楚的事",
+        caption: "點卡片展開。前三張是名詞與制度，第四張是每個月的數據節奏，最後一張是速查表。",
+        cards: [
+          { id:"price", title:"CPI、PPI、PCE 怎麼分工", sub:"PRICE INDICES",
+            summary:"三個都在量物價，但編製單位、涵蓋範圍與用途都不同；Fed 的 2% 目標定義在 PCE，不是 CPI。",
+            sections: [
+              { h:"CPI 消費者物價指數（BLS）", t:"量的是「都市消費者自掏腰包買的一籃子東西」。市場反應最大，因為公布得早、又是抗通膨債券（TIPS）與許多合約的連動標的。住房（尤其是業主約當租金）權重高，而租金資料本身反應慢，所以CPI常常比實際租金行情晚半年以上。" },
+              { h:"PPI 生產者物價指數（BLS）", t:"量的是生產端出廠的價格，站在成本的上游。它的價值在於領先性與「拆解用」：PPI 裡的醫療、機票、投資組合管理費等細項會被用來推估 PCE，所以PPI公布後，市場常常當天就修正對PCE的預期。" },
+              { h:"PCE 個人消費支出物價指數（BEA）", t:"量的是「整體消費支出」，包含雇主或保險幫你付的部分（最典型是醫療），而且權重會隨消費者換購行為每月調整。涵蓋更廣、權重更動態，所以 Fed 用它當政策目標。官方的2%目標定義在整體PCE，核心PCE（扣除食品與能源）則是最常被觀察的趨勢指標。" },
+              { h:"核心 vs 整體、年增 vs 月增", t:"核心不是因為食品能源不重要，而是因為它們波動大、且多半是供給面決定，貨幣政策管不到。看趨勢用核心，看民眾感受用整體。年增率會被去年基期影響（基期效應），月增率（尤其折算年率的三個月、六個月移動平均）才看得出當下的動能。" }
+            ],
+            source:"BLS、BEA 官方說明；Fed《Statement on Longer-Run Goals》" },
+          { id:"fomc", title:"FOMC：誰在投票、什麼時候有點陣圖", sub:"FOMC STRUCTURE",
+            summary:"一年8次會議，其中3、6、9、12月附經濟預測摘要（SEP）與點陣圖；投票席位固定12票，但發言的人遠不只12個。",
+            sections: [
+              { h:"12 張票怎麼來的", t:"聯準會理事會7位理事（含主席）＋紐約聯準銀行總裁，這8票是固定的；其餘11家地區聯準銀行總裁輪值出4票。沒有投票權的總裁照樣出席、照樣發言、照樣被寫進會議紀要，所以他們的談話仍然會影響市場對路徑的定價。" },
+              { h:"一次會議會產出什麼", t:"會後聲明（措辭的增刪是重點）、主席記者會（常常比聲明更能改變定價）、三週後的會議紀要（看內部分歧）；3、6、9、12月還多出SEP與點陣圖。" },
+              { h:"點陣圖怎麼看、怎麼別看", t:"點陣圖是每位與會者（含沒有投票權的總裁）對未來各年底適當政策利率的匿名預測，看的是中位數與分布的離散程度。它是「當下的預測」不是「承諾」，隨每季資料改變；把它當路線圖看會被修理。" },
+              { h:"主席的實際影響力", t:"主席只有一票，但掌握議程設定、聲明草稿與記者會敘事。歷史上主席極少站在少數方，真正的資訊多半藏在異議票的數量與方向。" }
+            ],
+            table: { title:"2026 年 FOMC 會議（★＝附SEP與點陣圖）",
+              cols:["會議","日期"],
+              rows:[["1月","1／27–28"],["3月 ★","3／17–18"],["4月","4／28–29"],["6月 ★","6／16–17"],["7月","7／28–29"],["9月 ★","9／15–16"],["10月","10／27–28"],["12月 ★","12／8–9"]] },
+            source:"Federal Reserve 官網 FOMC 會議行事曆與組成說明" },
+          { id:"curve4", title:"殖利率曲線的四個階段", sub:"BEAR/BULL × FLATTEN/STEEPEN",
+            summary:"熊＝殖利率上升、牛＝殖利率下降；平＝長短利差收窄、陡＝長短利差走闊。四種組合各自對應一種景氣敘事。",
+            table: { title:"四種組合",
+              cols:["型態","誰在動","典型背景","常見資產含意"],
+              rows:[
+                ["熊市平坦化 Bear Flatten","短端漲得比長端多","Fed 開始升息或轉鷹，市場相信通膨壓得住","美元走強、成長股評價壓縮、曲線往倒掛推進"],
+                ["熊市陡峭化 Bear Steepen","長端漲得比短端多","財政赤字與發債擴大、期限溢酬升高、通膨不確定性上升，而Fed按兵不動","長債最痛、實質利率上行壓抑評價；黃金這時反而可能因信用疑慮而撐住"],
+                ["牛市平坦化 Bull Flatten","長端跌得比短端多","市場開始定價成長放緩，但Fed還沒動","景氣疑慮的第一階段，防禦類股與長債相對強勢"],
+                ["牛市陡峭化 Bull Steepen","短端跌得比長端多","Fed 真的開始降息，通常是衰退已經近在眼前或已發生","倒掛在這個階段解除——歷史上真正的衰退訊號常常不是倒掛本身，而是倒掛之後的這一步"]
+              ] },
+            sections: [
+              { h:"倒掛不是計時器", t:"倒掛代表市場預期未來的短率會比現在低，本身只是一個預期的投影。從倒掛到衰退的落後期在歷史上從幾個月到兩年都有，而且中間常常會先解除倒掛——用它當進出場的時間點，勝率很差。" },
+              { h:"看曲線先問誰在動", t:"同樣是「曲線陡了」，長端帶頭與短端帶頭是完全相反的兩個故事。把 T10Y2Y 和 2年、10年各自的走勢疊在一起看，才知道現在是哪一種。" }
+            ],
+            source:"FRED T10Y2Y 序列定義與歷史型態整理" },
+          { id:"calendar", title:"每個月的數據節奏", sub:"DATA CALENDAR",
+            summary:"時間都是美東時間，台灣通常是晚上（夏令 8:30 ET ≒ 台灣 20:30，冬令 21:30）。日期年年變動，這裡記的是節奏不是死日期。",
+            table: { title:"主要數據",
+              cols:["數據","誰發布","時點","為什麼重要"],
+              rows:[
+                ["非農就業 Employment Situation","BLS","8:30 ET，多數月份落在第一個週五，但不是鐵律（2026年就有好幾個月落在第二個週五）","一次公布非農就業人數、失業率與平均時薪三個數字，是每月波動最大的單一事件"],
+                ["CPI","BLS","8:30 ET，多在每月10–14日","市場反應最直接的通膨數據"],
+                ["PPI","BLS","8:30 ET，多在CPI前後幾天","用來回推PCE的細項來源"],
+                ["PCE（Personal Income and Outlays）","BEA","8:30 ET，隔月下旬（例如2026年5月數據於6月25日公布）","Fed 的政策目標指標；因為公布得晚，市場多半已經用CPI與PPI推估過了"],
+                ["FOMC 決議","Fed","2:00 PM ET 聲明，2:30 PM ET 記者會；一年8次","3、6、9、12月另附SEP與點陣圖"],
+                ["FOMC 會議紀要","Fed","會後三週，2:00 PM ET","看內部分歧與討論細節"],
+                ["JOLTS 職缺","BLS","10:00 ET，落後約一個月","看勞動市場的鬆緊（職缺數對失業人數的比率）"],
+                ["密大消費者信心","密西根大學","10:00 ET，月中初值、月底終值","裡面的通膨預期分項常常比信心指數本身更能撼動市場"]
+              ] },
+            sections: [
+              { h:"日期不要背", t:"2025年聯邦政府經費中斷時，BLS 曾整批調整發布日期。每年的實際時程以 BLS、BEA、Fed 官網的發布時程表為準。" }
+            ],
+            source:"BLS、BEA 官方發布時程表；Federal Reserve FOMC 行事曆" },
+          { id:"glossary", title:"名詞速查", sub:"GLOSSARY",
+            summary:"看盤報告裡最常出現、又最常被含糊帶過的詞。",
+            terms: [
+              { k:"基點 bp", v:"0.01個百分點。「升息一碼」＝25個基點＝0.25%。" },
+              { k:"損益兩平通膨率 Breakeven", v:"名目公債殖利率減去同天期TIPS殖利率，代表市場對未來平均通膨的定價。FRED：T10YIE。" },
+              { k:"實質利率 Real yield", v:"名目殖利率減通膨預期，TIPS的報價本身就是實質利率。FRED：DFII10。黃金與成長股評價最直接的對手盤。" },
+              { k:"期限溢酬 Term premium", v:"投資人為了承擔長期持有的不確定性而要求的額外補償。它會讓長債殖利率在Fed完全不動的情況下自己走高或走低。" },
+              { k:"點陣圖 Dot plot", v:"FOMC 與會者對未來各年底適當政策利率的匿名預測散點圖，3、6、9、12月會議公布。是預測不是承諾。" },
+              { k:"IORB 準備金餘額利率", v:"Fed 付給銀行存放在Fed的準備金的利率，是利率走廊的主要引導工具。" },
+              { k:"ON RRP 隔夜逆回購", v:"讓貨幣市場基金等非銀行機構把錢隔夜放在Fed並收取利息的工具，實務上形成短期利率的下限。" },
+              { k:"QT／QE", v:"縮表／擴表。QT 是到期不再投資、讓資產負債表自然縮小；QE 是主動買進。兩者主要透過期限溢酬影響長端，與政策利率是不同的管道。" },
+              { k:"SOFR", v:"以美國公債附買回交易為基礎的隔夜擔保融資利率，取代LIBOR成為美元的基準利率。它跳升通常代表附買回市場的資金緊俏。" },
+              { k:"Sahm 法則", v:"失業率（U3）的三個月移動平均，較前12個月的三個月移動平均低點上升0.50個百分點以上時，視為衰退已經開始的訊號。FRED：SAHMREALTIME。" },
+              { k:"核心 Core", v:"扣除食品與能源。不是因為不重要，而是因為它們波動大又多由供給面決定，貨幣政策管不到。" },
+              { k:"基期效應", v:"年增率受去年同期水準影響而放大或縮小。看當下動能要改看月增率或三、六個月移動平均的折算年率。" },
+              { k:"倒掛 Inversion", v:"短天期殖利率高於長天期（10年減2年為負）。代表市場預期未來利率會比現在低。" },
+              { k:"久期 Duration", v:"債券價格對殖利率變動的敏感度。久期10代表殖利率升1個百分點、價格大約跌10%。" },
+              { k:"套利交易 Carry trade", v:"借低利率貨幣（最典型是日圓）去買高息資產。平倉時會自我強化：日圓一升，虧損部位被迫回補，又推升日圓。" },
+              { k:"信用利差 Credit spread", v:"公司債與同天期公債的殖利率差，代表違約風險的補償。高收益債利差 FRED：BAMLH0A0HYM2。" },
+              { k:"OAS 選擇權調整利差", v:"把債券內含的提前償還等選擇權價值調整掉之後的利差，方便不同結構的債券互相比較。" },
+              { k:"QRA 季度再融資公告", v:"美國財政部每季公布的發債計畫，長短天期的發行結構會直接影響期限溢酬與長債殖利率。" },
+              { k:"金銀比", v:"黃金價格除以白銀價格。比值擴大通常代表避險需求主導，收斂則多半是工業與景氣需求回來了。" },
+              { k:"Henry Hub", v:"美國天然氣的基準交割點與報價基準，電價在多數時間跟著它走。" }
+            ],
+            source:"各指標之官方定義與 FRED 序列說明" }
         ]
       },
       nodes: [
@@ -8502,6 +8772,22 @@
               desc:"同樣是曲線走平，原因完全不同：熊市平坦化是短端漲得比長端多（市場認為升息合理、經濟撐得住）；牛市平坦化是長端跌得比短端多（市場認為Fed升過頭，未來會被迫降息）。陡峭化也一樣：熊市陡峭化是長端漲得比短端多（期限溢酬或通膨疑慮主導）；牛市陡峭化是短端跌得比長端多（降息循環啟動）。\n\n分辨的關鍵在於升息的理由是「經濟太好承受得住」還是「不惜代價壓通膨」。",
               companies:[], stats:[] }
           ] },
+        { icon:"icon-network", title:"風險偏好、信用利差與去槓桿", sub:"RISK APPETITE & DELEVERAGING", parallelGroup:"macro-topics",
+          desc:"前面那些節點講的是價格「應該」怎麼被決定，這一節講的是資金「實際上」怎麼流動。市場願意承擔多少風險，短期內往往比基本面更能決定價格，而且它的傳導不是慢慢滲透，是一次到位。\n\n最好用的兩個代理指標是VIX與高收益債利差。高收益債利差（公司債殖利率減同天期公債）代表市場對違約風險要求的補償，它通常比股市更早反映壓力——股市創新高、利差卻同步擴大，是最值得警覺的背離之一。\n\n避險情境有一個很特別的性質：它會讓平常反向的東西同時上漲。美元與日圓同時走強、美元與黃金同時走強，這些在利差邏輯下說不通的組合，在去槓桿的時候都是正常的，因為這時候市場不是在比誰的利率高，而是在搶流動性、在被迫平倉。看到這種組合，先假設是去槓桿而不是基本面。\n\n去槓桿還有自我強化的性質。以日圓套利交易為例：日圓一升，用日圓融資買進的部位出現匯損，被迫回補日圓，又進一步推升日圓。這種正回饋讓風險事件的第一天往往不是結束，而是開始。",
+          stats:[{v:"BAMLH0A0HYM2",l:"FRED 高收益債利差代碼，通常比股市早反映壓力"}],
+          companies:[] },
+        { icon:"icon-substrate", title:"財政、公債供給與 Fed 資產負債表", sub:"FISCAL SUPPLY & BALANCE SHEET", parallelGroup:"macro-topics",
+          desc:"長債殖利率有一條和Fed升不升息完全無關的驅動線：供給與買盤。財政赤字決定要發多少債，財政部的季度再融資公告（QRA）決定這些債裡有多少是長天期的，而Fed的資產負債表決定市場上還有沒有那個「不問價格的買家」。\n\n三件事同時往同一個方向走的時候，期限溢酬會被推得很高——這正是2023年10月的劇本：Fed已經停止升息，長端卻因為財政部擴大長債發行與信評調降而升破5%。看長債要先分辨這一輪是「Fed的故事」還是「財政的故事」，兩者的後續發展完全不同。\n\nFed 這一邊的狀態也在變。FOMC 於2025年10月29日宣布結束縮表，2025年12月1日起停止資產負債表縮減，公債到期本金全數在標售中展延、機構債到期本金再投資於國庫券。換句話說，那個買家沒有回來大買，但至少不再退場。\n\n要注意的是，QE／QT 對資產價格的傳導，遠比它對實體通膨的傳導來得強。2010年代大規模QE並沒有帶來對應的通膨，卻明顯推升了風險資產評價——把「印鈔票就會通膨」當成必然，在過去十五年是會賠錢的。",
+          stats:[{v:"2025/12/1",l:"Fed 停止資產負債表縮減的生效日"},{v:"QRA",l:"財政部季度再融資公告，決定長天期發行結構"}],
+          companies:[] },
+        { icon:"icon-furnace", title:"工業金屬與能源：銅、白銀、天然氣", sub:"INDUSTRIAL METALS & ENERGY", parallelGroup:"macro-topics",
+          desc:"黃金是金融資產，銅和天然氣則比較接近實體經濟的讀數，白銀剛好卡在中間——這個差別決定了它們對同一個總經衝擊會給出不同的答案。\n\n銅被稱為「銅博士」，因為建築、電力設備、家電與汽車都要用它，價格等於是全球製造活動的溫度計。這一輪它多了兩個結構性需求：電網汰換與資料中心的供電建置，本站的電力設備與資料中心能源兩個分頁講的就是這條需求的實體端。但看銅價要先問是哪個市場：美國自2025年8月1日起對半成品銅與銅密集衍生品課徵50%關稅（當時精煉陰極銅排除在外），COMEX 與 LME 之間可能出現明顯價差，兩邊報價不能混著看。\n\n白銀有兩個身分。貴金屬那一面跟著黃金走、怕實質利率；工業那一面跟著景氣與太陽能、電子需求走。太陽能占白銀工業需求的比重已從2014年的11%升到2024年的29%。兩個身分同向時，白銀的漲跌幅會明顯大於黃金；方向相反時，就會看到金銀比擴大或收斂。\n\n天然氣在美國多數時候是邊際電源，電價因此常跟著氣價走，而電價又直接是資料中心的營運成本。EIA 在2026年1月預估美國用電量2026年成長1%、2027年成長3%，為2000年以來最強的四年成長期，主因就是資料中心等大型運算設施；Henry Hub 氣價2026年均價預估略低於每百萬英熱單位3.50美元，2027年約4.51美元。LNG 出口則讓美國氣價與歐亞市場連動，區域性價格逐漸半全球化。",
+          stats:[{v:"29%",l:"太陽能占白銀工業需求比重（2024年，2014年為11%）"},{v:"+3%",l:"EIA 預估2027年美國用電量成長率，主因資料中心"}],
+          companies:[] },
+        { icon:"icon-chip", title:"接回台灣：台幣、台股與半導體評價", sub:"TAIWAN: FX, INDEX & VALUATION", parallelGroup:"macro-topics",
+          desc:"這一頁講的所有東西，最後都會落到同一個地方：本站其他分頁裡那些公司的評價環境。基本面看供應鏈，評價看這一頁。\n\n第一條線是折現率。半導體與AI供應鏈的獲利多半落在未來幾年，是典型的長久期資產，對實質利率特別敏感。這就是為什麼長債殖利率一跳，費半與台股權值股常常先修正，而且跌幅大於大盤——修正的不是獲利預估，是評價倍數。\n\n第二條線是匯率。台廠收入多以美元計價、成本多以台幣支付，台幣貶值通常有利毛利率，這是每季法說會固定會被問到的題目。但匯率這條線有兩面：台幣貶值若伴隨外資大舉匯出，股價的資金面壓力可能蓋過匯兌利益，所以不能只看單邊。\n\n第三條線是資金。台股外資比重高、產業集中，是全球風險胃納的高beta市場，漲得比美股多、跌得也比美股兇。實務上的觀察順序通常是：全球風險偏好 → 外資買賣超與台幣 → 權值股評價，三者同向時趨勢最明確。\n\n台幣的急升貶對金融業的衝擊有時比對出口商更直接。2025年5月初新台幣在兩個交易日內升值約8%，惠譽隨後於5月15日將五家台灣壽險列入負向評等觀察，理由是台幣負債對美元資產的幣別錯配與避險成本上升（媒體轉述惠譽行動）。壽險部位的避險決策本身又會回頭影響匯率，這是台幣特有的一條回饋線。",
+          stats:[{v:"約8%",l:"2025年5月初新台幣兩個交易日的升幅"},{v:"3條線",l:"折現率、匯率、資金，決定台股的評價環境"}],
+          companies:[] },
         { icon:"icon-generic", title:"例外與背離：規則什麼時候會失靈", sub:"WHEN THE RULES BREAK", parallelGroup:"macro-topics",
           desc:"這一頁所有的箭頭都是「其他條件不變」下的典型方向，真實市場沒有其他條件不變這回事。最常見的四種失靈：\n\n第一，供給面主導。油價因減產或地緣衝突而漲時，「美元強、商品弱」的規則會失效，兩者可以同漲。\n\n第二，避險需求壓過機會成本。系統性風險升高時，美元與黃金會一起被買，即使實質利率不低。\n\n第三，政策信任度出問題。升息本應利多美元，但若市場認為央行落後、或財政紀律失控，資金反而會離開該國貨幣與長債，變成利率升、匯率貶、長債跌的組合。\n\n第四，同一份數據兩種敘事。就業或通膨數據開得強，可以被解讀成「不會降息了」而殺盤，也可以被解讀成「景氣有底氣」而拉回，甚至同一天兩種解讀輪流主導，走出深V。\n\n實務上的用法不是「看到A就做A」，而是先確認現在市場最在意的是通膨、成長還是流動性，再判斷這條傳導鏈這次會不會成立。",
           companies:[], stats:[] }
@@ -11399,10 +11685,11 @@
     ind.nodes.forEach(function(node, i){
       var p = L.pos[i];
       var isParallelNode = !!node.parallelGroup;
+      var plainTopics = !!ind.plainTopics;
       var g = el("g", {class:"node-group"+(isParallelNode?" parallel":""), tabindex:"0", role:"button", "aria-pressed":"false",
-        "aria-label":(isParallelNode?"平行環節：":"第"+(i+1)+"步：")+node.title});
+        "aria-label":(plainTopics ? "主題：" : (isParallelNode?"平行環節：":"第"+(i+1)+"步："))+node.title});
       g.appendChild(el("rect", {class:"node-box", x:p.x, y:p.y, width:BOX_W, height:BOX_H, rx:14}));
-      if(isParallelNode){
+      if(isParallelNode && !plainTopics){
         var pTitle = el("title", {});
         pTitle.textContent = "平行環節，與同組其他環節無固定先後順序";
         g.appendChild(pTitle);
@@ -11558,7 +11845,13 @@
         if(idx !== i && n.parallelGroup === node.parallelGroup) siblings.push({ idx:idx, title:n.title });
       });
       if(siblings.length){
-        parallelHtml = '<div class="parallel-note">⇄ 平行環節，與下列 '+siblings.length+' 個環節同時並存、無固定先後順序：<div class="parallel-pills">' +
+        /* 供應鏈分頁需要提醒「這幾個環節不是先後關係」；像總經這種本來就
+           不是流程的分頁（plainTopics），只列其他主題當導覽，不再多寫一句。 */
+        var plain = !!INDUSTRIES[state.industry].plainTopics;
+        parallelHtml = '<div class="parallel-note">' +
+          (plain ? '其他主題：'
+                 : '⇄ 平行環節，與下列 '+siblings.length+' 個環節同時並存、無固定先後順序：') +
+          '<div class="parallel-pills">' +
           siblings.map(function(s){
             return '<button class="parallel-pill" data-idx="'+s.idx+'">'+s.title+'</button>';
           }).join("") + '</div></div>';
@@ -11569,7 +11862,7 @@
       '<div class="panel-icon-wrap"><svg viewBox="0 0 40 40"><use href="#'+(node.icon||"icon-generic")+'"></use></svg></div>' +
       '<div class="panel-body">' +
         '<div class="panel-top"><div>' +
-          '<div class="panel-step">STEP '+String(i+1).padStart(2,"0")+' / '+state.nodes.length+'</div>' +
+          '<div class="panel-step">'+(INDUSTRIES[state.industry].plainTopics ? "主題 " : "STEP ")+String(i+1).padStart(2,"0")+' / '+state.nodes.length+'</div>' +
           '<h2 class="panel-title">'+node.title+'</h2>' +
           '<div class="panel-sub">'+(node.sub||"")+'</div>' +
         '</div></div>' +
@@ -11581,8 +11874,8 @@
         '<div class="stats">'+statsHtmlFor(node.stats)+'</div>' +
         subGridHtml +
         '<div class="panel-nav">' +
-          '<button class="nav-btn" id="prevBtn" '+(i===0?"disabled":"")+'>‹ 上一步</button>' +
-          '<button class="nav-btn" id="nextBtn" '+(i===state.nodes.length-1?"disabled":"")+'>下一步 ›</button>' +
+          '<button class="nav-btn" id="prevBtn" '+(i===0?"disabled":"")+'>‹ '+(INDUSTRIES[state.industry].plainTopics?"上一個主題":"上一步")+'</button>' +
+          '<button class="nav-btn" id="nextBtn" '+(i===state.nodes.length-1?"disabled":"")+'>'+(INDUSTRIES[state.industry].plainTopics?"下一個主題":"下一步")+' ›</button>' +
         '</div>' +
       '</div>';
 
@@ -11737,15 +12030,22 @@
      把路徑畫出來與高亮，不參與運算。sign:0 代表方向視敘事而定。
      ============================================================ */
   var macroCardEl = document.getElementById("macroCard");
-  var MACRO_W = 170, MACRO_H = 56, MACRO_LANE = 478, MACRO_VW = 830, MACRO_VH = 500;
+  var MACRO_W = 170, MACRO_H = 56, MACRO_LANE = 700, MACRO_VW = 1040, MACRO_VH = 742;
   var MACRO_TIER_W = { main: 1, sub: 0.6, cond: 0.35 };
   var MACRO_TIER_LABEL = { main: "主要傳導", sub: "次要傳導", cond: "視情況而定" };
   var MACRO_SCALE = {
     level:    ["大幅下降", "下降", "不變", "上升", "大幅上升"],
-    surprise: ["遠低於預期", "低於預期", "符合預期", "高於預期", "遠高於預期"]
+    surprise: ["遠低於預期", "低於預期", "符合預期", "高於預期", "遠高於預期"],
+    risk:     ["大幅轉向避險", "轉向避險", "中性", "轉向風險偏好", "大幅轉向風險偏好"],
+    balance:  ["大幅縮表 QT", "縮表 QT", "維持不變", "擴表 QE", "大幅擴表 QE"]
   };
-  var macroState = { model: null, values: {}, selected: null, nodeById: {} };
+  var macroState = { model: null, values: {}, toggles: {}, selected: null, nodeById: {} };
 
+  /* 有些拉條（例如油價）帶一個劇本切換鈕，不同劇本用不同的效果清單。 */
+  function macroEffectsOf(d){
+    if(d.effectsBy) return d.effectsBy[macroState.toggles[d.id]] || [];
+    return d.effects || [];
+  }
   function macroScaleLabel(d, v){ return (MACRO_SCALE[d.scale] || MACRO_SCALE.level)[v + 2]; }
   function macroStrength(x){ return x >= 1.6 ? "強" : (x >= 0.8 ? "中" : "弱"); }
   function macroDirWord(node, dir){
@@ -11762,7 +12062,7 @@
     m.drivers.forEach(function(d){
       var v = macroState.values[d.id] || 0;
       if(!v) return;
-      (d.effects || []).forEach(function(e){
+      macroEffectsOf(d).forEach(function(e){
         var r = res[e.to];
         if(!r) return;
         var w = (MACRO_TIER_W[e.tier] || 0.5) * Math.abs(v);
@@ -11783,17 +12083,32 @@
     return res;
   }
 
-  function macroEdgeD(a, b, route){
+  function macroEdgeD(a, b, route, k){
     var scy = a.y + MACRO_H / 2, tcy = b.y + MACRO_H / 2;
+    k = k || 0;
     if(route === "lane"){
-      /* 跨欄或回頭的長邊走最下面的水平道，左行與右行各走一條，
-         避免兩條長邊疊在同一條線上。 */
+      /* 跨欄或回頭的長邊走最下面的水平道；每條各給一點位移，
+         再從目標欄旁邊的走廊折上來，避免壓到別的方塊或互相重疊。 */
+      var lane = MACRO_LANE + k * 10;
       if(b.x < a.x){
-        return "M" + a.x + "," + scy + " H" + (a.x - 18) + " V" + (MACRO_LANE - 8) +
-               " H" + (b.x + MACRO_W / 2) + " V" + (b.y + MACRO_H);
+        return "M" + a.x + "," + scy + " H" + (a.x - 18) + " V" + lane +
+               " H" + (b.x + MACRO_W + 18) + " V" + tcy + " H" + (b.x + MACRO_W);
       }
-      return "M" + (a.x + MACRO_W / 2 - 22) + "," + (a.y + MACRO_H) + " V" + (MACRO_LANE + 10) +
-             " H" + (b.x + MACRO_W / 2 - 22) + " V" + (b.y + MACRO_H);
+      return "M" + (a.x + MACRO_W / 2) + "," + (a.y + MACRO_H) + " V" + lane +
+             " H" + (b.x - 18 - k * 8) + " V" + tcy + " H" + b.x;
+    }
+    if(b.x === a.x){
+      /* 同一欄內的邊：上下相鄰就直接走垂直線，隔了別的方塊
+         就從右側走廊繞過去，避免穿過中間那一格。 */
+      if(Math.abs(b.y - a.y) <= 170){
+        var cx = a.x + MACRO_W / 2;
+        return b.y > a.y
+          ? "M" + cx + "," + (a.y + MACRO_H) + " V" + b.y
+          : "M" + cx + "," + a.y + " V" + (b.y + MACRO_H);
+      }
+      var corr = a.x + MACRO_W + 17;
+      return "M" + (a.x + MACRO_W) + "," + (a.y + MACRO_H * 0.72) + " H" + corr +
+             " V" + tcy + " H" + (b.x + MACRO_W);
     }
     if(b.x < a.x){
       /* 回頭的邊走欄與欄之間的走廊，並刻意偏離中線，
@@ -11808,11 +12123,13 @@
 
   function macroSvg(res, activeEdges){
     var m = macroState.model;
+    var laneK = 0;
     var edges = m.edges.map(function(e){
       var a = macroState.nodeById[e.from], b = macroState.nodeById[e.to];
       if(!a || !b) return "";
       var on = activeEdges[e.from + ">" + e.to] ? " is-active" : "";
-      return '<path class="macro-edge' + on + '" d="' + macroEdgeD(a, b, e.route) +
+      var k = e.route === "lane" ? laneK++ : 0;
+      return '<path class="macro-edge' + on + '" d="' + macroEdgeD(a, b, e.route, k) +
              '" marker-end="url(#macroArrow)"/>';
     }).join("");
     var nodes = m.nodes.map(function(n){
@@ -11925,7 +12242,7 @@
     var activeEdges = {};
     m.drivers.forEach(function(d){
       if(!macroState.values[d.id]) return;
-      (d.effects || []).forEach(function(e){
+      macroEffectsOf(d).forEach(function(e){
         var p = e.path || [];
         for(var i = 0; i < p.length - 1; i++) activeEdges[p[i] + ">" + p[i + 1]] = true;
       });
@@ -11957,8 +12274,12 @@
     macroState.values = {};
     macroState.selected = null;
     macroState.nodeById = {};
+    macroState.toggles = {};
     m.nodes.forEach(function(n){ macroState.nodeById[n.id] = n; });
-    m.drivers.forEach(function(d){ macroState.values[d.id] = 0; });
+    m.drivers.forEach(function(d){
+      macroState.values[d.id] = 0;
+      if(d.toggle) macroState.toggles[d.id] = d.toggle.value || d.toggle.options[0].v;
+    });
 
     macroCardEl.innerHTML =
       '<div class="macro-eyebrow">TRANSMISSION · 理論傳導模擬</div>' +
@@ -11975,11 +12296,24 @@
             'data-mdriver="' + d.id + '" aria-label="' + escapeHtml(d.label) + '">' +
           '<div class="macro-driver-hint">↑ ' + escapeHtml(d.up || "") +
             '　／　↓ ' + escapeHtml(d.down || "") + '</div>' +
+          (d.toggle
+            ? '<div class="macro-toggle-row"><span class="macro-toggle-label">' +
+                escapeHtml(d.toggle.label) + '</span><span class="macro-toggle" role="group">' +
+                d.toggle.options.map(function(o){
+                  return '<button type="button" class="macro-toggle-btn' +
+                    (macroState.toggles[d.id] === o.v ? ' is-on' : '') +
+                    '" data-mtoggle="' + d.id + '" data-mtval="' + o.v + '" aria-pressed="' +
+                    (macroState.toggles[d.id] === o.v ? 'true' : 'false') + '">' +
+                    escapeHtml(o.label) + '</button>';
+                }).join("") + '</span></div>' +
+              '<div class="macro-toggle-hint" data-mthint="' + d.id + '">' +
+                escapeHtml((d.toggle.hint || {})[macroState.toggles[d.id]] || "") + '</div>'
+            : "") +
         '</div>';
       }).join("") + '</div>' +
       '<div class="macro-actions">' +
         '<button type="button" class="nav-btn" id="macroReset">重設全部拉條</button>' +
-        '<span class="macro-hint">五根拉條可以同時拉，圖上會合成方向；方向被抵銷的節點會標成「方向不一」。</span>' +
+        '<span class="macro-hint">八根拉條可以同時拉，圖上會合成方向；方向被抵銷的節點會標成「方向不一」。</span>' +
       '</div>' +
       '<div class="macro-body">' +
         '<figure class="macro-figure" id="macroFigure"></figure>' +
@@ -11995,6 +12329,22 @@
         macroState.values[id] = parseInt(input.value, 10) || 0;
         var d = m.drivers.filter(function(x){ return x.id === id; })[0];
         if(d) macroSyncDriverLabel(d);
+        macroUpdate();
+      });
+    });
+    Array.prototype.forEach.call(macroCardEl.querySelectorAll(".macro-toggle-btn"), function(btn){
+      btn.addEventListener("click", function(){
+        var id = btn.getAttribute("data-mtoggle"), v = btn.getAttribute("data-mtval");
+        macroState.toggles[id] = v;
+        var d = m.drivers.filter(function(x){ return x.id === id; })[0];
+        Array.prototype.forEach.call(
+          macroCardEl.querySelectorAll('[data-mtoggle="' + id + '"]'), function(x){
+            var on = x.getAttribute("data-mtval") === v;
+            x.classList.toggle("is-on", on);
+            x.setAttribute("aria-pressed", on ? "true" : "false");
+          });
+        var hintEl = macroCardEl.querySelector('[data-mthint="' + id + '"]');
+        if(hintEl && d && d.toggle) hintEl.textContent = (d.toggle.hint || {})[v] || "";
         macroUpdate();
       });
     });
@@ -12028,6 +12378,82 @@
     }
   });
 
+  /* ============================================================
+     知識卡 KNOWLEDGE：industry.knowledge.cards，點卡片標題在下方
+     展開內容（段落／表格／名詞對照），一次開一張。
+     ============================================================ */
+  var knowCardEl = document.getElementById("knowCard");
+  var knowState = { cards: null, sel: 0 };
+
+  function knowTableHtml(t){
+    if(!t) return "";
+    return '<div class="kc-table-wrap"><table class="kc-table">' +
+      (t.title ? '<caption>' + escapeHtml(t.title) + '</caption>' : "") +
+      '<thead><tr>' + t.cols.map(function(c){
+        return '<th scope="col">' + escapeHtml(c) + '</th>';
+      }).join("") + '</tr></thead><tbody>' +
+      t.rows.map(function(r){
+        return '<tr>' + r.map(function(cell){
+          return '<td>' + escapeHtml(cell) + '</td>';
+        }).join("") + '</tr>';
+      }).join("") + '</tbody></table></div>';
+  }
+  function knowBodyHtml(c){
+    if(!c) return "";
+    return '<p class="kc-body-title">' + escapeHtml(c.title) + '</p>' +
+      '<div class="kc-body-sub">' + escapeHtml(c.sub || "") + '</div>' +
+      (c.sections || []).map(function(s){
+        return '<div class="kc-sec"><div class="kc-sec-h">' + escapeHtml(s.h) + '</div>' +
+          '<p class="kc-sec-t">' + escapeHtml(s.t) + '</p></div>';
+      }).join("") +
+      knowTableHtml(c.table) +
+      (c.terms && c.terms.length
+        ? '<dl class="kc-terms">' + c.terms.map(function(t){
+            return '<div class="kc-term"><dt>' + escapeHtml(t.k) + '</dt>' +
+              '<dd>' + escapeHtml(t.v) + '</dd></div>';
+          }).join("") + '</dl>'
+        : "") +
+      (c.source ? '<p class="kc-source">資料來源：' + escapeHtml(c.source) + '</p>' : "");
+  }
+  function knowSync(){
+    Array.prototype.forEach.call(knowCardEl.querySelectorAll(".kc-head"), function(btn){
+      var on = parseInt(btn.getAttribute("data-kc"), 10) === knowState.sel;
+      btn.setAttribute("aria-expanded", on ? "true" : "false");
+    });
+    knowCardEl.querySelector("#knowBody").innerHTML =
+      knowBodyHtml(knowState.cards[knowState.sel]);
+  }
+  function renderKnowledge(ind){
+    var k = ind.knowledge;
+    if(!k || !k.cards || !k.cards.length){
+      knowState.cards = null;
+      knowCardEl.hidden = true;
+      knowCardEl.innerHTML = "";
+      return;
+    }
+    knowState.cards = k.cards;
+    knowState.sel = 0;
+    knowCardEl.innerHTML =
+      '<div class="know-eyebrow">KNOWLEDGE · 知識卡</div>' +
+      '<h2 class="know-title">' + escapeHtml(k.title || "知識卡") + '</h2>' +
+      (k.caption ? '<p class="know-caption">' + escapeHtml(k.caption) + '</p>' : "") +
+      '<div class="kc-grid">' + k.cards.map(function(c, i){
+        return '<button type="button" class="kc-head" data-kc="' + i + '" aria-expanded="false">' +
+          '<span class="kc-h-title">' + escapeHtml(c.title) + '</span>' +
+          '<span class="kc-h-sub">' + escapeHtml(c.sub || "") + '</span>' +
+          '<span class="kc-h-summary">' + escapeHtml(c.summary || "") + '</span></button>';
+      }).join("") + '</div>' +
+      '<div class="kc-body" id="knowBody"></div>';
+    Array.prototype.forEach.call(knowCardEl.querySelectorAll(".kc-head"), function(btn){
+      btn.addEventListener("click", function(){
+        knowState.sel = parseInt(btn.getAttribute("data-kc"), 10);
+        knowSync();
+      });
+    });
+    knowSync();
+    knowCardEl.hidden = false;
+  }
+
   function selectIndustry(key, preferTags){
     state.industry = key;
     var ind = INDUSTRIES[key];
@@ -12035,6 +12461,7 @@
     renderMeta(ind);
     renderScene(ind);
     renderMacro(ind);
+    renderKnowledge(ind);
     buildDiagram(ind);
     var targetIdx = 0;
     if(preferTags && preferTags.length){
