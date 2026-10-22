@@ -441,6 +441,64 @@
   .hy-note{ font-size:.72rem; color:var(--ink-faint); line-height:1.7; margin-top:1rem; }
   @media (max-width:760px){ .hy-card{ padding:1rem; } .hy-year{ font-size:2rem; } }
 
+  /* ---------- 3D teardown（3D 拆解） ---------- */
+  .td-card{ background:var(--surface); border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow); padding:1.2rem 1.3rem 1.1rem; margin-bottom:1.2rem; }
+  .td-card[hidden]{ display:none; }
+  .td-eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:.68rem; letter-spacing:.12em; color:var(--copper); font-weight:600; }
+  .td-title{ margin:.2rem 0 0; font-size:1.15rem; font-weight:800; }
+  .td-sub{ margin:.35rem 0 0; color:var(--ink-soft); font-size:.86rem; line-height:1.65; max-width:78ch; }
+  .td-models{ display:flex; flex-wrap:wrap; gap:.4rem; margin-top:.8rem; }
+  .td-body{ display:grid; grid-template-columns:minmax(0,1.65fr) minmax(250px,1fr); gap:1.1rem; margin-top:.9rem; align-items:start; }
+  .td-stage{ min-width:0; }
+  .td-wrap{ position:relative; width:100%; height:min(62vh,460px); border-radius:12px; background:var(--surface-2); border:1px solid var(--line); overflow:hidden; cursor:grab; touch-action:pan-y; }
+  .td-wrap canvas{ display:block; }
+  .td-wrap.is-armed{ border-color:var(--copper-soft-line); }
+  .td-msg{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; padding:1.5rem; text-align:center; font-size:.86rem; color:var(--ink-faint); line-height:1.7; }
+  .td-bar{ display:flex; align-items:center; gap:.6rem; margin-top:.7rem; }
+  .td-bar label{ font-size:.8rem; color:var(--ink-soft); white-space:nowrap; font-weight:700; }
+  .td-range{ flex:1; min-width:0; accent-color:var(--copper); }
+  .td-range:focus-visible{ outline:2px solid var(--copper); outline-offset:3px; }
+  .td-btn{ flex:0 0 auto; min-width:2.1rem; height:2.1rem; padding:0 .55rem; border-radius:8px; border:1px solid var(--line); background:var(--surface); color:var(--ink); font-family:inherit; font-size:.9rem; cursor:pointer; }
+  .td-btn:hover{ border-color:var(--copper); color:var(--copper); }
+  .td-btn:focus-visible{ outline:2px solid var(--copper); outline-offset:2px; }
+  .td-hint{ font-size:.72rem; color:var(--ink-faint); line-height:1.6; margin-top:.35rem; }
+  .td-specs{ margin-top:.8rem; font-size:.8rem; color:var(--ink-soft); line-height:1.75; background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:.6rem .8rem; }
+  .td-specs b{ color:var(--ink); }
+  .td-side{ min-width:0; display:flex; flex-direction:column; gap:.8rem; }
+  .td-info{ background:var(--surface-2); border:1px solid var(--line); border-radius:12px; padding:.85rem .95rem; min-height:8rem; }
+  .td-info-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:.6rem; }
+  .td-info-name{ margin:0; font-size:1.02rem; font-weight:800; line-height:1.4; }
+  .td-st{ flex:0 0 auto; font-size:.68rem; font-weight:700; padding:.12rem .45rem; border-radius:6px; white-space:nowrap; border:1px solid; }
+  .td-st.is-ok{ color:var(--signal); background:var(--signal-soft); border-color:var(--signal); }
+  .td-st.is-est{ color:var(--copper-ink); background:var(--copper-soft); border-color:var(--copper-soft-line); }
+  .td-info-f{ margin:.5rem 0 0; font-size:.88rem; color:var(--ink-soft); line-height:1.75; }
+  .td-info-spec{ margin:.5rem 0 0; padding-left:1.1rem; font-size:.8rem; color:var(--ink-soft); line-height:1.7; }
+  .td-info .chip-label{ margin:.8rem 0 .45rem; }
+  .td-info-cn{ margin:.6rem 0 0; font-size:.74rem; color:var(--ink-faint); line-height:1.6; }
+  .td-info-empty{ margin:0; font-size:.85rem; color:var(--ink-faint); line-height:1.7; }
+  .chip.td-chip-static{ cursor:default; }
+  .chip.td-chip-static:hover{ transform:none; border-color:var(--line); background:var(--surface-2); color:var(--ink-soft); }
+  .chip.tw.td-chip-static:hover{ border-color:var(--copper-soft-line); background:var(--copper-soft); color:var(--ink); }
+  .td-list-label{ font-family:'IBM Plex Mono',monospace; font-size:.68rem; letter-spacing:.1em; color:var(--ink-faint); margin:0 0 .45rem; }
+  .td-list{ display:flex; flex-wrap:wrap; gap:.35rem; }
+  .td-part{ font-family:inherit; font-size:.78rem; padding:.32rem .65rem; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--ink-soft); cursor:pointer; transition:border-color .15s ease, background .15s ease, color .15s ease; }
+  .td-part:hover{ border-color:var(--copper); color:var(--copper-ink); }
+  .td-part:focus-visible{ outline:2px solid var(--copper); outline-offset:2px; }
+  .td-part.is-on{ background:var(--copper); border-color:var(--copper); color:#fff; font-weight:700; }
+  .td-part.has-tw::after{ content:""; display:inline-block; width:5px; height:5px; border-radius:50%; background:var(--copper); margin-left:.35em; vertical-align:middle; }
+  .td-part.is-on.has-tw::after{ background:#fff; }
+  .td-cmp{ margin-top:1rem; border:1px solid var(--line); border-radius:12px; background:var(--surface-2); padding:.6rem .9rem; }
+  .td-cmp summary{ cursor:pointer; font-size:.88rem; font-weight:700; }
+  .td-cmp summary span{ font-weight:400; color:var(--ink-faint); font-size:.78rem; }
+  .td-cmp-wrap{ overflow-x:auto; margin-top:.5rem; }
+  .td-cmp table{ width:100%; min-width:520px; border-collapse:collapse; font-size:.8rem; }
+  .td-cmp th, .td-cmp td{ border-bottom:1px solid var(--line); padding:.42rem .5rem; text-align:left; vertical-align:top; line-height:1.6; }
+  .td-cmp th{ color:var(--ink-faint); font-weight:700; }
+  .td-cmp td:first-child{ color:var(--ink-soft); white-space:nowrap; }
+  .td-note{ font-size:.72rem; color:var(--ink-faint); line-height:1.7; margin-top:.9rem; }
+  @media (max-width:820px){ .td-body{ grid-template-columns:1fr; } .td-wrap{ height:min(56vh,380px); } }
+  @media (max-width:760px){ .td-card{ padding:1rem; } }
+
   /* ---------- section nav（供應鏈／總體經濟） ---------- */
   .section-nav{ display:inline-flex; gap:.25rem; padding:.25rem; margin-bottom:1.4rem; border:1px solid var(--line); border-radius:999px; background:var(--surface); box-shadow:var(--shadow); }
   .section-btn{ font-family:'IBM Plex Mono',monospace; font-size:.8rem; letter-spacing:.04em; padding:.5rem 1.1rem; border:none; border-radius:999px; background:none; color:var(--ink-soft); cursor:pointer; transition:background .15s ease, color .15s ease; }
@@ -519,6 +577,8 @@
   <nav class="switcher" id="switcher" aria-label="選擇產業"></nav>
 
   <section class="scene-card" id="sceneCard" hidden aria-label="系統示意圖"></section>
+
+  <section class="td-card" id="teardownCard" hidden aria-label="3D 拆解模型"></section>
 
   <section class="macro-card" id="macroCard" hidden aria-label="總經傳導模擬"></section>
 
@@ -1086,7 +1146,6 @@
         "台灣積水化學－「半導體製程、原理完整介紹：從半導體材料到元件必經8步驟！」",
         "newfast-semi 大塚科技－「晶圓製程解析｜半導體介紹、製程6步驟、微汙染監控秘訣一次看」",
         "鉅亨號 Anue－「全球主要半導體設備廠商介紹」",
-        "定錨產業筆記－先進製程設備與耗材專題 (2026-09-23；製程步驟數與供需預估來源，廠商進度經本站另行查證)",
         "經濟日報－法人看好環球晶評價具上調空間 (2026-07-02)；科技新報－美光投資環球晶圓5億美元 (2026-07-09)",
         "經濟日報－合晶方形晶圓與二林、鄭州產能 (2026-07-08)",
         "科技新報－台積電2030年起導入High-NA EUV (2026-09-09)；經濟日報－家登High-NA EUV POD (2026-09-09)",
@@ -1132,7 +1191,7 @@
               companies:[{n:"環球晶",tw:1,code:"6488"},{n:"中美晶",tw:1,code:"5483"}],
               stats:[] },
             { icon:"icon-wafer", title:"12吋矽晶圓：供需轉緊與漲價循環", sub:"300mm WAFER CYCLE",
-              desc:"需求端同時被三件事拉動：先進製程與CoWoS讓每顆AI晶片吃掉更多12吋晶圓，HBM與SoIC等多片堆疊增加晶圓用量，記憶體又處於擴產期；供給端則是前五大廠合計約八成三市占，信越、SUMCO沒有明確擴產計畫。法人因此把2026年上半年視為這一輪循環的谷底，預估環球晶12吋單價第三、四季各調漲約一成；研究筆記更估計12吋2027年轉為短缺約1–3%、2028年缺口擴大。\n\n客戶也開始搶產能。美光2026年7月宣布提供5億美元策略性資金給環球晶德州謝爾曼廠，並簽10年供應協議（尚待最終協議與核准）。合晶則擴充二林廠與鄭州二期，目標2027年年中分別達每月10萬片與7.5萬片，並送樣先進封裝用的方形晶圓。",
+              desc:"需求端同時被三件事拉動：先進製程與CoWoS讓每顆AI晶片吃掉更多12吋晶圓，HBM與SoIC等多片堆疊增加晶圓用量，記憶體又處於擴產期；供給端則是前五大廠合計約八成三市占，信越、SUMCO沒有明確擴產計畫。法人因此把2026年上半年視為這一輪循環的谷底，預估環球晶12吋單價第三、四季各調漲約一成。\n\n客戶也開始搶產能。美光2026年7月宣布提供5億美元策略性資金給環球晶德州謝爾曼廠，並簽10年供應協議（尚待最終協議與核准）。合晶則擴充二林廠與鄭州二期，目標2027年年中分別達每月10萬片與7.5萬片，並送樣先進封裝用的方形晶圓。",
               companies:[{n:"環球晶",tw:1,code:"6488"},{n:"合晶",tw:1,code:"6182"},{n:"美光 Micron",code:"MU"},{n:"SUMCO"},{n:"信越化學 Shin-Etsu"}],
               stats:[{v:"5億美元",l:"美光提供環球晶德州廠的策略性資金（2026年7月）"},{v:"約1成／季",l:"環球晶12吋2026年第三、四季漲幅（法人估計）"}] }
           ] },
@@ -1216,7 +1275,7 @@
           stats:[{v:"僅此一家",l:"ASML為全球唯一EUV曝光機供應商"}],
           children:[
             { icon:"icon-litho", title:"EUV極紫外光曝光設備", sub:"EUV LITHOGRAPHY SYSTEM",
-              desc:"EUV微影設備使用13.5奈米波長極紫外光，透過雷射轟擊錫滴產生電漿光源，是7奈米以下先進製程不可或缺的曝光技術。ASML為全球唯一能量產EUV設備的廠商，具完全獨佔地位，單台高階機台售價可達數億美元。\n\n用量還在增加：研究筆記估計2奈米邏輯製程的EUV曝光層數已超過20層，DRAM約6到7層。下一代High-NA EUV解析度由13奈米提升到8奈米、單台約4億美元，台積電2026年9月表示計畫自2030年起導入量產，並與ASML推動光罩由6吋放大到12吋，目標2031年前建立12吋光罩試產線、2033年前全面就緒；2029年的A12與A13仍沿用現行EUV。家登的High-NA EUV光罩盒已通過ASML認證並送樣關鍵客戶。",
+              desc:"EUV微影設備使用13.5奈米波長極紫外光，透過雷射轟擊錫滴產生電漿光源，是7奈米以下先進製程不可或缺的曝光技術。ASML為全球唯一能量產EUV設備的廠商，具完全獨佔地位，單台高階機台售價可達數億美元。\n\n製程愈先進，需要EUV曝光的層數愈多。下一代High-NA EUV解析度由13奈米提升到8奈米、單台約4億美元，台積電2026年9月表示計畫自2030年起導入量產，並與ASML推動光罩由6吋放大到12吋，目標2031年前建立12吋光罩試產線、2033年前全面就緒；2029年的A12與A13仍沿用現行EUV。家登的High-NA EUV光罩盒已通過ASML認證並送樣關鍵客戶。",
               companies:[{n:"ASML"},{n:"台積電",tw:1,code:"2330"},{n:"家登精密",tw:1,code:"3680"}],
               stats:[{v:"100%",l:"EUV微影設備全球市占率(唯一供應商)"}] },
             { icon:"icon-generic", title:"光阻材料(Photoresist)", sub:"PHOTORESIST MATERIALS",
@@ -1308,12 +1367,12 @@
               companies:[{n:"應用材料 AMAT"}],
               stats:[] },
             { icon:"icon-deposit", title:"原子層沉積ALD", sub:"ATOMIC LAYER DEPOSITION",
-              desc:"ALD以自我侷限的表面化學反應逐層沉積原子級厚度薄膜，可在高深寬比結構中達到近乎完美的階梯覆蓋率，是先進製程微縮下高介電常數閘極介電層與精密阻障層的關鍵技術。ASM International是ALD設備領域公認的技術與市場領導廠商。\n\nGAA電晶體的奈米片要包覆一圈又一圈薄膜，ALD取代傳統化學氣相沉積的比重隨之提高。研究筆記估計2奈米約需50到70道ALD，2030年前後的A10世代可能超過100道。國際三強之外，台廠天虹自2017年起自行開發設備，表示2026年下半年ALD出貨比重將明顯提高，UV ALD仍在研發，並預計2027年第一季推出面板級封裝用ALD。",
+              desc:"ALD以自我侷限的表面化學反應逐層沉積原子級厚度薄膜，可在高深寬比結構中達到近乎完美的階梯覆蓋率，是先進製程微縮下高介電常數閘極介電層與精密阻障層的關鍵技術。ASM International是ALD設備領域公認的技術與市場領導廠商。\n\nGAA電晶體的奈米片要包覆一圈又一圈薄膜，ALD取代傳統化學氣相沉積的比重隨之提高。國際三強之外，台廠天虹自2017年起自行開發設備，表示2026年下半年ALD出貨比重將明顯提高，UV ALD仍在研發，並預計2027年第一季推出面板級封裝用ALD。",
               companies:[{n:"ASM International"},{n:"東京威力科創 TEL"},{n:"泛林集團 Lam Research"},{n:"天虹",tw:1,code:"6937"}],
-              stats:[{v:"50–70道",l:"2奈米ALD步驟數（研究筆記估計）"}] }
+              stats:[] }
           ] },
         { icon:"icon-cmp", title:"化學機械研磨", sub:"CMP",
-          desc:"在每一層薄膜沉積或蝕刻後，以化學藥液搭配機械研磨墊將晶圓表面重新拋平，確保多層堆疊結構維持平整，避免影響下一層微影的對準精度。台灣廠商中砂憑藉鑽石修整碟（dresser）技術，穩居這項耗材的市場龍頭地位。\n\n研磨次數隨製程增加：研究筆記估計2奈米約55道CMP，A16加入晶背供電後增至約77道，SoIC等晶圓堆疊也要多次研磨，耗材用量跟著放大。",
+          desc:"在每一層薄膜沉積或蝕刻後，以化學藥液搭配機械研磨墊將晶圓表面重新拋平，確保多層堆疊結構維持平整，避免影響下一層微影的對準精度。台灣廠商中砂憑藉鑽石修整碟（dresser）技術，穩居這項耗材的市場龍頭地位。\n\n研磨次數隨製程增加：A16加入晶背供電、SoIC等晶圓堆疊，都會多出研磨步驟，耗材用量跟著放大。",
           companies:[{n:"中砂",tw:1,code:"1560"},{n:"應用材料 AMAT"},{n:"荏原製作所 Ebara"}],
           stats:[],
           children:[
@@ -2097,6 +2156,7 @@
 
 "ai-hardware": {
       name: "AI硬體",
+      teardown: ["gb200","rubin"],
       nameEn: "AI HARDWARE SUPPLY CHAIN",
       scene: "SCENE_AI_HARDWARE",
       sceneTitle: "一顆AI晶片從設計到資料中心",
@@ -2403,6 +2463,7 @@
 
 "nvidia": {
       name: "輝達(NVIDIA)",
+      teardown: ["gb200","rubin"],
       nameEn: "NVIDIA SUPPLY CHAIN",
       tags: ["nvidia","gpu-supply-chain"],
       lede: "從GPU架構設計、晶圓代工到整機整櫃組裝，再到雲端、企業、遊戲與車用等下游應用，輝達如何整合上游關鍵夥伴，又如何驅動下游龐大的資本支出循環。台廠身兼晶圓代工、載板、組裝與散熱等多重要角，是這波AI浪潮中掌握度最深的供應鏈之一。",
@@ -4316,7 +4377,6 @@
         "理財周刊－「訊芯-KY 擴大規模布局矽光子趨勢不缺席」、「眾達-KY股價狂飆！矽光子＋CPO雙題材引爆」",
         "Vocus－「鼎元(2426)：[矽光子] 為什麼光通訊國際大廠都來找他要貨？」",
         "各光通訊廠商法說會與公開資訊觀測站公告",
-        "定錨產業筆記－光通訊開始定義CPO檢測流程 (2026-09-14；四站點架構來源，廠商進度經本站另行查證)",
         "富果－鴻勁2026年7月法說會摘要 (2026-07-30)；優分析－穎崴法說會 (2026-05-27)",
         "優分析／鉅亨網－漢測上櫃與FiconTEC合作 (2026-09-22)；經濟日報－汎銓光損定位設備 (2026-06-18)",
         "財報狗－倍利科布局CoPoS、CPO檢測設備 (2026-06-18)"
@@ -4474,7 +4534,7 @@
               companies:[{n:"旺矽科技",tw:1,code:"6223"},{n:"致茂電子",tw:1,code:"2360"},{n:"鴻勁精密",tw:1,code:"7769"},{n:"光焱科技",tw:1,code:"7728"},{n:"惠特",tw:1,code:"6706"}],
               stats:[{v:"2026年10月",l:"鴻勁CPO光電同測設備起始出貨月份"}] },
             { icon:"icon-metrology", title:"CPO分段測試：四個站點", sub:"CPO TEST FLOW — FOUR INSERTIONS",
-              desc:"一個CPO封裝裡有幾十顆光引擎，如果等全部封好才測，任何一顆出問題整組就報廢，所以業界把測試拆成好幾站、邊做邊篩。研究筆記把它整理成四站，目前流程仍在定義中，第二與第三站也可能合併。\n\n第一站在晶片階段，電子晶片做電性、光子晶片做光學測試，光焱科技的晶圓級光缺陷檢測、倍利科的矽光子檢測設備都在這一站驗證。\n\n第二站是光電晶片的雙面測試，難度最高：漢測與光子自動化設備商FiconTEC合作，由漢測負責晶圓級測試系統的組裝製造，公司預期2027年起有明顯營收；汎銓則推出光損定位設備MSS HG，可找出光訊號在哪裡漏光。\n\n第三站是光引擎測試，鴻勁的Insertion 4光電同測機已與美系大廠完成工作說明書並於2026年10月起出貨，致茂、旺矽也在這一站布局。\n\n第四站是模組測試，穎崴除了測試座，也和客戶共同開發測試設備原型機，公司預期CPO商機到2028年才全面放量。",
+              desc:"一個CPO封裝裡有幾十顆光引擎，如果等全部封好才測，任何一顆出問題整組就報廢，所以業界把測試拆成好幾站、邊做邊篩。設備商多以Insertion 1到4稱呼這幾站，下面依序整理；目前流程仍在定義中，部分站點也可能合併。\n\n第一站在晶片階段，電子晶片做電性、光子晶片做光學測試，光焱科技的晶圓級光缺陷檢測、倍利科的矽光子檢測設備都在這一站驗證。\n\n第二站是光電晶片的雙面測試，難度最高：漢測與光子自動化設備商FiconTEC合作，由漢測負責晶圓級測試系統的組裝製造，公司預期2027年起有明顯營收；汎銓則推出光損定位設備MSS HG，可找出光訊號在哪裡漏光。\n\n第三站是光引擎測試，鴻勁的Insertion 4光電同測機已與美系大廠完成工作說明書並於2026年10月起出貨，致茂、旺矽也在這一站布局。\n\n第四站是模組測試，穎崴除了測試座，也和客戶共同開發測試設備原型機，公司預期CPO商機到2028年才全面放量。",
               companies:[{n:"光焱科技",tw:1,code:"7728"},{n:"倍利科",tw:1,code:"7822"},{n:"漢測",tw:1,code:"7856"},{n:"FiconTEC"},{n:"汎銓",tw:1,code:"6830"},{n:"鴻勁精密",tw:1,code:"7769"},{n:"致茂電子",tw:1,code:"2360"},{n:"旺矽科技",tw:1,code:"6223"},{n:"穎崴科技",tw:1,code:"6515"}],
               stats:[{v:"4站",l:"CPO分段測試站點（業界流程仍在定義）"},{v:"2028年",l:"穎崴預期CPO測試商機全面放量"}] }
           ] },
@@ -4919,7 +4979,6 @@
         "科技新報－「晶片走向系統、先進封裝成關鍵戰場！Rapidus：晶圓代工、基板、OSAT廠競爭加劇」(2026年8月)報導Rapidus封裝業務技術長Rozalia Beica於OCP APAC Summit 2026之演講內容",
         "design-reuse.com對Rapidus面板級中介層(Panel-Level Interposer)規劃之技術分析報導",
         "Rapidus Corporation官方網站與其IIM(Innovative Integration and Manufacturing)模式公開說明",
-        "定錨產業筆記－探針卡聚焦MEMS探針與CPO檢測專題 (2026-09-11；需求結構與廠商名單來源，數字經本站另行查證)",
         "優分析／鉅亨網－精測法說會 (2026-07-29)、旺矽櫃買業績發表會 (2025-12-05)、穎崴法說會 (2026-05-27)",
         "優分析／鉅亨網－漢測上櫃 (2026-09-22)、中探針SEMICON新品 (2026-09-03)、景美科技登錄興櫃 (2026-02-23)",
         "科技新報－景美科技細微鑽孔業務 (2026-09-09)；優分析－雍智科技產品結構 (2025-01-10)",
@@ -5082,12 +5141,12 @@
               tags:["memory-supply-chain"] }
           ] },
         { icon:"icon-probe", title:"測試介面卡與探針卡", sub:"PROBE CARDS & TEST INTERFACES",
-          desc:"探針卡是CP晶圓針測時連接ATE測試機與晶圓銲墊的關鍵介面元件，隨晶片I/O數與訊號速度提升，探針卡設計難度大幅增加，是AI晶片測試供應鏈中單價與技術門檻皆持續墊高的環節，台灣廠商已建立領先地位。\n\nAI晶片改成小晶片組合後，封裝前的晶圓測試更關鍵：封進去的任何一顆小晶片有問題，整顆昂貴的封裝就一起報廢。研究筆記估計一顆AI晶片要用到3到5種探針卡，每張探針數也從2萬多支往3–5萬支、甚至10萬支走，並加速轉向MEMS探針；雲端業者自研的ASIC則每一款都要客製化。這三股力量同時推高數量與規格，各廠因此都在倍數擴產。",
+          desc:"探針卡是CP晶圓針測時連接ATE測試機與晶圓銲墊的關鍵介面元件，隨晶片I/O數與訊號速度提升，探針卡設計難度大幅增加，是AI晶片測試供應鏈中單價與技術門檻皆持續墊高的環節，台灣廠商已建立領先地位。\n\nAI晶片改成小晶片組合後，封裝前的晶圓測試更關鍵：封進去的任何一顆小晶片有問題，整顆昂貴的封裝就一起報廢。接腳數增加讓每張探針卡的探針數持續上升，並加速轉向MEMS探針；雲端業者自研的ASIC則每一款都要客製化。數量與規格同時往上，各廠因此都在倍數擴產。",
           companies:[{n:"精測",tw:1,code:"6510"},{n:"穎崴科技",tw:1,code:"6515"},{n:"旺矽科技",tw:1,code:"6223"},{n:"漢測",tw:1,code:"7856"},{n:"中探針",tw:1,code:"6217"},{n:"景美科技",tw:1,code:"7899"},{n:"雍智科技",tw:1,code:"6683"}],
-          stats:[{v:"3–5種",l:"每顆AI晶片所需探針卡種類（研究筆記估計）"}],
+          stats:[],
           children:[
             { icon:"icon-probe", title:"垂直式與MEMS探針卡", sub:"VERTICAL & MEMS PROBE CARDS",
-              desc:"高階探針卡多採垂直式或MEMS微機電探針結構，以提升接觸精度與耐用度，因應AI晶片細間距銲墊與高電流測試需求。精測(中華精測)是台灣高階探針卡龍頭，客戶涵蓋晶圓代工廠與國際IC設計大廠。\n\n擴產節奏各家不同。旺矽2025年12月表示，MEMS探針月產能由2024年約40萬針擴到2025年底約100萬針，目標2026年第一季200萬針；研究筆記另估2026年第四季約350萬、2027年底約600萬針，未經公司證實。精測2026年7月法說會表示產能已超載，2026年8月底產能為2025年底的2倍、2027年3月底為3倍，第三廠預計2028年後發揮效益。\n\n上游零組件也有台廠：景美科技做探針卡上下導板的細微鑽孔與結構件，按孔計價、孔愈多愈密價值愈高，2026年2月登錄興櫃；中探針與半導體大廠合作開發MEMS探針，預期2027年開始有營收。",
+              desc:"高階探針卡多採垂直式或MEMS微機電探針結構，以提升接觸精度與耐用度，因應AI晶片細間距銲墊與高電流測試需求。精測(中華精測)是台灣高階探針卡龍頭，客戶涵蓋晶圓代工廠與國際IC設計大廠。\n\n擴產節奏各家不同。旺矽2025年12月表示，MEMS探針月產能由2024年約40萬針擴到2025年底約100萬針，目標2026年第一季200萬針。精測2026年7月法說會表示產能已超載，2026年8月底產能為2025年底的2倍、2027年3月底為3倍，第三廠預計2028年後發揮效益。\n\n上游零組件也有台廠：景美科技做探針卡上下導板的細微鑽孔與結構件，按孔計價、孔愈多愈密價值愈高，2026年2月登錄興櫃；中探針與半導體大廠合作開發MEMS探針，預期2027年開始有營收。",
               companies:[{n:"精測",tw:1,code:"6510"},{n:"旺矽科技",tw:1,code:"6223"},{n:"景美科技",tw:1,code:"7899"},{n:"中探針",tw:1,code:"6217"}],
               stats:[{v:"200萬針",l:"旺矽MEMS探針月產能目標（2026年第一季）"},{v:"3倍",l:"精測2027年3月底產能（相對2025年底）"}] },
             { icon:"icon-probe", title:"測試插座與燒機介面卡", sub:"TEST SOCKET & BURN-IN INTERFACE",
@@ -5095,7 +5154,7 @@
               companies:[{n:"穎崴科技",tw:1,code:"6515"},{n:"旺矽科技",tw:1,code:"6223"},{n:"Technoprobe"},{n:"雍智科技",tw:1,code:"6683"}],
               stats:[{v:"1,400萬針",l:"穎崴2027年上半年探針月產能目標"}] },
             { icon:"icon-metrology", title:"AI晶片高階探針卡需求", sub:"HIGH-END PROBE CARDS FOR AI CHIPS",
-              desc:"AI加速器與HBM等高階晶片對探針卡的接腳數、電流承載與訊號完整性要求遠高於傳統晶片，帶動高階探針卡單價與需求同步成長，台灣探針卡三雄精測、穎崴、旺矽近年營收與股價皆明顯受惠於此波AI測試需求。\n\n個案方面，精測表示車用客戶的AI ASIC測試卡已出貨工程品、認證約八成五，量產後貢獻會更明顯，下一代TPU專案也在洽談規格。研究筆記另指出旺矽正與多家同業競爭下一代TPU探針卡，最後可能多家分食，屬市場傳聞。研究筆記也提到，精測正把產品線往後段的系統級測試與高功率燒機測試板延伸，因應功耗動輒上千瓦的AI晶片。漢測2026年9月上櫃，業務涵蓋探針卡、半導體設備與工程服務，並與光子設備商FiconTEC合作切入CPO測試（見[[photonics]]）。",
+              desc:"AI加速器與HBM等高階晶片對探針卡的接腳數、電流承載與訊號完整性要求遠高於傳統晶片，帶動高階探針卡單價與需求同步成長，台灣探針卡三雄精測、穎崴、旺矽近年營收與股價皆明顯受惠於此波AI測試需求。\n\n個案方面，精測表示車用客戶的AI ASIC測試卡已出貨工程品、認證約八成五，量產後貢獻會更明顯，下一代TPU專案也在洽談規格。漢測2026年9月上櫃，業務涵蓋探針卡、半導體設備與工程服務，並與光子設備商FiconTEC合作切入CPO測試（見[[photonics]]）。",
               companies:[{n:"精測",tw:1,code:"6510"},{n:"穎崴科技",tw:1,code:"6515"},{n:"旺矽科技",tw:1,code:"6223"},{n:"漢測",tw:1,code:"7856"},{n:"福姆法克特 FormFactor"}],
               stats:[{v:"約85%",l:"精測車用AI ASIC測試卡認證進度（2026年7月）"}] }
           ] },
@@ -6654,6 +6713,7 @@
 
 "tesla": {
       name: "特斯拉(Tesla)",
+      teardown: ["tesla"],
       nameEn: "TESLA SUPPLY CHAIN",
       tags: ["tesla","ev","automotive-electronics","automotive-robotics"],
       lede: "從自研FSD自駕晶片、純視覺方案鏡頭模組，到4680電池、馬達傳動、車用電子連接器，再到超級充電網路、儲能事業與Optimus人形機器人，特斯拉是少數同時自研晶片、電池與軟體的整車品牌。台廠角色以零組件與晶圓代工為主，多數供應關係屬市場推估或媒體報導，僅少數已獲公司法說會或財報等級證實，本頁面特別標註各項資訊之查證等級。",
@@ -7365,7 +7425,6 @@
         "ASMPT－「ASMPT Announces 2026 Interim Results」 (2026-07)",
         "方格子vocus－「3680 家登 法說會筆記」 (2026-03-12)",
         "方格子vocus－「(5434) 崇越法說會 2026/08」 (2026-08)",
-        "定錨產業筆記－CoWoS擴產與SoIC、面板級封裝專題 (2026-09-11；產能預估與設備商名單來源，經本站另行查證)",
         "優分析／鉅亨網－「【預期差】CoWoS上修機會藏在哪？」 (2026-09-15)",
         "優分析－「〈台積電法說〉已建置CoPoS實驗線」 (2026-04-16)",
         "優分析－「〈力成法說〉FOPLP攜手超微與博通」 (2026-07-28)；財報狗－力成FOPLP進度 (2026-08-27)",
@@ -7378,20 +7437,20 @@
       disclaimer: "本頁面為公開資訊整理彙編，資料來源包括公司財報、法說會、官方新聞稿與財經媒體報導；標示為法人估計、市場分析或媒體報導者未經公司證實。內容僅供產業脈絡參考，不構成任何投資建議。",
       nodes: [
         { icon:"icon-grid", title:"產能預估：CoWoS、SoIC、面板級三條線", parallelGroup:"support", sub:"CAPACITY OUTLOOK",
-          desc:"先進封裝設備的訂單，追根究柢取決於三條產能線要擴多快。需求面有兩股新力量：一是代理式AI拉高伺服器CPU用量，CPU也開始把輸入輸出晶片拆出來再用CoWoS封在一起；二是GPU與客製化AI晶片的封裝面積持續放大（研究筆記估計由約3.3倍光罩放大到5.5倍），每片晶圓切得出的封裝數變少，同樣出貨量要吃掉更多產能。\n\n下面三個子題分別整理CoWoS、SoIC與面板級封裝的擴產節奏。各家法人對2027年以後的數字差距不小，本頁把不同來源並列，不取單一數字當定論。",
+          desc:"先進封裝設備的訂單，追根究柢取決於三條產能線要擴多快。需求面有兩股新力量：一是代理式AI拉高伺服器CPU用量，CPU也開始把輸入輸出晶片拆出來再用CoWoS封在一起；二是GPU與客製化AI晶片的封裝面積持續放大，每片晶圓切得出的封裝數變少，同樣出貨量要吃掉更多產能。\n\n下面三個子題分別整理CoWoS、SoIC與面板級封裝的擴產節奏。各家法人對2027年以後的數字差距不小，本頁把不同來源並列，不取單一數字當定論。",
           companies:[{n:"台積電",tw:1,code:"2330"},{n:"日月光",tw:1,code:"3711"},{n:"矽品",tw:1},{n:"力成",tw:1,code:"6239"}],
-          stats:[{v:"約12–13萬片",l:"台積電CoWoS 2026年底月產能（法人估計區間）"}],
+          stats:[{v:"約12萬片",l:"台積電CoWoS 2026年底月產能（法人估計）"}],
           children:[
-            { icon:"icon-package", title:"CoWoS：各家估算差在2028年", sub:"CoWoS CAPACITY ESTIMATES",
-              desc:"2026年底台積電CoWoS月產能，多數法人落在12萬片上下；2027年底則普遍上修到18萬片左右（優分析整理的法人假設由約16萬片上修）。分歧出現在2028年：定錨產業筆記估計再擴到24–25萬片，另有法人假設大致持平在18萬片。\n\n台積電之外，日月光與矽品承接委外的CoWoS後段與測試，定錨估計兩家合計2026年底約2–2.5萬片、2027年底約4–4.5萬片、2028年底約7.5–8萬片；優分析另引日月光相關先進封裝2026年約3萬片，但未說明統計口徑。以上皆為法人估計，台積電與日月光未公布月產能。",
+            { icon:"icon-package", title:"CoWoS：2027年底上看18萬片", sub:"CoWoS CAPACITY ESTIMATES",
+              desc:"2026年底台積電CoWoS月產能，多數法人落在12萬片上下；2027年底則普遍上修到18萬片左右（優分析整理的法人假設由約16萬片上修）。2028年的看法較分歧，有法人假設大致持平在18萬片。\n\n台積電之外，日月光與矽品承接委外的CoWoS後段與測試；優分析引述日月光相關先進封裝2026年月產能約3萬片，但未說明統計口徑。以上皆為法人估計，台積電與日月光未公布月產能。",
               companies:[{n:"台積電",tw:1,code:"2330"},{n:"日月光",tw:1,code:"3711"},{n:"矽品",tw:1}],
-              stats:[{v:"約18萬片",l:"台積電CoWoS 2027年底月產能（法人普遍假設）"},{v:"18萬 vs 24–25萬",l:"2028年底月產能：兩派法人估計"}] },
+              stats:[{v:"約18萬片",l:"台積電CoWoS 2027年底月產能（法人普遍假設）"},{v:"約3萬片",l:"日月光相關先進封裝2026年月產能（法人估計）"}] },
             { icon:"icon-interconnect", title:"SoIC：先進晶片疊在成熟晶片上", sub:"SoIC 3D STACKING",
-              desc:"SoIC的思路是只讓負責運算的晶片用最貴的先進製程，輸入輸出與SRAM留在成熟製程，再用混合鍵合上下疊起來；AMD的MI300／MI350系列已經採用，市場傳NVIDIA下一代Feynman可能把SRAM疊在GPU上，若成真將是第一次大規模導入（未經公司證實）。邊緣AI的堆疊式DRAM與CPO光電晶片，也會用到同一類接合技術。\n\n研磨、薄化與混合鍵合等核心機台仍以海外廠為主，研究筆記點名台廠可切入的是周邊站點：中砂的鑽石碟、辛耘與弘塑的濕製程、志聖與印能的熱製程。產能估計分歧同樣大：定錨估2027年底4–4.5萬片、2028年底7–7.5萬片；優分析整理的法人預估則已下修到2027年底約3.2萬片、2028年底約6萬片。",
+              desc:"SoIC的思路是只讓負責運算的晶片用最貴的先進製程，輸入輸出與SRAM留在成熟製程，再用混合鍵合上下疊起來；AMD的MI300／MI350系列已經採用，市場傳NVIDIA下一代Feynman可能把SRAM疊在GPU上，若成真將是第一次大規模導入（未經公司證實）。邊緣AI的堆疊式DRAM與CPO光電晶片，也會用到同一類接合技術。\n\n研磨、薄化與混合鍵合等核心機台仍以海外廠為主，台廠多從周邊站點切入，例如中砂的鑽石碟、辛耘與弘塑的濕製程、志聖與印能的熱製程。產能方面，優分析整理的法人預估為2027年底約3.2萬片、2028年底約6萬片，較先前市場預估下修。",
               companies:[{n:"台積電",tw:1,code:"2330"},{n:"AMD",code:"AMD"},{n:"中砂",tw:1,code:"1560"},{n:"辛耘",tw:1,code:"3583"},{n:"弘塑",tw:1,code:"3131"},{n:"志聖",tw:1,code:"2467"},{n:"印能科技",tw:1,code:"7734"}],
-              stats:[{v:"3.2萬–4.5萬片",l:"SoIC 2027年底月產能（各家法人估計區間）"}] },
+              stats:[{v:"約3.2萬片",l:"SoIC 2027年底月產能（法人預估）"}] },
             { icon:"icon-substrate", title:"面板級封裝：從圓形晶圓換成方形載具", sub:"CoPoS & FOPLP",
-              desc:"依研究筆記試算，封裝做到約9.5倍光罩大小時，一片12吋圓形晶圓只擺得下4到5顆、面積利用率約六成；改用方形載具，同樣的晶片可以擺得更滿。台積電的版本叫CoPoS，魏哲家在2026年4月法說會證實已建置試產線、數年後投產，媒體報導目標約2028年；研究筆記估計設備單價比CoWoS高五成到一倍，台系設備商仍在驗證。\n\n封測廠也同步推進：日月光已建置310mm×310mm的面板級自動化產線，目標2027年上半年量產，鎖定AI加速器與HPC；力成以515×510mm面板做到單片45顆約5倍光罩的大封裝，大尺寸良率已突破九成，AMD案預計2027年中量產，並與博通在新加坡成立合資公司。設備端，天虹自行開發的310×310面板級PVD平台已累計五台訂單；倍利科的CoPoS檢測量測設備已拿到Demo機訂單，目標2027年放量。",
+              desc:"封裝做得愈大，圓形晶圓邊緣浪費的面積愈多；改用方形載具，同樣的晶片可以擺得更滿。台積電的版本叫CoPoS，魏哲家在2026年4月法說會證實已建置試產線、數年後投產，媒體報導目標約2028年，設備供應鏈仍在驗證。\n\n封測廠也同步推進：日月光已建置310mm×310mm的面板級自動化產線，目標2027年上半年量產，鎖定AI加速器與HPC；力成以515×510mm面板做到單片45顆約5倍光罩的大封裝，大尺寸良率已突破九成，AMD案預計2027年中量產，並與博通在新加坡成立合資公司。設備端，天虹自行開發的310×310面板級PVD平台已累計五台訂單；倍利科的CoPoS檢測量測設備已拿到Demo機訂單，目標2027年放量。",
               companies:[{n:"台積電",tw:1,code:"2330"},{n:"日月光",tw:1,code:"3711"},{n:"力成",tw:1,code:"6239"},{n:"天虹",tw:1,code:"6937"},{n:"倍利科",tw:1,code:"7822"},{n:"AMD",code:"AMD"},{n:"博通 Broadcom",code:"AVGO"}],
               stats:[{v:"2027年上半年",l:"日月光310mm面板級封裝量產目標"},{v:"逾90%",l:"力成大尺寸面板封裝良率（2026年8月）"},{v:"5台",l:"天虹面板級PVD平台累計訂單"}] }
           ] },
@@ -7497,7 +7556,7 @@
               companies:[{n:"鴻勁精密",tw:1,code:"7769"}],
               stats:[{v:"+92.9%",l:"鴻勁2026年1–8月累計營收年增率"},{v:"56.14元",l:"鴻勁2026上半年EPS"}] },
             { icon:"icon-metrology", title:"光學與重布線層檢測", sub:"AOI & RDL INSPECTION",
-              desc:"封裝各段需要光學檢測把關缺陷：萬潤將光學檢測列為五大核心技術之一，均華則把AOI整合進分選與黏晶機台，讓檢測與搬運在同一站完成。\n\n重布線層（RDL）線寬愈做愈細，專門的檢測量測機台成為新戰場。由田表示具螢光專利的RDL黃光製程檢測設備已打進多家一線封測廠，並在2025年切入面板級封裝檢測；政美應用（2025年9月登錄興櫃）專注半導體檢測量測，先進封裝占營收比重目標逾八成；倍利科以100–150倍的高倍率光學檢測為主，客戶以晶圓廠為主、正擴展到封測廠。研究筆記並認為由田與政美應用在不同站點取代美系量測設備商，訂單看到2027年底，此說未經公司證實。",
+              desc:"封裝各段需要光學檢測把關缺陷：萬潤將光學檢測列為五大核心技術之一，均華則把AOI整合進分選與黏晶機台，讓檢測與搬運在同一站完成。\n\n重布線層（RDL）線寬愈做愈細，專門的檢測量測機台成為新戰場。由田表示具螢光專利的RDL黃光製程檢測設備已打進多家一線封測廠，並在2025年切入面板級封裝檢測；政美應用（2025年9月登錄興櫃）專注半導體檢測量測，先進封裝占營收比重目標逾八成；倍利科以100–150倍的高倍率光學檢測為主，客戶以晶圓廠為主、正擴展到封測廠。",
               companies:[{n:"萬潤",tw:1,code:"6187"},{n:"均華",tw:1,code:"6640"},{n:"由田新技",tw:1,code:"3455"},{n:"政美應用",tw:1,code:"7853"},{n:"倍利科",tw:1,code:"7822"}],
               stats:[{v:"5成以上",l:"由田2026年半導體營收占比目標"}] }
           ] }
@@ -16636,6 +16695,298 @@
     }
 };
 
+  /* ==== 3D 拆解模型（GB200／Vera Rubin／Tesla Model Y）— 由 Jerry 提供的 combined_3d.html 移植；
+     build() 為 Three.js r128 幾何，info 為各零件說明（st：已證實／市場推估）。 ==== */
+  var TD_MODELS = {};
+  var TD_CMP_TABLE = "<table><tr><th>項目</th><th>GB200 NVL72</th><th>Vera Rubin NVL72</th></tr><tr><td>GPU／CPU（每托盤）</td><td>4 Blackwell＋2 Grace</td><td>4 Rubin＋2 Vera</td></tr><tr><td>GPU 製程</td><td>台積電 4NP、CoWoS-L</td><td>台積電 3nm、CoWoS-L／R</td></tr><tr><td>GPU 記憶體（每 GPU）</td><td>HBM3e，186GB、8TB/s（由每 Superchip 372GB、16TB/s 換算）</td><td>HBM4，288GB、19.2TB/s</td></tr><tr><td>整櫃 GPU 記憶體</td><td>13.4TB、576TB/s</td><td>20.7TB、1,400TB/s（官網）</td></tr><tr><td>整櫃 FP4 推論</td><td>1,440 PFLOPS（稀疏）</td><td>3,600 PFLOPS（NVFP4 推論；官方計算口徑不同，不宜直接相除）</td></tr><tr><td>NVLink（每 GPU）</td><td>第 5 代 1.8TB/s</td><td>第 6 代 3.6TB/s（技術部落格；官網表列 3TB/s）</td></tr><tr><td>整櫃 NVLink</td><td>130TB/s</td><td>216TB/s（官網；另有 260TB/s 寫法）</td></tr><tr><td>CPU 核心</td><td>Grace 72 核 Neoverse V2</td><td>Vera 88 核 Olympus、176 執行緒</td></tr><tr><td>CPU 記憶體（每 CPU）</td><td>最高 480GB LPDDR5X（焊在板上）</td><td>最高 1.5TB LPDDR5X（SOCAMM 模組）</td></tr><tr><td>Scale-out（每 GPU）</td><td>400Gb/s（ConnectX-7）</td><td>1.6Tb/s（ConnectX-9）</td></tr><tr><td>DPU（每托盤）</td><td>最多 2 × BlueField-3</td><td>1 × BlueField-4（800Gb/s）</td></tr><tr><td>本地儲存（DGX）</td><td>4 × 3.84TB E1.S</td><td>4 × 7.68TB E1.S</td></tr><tr><td>托盤內部</td><td>線纜連接，液冷</td><td>PCB 中板、無纜線、無風扇，45°C 入水</td></tr><tr><td>電源架</td><td>1U 33kW（Supermicro 8 台）</td><td>3U 110kW（Supermicro 4 台）</td></tr></table>";
+TD_MODELS.gb200={"tab": "GB200 運算托盤", "title": "GB200 運算托盤 3D 拆解（詳細版）", "sub": "示意模型，比例與位置非實際。規格以 NVIDIA 與伺服器廠公開資料為準；台廠對應多為市場推估。", "specs": "<b>托盤規格</b>：1U 液冷，NVL72 機櫃共 18 個運算托盤＋9 個 NVLink 交換托盤。每托盤 2 片 Bianca 主板＝2 顆 Grace CPU＋4 顆 Blackwell GPU；GPU 記憶體最高 744GB HBM3e、CPU 記憶體最高 960GB LPDDR5X；後方 NVLink 每 GPU 1.8TB/s；前方 4 個 400G OSFP（ConnectX-7）＋最多 2 張 BlueField-3；最多 8 槽 E1.S PCIe 5.0 SSD。機櫃以約 48–54V 直流匯流排供電（1400A），整櫃約 125–135kW。", "note": "操作：拖曳旋轉、滾輪／雙指／按鈕縮放、點零件或清單看說明，停止操作約 5 秒後恢復自動旋轉；網址可加 ?m=gb200|rubin|tesla 與 ?ex=0–100。需連網載入 Three.js。<br>主要來源：NVIDIA GB200 NVL72 官方規格頁、NVIDIA DGX GB 使用手冊、Supermicro 與技嘉 GB200 NVL72 規格書、OCP MGX 機櫃規格、SemiAnalysis〈GB200 Hardware Architecture〉。", "cmp": true};
+{
+const P='市場推估',O='已證實';
+TD_MODELS.gb200.info={
+tray:{n:'托盤鈑金外殼（1U）',f:'承載所有零件的 1U 金屬框架，從機櫃前方抽出維修。GB200 NVL72 的 CPU、GPU 都是液冷，托盤內大部分熱量靠冷卻液帶走。',s:['高度 1U，機櫃內 18 個運算托盤','液冷為主（NVIDIA 官方定調為液冷機櫃）'],c:[['勤誠',1],['川湖（滑軌）',1]],st:P,cn:'規格已證實；機殼、滑軌廠商為市場推估。'},
+front:{n:'前面板 I/O 與管理埠',f:'托盤正面的維運介面：電源鍵、狀態燈、管理網路埠、USB 等。管理人員透過這裡接 BMC 做遠端開關機與監控。',s:['DGX 版：托盤 BMC 1 個 1GbE RJ45','BlueField-3 BMC 另有 2 個 1GbE RJ45','技嘉版另有 1 個 1Gb LAN（Intel I210-AT）'],c:[['Intel（I210）',0]],st:O},
+ssd:{n:'E1.S NVMe 固態硬碟',f:'放在前方的熱插拔儲存槽，當作節點本地的資料快取，另有一顆 M.2 當開機碟。E1.S 是給資料中心用的「尺規」形狀，散熱和密度比 2.5 吋好。',s:['最多 8 槽 E1.S PCIe 5.0','DGX 版：4 × 3.84TB（軟體 RAID 0）＋1 × 1.92TB M.2 開機碟'],c:[['Samsung',0],['Kioxia',0],['Solidigm',0]],st:O,cn:'槽數與容量已證實；SSD 品牌為市場推估。'},
+nic:{n:'ConnectX-7 網卡（Scale-out）',f:'後端運算網路的出口，把這個托盤的 GPU 接到其他機櫃，組成上萬顆 GPU 的叢集。每顆 GPU 大致對應一張 400G 網卡。',s:['4 × 單埠 400Gb/s OSFP','支援 Quantum-X800 InfiniBand 或 Spectrum-X800 乙太網路','GB300 改為 ConnectX-8 800G'],c:[['NVIDIA',0]],st:O},
+dpu:{n:'BlueField-3 DPU（前端／儲存網路）',f:'負責儲存與管理網路、資安隔離和虛擬化，把這些工作從 CPU 卸載出來。SemiAnalysis 認為多數雲端業者不會照參考設計放滿兩張。',s:['參考設計每托盤最多 2 張','雙埠 400G InfiniBand 或乙太網路'],c:[['NVIDIA',0]],st:O},
+bmc:{n:'BMC 管理模組',f:'托盤上的獨立小電腦，主機關機時也在運作，負責開關機、溫度與漏液事件回報（Redfish 介面）、韌體更新。',s:['獨立 1GbE 管理網路','漏液事件經 BMC 回報'],c:[['信驊（ASPEED）',1]],st:P,cn:'BMC 模組存在已證實；晶片為信驊屬市場推估（伺服器 BMC 市占高）。'},
+retimer:{n:'PCIe 交換器／Retimer',f:'高速 PCIe 訊號走遠會衰減，Retimer 負責重整訊號；PCIe 交換器把 CPU、網卡、SSD 串在一起。',s:['PCIe 5.0'],c:[['Astera Labs',0],['Broadcom',0]],st:P,cn:'SemiAnalysis 提及 Astera Labs 為供應商之一。'},
+pdb:{n:'電源分配板（PDB，48V→12V）',f:'從機櫃匯流排拿約 48–54V 直流電，降壓成 12V，再用 RapidLock 大電流接頭送到每片主板的供電區。',s:['每片 Bianca 主板約 2,700W','每片主板 4 組 12V＋4 組 GND RapidLock 接頭'],c:[['台達電',1],['光寶科',1]],st:P,cn:'架構出自 SemiAnalysis；PDB 廠商為市場推估。'},
+bus:{n:'匯流排夾（Busbar clip）',f:'托盤後方的金屬夾片，插入機櫃時直接咬住機櫃中央的銅匯流排取電，不用電源線。機櫃電源架把交流電轉成直流送上匯流排。',s:['機櫃直流匯流排約 48–54V（OCP MGX：48V 標稱、40–59.5V，最高 1400A）','電源架：每台 1U 33kW（6 × 5.5kW PSU）'],c:[['台達電（電源架）',1],['光寶科（電源架）',1]],st:P,cn:'電壓與電流規格已證實；電源架廠商為市場推估。'},
+nvl:{n:'NVLink 背板連接器',f:'托盤後方的高密度連接器，插進機櫃背面的 NVLink 銅纜卡匣（cable cartridge），用被動銅線連到 9 個 NVLink 交換托盤，讓 72 顆 GPU 互連成一顆大 GPU。',s:['每顆 GPU NVLink 1.8TB/s','整櫃 NVLink 頻寬 130TB/s','每托盤 4 個 NVLink 埠（Supermicro）'],c:[['Amphenol',0],['嘉澤',1],['貿聯-KY',1]],st:P,cn:'互連規格已證實；連接器與線材廠商為市場推估。'},
+board:{n:'Bianca 主板（高層數 HDI）',f:'每個托盤兩片，每片 1 顆 Grace＋2 顆 Blackwell（即一組 GB200 Superchip）。訊號速度高、功耗大，需要低損耗板材與高層數設計。',s:['每片＝1 Grace＋2 Blackwell','CPU–GPU 以 NVLink-C2C 互連'],c:[['金像電',1],['台光電',1],['臻鼎-KY',1]],st:P,cn:'主板組成已證實；PCB／CCL 廠商為市場推估。'},
+vrm:{n:'供電電感（多相 VRM）',f:'把 12V 再降到晶片用的 1V 以下。GPU 電流極大，要整排多相供電，每一相由一顆電感加一顆功率級組成。',s:[],c:[['國巨（奇力新）',1],['臺慶科',1],['TDK',0]],st:P,cn:'電感廠商為市場推估。奇力新已於2021年底以股份轉換成為國巨100%子公司並終止上市，因此列在國巨名下。'},
+drmos:{n:'功率級 DrMOS 與 PMIC',f:'DrMOS 把驅動 IC 和 MOSFET 包在一起，負責高速開關；PMIC 管理多路電壓的時序與監控。和電感搭配成每一相供電。',s:[],c:[['MPS',0],['Infineon',0],['Renesas',0],['茂達',1]],st:P},
+mlcc:{n:'MLCC 電容',f:'貼在晶片周圍穩壓、濾雜訊。實際數量上千顆，這裡只畫一部分示意。',s:[],c:[['國巨',1],['華新科',1],['村田',0]],st:P},
+conn:{n:'板對板高速連接器',f:'主板連到網卡 I/O 板等子板的高速介面（SemiAnalysis 指出 ConnectX-7 經 Mirror Mezz 連接器接到主板）。',s:[],c:[['Molex（Mirror Mezz）',0],['嘉澤',1]],st:P},
+sub:{n:'ABF 載板',f:'封裝的底座，把上面的晶粒與 HBM 接到主板，面積大、層數多。',s:[],c:[['欣興',1],['南電',1],['Ibiden',0]],st:P},
+die:{n:'Blackwell GPU（雙晶粒）',f:'每顆 GPU 由兩個光罩極限尺寸的晶粒組成，以 10TB/s 晶片間介面接成一顆 GPU，台積電 4NP 製程、CoWoS-L 封裝。',s:['每 Superchip（2 GPU）：FP4 40 PFLOPS（稀疏）／FP8 20 PFLOPS','整櫃 FP4 1,440 PFLOPS（稀疏）'],c:[['台積電',1],['日月光（測試）',1]],st:O,cn:'製程封裝已證實；日月光為市場推估。'},
+hbm:{n:'HBM3e 記憶體',f:'多層 DRAM 垂直堆疊在 GPU 旁，提供極高頻寬。每顆 Blackwell 旁 8 疊。',s:['每 Superchip 372GB、16TB/s','整櫃 13.4TB、576TB/s'],c:[['SK 海力士',0],['美光',0],['三星',0]],st:O,cn:'容量頻寬已證實；HBM 廠商分配為市場推估。'},
+cpu:{n:'Grace CPU',f:'Arm 架構 CPU，負責調度、資料前處理，並透過 NVLink-C2C 讓 GPU 存取 CPU 記憶體。台積電代工。',s:['72 核 Arm Neoverse V2','整櫃 2,592 核'],c:[['台積電',1]],st:O},
+lpddr:{n:'LPDDR5X 記憶體',f:'Grace 的系統記憶體，比一般 DDR5 省電、頻寬高，GPU 也能經 NVLink-C2C 共用。',s:['每 Superchip 最高 480GB、512GB/s','整櫃 17TB、14TB/s'],c:[['美光',0],['三星',0],['SK 海力士',0]],st:O,cn:'容量頻寬已證實；供應商為市場推估。'},
+plate:{n:'液冷冷板',f:'銅底座貼緊晶片，內部微流道讓冷卻液把熱帶走，上方是進出水接頭。',s:[],c:[['奇鋐',1],['雙鴻',1],['Cooler Master',1]],st:P},
+mani:{n:'液冷分歧管與快接頭',f:'把冷卻液分配到每塊冷板，快接頭讓托盤可以抽出維修而不漏液。機櫃端再接到 CDU（冷卻液分配單元）。',s:['Supermicro 方案：機櫃內 CDU 250kW'],c:[['奇鋐',1],['雙鴻',1],['富世達',1],['台達電',1]],st:P},
+leak:{n:'漏液偵測',f:'在冷板、托盤內分歧管附近放感測器，機櫃另有感測繩與點式感測，CDU 與機房也有感測。托盤事件由 BMC 回報，機櫃層級由管理系統處置。',s:['多層偵測：托盤 → 機櫃 → CDU／機房'],c:[],st:O,cn:'偵測架構已證實（NVIDIA DGX 文件）；感測器廠商未查證。'}};
+TD_MODELS.gb200.view={R:17,Rmin:8,Rmax:30,step:1.35,look:2.6};
+TD_MODELS.gb200.build=function({THREE,M,G,mat,rbox}){
+const Msheet=mat(0x9ea2a7,.85,.42),Mdark=mat(0x2e2f33,.6,.5),Mvent=mat(0x0c0c0e,.2,.9),Msub=mat(0x1d3b2b,.1,.55),Mdie=mat(0x16171b,.5,.12),Mhbm=mat(0x34353b,.3,.28),Mcu=mat(0xc8814f,1,.28),Mni=mat(0xd9d9d6,1,.22),Mind=mat(0x56575c,.35,.5),Mml=mat(0xb48d5c,.1,.55),Mss=mat(0xbcc0c4,.95,.3),Mblue=mat(0x2b6cb0,.2,.4),Mred=mat(0xc0392b,.2,.4),Mblk=mat(0x1a1a1c,.1,.7),Mpcbe=mat(0x0e3a2a,.1,.6),Mgold=mat(0xd4af37,1,.3),Mpcb2=mat(0x13472f,.1,.6),Myel=mat(0xe2b93b,.2,.5),Mssd=mat(0x6b6f75,.7,.4);
+function pcbTex(){const c=document.createElement('canvas');c.width=512;c.height=666;const g=c.getContext('2d');g.fillStyle='#0f3d2c';g.fillRect(0,0,512,666);
+g.strokeStyle='#1d634a';g.lineWidth=2;for(let i=0;i<320;i++){const x=Math.random()*512,y=Math.random()*666,dx=(Math.random()-.5)*160,dy=(Math.random()-.5)*160;g.beginPath();g.moveTo(x,y);g.lineTo(x+dx,y);g.lineTo(x+dx,y+dy);g.stroke()}
+g.fillStyle='#c9a24a';for(let i=0;i<420;i++)g.fillRect(Math.random()*512,Math.random()*666,3,3);
+const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;t.anisotropy=4;return t}
+const tray=G(0,0);
+M(rbox(9.4,.1,6.6,.15),Msheet,0,0,0,tray,'tray');
+M(new THREE.BoxGeometry(9.4,.6,.08),Msheet,0,.3,-3.3,tray,'tray');
+[-4.7,4.7].forEach(x=>M(new THREE.BoxGeometry(.08,.6,6.6),Msheet,x,.3,0,tray,'tray'));
+M(new THREE.BoxGeometry(9.4,.62,.1),Mdark,0,.31,3.3,tray,'front');
+for(let i=0;i<4;i++)M(new THREE.BoxGeometry(.55,.32,.06),Mblk,-4.0+i*.65,.32,3.38,tray,'nic');
+for(let i=0;i<2;i++)M(new THREE.BoxGeometry(.7,.3,.06),Mblue,-1.2+i*.8,.32,3.38,tray,'dpu');
+for(let i=0;i<8;i++)M(new THREE.BoxGeometry(.18,.42,.06),Mssd,.65+i*.24,.31,3.38,tray,'ssd');
+[[2.85,0x3a3a3a],[3.15,0x3a3a3a],[3.45,0x3a3a3a]].forEach(p=>M(new THREE.BoxGeometry(.22,.18,.06),Mblk,p[0],.36,3.38,tray,'front'));
+M(new THREE.CylinderGeometry(.06,.06,.06,16),mat(0x3bd16f,.1,.3,{emissive:0x1a8a3a}),3.9,.4,3.4,tray,'front').rotation.x=Math.PI/2;
+[-4.4,4.4].forEach(x=>M(new THREE.CylinderGeometry(.05,.05,.5,12),Mss,x,.33,3.48,tray,'tray').rotation.x=Math.PI/2);
+for(let i=0;i<8;i++)M(new THREE.BoxGeometry(.5,.08,1.2),Mssd,.65+i*.24>0?.65+i*.24:0,.12,2.55,tray,'ssd').scale.x=.36;
+[-3.6,-2.2,2.2,3.6].forEach(x=>M(new THREE.BoxGeometry(.18,.04,.18),Myel,x,.08,-2.55,tray,'leak'));
+M(new THREE.BoxGeometry(1.4,.32,.5),Mgold,0,.22,-3.55,tray,'bus');
+const Mpcb=mat(0xffffff,.1,.5,{map:pcbTex()});
+const mlG=new THREE.BoxGeometry(.09,.05,.05),boards=[];
+[-2.3,2.3].forEach(bx=>{const b=G(1,.12);boards.push([b,[]]);
+M(new THREE.BoxGeometry(4,.1,4.6),[Mpcbe,Mpcbe,Mpcb,Mpcbe,Mpcbe,Mpcbe],bx,0,-.3,b,'board');
+const ig=rbox(.26,.2,.26,.04),dg=new THREE.BoxGeometry(.2,.06,.16);[1.1,1.5].forEach(z=>[-1,1].forEach(s=>{for(let i=0;i<4;i++){M(ig,Mind,bx+.75+i*.3,.15,s*z-.3,b,'vrm');M(dg,Mblk,bx+.75+i*.3,.08,s*z-.3+s*.22,b,'drmos')}}));
+M(new THREE.BoxGeometry(.3,.05,.3),Mblk,bx+1.7,.08,1.6,b,'drmos');
+for(let i=0;i<2;i++)M(new THREE.BoxGeometry(.8,.24,.22),Mblk,bx-1.1+i*1.0,.17,1.75,b,'conn');
+for(let i=0;i<2;i++)M(new THREE.BoxGeometry(1.2,.36,.3),Mdark,bx-1.0+i*1.6,.22,-2.45,b,'nvl');
+M(new THREE.BoxGeometry(.28,.04,.28),mat(0x50535a,.6,.3),bx+.15,.07,1.2,b,'retimer');
+const own=boards[boards.length-1][1];
+for(let z=.65;z<1.9;z+=.1){own.push([bx-1.6,.08,z-.3]);own.push([bx-1.6,.08,-z-.3])}
+for(let x=-1.3;x<.25;x+=.13)for(let z=-.4;z<=.41;z+=.2)own.push([bx+x,.08,z-.3])});
+boards.forEach(([b,own])=>{const im=new THREE.InstancedMesh(mlG,Mml,own.length),d=new THREE.Object3D();own.forEach((p,i)=>{d.position.set(p[0],p[1],p[2]);d.updateMatrix();im.setMatrixAt(i,d.matrix)});im.userData.key='mlcc';im.castShadow=true;b.add(im)});
+const brd=boards[0][0];
+M(new THREE.BoxGeometry(2.2,.08,.9),Mpcb2,0,0,-2.7,brd,'pdb');
+for(let i=0;i<4;i++)M(new THREE.BoxGeometry(.4,.25,.4),Mss,-.75+i*.5,.16,-2.7,brd,'pdb');
+M(new THREE.BoxGeometry(.9,.08,.6),Mpcb2,0,0,2.1,brd,'bmc');M(new THREE.BoxGeometry(.3,.05,.3),Mblk,0,.07,2.1,brd,'bmc');
+const gpuXZ=[],cpuXZ=[];[-2.3,2.3].forEach(bx=>{[-1.6,1.0].forEach(z=>gpuXZ.push([bx-.55,z-.0]));cpuXZ.push([bx+1.15,-.3])});
+const pk=G(2,.25);
+gpuXZ.forEach(([x,z])=>{M(rbox(1.7,.08,1.5,.06),Msub,x,0,z,pk,'sub');[-.24,.24].forEach(dx=>M(new THREE.BoxGeometry(.44,.06,.6),Mdie,x+dx,.07,z,pk,'die'));
+[-.36,-.12,.12,.36].forEach(dx=>[-.5,.5].forEach(dz=>M(new THREE.BoxGeometry(.2,.07,.24),Mhbm,x+dx,.075,z+dz,pk,'hbm')))});
+cpuXZ.forEach(([x,z])=>{M(rbox(1.0,.08,1.0,.05),Msub,x,0,z,pk,'cpu');M(new THREE.BoxGeometry(.55,.06,.55),Mdie,x,.07,z,pk,'cpu');
+[-1,1].forEach(s=>M(new THREE.BoxGeometry(.7,.06,.22),Mhbm,x,0,z+s*.68,pk,'lpddr'))});
+const cp=G(3,.45),cyl=new THREE.CylinderGeometry(.07,.07,.26,16),hose=new THREE.CylinderGeometry(.085,.085,.2,16);
+function plate(x,z,s){M(rbox(s,.12,s*.9,.08),Mcu,x,0,z,cp,'plate');M(rbox(s*.84,.12,s*.75,.06),Mni,x,.12,z,cp,'plate');
+[-.25,.25].forEach(dx=>{M(cyl,Mss,x+dx*s/1.5,.3,z-s*.25,cp,'plate');M(hose,Mblk,x+dx*s/1.5,.52,z-s*.25,cp,'plate')})}
+gpuXZ.forEach(([x,z])=>plate(x,z,1.55));cpuXZ.forEach(([x,z])=>plate(x,z,.95));
+const mf=G(4,.6);[-.18,.18].forEach((dz,k)=>{M(rbox(8.6,.24,.24,.05),Mss,0,0,-2.9+dz,mf,'mani');
+for(let i=0;i<6;i++){const x=-3.8+i*1.52;M(new THREE.CylinderGeometry(.09,.09,.22,16),Mss,x,.22,-2.9+dz,mf,'mani');M(new THREE.CylinderGeometry(.1,.1,.08,16),k?Mred:Mblue,x,.36,-2.9+dz,mf,'mani')}});
+}
+
+}
+TD_MODELS.rubin={"tab": "Vera Rubin 運算托盤", "title": "NVIDIA Vera Rubin NVL72 運算托盤 3D 拆解", "sub": "示意模型，比例與位置非實際。規格以 NVIDIA 官網、技術部落格、DGX 文件與伺服器廠規格書為準；台廠對應多為市場推估。", "specs": "<b>托盤規格</b>：Vera Rubin NVL72（Oberon 機櫃延用；舊稱 NVL144 以晶粒計）18 個運算托盤＋9 個 NVLink 6 交換托盤。每托盤 2 組 Superchip＝2 顆 Vera CPU＋4 顆 Rubin GPU；每 GPU 最高 288GB HBM4；每 CPU 最高 1.5TB LPDDR5X（SOCAMM）；每 GPU scale-out 1.6Tb/s（ConnectX-9）＋每托盤 1 張 BlueField-4（800Gb/s）；4 × 7.68TB E1.S。托盤內以 PCB 中板取代纜線、無風扇，45°C 入水液冷；整櫃 NVFP4 推論 3,600 PFLOPS；電源架 4 × 3U 110kW，液冷匯流排 >5,000A。", "note": "操作：拖曳旋轉、滾輪／雙指／按鈕縮放、點零件或清單看說明，停止操作約 5 秒後恢復自動旋轉；網址可加 ?m=gb200|rubin|tesla 與 ?ex=0–100。需連網載入 Three.js。<br>主要來源：NVIDIA Vera Rubin NVL72 官網規格、NVIDIA 技術部落格〈Inside the NVIDIA Vera Rubin Platform〉、DGX SuperPOD Vera Rubin 參考架構、Supermicro 與 Cisco 規格書、中央社 GTC Taipei 報導（2026/6/1）、工商時報（2026/3/23、6/2）、經濟日報、東方財富券商報告。官方資料間有出入時兩者並列。", "cmp": true};
+{
+const P='市場推估',O='已證實';
+TD_MODELS.rubin.info={
+tray:{n:'托盤外殼（無風扇、全液冷）',f:'Vera Rubin NVL72 延用 Oberon 機櫃，運算托盤改為無風扇設計並加入更多水冷板，連網卡等前端模組也走液冷。NVIDIA 宣稱模組化托盤讓組裝時間大幅縮短。',s:['每櫃 18 個運算托盤＋9 個 NVLink 6 交換托盤','冷卻液入水溫度 45°C（官方）'],c:[['勤誠',1],['川湖（滑軌）',1]],st:O,cn:'無風扇與 Oberon 延用來自工商時報；45°C 為 NVIDIA 官方。機殼廠為市場推估。'},
+mid:{n:'PCB 中板（Midplane，取代托盤內纜線）',f:'這代最大的結構變化：用一塊高層數 PCB 中板，讓兩組 Superchip、前方 ConnectX-9 與 BlueField-4 直接插接，不用托盤內的線纜與軟管。複雜度從線材轉移到 PCB 與高速連接器。',s:['黃仁勳 GTC Taipei：Superchip、ConnectX-9、BlueField-4 可直接對接，無需電纜','媒體報導機架組裝時間約 2 小時縮短到 5 分鐘'],c:[['欣興',1],['臻鼎-KY',1],['定穎',1]],st:O,cn:'中板設計已證實（中央社引述黃仁勳）；PCB 廠商為工商時報報導，屬市場推估。'},
+board:{n:'Vera Rubin 主運算板',f:'每托盤 2 組 Vera Rubin Superchip，每組 1 顆 Vera CPU＋2 顆 Rubin GPU。黃仁勳稱這塊運算板整合 6 兆個電晶體、超過 1.8 萬個元件。',s:['每托盤 4 GPU＋2 CPU','媒體：層數由 22 層升到 26 層、材料升級 M8.5（市場推估）'],c:[['欣興',1],['金像電',1],['台光電',1]],st:P,cn:'電晶體與元件數為黃仁勳公開說法；層數、材料與廠商為市場推估。'},
+gpu:{n:'Rubin GPU',f:'新一代 Tensor Core GPU，224 個 SM，搭配新 Transformer Engine 與 HBM4。台積電 3 奈米製程，搭配 CoWoS 封裝。',s:['每顆 NVFP4 推論 50 PFLOPS、訓練 35 PFLOPS','每顆 FP8 訓練 17.5 PFLOPS','224 SM；台積電 3nm'],c:[['台積電',1],['日月光（測試）',1]],st:O,cn:'規格見 NVIDIA 官網與技術部落格；日月光為市場推估。'},
+hbm:{n:'HBM4 記憶體',f:'每顆 Rubin 旁堆疊 HBM4，介面加寬、頻寬比 HBM3e 大幅提升。三家 DRAM 大廠都有供應。',s:['每 GPU 最高 288GB、19.2TB/s','整櫃 20.7TB（官方頻寬 1,400TB/s；Supermicro 寫 1.6PB/s）'],c:[['SK 海力士',0],['美光',0],['三星',0]],st:O,cn:'容量官方；三家供應商為黃仁勳公開點名。'},
+sub:{n:'封裝基板與 CoWoS',f:'把 GPU 晶粒與 HBM4 封在一起的中介層與 ABF 載板。黃仁勳提到 Vera Rubin 用到台積電 CoWoS-R 與 CoWoS-L 封裝。',s:[],c:[['台積電',1],['欣興',1],['南電',1],['景碩',1],['Ibiden',0]],st:P,cn:'CoWoS 已證實；載板三雄為工商時報點名，屬市場推估。'},
+cpu:{n:'Vera CPU',f:'NVIDIA 自研 Olympus 核心的 Arm 相容 CPU，取代 Grace，支援空間多執行緒，透過 NVLink-C2C 與 GPU 共用記憶體。',s:['88 個 Olympus 核心、176 執行緒','每 Superchip NVLink-C2C 1.8TB/s'],c:[['台積電',1]],st:O},
+socamm:{n:'LPDDR5X SOCAMM 記憶體模組',f:'Vera 的系統記憶體改用可插拔的 SOCAMM 模組（上代 Grace 是焊死在板上），方便換修與調整容量。',s:['每顆 Vera 最高 1.5TB','整櫃最高 54TB'],c:[['美光',0],['三星',0],['SK 海力士',0]],st:O,cn:'SOCAMM 見 Supermicro 規格書；模組供應商為市場推估。'},
+cx9:{n:'ConnectX-9 SuperNIC',f:'跨機櫃的 scale-out 網路出口。每顆 GPU 對應 1.6Tb/s，可分成兩個獨立網路平面，一個平面故障仍可通訊。網路埠都在托盤前方。',s:['每 GPU 1.6Tb/s（2 × 800G）','NVIDIA DGX 文件：每托盤 8 個 ConnectX-9；Supermicro 寫 4 張 SuperNIC（8 埠）'],c:[['NVIDIA',0]],st:O,cn:'兩份官方資料的張數算法不同，模型畫成 4 張卡、8 個埠。'},
+bf4:{n:'BlueField-4 DPU',f:'結合 Grace CPU 與 ConnectX-9 的資料處理器，負責儲存、管理網路與資安卸載。每托盤一張（上代參考設計最多兩張 BlueField-3）。',s:['每托盤 1 張，800Gb/s（2 × 400G）','Cisco 規格書：64 核 Grace 架構'],c:[['NVIDIA',0]],st:O},
+nvl:{n:'NVLink 6 背板連接器',f:'托盤後方插進機櫃 NVLink 銅纜背板，接到 9 個 NVLink 6 交換托盤（每托盤 4 顆交換晶片），72 顆 GPU 全互連。',s:['技術部落格：每 GPU 3.6TB/s','官網規格表：每 GPU 3TB/s、整櫃 216TB/s（另有資料寫 260TB/s）'],c:[['Amphenol',0],['嘉澤',1],['貿聯-KY',1]],st:P,cn:'頻寬已證實但官方資料寫法不一；連接器廠商為市場推估。'},
+pwr:{n:'托盤電源與儲能電容',f:'托盤從機櫃匯流排取電再降壓。Vera Rubin 加入 Intelligent Power Smoothing，用機架內儲能電容吸收 AI 訓練時同步起落的瞬間功率。',s:['研究報告引述 NVIDIA：儲能約 400J／GPU，約為 Blackwell Ultra 的 6 倍'],c:[['台達電',1],['光寶科',1]],st:P,cn:'400J／GPU 只有一份券商報告的來源（引述 NVIDIA）；廠商為市場推估。'},
+bus:{n:'液冷匯流排（Busbar）',f:'第三代 MGX 機櫃的匯流排本身也用液冷，可承載超過 5,000 安培電流（黃仁勳形容相當於 20 輛電動車全速加速）。電源架每台 110kW。',s:['匯流排 >5,000A（官方）','Supermicro：4 台 3U 110kW 電源架'],c:[['台達電（電源架）',1],['光寶科（電源架）',1]],st:O,cn:'電流與電源架規格已證實；電源架廠商為市場推估。800VDC 是 NVIDIA 下一代機房直流架構，媒體預期 2027 年放量，這個托盤實際接多少伏特未查到明確資料，因此不標。'},
+vrm:{n:'多相供電（電感＋DrMOS）',f:'把匯流排的電再降到晶片用的 1V 以下。Rubin TDP 更高，供電相數與電流都增加。',s:[],c:[['國巨（奇力新）',1],['臺慶科',1],['MPS',0],['Infineon',0]],st:P,cn:'廠商為市場推估。奇力新已於2021年底併入國巨（100%子公司、已下市）。'},
+ssd:{n:'E1.S NVMe 儲存',f:'前方熱插拔儲存槽，做本地資料快取，另有開機碟。',s:['DGX：4 × 7.68TB E1.S（RAID 0）＋2TB 開機碟'],c:[['Samsung',0],['Kioxia',0]],st:O,cn:'容量已證實；品牌為市場推估。'},
+bmc:{n:'BMC 管理模組',f:'獨立管理電腦，負責開關機、監控溫度與漏液、韌體更新。',s:[],c:[['信驊（ASPEED）',1]],st:P},
+plate:{n:'水冷板（CPU／GPU／網卡全覆蓋）',f:'每顆 GPU、CPU 都有冷板，這代連網卡、DPU 也改用冷板。媒體報導均熱片用量成長約 3 倍。',s:['入水溫度 45°C'],c:[['奇鋐',1],['雙鴻',1],['Cooler Master',1]],st:P,cn:'45°C 為官方；用量與廠商為工商時報報導。'},
+mani:{n:'分歧管與快接頭',f:'把冷卻液分配到每塊冷板。媒體報導液冷系統（冷板、分歧管、快接頭）單櫃價值比上代成長約五成。',s:[],c:[['奇鋐',1],['雙鴻',1],['富世達',1],['台達電',1]],st:P},
+leak:{n:'漏液偵測',f:'托盤、機櫃與 CDU 多層偵測，事件由 BMC 回報。',s:[],c:[],st:P,cn:'沿用 GB200 世代做法的推論，Rubin 文件未逐一查證。'}};
+TD_MODELS.rubin.view={R:17,Rmin:8,Rmax:30,step:1.35,look:2.6};
+TD_MODELS.rubin.build=function({THREE,M,G,mat,rbox}){
+const Msheet=mat(0x8e949b,.85,.4),Mdark=mat(0x2e2f33,.6,.5),Msub=mat(0x1d3b2b,.1,.55),Mdie=mat(0x101114,.5,.1),Mhbm=mat(0x3a3b42,.35,.25),Mcu=mat(0xc8814f,1,.28),Mni=mat(0xd9d9d6,1,.22),Mind=mat(0x56575c,.35,.5),Mss=mat(0xbcc0c4,.95,.3),Mblue=mat(0x2b6cb0,.2,.4),Mred=mat(0xc0392b,.2,.4),Mblk=mat(0x1a1a1c,.1,.7),Mpcbe=mat(0x0d3326,.1,.6),Mgold=mat(0xd4af37,1,.3),Mmid=mat(0x163f30,.15,.5),Mgreen=mat(0x76b900,.3,.4),Mssd=mat(0x6b6f75,.7,.4),Mcap=mat(0x3c4a5c,.4,.4),Myel=mat(0xe2b93b,.2,.5);
+const tray=G(0,0);
+M(rbox(9.4,.1,6.6,.15),Msheet,0,0,0,tray,'tray');
+M(new THREE.BoxGeometry(9.4,.6,.08),Msheet,0,.3,-3.3,tray,'tray');[-4.7,4.7].forEach(x=>M(new THREE.BoxGeometry(.08,.6,6.6),Msheet,x,.3,0,tray,'tray'));
+M(new THREE.BoxGeometry(9.4,.62,.1),Mdark,0,.31,3.3,tray,'tray');
+for(let i=0;i<8;i++)M(new THREE.BoxGeometry(.42,.3,.06),Mblk,-4.2+i*.48,.32,3.38,tray,'cx9');
+M(new THREE.BoxGeometry(.8,.3,.06),Mgreen,.15,.32,3.38,tray,'bf4');
+for(let i=0;i<4;i++)M(new THREE.BoxGeometry(.2,.42,.06),Mssd,1.0+i*.26,.31,3.38,tray,'ssd');
+M(new THREE.BoxGeometry(.3,.18,.06),Mblk,2.6,.36,3.38,tray,'bmc');
+[-3.6,-1.8,1.8,3.6].forEach(x=>M(new THREE.BoxGeometry(.18,.04,.18),Myel,x,.08,-2.6,tray,'leak'));
+M(new THREE.BoxGeometry(1.6,.34,.5),Mgold,0,.22,-3.55,tray,'bus');
+// midplane level
+const md=G(1,.12);
+M(new THREE.BoxGeometry(8.8,.08,.5),Mmid,0,0,1.75,md,'mid');for(let i=0;i<12;i++)M(new THREE.BoxGeometry(.5,.22,.14),Mblk,-4.1+i*.74,.14,1.75,md,'mid');
+for(let i=0;i<4;i++){M(new THREE.BoxGeometry(.9,.06,1.0),Mpcbe,-3.95+i*1.0,.0,2.65,md,'cx9');M(rbox(.45,.08,.45,.04),Mdie,-3.95+i*1.0,.07,2.65,md,'cx9')}
+M(new THREE.BoxGeometry(1.0,.06,1.0),Mpcbe,.2,0,2.65,md,'bf4');M(rbox(.5,.08,.5,.04),Mgreen,.2,.07,2.65,md,'bf4');
+for(let i=0;i<4;i++)M(new THREE.BoxGeometry(.22,.1,1.0),Mssd,1.0+i*.26,.05,2.65,md,'ssd');
+M(new THREE.BoxGeometry(.8,.06,.7),Mpcbe,2.8,0,2.65,md,'bmc');M(new THREE.BoxGeometry(.3,.05,.3),Mblk,2.8,.06,2.65,md,'bmc');
+M(new THREE.BoxGeometry(2.6,.08,.7),Mpcbe,0,0,-2.75,md,'pwr');for(let i=0;i<6;i++)rot(M(new THREE.CylinderGeometry(.12,.12,.35,16),Mcap,-1.0+i*.4,.2,-2.75,md,'pwr'));
+function rot(o){return o}
+// boards
+const bl=G(2,.24);
+[-2.3,2.3].forEach(bx=>{M(new THREE.BoxGeometry(4.1,.1,4.0),Mpcbe,bx,0,-.45,bl,'board');
+ for(let i=0;i<2;i++)M(new THREE.BoxGeometry(1.4,.34,.3),Mdark,bx-1.0+i*1.7,.2,-2.3,bl,'nvl');
+ const ig=rbox(.24,.2,.24,.04);for(let i=0;i<6;i++)[-1,1].forEach(s=>{M(ig,Mind,bx-1.85,.15,-.45+s*(.3+i*.25),bl,'vrm')});
+ for(let i=0;i<5;i++)M(ig,Mind,bx+.4+i*.28,.15,1.15,bl,'vrm');});
+const gpuXZ=[],cpuXZ=[];[-2.3,2.3].forEach(bx=>{[-1.35,.45].forEach(z=>gpuXZ.push([bx-.45,z]));cpuXZ.push([bx+1.35,-.45])});
+const pk=G(3,.38);
+gpuXZ.forEach(([x,z])=>{M(rbox(1.9,.08,1.55,.06),Msub,x,0,z,pk,'sub');[-.26,.26].forEach(dx=>M(new THREE.BoxGeometry(.46,.06,.62),Mdie,x+dx,.07,z,pk,'gpu'));
+ [-.66,-.4,.4,.66].forEach(dx=>[-.36,0,.36].forEach(dz=>{}));[-.68,.68].forEach(dx=>[-.48,-.16,.16,.48].forEach(dz=>M(new THREE.BoxGeometry(.24,.08,.26),Mhbm,x+dx,.08,z+dz,pk,'hbm')))});
+cpuXZ.forEach(([x,z])=>{M(rbox(1.0,.08,1.1,.05),Msub,x,0,z,pk,'cpu');M(new THREE.BoxGeometry(.6,.06,.6),Mdie,x,.07,z,pk,'cpu');[-1,1].forEach(s=>M(new THREE.BoxGeometry(.85,.08,.3),mat(0x2b5f3f,.3,.4),x,.02,z+s*.8,pk,'socamm'))});
+const cp=G(4,.6),cyl=new THREE.CylinderGeometry(.07,.07,.26,16),hose=new THREE.CylinderGeometry(.085,.085,.2,16);
+function plate(x,z,w,d){M(rbox(w,.12,d,.08),Mcu,x,0,z,cp,'plate');M(rbox(w*.84,.12,d*.84,.06),Mni,x,.12,z,cp,'plate');[-.25,.25].forEach(dx=>{M(cyl,Mss,x+dx*w/1.5,.3,z-d*.25,cp,'plate');M(hose,Mblk,x+dx*w/1.5,.52,z-d*.25,cp,'plate')})}
+gpuXZ.forEach(([x,z])=>plate(x,z,1.8,1.45));cpuXZ.forEach(([x,z])=>plate(x,z,.95,1.0));
+for(let i=0;i<4;i++)plate(-3.95+i*1.0,2.65,.8,.8);plate(.2,2.65,.85,.85);
+const mf=G(5,.75);[-.18,.18].forEach((dz,k)=>{M(rbox(8.6,.24,.24,.05),Mss,0,0,-2.95+dz,mf,'mani');M(rbox(5.4,.2,.2,.05),Mss,-1.4,0,2.0+dz,mf,'mani');
+ for(let i=0;i<6;i++){const x=-3.8+i*1.52;M(new THREE.CylinderGeometry(.09,.09,.22,16),Mss,x,.22,-2.95+dz,mf,'mani');M(new THREE.CylinderGeometry(.1,.1,.08,16),k?Mred:Mblue,x,.36,-2.95+dz,mf,'mani')}
+ for(let i=0;i<5;i++){const x=-3.95+i*1.04;M(new THREE.CylinderGeometry(.08,.08,.18,16),k?Mred:Mblue,x,.2,2.0+dz,mf,'mani')}});
+}
+
+}
+TD_MODELS.tesla={"tab": "Tesla Model Y", "title": "Tesla Model Y 平台 3D 拆解（精緻版）", "sub": "風格化示意模型（Model 3／Y 平台），比例與位置非實際。台廠對應皆來自媒體或外貿協會公開資料，除特別註明外屬市場推估。", "specs": "<b>平台重點</b>：前後段一體壓鑄底盤＋結構電池包（德州廠部分 Model Y 用 4680 電芯）；電池可用容量依版本約 60–81 kWh（標準版 LFP、長程版鎳系）；後驅永磁同步磁阻馬達、雙馬達版前軸加感應馬達，SiC 逆變器；Octovalve 熱泵＋單一前散熱器；HW4／AI4 自駕電腦；15 吋中控螢幕、AMD Ryzen 娛樂系統；低壓為 12V 級（48V 僅 Cybertruck）。", "note": "操作：拖曳旋轉、滾輪／雙指／按鈕縮放、點零件或清單看說明，停止操作約 5 秒後恢復自動旋轉；網址可加 ?m=gb200|rubin|tesla 與 ?ex=0–100。需連網載入 Three.js。<br>主要來源：Wikipedia Tesla Model Y（引用 Munro 拆解）、VASA〈Inside Tesla's Octovalve〉、AutoPilot Review 與 SemiconductorX 的 HW4 整理、自由時報、天下雜誌、外貿協會台灣智慧車輛供應鏈名錄。", "cmp": false};
+{
+const P='市場推估',O='已證實';
+TD_MODELS.tesla.info={
+front:{n:'前段一體壓鑄底盤（Gigacasting）',f:'用超大型壓鑄機把前車架一次鑄成一大塊鋁件，取代過去幾十個沖壓焊接件，省工序、省焊接、減重。Model Y 是第一款量產採用的車型。',s:['德州、柏林廠 Model Y 採前後段一體壓鑄','2024 年報導特斯拉放棄更大的「整車底盤一次壓鑄」計畫'],c:[['IDRA（壓鑄機）',0]],st:O,cn:'一體壓鑄已證實；壓鑄機廠為公開報導。'},
+rear:{n:'後段一體壓鑄底盤',f:'後車架同樣一體壓鑄。2020 年佛利蒙廠率先改用單件壓鑄後車身，把原本數十個零件併成一件。',s:['2020 年起佛利蒙廠 Model Y 後段一體壓鑄'],c:[['IDRA（壓鑄機）',0]],st:O},
+pack:{n:'結構電池包',f:'電池包同時當作車身地板的一部分，座椅直接固定在電池包上蓋，提高車身剛性、減少零件。德州廠部分 Model Y 用 4680 電芯的結構電池包；其他版本用 2170 圓柱電芯或 LFP 電芯。',s:['可用容量依市場與版本約 60–81 kWh','標準版 LFP；長程與高性能版為鎳系電芯'],c:[['Panasonic',0],['LG 新能源',0],['CATL',0],['美琪瑪（正極材料）',1]],st:O,cn:'電芯與結構電池包已證實；美琪瑪為媒體列出的正極材料供應鏈，屬市場推估。'},
+bms:{n:'電池管理系統（BMS）與線束',f:'監控每串電芯的電壓、溫度，做平衡充電與安全保護。線束把各模組的感測訊號拉回 BMS 主板。',s:[],c:[['貿聯-KY（BMS 線束）',1]],st:P,cn:'貿聯多家媒體與外貿協會資料稱為特斯拉 BMS 線束供應商。'},
+rdu:{n:'後驅動單元（馬達＋減速齒輪）',f:'後輪主驅動，永磁同步磁阻馬達與減速齒輪箱整合成一個單元。單馬達版只有後驅。',s:['永磁同步磁阻馬達'],c:[['和大（減速齒輪）',1],['富田（馬達）',1]],st:P,cn:'和大為媒體報導的減速齒輪供應商；富田見自由時報報導。'},
+fdu:{n:'前驅動單元（雙馬達版）',f:'雙馬達版前軸加一顆感應馬達，做四輪驅動，巡航時可降低出力以省電。',s:['感應馬達'],c:[['和大（齒輪）',1]],st:P},
+inv:{n:'逆變器（SiC MOSFET）',f:'把電池的直流電轉成交流電驅動馬達。特斯拉是最早大量使用碳化矽 MOSFET 的車廠，效率高、體積小。',s:['SiC 功率元件'],c:[['STMicroelectronics',0],['onsemi',0]],st:O,cn:'SiC 逆變器已證實；元件廠商為公開報導。'},
+thermal:{n:'熱管理（Octovalve 熱泵）',f:'熱泵加上「超級歧管」，把冷卻液和冷媒兩套系統整合。八通閥 Octovalve 由步進馬達切換流向，能把電池、馬達、電腦的廢熱拿去暖車廂。',s:['八通閥＋兩顆電動水泵','冷媒 R1234yf；只用一組前方散熱水箱'],c:[],st:O,cn:'架構已證實（Munro 拆解）；台廠對應未查到公開報導。'},
+fsd:{n:'HW4／AI4 自動駕駛電腦',f:'跑 FSD 神經網路的車用電腦，兩顆 SoC 互為備援，處理所有鏡頭畫面。',s:['2 顆三星 7nm FSD SoC','每顆 20 核 CPU、神經網路加速器約 50 TOPS','16GB GDDR6、256GB 儲存'],c:[['三星（晶片代工）',0],['廣達（ECU）',1]],st:P,cn:'規格來自拆解與第三方整理，特斯拉未正式公布；廣達為媒體報導的 ECU 供應商。'},
+cam:{n:'車身鏡頭',f:'純視覺方案，以多顆鏡頭取代雷達、超音波。HW4 鏡頭解析度提高到約 500 萬畫素。',s:['2025 新款 Model Y：8 顆鏡頭（新增前保險桿鏡頭）','HW4 鏡頭約 5MP'],c:[],st:P,cn:'鏡頭供應商未查到可靠公開報導。'},
+lv:{n:'低壓電系（12V 級）',f:'供應車燈、電腦、車門等低壓用電。Model 3／Y 屬 12V 級架構，新款用鋰電池取代傳統鉛酸電瓶；48V 架構是 Cybertruck 才導入。',s:['Model Y：12V 級','48V 僅 Cybertruck'],c:[['康舒（電源）',1]],st:P,cn:'Model Y 為 12V 級已有來源；康舒在外貿協會資料列特斯拉為合作夥伴，實際品項未證實。'},
+chg:{n:'充電口與車載充電機（OBC）',f:'交流充電時由車載充電機轉成直流充電池；超充時直流直接進電池。北美已改為 NACS 規格。',s:['北美 NACS，其他市場依當地規格（如 CCS）'],c:[['台達電（充電）',1],['康舒（充電）',1],['胡連（連接器）',1],['致茂（充電測試）',1]],st:P,cn:'皆為媒體／外貿協會列出的特斯拉供應鏈，實際零件對應未逐一證實。'},
+disp:{n:'中控螢幕與娛樂系統（AMD Ryzen）',f:'15 吋中控觸控螢幕是車內唯一主要操作介面，導航、空調、遊戲都在這裡。娛樂系統處理器採 AMD Ryzen。',s:['15 吋中控螢幕','AMD Ryzen 娛樂處理器'],c:[['AMD',0],['和碩（中控電腦）',1]],st:P,cn:'AMD Ryzen 已證實；和碩為媒體報導的中控電腦供應商。'},
+seat:{n:'座椅與內裝',f:'前座直接固定在結構電池包上蓋，這是結構電池包設計的一部分。',s:[],c:[],st:P,cn:'座椅、內裝供應商未查證。'},
+wheel:{n:'輪圈與輪胎',f:'輪圈造型兼顧空力，多數版本可選不同尺寸。',s:[],c:[],st:P,cn:'自由時報稱輪圈由台灣供應商製造，但未點名廠商，因此不列。'},
+roof:{n:'全景玻璃車頂',f:'大面積隔熱玻璃車頂，從前擋一路延伸到後方，減少車頂鈑金。',s:[],c:[],st:P,cn:'供應商未查證。'},
+body:{n:'車身外殼（白車身）',f:'壓鑄件、鋼鋁沖壓件組成的車身骨架與外板。示意模型簡化為一層外殼。',s:[],c:[],st:P,cn:'外板供應商未查證。'},
+susp:{n:'懸吊系統（控制臂、彈簧、避震器）',f:'前軸雙 A 臂、後軸多連桿是 Model 3／Y 常見的拆解描述，連到前後一體壓鑄件上。彈簧與避震器支撐車重、吸收路面衝擊。',s:[],c:[],st:P,cn:'懸吊形式來自拆解報導，非官方規格；供應商未查證，數值不列。'},
+brake:{n:'煞車碟盤與卡鉗',f:'機械煞車搭配馬達動能回收：平常減速多半由馬達回充電池，碟盤卡鉗負責重煞與停車。',s:['動能回收煞車＋液壓碟煞'],c:[],st:P,cn:'供應商與尺寸未查證，不列。'},
+steer:{n:'轉向系統（電動輔助齒條＋方向盤）',f:'電動輔助轉向（EPS）齒條裝在前副車架，Model Y 用圓形方向盤（Yoke 方向盤只出現在 Model S／X）。',s:['電動輔助齒條式轉向'],c:[],st:P,cn:'供應商未查證。'},
+hv:{n:'高壓線束（橘色）',f:'連接電池包、前後逆變器、車載充電機與電動壓縮機的高壓電纜。業界慣例以橘色外皮標示高壓，提醒維修人員。',s:[],c:[['貿聯-KY',1],['胡連（連接器）',1]],st:P,cn:'貿聯、胡連為媒體列出的特斯拉線束／連接器供應鏈，是否供應此段高壓線未證實。'},
+rad:{n:'前散熱水箱與主動式進氣格柵',f:'整台車只用一組前方空氣對冷卻液散熱器，搭配可開合的主動格柵，不需要散熱時關閉以降低風阻。',s:['單一散熱器＋主動格柵'],c:[],st:O,cn:'架構見 Munro／VASA 拆解；供應商未查證。'}};
+TD_MODELS.tesla.view={R:25,Rmin:9,Rmax:40,step:1.7,look:3.0};
+TD_MODELS.tesla.build=function({THREE,M,G,mat,rbox}){
+const Mal=mat(0xc3c7cc,.9,.32),Mcast=mat(0xa8adb3,.85,.45),Mbat=mat(0x2a2e35,.5,.45),Mcell=mat(0x6d9cc0,.7,.3),Mcu=mat(0xc8814f,1,.28),Mmot=mat(0x767b82,.85,.3),Mgear=mat(0x8f949b,.9,.28),Mblk=mat(0x141517,.2,.6),Mtire=mat(0x121212,0,.88),Mrim=mat(0xb9bdc3,.95,.2),Mdisc=mat(0x7d7f82,.9,.45),Mcal=mat(0xb02a2a,.3,.35),Mseat=mat(0x1f1f21,0,.75),Mwhite=mat(0xf2f2f2,.1,.35),Mgreen=mat(0x1d6b42,.2,.5),Mblue=mat(0x2f78c4,.3,.35),Mredp=mat(0xc0392b,.3,.35),Morg=mat(0xf07a12,.2,.45),Myel=mat(0xe2b93b,.2,.5),Mspring=mat(0x2b4f9a,.6,.3),Mdash=mat(0x3a3a3d,.1,.65),Mwood=mat(0xd8d2c4,.0,.6),Mscreen=mat(0x050608,.3,.08,{emissive:0x14284a,emissiveIntensity:.8}),
+Mpaint=new THREE.MeshPhysicalMaterial({color:0xb8202a,metalness:.55,roughness:.28,clearcoat:1,clearcoatRoughness:.08,transparent:true,opacity:.62,depthWrite:false,side:THREE.DoubleSide}),
+Mglass=new THREE.MeshPhysicalMaterial({color:0x10161e,metalness:.3,roughness:.04,transparent:true,opacity:.6,depthWrite:false,side:THREE.DoubleSide}),
+Mled=mat(0xffffff,.1,.2,{emissive:0xdfe8ff,emissiveIntensity:1.2}),Mtail=mat(0x600000,.1,.2,{emissive:0xd01818,emissiveIntensity:1.2}),Mseam=mat(0x2a0608,.2,.6);
+const rot=(o,x,y,z)=>{o.rotation.set(x||0,y||0,z||0);return o};
+const tube=(pts,r,m,par,key)=>{const c=new THREE.CatmullRomCurve3(pts.map(p=>new THREE.Vector3(...p)));const o=new THREE.Mesh(new THREE.TubeGeometry(c,48,r,8,false),m);o.castShadow=true;o.userData.key=key;par.add(o);return o};
+const WX=[-3.2,3.15],WZ=1.72,WR=.78,WY=.78;
+// ---------- level 0: chassis ----------
+const L0=G(0,0);
+// wheels
+const tireG=new THREE.TorusGeometry(WR-.19,.21,20,48),sideG=new THREE.CylinderGeometry(WR-.03,WR-.03,.36,48,1,true);
+WX.forEach(x=>[-1,1].forEach(s=>{const w=new THREE.Group();w.position.set(x,WY,s*WZ);L0.add(w);
+ const t=new THREE.Mesh(tireG,Mtire);t.userData.key='wheel';t.castShadow=true;w.add(t);const sw=new THREE.Mesh(sideG,Mtire);sw.rotation.x=Math.PI/2;sw.userData.key='wheel';w.add(sw);
+ const hub=new THREE.Mesh(new THREE.CylinderGeometry(.13,.13,.1,20),Mrim);hub.rotation.x=Math.PI/2;hub.position.z=s*.16;hub.userData.key='wheel';w.add(hub);
+ const lip=new THREE.Mesh(new THREE.TorusGeometry(WR-.36,.035,8,48),Mrim);lip.position.z=s*.15;lip.userData.key='wheel';w.add(lip);
+ for(let i=0;i<10;i++){const a=i/10*Math.PI*2,sp=new THREE.Mesh(new THREE.BoxGeometry(.075,WR-.47,.05),Mrim);sp.position.set(Math.cos(a)*(WR-.42)/2+0,Math.sin(a)*(WR-.42)/2,s*.15);sp.rotation.z=a-Math.PI/2;sp.userData.key='wheel';sp.castShadow=true;w.add(sp)}
+ const disc=new THREE.Mesh(new THREE.CylinderGeometry(.43,.43,.05,40),Mdisc);disc.rotation.x=Math.PI/2;disc.position.z=s*.02;disc.userData.key='brake';w.add(disc);
+ const cal=new THREE.Mesh(rbox(.32,.14,.14,.04),Mcal);cal.position.set(.12*(x<0?1:-1),.32,s*.05);cal.rotation.set(Math.PI/2,0,x<0?-.5:.5);cal.userData.key='brake';w.add(cal);
+ // suspension
+ const ax=s*(WZ-.35);[[.95,.35],[.6,.15]].forEach(([y,dx])=>{M(new THREE.BoxGeometry(.5,.05,.07),Mcast,x+dx-.2,y,s*(WZ-.6),L0,'susp').rotation.y=.3*s});
+ M(new THREE.BoxGeometry(.08,.05,.85),Mcast,x,.55,s*(WZ-.7),L0,'susp');
+ const hel=[];for(let i=0;i<=60;i++){const a=i/60*Math.PI*2*6;hel.push([x+.18*Math.cos(a)-.05,.75+i/60*.75,s*(WZ-.62)+.18*Math.sin(a)])}tube(hel,.025,Mspring,L0,'susp');
+ M(new THREE.CylinderGeometry(.06,.06,.9,12),Mblk,x-.05,1.12,s*(WZ-.62),L0,'susp');
+}));
+// steering rack
+rot(M(new THREE.CylinderGeometry(.07,.07,2.4,16),Mal,-3.0,.72,0,L0,'steer'),Math.PI/2);M(rbox(.3,.25,.4,.06),Mblk,-3.0,.72,.45,L0,'steer');
+[-1,1].forEach(s=>rot(M(new THREE.CylinderGeometry(.03,.03,.45,8),Mal,-3.0,.72,s*1.4,L0,'steer'),Math.PI/2));
+// castings (ribbed)
+function casting(x0,len,key){const g=new THREE.Group();L0.add(g);
+ const a=M(rbox(len,.18,3.0,.25),Mcast,x0,.62,0,g,key);[-1,1].forEach(s=>{M(rbox(len*.95,.55,.22,.06),Mcast,x0,.95,s*1.3,g,key)});
+ for(let i=0;i<5;i++)M(new THREE.BoxGeometry(.06,.3,2.6),Mcast,x0-len/2+.25+i*(len-.5)/4,.82,0,g,key);
+ for(let i=0;i<3;i++)M(new THREE.BoxGeometry(len*.9,.25,.06),Mcast,x0,.82,-.8+i*.8,g,key)}
+casting(-3.7,2.3,'front');casting(3.7,2.5,'rear');
+// battery pack
+const pk=new THREE.Group();L0.add(pk);
+M(rbox(5.0,.28,3.3,.2),Mbat,0,.5,0,pk,'pack');
+[-1,1].forEach(s=>M(new THREE.BoxGeometry(5.0,.32,.1),Mal,0,.6,s*1.62,pk,'pack'));
+const cg=new THREE.CylinderGeometry(.075,.075,.24,12),pos=[];
+for(let m=0;m<4;m++){const z0=-1.35+m*.9;M(new THREE.BoxGeometry(4.6,.04,.78),mat(0x3a3f47,.4,.5),0,.66,z0+.0,pk,'pack');
+ for(let x=-2.2;x<=2.2;x+=.16)for(let k=0;k<4;k++)pos.push([x+(k%2)*.08,z0-.27+k*.18])}
+const im=new THREE.InstancedMesh(cg,Mcell,pos.length),d=new THREE.Object3D();pos.forEach((p,i)=>{d.position.set(p[0],.8,p[1]);d.updateMatrix();im.setMatrixAt(i,d.matrix)});im.userData.key='pack';im.castShadow=true;L0.add(im);
+for(let m=0;m<4;m++)[-.2,.2].forEach(dz=>M(new THREE.BoxGeometry(4.5,.025,.07),Mcu,0,.935,-1.35+m*.9+dz,pk,'pack'));
+M(rbox(.9,.12,.6,.04),Mgreen,-2.1,1.0,0,pk,'bms');for(let i=0;i<8;i++)M(new THREE.BoxGeometry(.04,.04,.04),Mblk,-2.45+i*.1,1.08,.1,pk,'bms');
+for(let m=0;m<4;m++)tube([[-1.7,.97,-.1],[-.5,.98,-1.35+m*.9],[2.1,.97,-1.35+m*.9+.3]],.018,Myel,pk,'bms');
+// ---------- level 1: powertrain & thermal ----------
+const L1=G(1,.3);
+function du(x,key,big){const r=big?.42:.36;rot(M(new THREE.CylinderGeometry(r,r,.9,32),Mmot,x,WY,-.35,L1,key),Math.PI/2);
+ for(let i=0;i<8;i++)rot(M(new THREE.TorusGeometry(r+.005,.018,6,32),Mgear,x,WY,-.75+i*.11,L1,key));
+ M(rbox(.95,.85,.55,.14),Mgear,x,WY,.45,L1,key);[-1,1].forEach(s=>rot(M(new THREE.CylinderGeometry(.05,.05,WZ-.75,12),Mal,x,WY,s*(WZ/2+.2),L1,key),Math.PI/2));
+ const ix=x+(x<0?.62:-.62);M(rbox(.55,.42,.85,.08),mat(0x24272c,.6,.35),ix,WY+.15,0,L1,'inv');for(let i=0;i<5;i++)M(new THREE.BoxGeometry(.5,.03,.03),Mal,ix,WY+.37,-.3+i*.15,L1,'inv');return ix}
+const fi=du(-3.2,'fdu',0),ri=du(3.15,'rdu',1);
+// HV cables
+[[-1,0],[1,1]].forEach(([s,k])=>{tube([[s*2.4,.95,.25],[s*2.6,1.15,.15],[k?ri:fi,WY+.38,.1]],.04,Morg,L1,'hv');tube([[s*2.4,.95,-.25],[s*2.65,1.12,-.3],[k?ri:fi,WY+.38,-.25]],.04,Morg,L1,'hv')});
+tube([[2.3,.95,1.2],[2.9,1.2,1.35],[3.3,1.45,1.35]],.035,Morg,L1,'hv');tube([[-2.3,.95,-.9],[-2.5,1.3,-1.0],[-2.6,1.5,-1.0]],.03,Morg,L1,'hv');
+// thermal: superbottle/octovalve, radiator, loops
+M(rbox(.75,.55,.7,.14),mat(0x3d4148,.5,.4),-2.55,1.55,-1.0,L1,'thermal');rot(M(new THREE.CylinderGeometry(.16,.16,.22,20),Mal,-2.55,1.92,-1.0,L1,'thermal'));
+rot(M(new THREE.CylinderGeometry(.16,.16,.4,20),Mal,-2.1,1.5,-1.3,L1,'thermal'),0,0,Math.PI/2);
+const rad=M(new THREE.BoxGeometry(.12,.7,2.6),mat(0x55595f,.7,.45),-4.6,1.0,0,L1,'rad');for(let i=0;i<14;i++)M(new THREE.BoxGeometry(.13,.66,.02),Mblk,-4.6,1.0,-1.2+i*.185,L1,'rad');
+for(let i=0;i<4;i++)M(new THREE.BoxGeometry(.04,.12,2.4),Mblk,-4.75,.78+i*.15,0,L1,'rad');
+tube([[-4.5,1.3,1.0],[-3.6,1.6,.9],[-2.6,1.6,-.6]],.035,Mredp,L1,'thermal');tube([[-4.5,.7,-1.0],[-3.4,.9,-1.3],[-2.55,1.3,-1.25]],.035,Mblue,L1,'thermal');
+tube([[-2.3,1.45,-.8],[-1.0,1.05,-1.55],[1.5,1.0,-1.55],[2.6,1.1,-.9]],.03,Mblue,L1,'thermal');tube([[-2.3,1.55,-.7],[-1.0,1.12,-1.45],[1.5,1.08,-1.45],[2.6,1.2,-.6]],.03,Mredp,L1,'thermal');
+// LV + charging
+M(rbox(.55,.38,.35,.06),Myel,-2.55,1.45,.85,L1,'lv');
+M(rbox(.85,.32,.65,.08),mat(0x2c2f34,.6,.35),3.2,1.6,1.2,L1,'chg');rot(M(new THREE.CylinderGeometry(.13,.13,.1,24),Mwhite,4.35,1.75,1.72,L1,'chg'),Math.PI/2);
+// ---------- level 2: interior ----------
+const L2=G(2,.5);
+function seat(x,z,w){M(rbox(.95,.22,w,.12),Mseat,x,1.25,z,L2,'seat');const b=M(rbox(.22,1.05,w,.1),Mseat,x+.55,1.8,z,L2,'seat');b.rotation.z=.18;M(rbox(.18,.3,w*.6,.08),Mseat,x+.68,2.45,z,L2,'seat');
+ rot(M(new THREE.CylinderGeometry(.14,.14,.25,12),Mal,x,1.07,z,L2,'seat'))}
+seat(-.65,-.72,.75);seat(-.65,.72,.75);seat(1.35,0,2.3);
+M(rbox(1.0,.3,3.5,.15),Mdash,-1.85,1.7,0,L2,'disp');M(new THREE.BoxGeometry(.25,.04,3.4),Mwood,-1.55,1.86,0,L2,'disp');
+const scr=M(rbox(.04,.55,.95,.04),Mscreen,-1.45,2.18,0,L2,'disp');scr.rotation.set(0,0,-.25);
+M(new THREE.BoxGeometry(.9,.35,.35),Mdash,-.5,1.35,0,L2,'disp');
+// steering wheel (round, Model Y)
+rot(M(new THREE.CylinderGeometry(.04,.04,.6,10),Mblk,-1.55,1.85,-.72,L2,'steer'),0,0,-1.0);
+const sw=M(new THREE.TorusGeometry(.26,.035,12,40),Mblk,-1.3,2.0,-.72,L2,'steer');sw.rotation.set(0,Math.PI/2,0);sw.rotateX(-.35);
+M(new THREE.BoxGeometry(.04,.06,.42),Mblk,-1.3,2.0,-.72,L2,'steer');
+M(rbox(.65,.16,.75,.05),Mal,-2.0,1.45,.95,L2,'fsd');for(let i=0;i<6;i++)M(new THREE.BoxGeometry(.04,.07,.65),Mal,-2.25+i*.1,1.56,.95,L2,'fsd');
+// ---------- level 3: body ----------
+const L3=G(3,.85);
+const sh=new THREE.Shape();sh.moveTo(-4.95,.85);sh.lineTo(-5.0,1.25);sh.bezierCurveTo(-5.0,1.6,-4.8,1.78,-4.2,1.86);sh.bezierCurveTo(-3.2,1.98,-2.3,2.02,-1.75,2.08);
+sh.bezierCurveTo(-1.0,2.7,-.5,3.05,.4,3.12);sh.bezierCurveTo(2.0,3.12,3.2,2.85,4.25,2.35);sh.bezierCurveTo(4.6,2.15,4.85,2.1,4.95,1.95);sh.lineTo(5.0,1.25);sh.lineTo(4.9,.85);
+[[WX[1],1],[WX[0],0]].forEach(([wx])=>{});sh.lineTo(WX[1]+.95,.85);sh.absarc(WX[1],WY,.95,0,Math.PI,false);sh.lineTo(WX[0]+.95,.85);sh.absarc(WX[0],WY,.95,0,Math.PI,false);sh.lineTo(-4.95,.85);
+const W=3.5,bg=new THREE.ExtrudeGeometry(sh,{depth:W,bevelEnabled:true,bevelThickness:.22,bevelSize:.18,bevelSegments:6,curveSegments:40});bg.translate(0,0,-W/2);
+// taper roof width: pinch vertices above y=2.1
+const pa=bg.attributes.position;for(let i=0;i<pa.count;i++){const y=pa.getY(i);if(y>2.0){const k=1-Math.min((y-2.0)/1.1,1)*.16;pa.setZ(i,pa.getZ(i)*k)}}bg.computeVertexNormals();
+const body=M(bg,Mpaint,0,0,0,L3,'body');body.castShadow=false;body.renderOrder=2;
+// greenhouse glass (side windows)
+const gw=new THREE.Shape();gw.moveTo(-1.6,2.18);gw.bezierCurveTo(-.95,2.7,-.45,2.98,.4,3.0);gw.bezierCurveTo(1.9,3.0,3.0,2.75,3.85,2.3);gw.lineTo(-1.6,2.18);
+[-1,1].forEach(s=>{const g=new THREE.ShapeGeometry(gw,24),o=M(g,Mglass,0,0,s*(W/2+.2-.25),L3,'roof');o.renderOrder=3});
+// windshield & rear glass
+const ws=M(new THREE.BoxGeometry(2.2,.02,2.7),Mglass,-.72,2.66,0,L3,'roof');ws.rotation.z=.47;ws.renderOrder=3;
+// seams, lights, mirrors, handles
+[-1,1].forEach(s=>{const zz=s*(W/2+.23);[-1.55,.4,2.3].forEach(x=>{M(new THREE.BoxGeometry(.02,1.15,.01),Mseam,x,1.6,zz,L3,'body')});
+ M(new THREE.BoxGeometry(3.9,.02,.01),Mseam,.37,2.17,zz,L3,'body');
+ M(rbox(.22,.04,.05,.02),Mblk,-.9,1.95,zz,L3,'body');M(rbox(.22,.04,.05,.02),Mblk,1.0,1.95,zz,L3,'body');
+ const mr=M(rbox(.3,.16,.32,.07),Mpaint,-1.45,2.25,s*(W/2+.42),L3,'body');mr.renderOrder=2;M(new THREE.BoxGeometry(.04,.1,.25),Mblk,-1.43,2.25,s*(W/2+.42),L3,'cam');
+ // wheel arch trim
+ WX.forEach(x=>{const a=new THREE.Mesh(new THREE.TorusGeometry(.97,.06,8,32,Math.PI),Mblk);a.position.set(x,WY,zz-s*.02);a.userData.key='body';L3.add(a)});
+ // lights
+ const hl=M(new THREE.BoxGeometry(.08,.07,.62),Mled,-4.95,1.62,s*1.15,L3,'body');hl.rotation.y=s*.35;
+ M(new THREE.BoxGeometry(.06,.07,.7),Mtail,4.95,1.9,s*1.15,L3,'body').rotation.y=-s*.3;});
+M(new THREE.BoxGeometry(.05,.05,2.2),Mtail,5.0,1.9,0,L3,'body');
+M(new THREE.BoxGeometry(.01,.02,2.6),Mseam,-3.4,1.97,0,L3,'body');[-1,1].forEach(s=>M(new THREE.BoxGeometry(1.6,.01,.01),Mseam,-4.2,1.92,s*1.3,L3,'body'));
+M(new THREE.BoxGeometry(.01,.02,2.6),Mseam,4.55,2.2,0,L3,'body');
+// cameras
+[[-1.1,2.85,0],[-4.98,1.15,0],[4.9,1.55,0],[.4,2.05,W/2+.24],[.4,2.05,-(W/2+.24)],[-2.9,1.45,W/2+.24],[-2.9,1.45,-(W/2+.24)]].forEach(p=>M(new THREE.SphereGeometry(.07,14,14),Mblk,p[0],p[1],p[2],L3,'cam'));
+// ---------- level 4: glass roof ----------
+const L4=G(4,1.25);
+const rg=new THREE.PlaneGeometry(4.2,2.6,24,1),rp=rg.attributes.position;for(let i=0;i<rp.count;i++){const x=rp.getX(i);rp.setZ(i,-.08*(x*x))}rg.computeVertexNormals();
+const roof=M(rg,Mglass,1.2,3.1,0,L4,'roof');roof.rotation.set(-Math.PI/2,0,0);roof.rotateY(.18);roof.renderOrder=4;
+}
+
+}
+
   var INDUSTRY_ORDER = Object.keys(INDUSTRIES);
 
   /* 頁籤分組設定：把頁籤依主題分成幾群並排顯示，避免全部擠成一長排
@@ -17903,6 +18254,323 @@
   }
 
 
+  /* ============================================================
+     3D 拆解 TEARDOWN：industry.teardown = ["gb200","rubin"] 之類的模型 key 陣列，
+     模型資料在 TD_MODELS（build() 幾何＋info 零件說明）。
+     - Three.js r128 只在第一次打開有 3D 模型的頁籤時才從 cdnjs 載入，其他頁籤零成本
+     - 只用一個 WebGLRenderer，切頁籤時把 canvas 搬到新的容器；卡片隱藏或捲出畫面就停止繪製
+     - 零件上的廠商若全站已有同名公司，標籤可點進個股頁面（名稱對照見 TD_ALIAS）
+     - 滾輪縮放需先點一下模型（避免捲動頁面時被攔截）；手機上下滑仍可捲頁，左右拖曳旋轉
+     ============================================================ */
+  var tdCardEl = document.getElementById("teardownCard");
+  var TD_THREE_SRC = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
+  var TD_ALIAS = {
+    "SK 海力士":"SK海力士 SK hynix", "美光":"美光 Micron", "三星":"三星電子 Samsung Electronics",
+    "Samsung":"三星電子 Samsung Electronics", "Kioxia":"鎧俠 Kioxia", "NVIDIA":"輝達 NVIDIA",
+    "Broadcom":"博通 Broadcom", "Infineon":"英飛凌 Infineon", "Renesas":"瑞薩電子 Renesas",
+    "村田":"村田 Murata", "MPS":"Monolithic Power Systems", "Cooler Master":"訊凱國際",
+    "LG 新能源":"LG新能源", "CATL":"寧德時代 CATL", "STMicroelectronics":"意法半導體 STMicroelectronics",
+    "onsemi":"安森美 onsemi", "胡連":"胡連精密", "致茂":"致茂電子", "定穎":"定穎投控"
+  };
+  var TD_EXTRA_CODE = { "臺慶科":"3357" };
+  var td = { three:"idle", gl:null, key:null, list:null, part:null, lastByTab:{}, visible:true, waiting:[] };
+
+  function tdIsDark(){
+    var t = document.documentElement.getAttribute("data-theme");
+    if(t) return t === "dark";
+    return !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  }
+  function tdEnsureThree(cb){
+    if(window.THREE){ td.three = "ok"; cb(true); return; }
+    if(td.three === "fail"){ cb(false); return; }
+    td.waiting.push(cb);
+    if(td.three === "loading") return;
+    td.three = "loading";
+    var s = document.createElement("script");
+    s.src = TD_THREE_SRC; s.async = true;
+    s.onload = function(){ td.three = window.THREE ? "ok" : "fail"; var w = td.waiting; td.waiting = []; w.forEach(function(f){ f(td.three === "ok"); }); };
+    s.onerror = function(){ td.three = "fail"; var w = td.waiting; td.waiting = []; w.forEach(function(f){ f(false); }); };
+    document.head.appendChild(s);
+  }
+  function tdResolve(label){
+    var base = String(label).replace(/（[^）]*）$/, "").trim();
+    var name = TD_ALIAS[base] || base;
+    if(!companyIndex) companyIndex = buildCompanyIndex();
+    return companyIndex[name] || null;
+  }
+  function tdChipHtml(c){
+    var label = c[0], tw = !!c[1], entry = tdResolve(label);
+    var code = entry ? entry.code : (TD_EXTRA_CODE[label] || null);
+    if(entry) tw = entry.tw;
+    var inner = (tw ? '<span class="tw-dot"></span><span class="tw-tag">TW</span>' : '') +
+      '<span>'+escapeHtml(label)+'</span>' + (code ? '<span class="chip-code mono">'+escapeHtml(code)+'</span>' : '');
+    if(entry) return '<button type="button" class="chip'+(tw?' tw':'')+'" data-company="'+escapeHtml(entry.name)+'">'+inner+'</button>';
+    return '<span class="chip td-chip-static'+(tw?' tw':'')+'" title="本站尚未收錄這家公司">'+inner+'</span>';
+  }
+  function tdInfoHtml(m, k){
+    var a = k && m.info[k];
+    if(!a) return '<p class="td-info-empty">點模型上的任一零件，或下方零件清單，看它的功能、規格與相關廠商。橘點代表有台廠。</p>';
+    var ok = a.st === "已證實";
+    return '<div class="td-info-top"><h3 class="td-info-name">'+a.n+'</h3><span class="td-st '+(ok?'is-ok':'is-est')+'">'+a.st+'</span></div>' +
+      '<p class="td-info-f">'+a.f+'</p>' +
+      (a.s && a.s.length ? '<ul class="td-info-spec">'+a.s.map(function(x){ return '<li>'+x+'</li>'; }).join("")+'</ul>' : '') +
+      (a.c && a.c.length ? '<div class="chip-label">相關廠商</div><div class="chips">'+a.c.map(tdChipHtml).join("")+'</div>' : '') +
+      (a.cn ? '<p class="td-info-cn">'+a.cn+'</p>' : '');
+  }
+  function tdShowInfo(k){
+    var m = TD_MODELS[td.key]; if(!m) return;
+    td.part = k || null;
+    var box = tdCardEl.querySelector("#tdInfo");
+    box.innerHTML = tdInfoHtml(m, td.part);
+    wireChipClicks(box);
+    Array.prototype.forEach.call(tdCardEl.querySelectorAll(".td-part"), function(b){
+      b.classList.toggle("is-on", b.getAttribute("data-part") === td.part);
+    });
+  }
+  function tdNote(m){
+    var parts = String(m.note||"").split("<br>");
+    return parts.length > 1 ? parts.slice(1).join("<br>") : "";
+  }
+  function tdFillModel(key){
+    var m = TD_MODELS[key];
+    td.key = key; td.part = null;
+    if(state.industry) td.lastByTab[state.industry] = key;
+    Array.prototype.forEach.call(tdCardEl.querySelectorAll("[data-td-model]"), function(b){
+      b.classList.toggle("is-on", b.getAttribute("data-td-model") === key);
+    });
+    tdCardEl.querySelector("#tdTitle").textContent = m.title;
+    tdCardEl.querySelector("#tdSub").textContent = m.sub;
+    tdCardEl.querySelector("#tdSpecs").innerHTML = m.specs;
+    tdCardEl.querySelector("#tdList").innerHTML = Object.keys(m.info).map(function(k){
+      var a = m.info[k], hasTw = (a.c||[]).some(function(c){ var e = tdResolve(c[0]); return e ? e.tw : !!c[1]; });
+      return '<button type="button" class="td-part'+(hasTw?' has-tw':'')+'" data-part="'+k+'">'+a.n.split("（")[0]+'</button>';
+    }).join("");
+    var cmp = tdCardEl.querySelector("#tdCmp");
+    cmp.hidden = !m.cmp;
+    tdCardEl.querySelector("#tdNote").innerHTML = '<b>資料來源：</b>' + tdNote(m).replace(/^主要來源：/, "");
+    tdShowInfo(null);
+  }
+  function renderTeardown(ind){
+    var list = (ind.teardown||[]).filter(function(k){ return TD_MODELS[k]; });
+    if(!list.length){ tdCardEl.hidden = true; tdCardEl.innerHTML = ""; td.list = null; return; }
+    td.list = list;
+    var first = list.indexOf(td.lastByTab[state.industry]) !== -1 ? td.lastByTab[state.industry] : list[0];
+    tdCardEl.innerHTML =
+      '<div class="td-eyebrow">3D TEARDOWN · 3D 拆解</div>' +
+      '<h2 class="td-title" id="tdTitle"></h2>' +
+      '<p class="td-sub" id="tdSub"></p>' +
+      (list.length > 1 ? '<div class="td-models" role="tablist" aria-label="選擇模型">' + list.map(function(k){
+        return '<button type="button" class="hy-tab" data-td-model="'+k+'">'+escapeHtml(TD_MODELS[k].tab)+'</button>';
+      }).join("") + '</div>' : '') +
+      '<div class="td-body">' +
+        '<div class="td-stage">' +
+          '<div class="td-wrap" id="tdWrap"><div class="td-msg" id="tdMsg">3D 模型載入中…</div></div>' +
+          '<div class="td-bar"><label for="tdEx">拆解</label><input type="range" class="td-range" id="tdEx" min="0" max="100" value="55" step="1">' +
+            '<button type="button" class="td-btn" data-td-zoom="-1" aria-label="放大">＋</button>' +
+            '<button type="button" class="td-btn" data-td-zoom="1" aria-label="縮小">－</button>' +
+            '<button type="button" class="td-btn" data-td-reset aria-label="重設視角">重設</button></div>' +
+          '<div class="td-hint">拖曳旋轉；點一下模型後可用滾輪縮放，手機可雙指縮放。拉「拆解」把各層分開，停止操作約 5 秒後自動旋轉。示意模型，比例與位置非實際。</div>' +
+          '<div class="td-specs" id="tdSpecs"></div>' +
+        '</div>' +
+        '<div class="td-side">' +
+          '<div class="td-info" id="tdInfo" aria-live="polite"></div>' +
+          '<div><div class="td-list-label">零件清單 · 點選看說明</div><div class="td-list" id="tdList"></div></div>' +
+        '</div>' +
+      '</div>' +
+      '<details class="td-cmp" id="tdCmp"><summary>GB200 vs Vera Rubin 規格比較 <span>（官方／伺服器廠資料）</span></summary><div class="td-cmp-wrap">'+TD_CMP_TABLE+'</div></details>' +
+      '<p class="td-note" id="tdNote"></p>';
+    tdCardEl.hidden = false;
+    tdFillModel(first);
+    var wrap = tdCardEl.querySelector("#tdWrap");
+    tdEnsureThree(function(ok){
+      if(!td.list || tdCardEl.querySelector("#tdWrap") !== wrap) return; // 已切到別的頁籤
+      if(!ok){ wrap.querySelector("#tdMsg").innerHTML = "3D 模型載入失敗：無法連線到 Three.js（cdnjs）。<br>零件清單與說明仍可使用，請確認網路後重新整理。"; return; }
+      tdGlInit();
+      tdAttach(wrap);
+      tdLoad(td.key);
+    });
+  }
+
+  /* ---------- WebGL 核心（只建立一次） ---------- */
+  function tdGlInit(){
+    if(td.gl) return;
+    var THREE = window.THREE, g = {};
+    td.gl = g;
+    g.r = new THREE.WebGLRenderer({ antialias:true, alpha:true });
+    g.r.setPixelRatio(Math.min(window.devicePixelRatio||1, 2));
+    g.r.outputEncoding = THREE.sRGBEncoding; g.r.toneMapping = THREE.ACESFilmicToneMapping; g.r.toneMappingExposure = 1.05;
+    g.r.shadowMap.enabled = true; g.r.shadowMap.type = THREE.PCFSoftShadowMap;
+    g.scene = new THREE.Scene();
+    g.cam = new THREE.PerspectiveCamera(32, 1.6, .1, 300);
+    var pm = new THREE.PMREMGenerator(g.r), es = new THREE.Scene();
+    es.add(new THREE.Mesh(new THREE.BoxGeometry(30,30,30), new THREE.MeshBasicMaterial({ color:0x5a5a5a, side:THREE.BackSide })));
+    [[0,14,0,20,20,-Math.PI/2,0],[13,5,6,8,12,0,-Math.PI/2],[-13,6,-4,6,10,0,Math.PI/2],[0,6,-14,14,6,0,0]].forEach(function(p){
+      var m = new THREE.Mesh(new THREE.PlaneGeometry(p[3],p[4]), new THREE.MeshBasicMaterial({ color:0xffffff, side:THREE.DoubleSide }));
+      m.position.set(p[0],p[1],p[2]); m.rotation.set(p[5],p[6],0); es.add(m);
+    });
+    g.scene.environment = pm.fromScene(es, .03).texture;
+    var dl = new THREE.DirectionalLight(0xffffff, 1.1);
+    dl.position.set(6,14,8); dl.castShadow = true; dl.shadow.mapSize.set(1024,1024);
+    Object.assign(dl.shadow.camera, { left:-9, right:9, top:9, bottom:-9 }); dl.shadow.radius = 4;
+    g.scene.add(dl);
+    g.groundMat = new THREE.ShadowMaterial({ opacity:.18 });
+    var ground = new THREE.Mesh(new THREE.PlaneGeometry(60,60), g.groundMat);
+    ground.rotation.x = -Math.PI/2; ground.position.y = -.12; ground.receiveShadow = true; g.scene.add(ground);
+    g.bh = new THREE.BoxHelper(undefined, 0xB5702A); g.bh.visible = false; g.scene.add(g.bh);
+    g.root = null; g.groups = []; g.mats = []; g.V = null; g.sel = null;
+    g.ex = .55; g.th = .75; g.ph = .95; g.R = 17; g.last = -1e9; g.ptrs = new Map(); g.moved = 0; g.pinch0 = 0; g.R0 = 17; g.armed = false;
+    g.ray = new THREE.Raycaster(); g.v = new THREE.Vector2();
+    var cv = g.r.domElement;
+    cv.setAttribute("aria-label", "3D 拆解模型，可拖曳旋轉");
+    function poke(){ g.last = performance.now(); }
+    g.poke = poke;
+    cv.addEventListener("pointerdown", function(e){
+      g.ptrs.set(e.pointerId, [e.clientX, e.clientY]); g.moved = 0; poke();
+      try{ cv.setPointerCapture(e.pointerId); }catch(err){}
+      g.armed = true; if(g.wrap){ g.wrap.classList.add("is-armed"); g.wrap.style.cursor = "grabbing"; }
+      if(g.ptrs.size === 2){ var pp = Array.from(g.ptrs.values()); g.pinch0 = Math.hypot(pp[0][0]-pp[1][0], pp[0][1]-pp[1][1]); g.R0 = g.R; g.moved = 99; }
+    });
+    cv.addEventListener("pointermove", function(e){
+      if(!g.ptrs.has(e.pointerId)) return;
+      poke();
+      var p = g.ptrs.get(e.pointerId), dx = e.clientX - p[0], dy = e.clientY - p[1];
+      g.ptrs.set(e.pointerId, [e.clientX, e.clientY]);
+      if(g.ptrs.size >= 2){ var pp = Array.from(g.ptrs.values()), d = Math.hypot(pp[0][0]-pp[1][0], pp[0][1]-pp[1][1]); if(g.pinch0 > 0 && d > 0) g.R = Math.max(g.V.Rmin, Math.min(g.V.Rmax, g.R0*g.pinch0/d)); return; }
+      g.moved += Math.abs(dx) + Math.abs(dy);
+      g.th -= dx*.01;
+      g.ph = Math.max(.5, Math.min(1.55, g.ph + dy*.006));
+    });
+    function end(e){
+      var was = g.ptrs.size; g.ptrs.delete(e.pointerId);
+      if(g.ptrs.size < 2) g.pinch0 = 0;
+      if(!g.ptrs.size && g.wrap) g.wrap.style.cursor = "grab";
+      poke();
+      if(e.type !== "pointerup" || was > 1 || g.moved > 6 || !g.root) return;
+      var b = cv.getBoundingClientRect();
+      g.v.set((e.clientX-b.left)/b.width*2-1, -(e.clientY-b.top)/b.height*2+1);
+      g.ray.setFromCamera(g.v, g.cam);
+      var h = g.ray.intersectObjects(g.root.children, true)[0], o = h ? h.object : null;
+      while(o && !o.userData.key) o = o.parent;
+      tdSelect(o ? o.userData.key : null, o);
+    }
+    cv.addEventListener("pointerup", end);
+    cv.addEventListener("pointercancel", end);
+    cv.addEventListener("wheel", function(e){
+      if(!g.armed && !e.ctrlKey) return;            // 沒點過模型就讓頁面正常捲動
+      e.preventDefault(); poke();
+      g.R = Math.max(g.V.Rmin, Math.min(g.V.Rmax, g.R + e.deltaY*.01));
+    }, { passive:false });
+    document.addEventListener("pointerdown", function(e){
+      if(g.armed && !cv.contains(e.target)){ g.armed = false; if(g.wrap) g.wrap.classList.remove("is-armed"); }
+    }, true);
+    g.ro = new ResizeObserver(function(){ tdResize(); });
+    if("IntersectionObserver" in window){
+      g.io = new IntersectionObserver(function(es){ td.visible = es.some(function(x){ return x.isIntersecting; }); if(td.visible) tdLoop(); });
+    }
+    if(window.matchMedia){
+      var mq = window.matchMedia("(prefers-color-scheme: dark)");
+      var upd = function(){ g.groundMat.opacity = tdIsDark() ? .45 : .18; };
+      if(mq.addEventListener) mq.addEventListener("change", upd);
+      g.updGround = upd;
+    }
+  }
+  function tdResize(){
+    var g = td.gl; if(!g || !g.wrap) return;
+    var w = g.wrap.clientWidth, h = g.wrap.clientHeight;
+    if(!w || !h) return;
+    g.cam.aspect = w/h; g.cam.updateProjectionMatrix(); g.r.setSize(w, h);
+  }
+  function tdAttach(wrap){
+    var g = td.gl;
+    if(g.wrap){ g.ro.unobserve(g.wrap); if(g.io) g.io.unobserve(g.wrap); }
+    g.wrap = wrap; g.armed = false;
+    wrap.innerHTML = ""; wrap.appendChild(g.r.domElement);
+    g.ro.observe(wrap); if(g.io) g.io.observe(wrap);
+    tdResize();
+    if(g.updGround) g.updGround();
+  }
+  function tdDispose(){
+    var g = td.gl; if(!g.root) return;
+    var ms = new Set();
+    g.root.traverse(function(o){ if(o.geometry) o.geometry.dispose(); if(o.material) [].concat(o.material).forEach(function(m){ ms.add(m); }); });
+    ms.forEach(function(m){ if(m.map) m.map.dispose(); m.dispose(); });
+    g.mats.forEach(function(m){ m.dispose(); }); g.mats.length = 0;
+    g.scene.remove(g.root); g.root = null; g.groups = []; g.sel = null; g.bh.visible = false;
+  }
+  function tdLoad(key){
+    var g = td.gl; if(!g) return;
+    var THREE = window.THREE, m = TD_MODELS[key];
+    tdDispose();
+    g.root = new THREE.Group(); g.scene.add(g.root);
+    g.V = m.view; g.R = g.V.R; g.th = .75; g.ph = .95;
+    var ex = tdCardEl.querySelector("#tdEx"); g.ex = ex ? ex.value/100 : .55;
+    function mat(c, mt, ro, x){ var o = new THREE.MeshStandardMaterial(Object.assign({ color:c, metalness:mt, roughness:ro }, x||{})); g.mats.push(o); return o; }
+    function rbox(w, h, d, rr){
+      rr = Math.min(rr, w/2-.001, d/2-.001);
+      var s = new THREE.Shape(), x = -w/2, y = -d/2;
+      s.moveTo(x+rr,y); s.lineTo(x+w-rr,y); s.quadraticCurveTo(x+w,y,x+w,y+rr); s.lineTo(x+w,y+d-rr); s.quadraticCurveTo(x+w,y+d,x+w-rr,y+d);
+      s.lineTo(x+rr,y+d); s.quadraticCurveTo(x,y+d,x,y+d-rr); s.lineTo(x,y+rr); s.quadraticCurveTo(x,y,x+rr,y);
+      var b = Math.min(rr*.5, h*.3), geo = new THREE.ExtrudeGeometry(s, { depth:Math.max(h-2*b,.001), bevelEnabled:true, bevelThickness:b, bevelSize:b*.8, bevelSegments:3, curveSegments:6 });
+      geo.rotateX(-Math.PI/2); geo.translate(0, -(h/2-b), 0); return geo;
+    }
+    function M(geo, mt, x, y, z, par, k){ var o = new THREE.Mesh(geo, mt); o.position.set(x,y,z); o.castShadow = o.receiveShadow = true; if(k) o.userData.key = k; par.add(o); return o; }
+    function G(lvl, y0){ var gr = new THREE.Group(); gr.userData = { lvl:lvl, y0:y0 }; g.root.add(gr); g.groups.push(gr); return gr; }
+    m.build({ THREE:THREE, M:M, G:G, mat:mat, rbox:rbox, root:g.root, groups:g.groups });
+    g.last = -1e9;
+    tdLoop();
+  }
+  function tdSelect(k, o){
+    var g = td.gl;
+    if(g && g.root){
+      if(k && !o) g.root.traverse(function(c){ if(!o && c.userData.key === k) o = c; });
+      g.sel = o || null; g.bh.visible = !!g.sel;
+      g.poke();
+    }
+    tdShowInfo(k);
+  }
+  function tdFrame(){
+    var g = td.gl, V = g.V;
+    g.groups.forEach(function(gr){ gr.position.y = gr.userData.y0 + gr.userData.lvl*g.ex*V.step; });
+    var e = g.ph - .4;
+    g.cam.position.set(g.R*Math.sin(g.th)*Math.cos(e), g.R*Math.sin(e)+2, g.R*Math.cos(g.th)*Math.cos(e));
+    g.cam.lookAt(0, V.look*g.ex+.4, 0);
+    if(g.sel) g.bh.setFromObject(g.sel);
+  }
+  function tdLoop(){
+    var g = td.gl;
+    if(!g || g.raf) return;
+    (function step(){
+      g.raf = 0;
+      if(!g.root || !g.wrap || tdCardEl.hidden || !td.list || !td.visible || document.getElementById("companyPage").hidden === false) return;
+      if(performance.now() - g.last > 5000 && !g.ptrs.size && !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) g.th += .0025;
+      tdFrame();
+      g.r.render(g.scene, g.cam);
+      g.raf = requestAnimationFrame(step);
+    })();
+  }
+  tdCardEl.addEventListener("click", function(e){
+    var t = e.target.closest && e.target.closest("[data-td-model],[data-part],[data-td-zoom],[data-td-reset]");
+    if(!t) return;
+    var g = td.gl;
+    if(t.hasAttribute("data-td-model")){
+      var k = t.getAttribute("data-td-model");
+      if(k !== td.key){ tdFillModel(k); if(g) tdLoad(k); }
+    } else if(t.hasAttribute("data-part")){
+      var p = t.getAttribute("data-part");
+      if(g && g.root) tdSelect(p); else tdShowInfo(p);
+    } else if(t.hasAttribute("data-td-zoom") && g && g.V){
+      g.poke(); g.R = Math.max(g.V.Rmin, Math.min(g.V.Rmax, g.R + parseInt(t.getAttribute("data-td-zoom"),10)*2.5));
+    } else if(t.hasAttribute("data-td-reset") && g && g.V){
+      g.poke(); g.R = g.V.R; g.th = .75; g.ph = .95;
+    }
+  });
+  tdCardEl.addEventListener("input", function(e){
+    if(e.target.id !== "tdEx" || !td.gl) return;
+    td.gl.poke(); td.gl.ex = e.target.value/100;
+  });
+  /* 個股頁面關掉後恢復繪製 */
+  document.addEventListener("click", function(){ setTimeout(tdLoop, 0); });
+
   function selectIndustry(key, preferTags){
     state.industry = key;
     state.section = sectionOf(key).id;
@@ -17911,6 +18579,7 @@
     renderSwitcher();
     renderMeta(ind);
     renderScene(ind);
+    renderTeardown(ind);
     renderMacro(ind);
     renderKnowledge(ind);
     renderHistory(ind);
