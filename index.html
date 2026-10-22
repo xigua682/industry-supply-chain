@@ -2170,7 +2170,8 @@
         "矽基前沿 [Si]gnals －「AI 算力供應鏈地圖：誰造晶片、卡脖子在哪、台灣在哪（2026）」",
         "KMAI －「半導體產業鏈全解析：從一張圖看懂上下游分工與2026市場現況」",
         "商業周刊 －「AI伺服器是什麼？概念股、供應鏈龍頭一次看」",
-        "TVBS新聞網 －「AI供電散熱生死戰：台廠包辦全球60%市占」"
+        "TVBS新聞網 －「AI供電散熱生死戰：台廠包辦全球60%市占」",
+        "鏡週刊／TrendForce－2026年第二季全球前十大晶圓代工營收排名(2026-09-13)"
       ],
       disclaimer: "本頁面為公開資訊整理彙編，市占率、產能與交期等數據會隨市場狀況與廠商公告持續變動，僅供產業脈絡參考，不構成任何投資建議。引用前請自行查核原始出處。",
       nodes: [
@@ -2251,7 +2252,7 @@
         { icon:"icon-foundry", title:"晶圓代工", sub:"FOUNDRY",
           desc:"將IC設計圖轉換為實體晶片的核心產線。先進製程（N3／N2）幾乎所有商用GPU與自研ASIC最終都在此投片，是全球AI晶片產能最大的瓶頸環節之一。",
           companies:[{n:"台積電",tw:1,code:"2330"},{n:"聯電",tw:1,code:"2303"},{n:"三星電子 Samsung Electronics"},{n:"Intel",code:"INTC"}],
-          stats:[{v:"~72%",l:"台積電整體晶圓代工市占(TrendForce 2026Q1)"},{v:"至2027-28",l:"N3／N2訂單能見度"}],
+          stats:[{v:"72.5%",l:"台積電整體晶圓代工市占(TrendForce 2026Q2)"},{v:"至2027-28",l:"N3／N2訂單能見度"}],
           tags:["wafer-fabrication","nvidia"],
           children:[
             { icon:"icon-foundry", title:"先進製程產能分配(AI晶片 vs 消費性IC)", sub:"ADVANCED NODE CAPACITY ALLOCATION",
@@ -3022,11 +3023,12 @@
       companies: [
         { n: "Google", code: "GOOGL" },
         { n: "博通 Broadcom", code: "AVGO" },
-        { n: "聯發科", tw: 1, code: "2454" }
+        { n: "聯發科", tw: 1, code: "2454" },
+        "科技新報／MoneyDJ－博通2026財年第三季財報(2026-09-03)；風傳媒－聯發科2026年7月31日法說會"
       ],
       stats: [
         { v: "至2031年", l: "博通TPU與網通供應合約年期" },
-        { v: "~10億美元", l: "聯發科2026年資料中心ASIC營收目標" }
+        { v: "逾20億美元", l: "聯發科2026年資料中心營收目標（2026年7月法說會上修，原ASIC目標約10億美元）" }
       ],
       children: [
         {
@@ -3044,10 +3046,10 @@
           icon: "icon-eda",
           title: "博通核心設計服務",
           sub: "BROADCOM CO-DESIGN PARTNER",
-          desc: "博通是Google TPU歷代最主要的ASIC設計服務夥伴，提供高速SerDes IP、晶片間互連(ICI)PHY、電源網路設計並協助銜接台積電製造與CoWoS封裝流程，角色類似輝達生態中不存在的「代Google操刀」夥伴。博通AI相關業務積壓訂單已逾700億美元，Google為其最大單一AI客戶，法人預估博通2026財年AI營收上看500億美元以上。",
+          desc: "博通是Google TPU歷代最主要的ASIC設計服務夥伴，提供高速SerDes IP、晶片間互連(ICI)PHY、電源網路設計並協助銜接台積電製造與CoWoS封裝流程，角色類似輝達生態中不存在的「代Google操刀」夥伴。博通AI相關業務積壓訂單已逾700億美元，Google為其最大單一AI客戶。博通2026年9月公布2026財年第三季財報時表示，2027財年AI營收預期倍增至約1,150億美元、2028財年再倍增至約2,300億美元，並預估Anthropic將於2027年部署約5GW的TPU 8i；第三季總營收295.9億美元、年增85.5%，第四季營收展望約348億美元。",
           companies: [{ n: "博通 Broadcom", code: "AVGO" }],
           stats: [
-            { v: "500億美元+", l: "博通FY2026 AI營收展望" },
+            { v: "約1,150億美元", l: "博通FY2027 AI營收展望（2026年9月，預期較FY2026倍增）" },
             { v: "700億美元+", l: "博通AI相關訂單積壓規模" }
           ]
         },
@@ -6313,14 +6315,15 @@
       title: "x86架構設計與IDM廠商",
       parallelGroup: "cpu-design-camps",
       sub: "X86 ARCHITECTURE & IDM VENDORS",
-      desc: "x86指令集架構主導PC與伺服器CPU市場逾40年，由Intel與AMD交叉授權雙寡頭把持。Intel採IDM（整合元件製造）模式，自有晶圓廠並近年轉向對外代工雙軌並行；AMD則為Fabless純設計公司，先進製程全數委由台積電代工。2026年第一季Mercury Research數據顯示，AMD伺服器CPU營收市占率已達46.2%的歷史新高，持續侵蝕Intel市占。",
+      desc: "x86指令集架構主導PC與伺服器CPU市場逾40年，由Intel與AMD交叉授權雙寡頭把持。Intel採IDM（整合元件製造）模式，自有晶圓廠並近年轉向對外代工雙軌並行；AMD則為Fabless純設計公司，先進製程全數委由台積電代工。2026年第一季Mercury Research數據顯示，AMD伺服器CPU營收市占率已達46.2%的歷史新高；第二季AMD伺服器CPU單位市占再升至34.5%(季增1.3、年增7.3個百分點)，整體x86市占34.1%，持續侵蝕Intel市占。",
       companies: [
         { n:"Intel", code:"INTC" },
         { n:"AMD", code:"AMD" },
-        { n:"威盛電子", tw:1, code:"2388" }
+        { n:"威盛電子", tw:1, code:"2388" },
+        "HotHardware－Mercury Research 2026年第二季x86市占(2026-08-21)"
       ],
       stats: [
-        { v:"66.8%", l:"Intel 2026Q1伺服器/桌上型單位市占率" },
+        { v:"65.5%", l:"Intel 2026Q2伺服器CPU單位市占率（Mercury Research）" },
         { v:"46.2%", l:"AMD伺服器CPU營收市占率（2026Q1，Mercury Research）" }
       ],
       children: [
